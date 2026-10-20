@@ -1,5 +1,7 @@
 # 硇洲岛田野图集 · Naozhou Field Atlas
 
+[在线地图](https://naozhou-map.netlify.app/) · [GitHub 源码](https://github.com/residualsun1/NaozhouMap)
+
 黑白矢量田野调查地图，包含村庄、道路、聚落、行政范围示意、调查点位和神明记录。
 
 ## 本地使用
@@ -15,7 +17,7 @@ Windows 双击 `打开地图.cmd`，访问 `http://127.0.0.1:8765/`，保持服�
 3. 添加环境变量 `NAOZHOU_EDITOR_PASSWORD`，使用至少 20 位的独立口令，作用域包含 Functions。口令不可提交到 GitHub。
 4. 部署完成后，进入地图「数据 → 登录编辑」输入口令，即可保存至云端。
 
-云端资料使用 Netlify Blobs 的站点存储，重新部署不会清空记录。记录保留现有 ID、坐标和版本冲突检查。
+云端资料使用 [Netlify Blobs](https://docs.netlify.com/build/data-and-storage/netlify-blobs/) 的站点存储，重新部署不会清空记录。记录保留现有 ID、坐标和版本冲突检查。
 地图与在线录入的资料公开可读；只有编辑者可写。口令仅保存在 Netlify 环境变量中，浏览器使用 12 小时的 HttpOnly 会话。
 本地文件与云端存储是两份资料，不会自动双向同步。可用页面的 GeoJSON / 信仰备份导入导出迁移。
 `netlify/seed/` 保存首次上线的公开资料；云端已有记录后，后续发布不会用种子资料覆盖它们。
