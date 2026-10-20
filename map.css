@@ -240,12 +240,14 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .faith-tooltip-heading span{font-size:9px;color:#777974;white-space:nowrap}
 .faith-tooltip ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 16px;margin:0;padding:0;list-style:none}
 .faith-tooltip li{font-size:12px;line-height:1.7;color:#6c6e6a;overflow-wrap:anywhere}
-.faith-card{padding:20px 0;border-bottom:1px solid var(--record-line)}
-.faith-card:first-child{padding-top:0}
+.faith-card{--faith-inset:20px;position:relative;padding:20px 0;border-bottom:1px solid var(--record-line)}
+.faith-card:first-child{--faith-inset:0px;padding-top:0}
 .faith-card:last-child{border-bottom:0;padding-bottom:0}
 .faith-card-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;min-height:20px;margin-bottom:10px}
 .faith-card-heading h3{min-width:0;margin:0;font-size:14px;font-weight:600;line-height:1.6;letter-spacing:0;overflow-wrap:anywhere}
 .faith-card-heading button{margin-left:auto;min-height:32px;flex-shrink:0;font-size:11px;color:var(--record-muted)}
+.faith-card:not(:has(.faith-card-heading h3)) .faith-card-heading{position:absolute;top:var(--faith-inset);right:0;min-height:0;margin:0}
+.faith-card:not(:has(.faith-card-heading h3)) .deity-list{min-height:32px;padding-right:40px}
 .deity-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 16px;margin:0;padding:0;list-style:none}
 .deity-list li{min-width:0;max-width:100%;padding:0;border:0;background:transparent;font-size:14px;font-weight:500;line-height:1.6;color:#41443f;overflow-wrap:anywhere}
 .faith-note{margin:8px 0 0;font-size:13px;font-weight:400;line-height:1.75;color:#41443f;white-space:pre-wrap;overflow-wrap:anywhere}
@@ -298,6 +300,7 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
   .review-badge{margin-top:6px}
   .detail-content{padding:22px 20px 32px}.detail-actions button{min-height:44px;min-width:44px}
   .faith-card-heading button{min-height:44px}
+  .faith-card:not(:has(.faith-card-heading h3)) .deity-list{min-height:44px}
   #sheet-toggle{display:flex;padding:5px 8px;font-size:10px}
   main.details-open:has(#editor-section:not([hidden])),main.details-open:has(#faith-form:not([hidden])){--sheet-size:min(540px,calc(100dvh - 190px))}
   .details-open .map-stage{bottom:var(--sheet-size);min-height:88px}
