@@ -266,15 +266,16 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 @media(max-width:800px){
   main,main.details-open{height:100dvh;display:block;--sheet-size:clamp(235px,43dvh,410px)}
   .map-area{position:absolute;inset:0}
-  .search-panel,.details-open .search-panel{top:78px;left:16px;right:auto;width:48px;max-width:calc(100% - 32px);transition:width .2s var(--ease),box-shadow .18s,border-color .18s}
+  .search-panel,.details-open .search-panel{top:78px;left:16px;right:auto;width:48px;max-width:calc(100% - 32px);transition:width .52s cubic-bezier(.32,0,.2,1),box-shadow .18s,border-color .18s}
   .search-panel.is-expanded{width:min(380px,calc(100% - 32px))}
-  .search-row input{display:none;font-size:16px;padding-top:5px;padding-bottom:5px}
-  .search-panel.is-expanded .search-row input{display:block}
+  .search-row{position:relative;height:46px;overflow:hidden}
+  .search-row input{position:absolute;top:5px;left:5px;width:calc(100% - 50px);height:36px;font-size:16px;padding-top:5px;padding-bottom:5px;opacity:0;visibility:hidden;transform:translateX(-6px);pointer-events:none;transition:opacity .18s ease,transform .28s var(--ease),visibility 0s linear .18s}
+  .search-panel.is-expanded .search-row input{opacity:1;visibility:visible;transform:translateX(0);pointer-events:auto;transition:opacity .28s ease .1s,transform .4s cubic-bezier(.32,0,.2,1) .08s,visibility 0s}
   .search-panel:not(.is-expanded) #search-feedback{display:none}
   .detail-content input,.detail-content textarea{font-size:16px}
   .detail-content input{min-height:46px}
   .layer-toggle,.administrative-layer-control .layer-toggle{min-height:42px}
-  .search-submit{width:36px;height:36px}
+  .search-submit{position:absolute;top:5px;right:5px;width:36px;height:36px}
   .map-toolbar,.details-open .map-toolbar{top:16px;left:16px;right:auto;gap:3px;max-width:calc(100% - 32px)}
   .map-toolbar button{min-height:44px;padding:8px 11px;font-size:11px}
   .map-toolbar .ui-icon{width:15px;height:15px}

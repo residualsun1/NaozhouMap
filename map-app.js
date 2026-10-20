@@ -32,6 +32,7 @@
   function setSearchExpanded(expanded,focus=false){
     const open=mobileSearch.matches&&expanded;
     searchPanel.classList.toggle('is-expanded',open);
+    $('search-input').inert=mobileSearch.matches&&!open;
     searchButton.setAttribute('aria-label',mobileSearch.matches&&!open?'展开搜索':'搜索');
     if(mobileSearch.matches){searchButton.setAttribute('aria-expanded',String(open));searchButton.setAttribute('aria-controls','search-input');}
     else{searchButton.removeAttribute('aria-expanded');searchButton.removeAttribute('aria-controls');}
