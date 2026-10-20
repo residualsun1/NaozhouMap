@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>硇洲岛田野图集 · Naozhou Field Atlas</title>
+  <link rel="stylesheet" href="./map.css">
+</head>
+<body>
+  <main id="workspace">
+    <section class="map-area" aria-label="硇洲岛黑白矢量地图">
+      <div class="search-panel">
+        <form id="search-form" class="search-row"><input id="search-input" aria-label="村名、神明或道路" placeholder="搜索村庄、神明或道路" maxlength="100" autocomplete="off"><button class="search-submit" type="submit" aria-label="搜索"><svg class="ui-icon" aria-hidden="true" focusable="false"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" />
+</svg>
+</button></form>
+        <div id="search-feedback" hidden><p id="search-status" class="status" role="status" aria-live="polite"></p><div id="search-results" class="result-list"></div></div>
+      </div>
+      <div class="map-toolbar" aria-label="地图工具">
+        <button id="island-view" type="button"><svg class="ui-icon" aria-hidden="true" focusable="false"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+  <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+  <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+  <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+</svg>
+<span>全岛</span></button>
+        <button id="layers-toggle" type="button" aria-expanded="false" aria-controls="layers-panel"><svg class="ui-icon" aria-hidden="true" focusable="false"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M13 13.74a2 2 0 0 1-2 0L2.5 8.87a1 1 0 0 1 0-1.74L11 2.26a2 2 0 0 1 2 0l8.5 4.87a1 1 0 0 1 0 1.74z" />
+  <path d="m20 14.285 1.5.845a1 1 0 0 1 0 1.74L13 21.74a2 2 0 0 1-2 0l-8.5-4.87a1 1 0 0 1 0-1.74l1.5-.845" />
+</svg>
+<span>图层</span></button>
+        <button id="data-toggle" type="button" aria-expanded="false" aria-controls="data-panel"><svg class="ui-icon" aria-hidden="true" focusable="false"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <ellipse cx="12" cy="5" rx="9" ry="3" />
+  <path d="M3 5V19A9 3 0 0 0 21 19V5" />
+  <path d="M3 12A9 3 0 0 0 21 12" />
+</svg>
+<span>数据</span></button>
+        <button id="add-point" class="primary" type="button"><svg class="ui-icon" aria-hidden="true" focusable="false"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M19.914 11.105A7.298 7.298 0 0 0 20 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 1.202 0 32 32 0 0 0 .824-.738" />
+  <circle cx="12" cy="10" r="3" />
+  <path d="M16 18h6" />
+  <path d="M19 15v6" />
+</svg>
+<span>新增点位</span></button>
+        <button id="cancel-pick" type="button" hidden>取消选点</button>
+      </div>
+      <section id="layers-panel" class="utility-panel" aria-label="图层设置" hidden>
+        <div class="section-title"><h2>地图图层<span class="panel-caption">LAYERS</span></h2><button type="button" data-close-panel aria-label="关闭图层"><svg class="ui-icon" aria-hidden="true" focusable="false"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>
+</button></div>
+        <label class="layer-toggle"><input id="show-labels" type="checkbox" checked>村庄名称</label>
+        <label class="layer-toggle"><input id="show-road-labels" type="checkbox" checked>道路名称</label>
+        <label class="layer-toggle"><input id="show-clusters" type="checkbox" checked>聚落与建筑</label>
+        <div class="administrative-layer-control"><h3>行政范围 <span class="small-badge">示意</span></h3><div id="administrative-toggles"></div><p class="note">已确认地点的分布示意 · 仅陆地</p></div>
+        <div class="legend"><span><i></i>村落地名</span><span><i class="administrative-symbol"></i>行政驻地</span><span><i class="filled"></i>调查点位</span></div>
+        <div class="legend road-legend" aria-label="道路线型"><span><i class="main-road"></i>主路</span><span><i class="local-road"></i>一般道路</span><span><i class="small-path"></i>小径</span></div>
+      </section>
+      <section id="data-panel" class="utility-panel" aria-label="数据管理" hidden>
+        <div class="section-title"><h2>调查资料<span class="panel-caption">COLLECTION</span></h2><button type="button" data-close-panel aria-label="关闭数据"><svg class="ui-icon" aria-hidden="true" focusable="false"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>
+</button></div>
+        <button id="save-indicator" class="save-indicator" type="button" aria-label="查看存储状态">读取中</button>
+        <div id="cloud-access" class="cloud-access" hidden><span id="cloud-access-status"></span><button id="cloud-access-button" type="button">登录编辑</button></div>
+        <p id="storage-status" class="status" role="status" hidden></p>
+        <section id="saved-points-section" class="section" hidden><h3>调查点位<span id="point-count" class="count">0 个</span></h3><div id="point-list" class="result-list"></div></section>
+        <details class="section"><summary>参考地名<span id="reference-count" class="count"></span></summary><div id="reference-list" class="result-list"></div></details>
+        <section class="section"><h3>调查点位</h3><div class="button-row"><button id="export-csv" type="button">CSV</button><button id="export-geojson" type="button">GeoJSON</button><button id="import-button" type="button">导入</button></div><input id="import-file" type="file" accept=".geojson,.json,application/json,application/geo+json" hidden></section>
+        <section class="section"><h3>信仰记录</h3><div class="button-row"><button id="faith-export-csv" type="button" disabled>信仰 CSV</button><button id="faith-export-json" type="button" disabled>信仰备份</button><button id="faith-import" type="button" disabled>导入</button></div><input id="faith-import-file" type="file" accept=".json,application/json" hidden></section>
+        <button id="export-svg" type="button" class="full">导出矢量 SVG</button>
+        <p id="export-link" class="note" hidden></p><details id="export-preview" hidden><summary>查看或复制导出内容</summary><textarea id="export-content" class="export-preview" readonly aria-label="导出文件内容"></textarea></details>
+        <details class="source-details"><summary>数据来源</summary><p>海岸线、道路、聚落与建筑：<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>（ODbL）。地名：OpenStreetMap、<a href="https://www.geonames.org/" target="_blank" rel="noopener noreferrer">GeoNames</a>（CC BY 4.0）及逐处核对资料。补充聚落轮廓依据<a href="https://ditu.amap.com/" target="_blank" rel="noopener noreferrer">高德卫星影像</a>人工判读。参考位置待实地核对。</p><p>聚落阴影表示已收录的建成区，不代表村界；空白处也可能存在尚未收录的村庄。细路与小径随放大显示。<span id="geometry-date"></span></p><p>行政驻地点及所属地点由调查者确认。斜线区域依已确认地点分布制作，仅为陆地范围示意，不表示法定行政边界；海域暂不划定。</p></details>
+      </section>
+      <div id="map-stage" class="map-stage">
+        <svg id="vector-map" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" role="group" aria-label="硇洲岛海岸线、道路与聚落，可缩放拖动" tabindex="0"><defs><clipPath id="island-clip"><path id="island-clip-path"/></clipPath><pattern id="administrative-hatch" width="12" height="12" patternUnits="userSpaceOnUse"><rect width="12" height="12" fill="#f3f2ed" fill-opacity="0.6"/><path d="M-3 3L3 -3 M0 12L12 0 M9 15L15 9" fill="none" stroke="#93938a" stroke-opacity="0.32" stroke-width="1"/></pattern></defs><path id="coast" class="coast"/><g id="island-features" clip-path="url(#island-clip)"><g id="administrative-layer" style="display:none"></g><g id="residential-layer"></g><g id="building-layer"></g><g id="water-layer"></g><g id="road-layer"></g></g></svg>
+        <div id="road-labels" class="labels" aria-hidden="true"></div><div id="administrative-labels" class="labels"></div><div id="map-labels" class="labels"></div>
+      </div>
+      <div class="north" aria-hidden="true">N<span>↑</span></div>
+      <div class="zoom-controls"><button id="zoom-in" type="button" aria-label="放大">+</button><button id="zoom-out" type="button" aria-label="缩小">−</button></div>
+      <div id="pick-message" class="pick-message" role="status" hidden>点击岛上位置</div>
+      <button id="administrative-key" class="administrative-key" type="button" aria-controls="layers-panel" aria-expanded="false" hidden><span class="area-swatch" aria-hidden="true"></span><span class="administrative-key-copy"><strong id="administrative-key-name"></strong><small>陆地范围示意</small></span></button>
+      <div class="map-footer"><div><span id="scale-text" class="scale-text"></span><div id="scale-line" class="scale-line"></div></div><div>© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a> · <a href="https://www.geonames.org/" target="_blank" rel="noopener noreferrer">GeoNames</a></div></div>
+    </section>
+    <aside id="detail-panel" class="sidebar" aria-label="地点资料" hidden>
+      <div class="detail-topbar"><div class="detail-heading"><span class="section-eyebrow">地方档案 <span>PLACE RECORD</span></span><h2 id="reference-name">地点资料</h2><span id="reference-review" class="review-badge"></span></div><div class="detail-actions"><button id="sheet-toggle" type="button" aria-expanded="true" aria-controls="detail-content">收起</button><button id="close-reference" type="button" aria-label="关闭地点资料"><svg class="ui-icon" aria-hidden="true" focusable="false"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>
+</button></div></div>
+      <div id="detail-content" class="detail-content">
+        <div id="administrative-context" class="administrative-context" hidden><span id="administrative-member-kind">自然村 · 隶属</span><button id="parent-administration" type="button"></button></div>
+        <section id="administration-section" class="section" hidden>
+          <div class="section-title"><h2 id="administration-name"></h2><span id="administration-kind" class="small-badge">行政村</span></div>
+          <button id="administration-view" class="full" type="button" aria-pressed="false">查看范围示意</button>
+          <details id="administration-members"><summary id="administration-members-summary"></summary><div id="administration-member-list" class="administration-member-list"></div></details>
+          <p class="note administrative-caveat">陆地范围示意 · 海域暂不划定</p>
+        </section>
+        <section id="faith-section" class="section" hidden>
+          <div class="section-title"><h2><span id="faith-title">供奉神明</span><span id="faith-count" class="count"></span></h2><button id="faith-add" type="button" aria-label="新增信仰记录" disabled>新增</button></div>
+          <div id="faith-list"></div>
+          <form id="faith-form" hidden>
+            <label for="faith-deities">供奉神明</label><textarea id="faith-deities" rows="6" maxlength="5000" required placeholder="每行一位"></textarea>
+            <details id="faith-more"><summary>补充资料</summary><label for="faith-temple">宫庙／供奉场所</label><input id="faith-temple" maxlength="200"><label for="faith-festival">祭期与活动</label><input id="faith-festival" maxlength="500" placeholder="如：农历三月初三"><label for="faith-source">资料来源</label><input id="faith-source" maxlength="200"><label for="faith-visitedOn">走访日期</label><input id="faith-visitedOn" type="date"><label for="faith-note">访谈笔记</label><textarea id="faith-note" maxlength="5000"></textarea></details>
+            <div class="button-row form-actions"><button type="submit" class="primary">保存记录</button><button id="faith-cancel" type="button">取消</button><button id="faith-delete" type="button" hidden>移除</button></div>
+          </form>
+          <p id="faith-status" class="status" role="status" aria-live="polite"></p>
+        </section>
+        <section id="editor-section" class="section" hidden>
+          <div class="section-title"><h2 id="editor-heading">新增调查点位</h2><button id="close-editor" type="button">取消</button></div>
+          <form id="point-form">
+            <label for="point-name">村庄或地点名称</label><input id="point-name" required maxlength="100" placeholder="填写本地名称">
+            <div class="coordinates"><div><label for="point-lat">纬度</label><input id="point-lat" type="number" step="any" min="-90" max="90" required></div><div><label for="point-lng">经度</label><input id="point-lng" type="number" step="any" min="-180" max="180" required></div></div>
+            <p id="point-location-status" class="status"></p><button id="pick-location" class="linkbutton" type="button">在地图上重新选点</button>
+            <label for="point-source">资料来源</label><input id="point-source" maxlength="200" placeholder="如：现场定位、村民指认"><label for="point-note">调查笔记</label><textarea id="point-note" maxlength="5000" placeholder="别名、古树、宫庙、访谈线索……"></textarea>
+            <div class="button-row form-actions"><button type="submit" class="primary">保存点位</button><button id="delete-point" type="button" hidden>移除点位</button></div>
+          </form>
+        </section>
+        <section id="reference-section" hidden><details id="reference-more"><summary>位置与来源</summary><p id="reference-coordinates" class="note"></p><p id="reference-source" class="note"></p><button id="use-reference" type="button" class="full">记为调查点位</button></details></section>
+      </div>
+    </aside>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <dialog id="cloud-login" class="cloud-login" aria-labelledby="cloud-login-title">
+    <form id="cloud-login-form">
+      <h2 id="cloud-login-title">登录编辑</h2><p class="note">输入编辑口令，保存至云端。</p>
+      <label for="cloud-password">编辑口令</label><input id="cloud-password" type="password" required maxlength="512" autocomplete="current-password">
+      <p id="cloud-login-status" class="status error" role="status"></p>
+      <div class="button-row form-actions"><button type="submit" class="primary">登录</button><button id="cloud-login-cancel" type="button">取消</button></div>
+    </form>
+  </dialog>
+  <script src="./map-data.js"></script><script src="./cloud-access.js"></script><script src="./faith-records.js"></script><script src="./map-app.js"></script>
+</body>
+</html>

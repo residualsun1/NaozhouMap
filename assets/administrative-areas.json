@@ -1,0 +1,601 @@
+[
+  {
+    "id": "beigang",
+    "name": "北港村",
+    "committeeName": "北港村委会",
+    "officePlaceId": "amap-B02F70NXXX",
+    "memberVillages": [
+      {
+        "placeId": "6834717",
+        "name": "大浪村"
+      },
+      {
+        "placeId": "amap-B02F70NXY7",
+        "name": "后角村"
+      },
+      {
+        "placeId": "1803951",
+        "name": "梁屋村"
+      },
+      {
+        "placeId": "1807156",
+        "name": "黄屋村"
+      },
+      {
+        "placeId": "amap-B02F70NXZB",
+        "name": "北赛村"
+      },
+      {
+        "placeId": "amap-B02F70NXZR",
+        "name": "那甘尾村"
+      },
+      {
+        "placeId": "amap-B02F70NXYF",
+        "name": "那凡村"
+      },
+      {
+        "placeId": "amap-B02F70NXYN",
+        "name": "糖房村"
+      },
+      {
+        "placeId": "6834716",
+        "name": "那光村"
+      },
+      {
+        "placeId": "amap-B0I04HRCDP",
+        "name": "讯地仔村"
+      },
+      {
+        "placeId": "amap-B02F70NXYM",
+        "name": "谭北湾村"
+      },
+      {
+        "placeId": "1810728",
+        "name": "港头村"
+      },
+      {
+        "placeId": "1940786",
+        "name": "北金村"
+      },
+      {
+        "placeId": "amap-B02F70NXXZ",
+        "name": "村场村"
+      },
+      {
+        "placeId": "amap-B02F70NY7M",
+        "name": "庄屋村"
+      }
+    ],
+    "membershipComplete": false,
+    "classificationSource": {
+      "type": "user_confirmed",
+      "checkedAt": "2026-10-20",
+      "note": "用户确认行政驻地性质及这15个自然村的隶属关系；不将北港驻地点认作独立自然村。"
+    },
+    "supportingSources": [
+      {
+        "title": "北港村委会梁屋村民小组不动产登记公告（第2批）",
+        "url": "https://www.zhanjiang.gov.cn/zjsfw/bmdh/zrzyj/zwggk/tzgg/content/post_1899717.html"
+      },
+      {
+        "title": "北港村委会那光村民小组不动产登记公告（第1批）",
+        "url": "https://www.zhanjiang.gov.cn/zjsfw/bmdh/zrzyj/zwggk/tzgg/content/mpost_1899731.html"
+      }
+    ],
+    "coverage": {
+      "status": "illustrative",
+      "method": "member_distribution_envelope",
+      "bufferMeters": 250,
+      "landOnly": true,
+      "officialBoundaryAvailable": false,
+      "marineBoundaryAvailable": false,
+      "note": "根据已确认自然村分布与周边陆地制作范围示意，采用250米外扩的分布包络并以岛屿海岸线裁剪；不表示法定村界，海域暂不划定。",
+      "approvedByUser": true,
+      "checkedAt": "2026-10-20"
+    }
+  },
+  {
+    "id": "nangang",
+    "name": "南港村",
+    "committeeName": "南港村委会",
+    "officePlaceId": "osm-2065803577",
+    "memberVillages": [
+      {
+        "placeId": "amap-B02F70NXZK",
+        "name": "锦马村"
+      },
+      {
+        "placeId": "6834722",
+        "name": "西埠村"
+      },
+      {
+        "placeId": "6834721",
+        "name": "得斗村"
+      },
+      {
+        "placeId": "amap-B02F70NY0G",
+        "name": "英明村"
+      },
+      {
+        "placeId": "amap-B0I04HPPI7",
+        "name": "东方村"
+      },
+      {
+        "placeId": "amap-B0I04HRRH1",
+        "name": "兆庆村"
+      },
+      {
+        "placeId": "amap-B02F70NY7S",
+        "name": "祝彩村"
+      },
+      {
+        "placeId": "amap-B0FFFRPRE2",
+        "name": "谭杰村"
+      },
+      {
+        "placeId": "amap-B02F70NXZO",
+        "name": "龙池村"
+      },
+      {
+        "placeId": "amap-B02F70NY0C",
+        "name": "咸宝村"
+      },
+      {
+        "placeId": "amap-B0FFFQSKXO",
+        "name": "谭探仔村"
+      },
+      {
+        "placeId": "amap-B02F70NY0H",
+        "name": "应凡村"
+      },
+      {
+        "placeId": "amap-B02F70NY07",
+        "name": "谭探村"
+      }
+    ],
+    "membershipComplete": false,
+    "classificationSource": {
+      "type": "user_confirmed",
+      "checkedAt": "2026-10-20",
+      "note": "用户确认南港行政驻地性质及这13个自然村的隶属关系；祝彩村与原竹彩点位为同一处。不将南港驻地点认作独立自然村。"
+    },
+    "coverage": {
+      "status": "illustrative",
+      "method": "member_distribution_envelope",
+      "bufferMeters": 250,
+      "landOnly": true,
+      "officialBoundaryAvailable": false,
+      "marineBoundaryAvailable": false,
+      "note": "根据已确认自然村分布与周边陆地制作范围示意，采用250米外扩的分布包络并以岛屿海岸线裁剪；不表示法定村界，海域暂不划定。",
+      "approvedByUser": true,
+      "checkedAt": "2026-10-20"
+    }
+  },
+  {
+    "id": "menggang",
+    "name": "孟岗村",
+    "committeeName": "孟岗村委会",
+    "officePlaceId": "6834714",
+    "memberVillages": [
+      {
+        "placeId": "1814665",
+        "name": "存亮村"
+      },
+      {
+        "placeId": "1799505",
+        "name": "那晏村"
+      },
+      {
+        "placeId": "amap-B02F70NXZV",
+        "name": "那晏仔村"
+      },
+      {
+        "placeId": "amap-B02F70NY06",
+        "name": "谭北沙村"
+      },
+      {
+        "placeId": "amap-B0I04HQK63",
+        "name": "余屋村"
+      },
+      {
+        "placeId": "amap-B0FFHN52OU",
+        "name": "东园村"
+      },
+      {
+        "placeId": "amap-B0I04HPXEG",
+        "name": "西园村"
+      },
+      {
+        "placeId": "amap-B0FFFQM5XP",
+        "name": "杨屋村"
+      },
+      {
+        "placeId": "amap-B0I04HQYW1",
+        "name": "陈屋村"
+      },
+      {
+        "placeId": "amap-B0I04HQYVZ",
+        "name": "上岭村"
+      },
+      {
+        "placeId": "amap-B02F70NXZS",
+        "name": "那昆村"
+      },
+      {
+        "placeId": "amap-B0FFFQWKM1",
+        "name": "那昆仔村"
+      },
+      {
+        "placeId": "amap-B02F70NXZT",
+        "name": "那林村"
+      },
+      {
+        "placeId": "osm-2065803493",
+        "name": "南村"
+      },
+      {
+        "placeId": "amap-B02F70NXZH",
+        "name": "洪拱村"
+      },
+      {
+        "placeId": "amap-B0I04HTNTV",
+        "name": "谭等村"
+      },
+      {
+        "placeId": "6834723",
+        "name": "加律村"
+      }
+    ],
+    "membershipComplete": false,
+    "classificationSource": {
+      "type": "user_confirmed",
+      "checkedAt": "2026-10-20",
+      "note": "用户确认孟岗行政驻地性质及这17个自然村的隶属关系；依本次任务明确指向孟岗村委会，不将孟岗驻地点认作独立自然村。上岭村采用陈屋东北侧B0I04HQYVZ，未纳入岛西侧上嶺村B02F70NY01。"
+    },
+    "coverage": {
+      "status": "illustrative",
+      "method": "member_distribution_envelope",
+      "bufferMeters": 250,
+      "landOnly": true,
+      "officialBoundaryAvailable": false,
+      "marineBoundaryAvailable": false,
+      "note": "根据已确认自然村分布与周边陆地制作范围示意，采用250米外扩的分布包络并以岛屿海岸线裁剪；不表示法定村界，海域暂不划定。",
+      "approvedByUser": true,
+      "checkedAt": "2026-10-20"
+    }
+  },
+  {
+    "id": "songhuang",
+    "name": "宋皇村",
+    "committeeName": "宋皇村委会",
+    "officePlaceId": "osm-2065811659",
+    "memberVillages": [
+      {
+        "placeId": "amap-B0I04HTG6B",
+        "name": "上马村"
+      },
+      {
+        "placeId": "amap-B0I04HTNTS",
+        "name": "中下马村"
+      },
+      {
+        "placeId": "amap-B0FFFQBWF4",
+        "name": "上园仔村"
+      },
+      {
+        "placeId": "amap-B02F70NY0E",
+        "name": "新村仔村"
+      },
+      {
+        "placeId": "amap-B02F70NXYU",
+        "name": "晏庭村"
+      },
+      {
+        "placeId": "6834711",
+        "name": "六竹村"
+      },
+      {
+        "placeId": "amap-B02F70NY0D",
+        "name": "咸田村"
+      },
+      {
+        "placeId": "amap-B02F70NY01",
+        "name": "上岭村"
+      },
+      {
+        "placeId": "amap-B02F70NY7Q",
+        "name": "扫屯村"
+      },
+      {
+        "placeId": "amap-B0FFH1IHVH",
+        "name": "六罗村"
+      },
+      {
+        "placeId": "amap-B0FFJMG6HV",
+        "name": "豆屋村"
+      },
+      {
+        "placeId": "6834713",
+        "name": "周屋村"
+      },
+      {
+        "placeId": "amap-B0I04HRRH0",
+        "name": "谭巴利村"
+      },
+      {
+        "placeId": "amap-B0I04HQ543",
+        "name": "方屋村"
+      },
+      {
+        "placeId": "amap-B02F70NXZI",
+        "name": "后营村"
+      },
+      {
+        "placeId": "amap-B02F70NY00",
+        "name": "上街村"
+      },
+      {
+        "placeId": "amap-B02F70NY0I",
+        "name": "招屋村"
+      }
+    ],
+    "membershipComplete": false,
+    "classificationSource": {
+      "type": "user_confirmed",
+      "checkedAt": "2026-10-20",
+      "note": "用户确认宋皇村标注为宋皇村委会行政驻地，不作为独立自然村。将17个已定位自然村关联至宋皇村委会；上岭采用咸田、扫屯附近B02F70NY01，不包含陈屋附近同名村。塘尾仅找到加油站，用户明确要求本轮暂不处理。"
+    },
+    "coverage": {
+      "status": "illustrative",
+      "method": "member_distribution_envelope",
+      "bufferMeters": 250,
+      "landOnly": true,
+      "officialBoundaryAvailable": false,
+      "marineBoundaryAvailable": false,
+      "note": "根据已确认的17个自然村位置周边250米分布包络制作陆地范围示意，并以主岛海岸线裁剪；不表示法定村界，海域暂不划定。塘尾按用户要求本轮暂不处理。",
+      "approvedByUser": true,
+      "checkedAt": "2026-10-20"
+    }
+  },
+  {
+    "id": "tanbei",
+    "name": "谭北村",
+    "committeeName": "谭北村委会",
+    "officePlaceId": "6834719",
+    "memberVillages": [
+      {
+        "placeId": "amap-B0FFFQALSY",
+        "name": "毛歹村"
+      },
+      {
+        "placeId": "6834718",
+        "name": "烟楼村"
+      },
+      {
+        "placeId": "1940784",
+        "name": "谭北湖村"
+      },
+      {
+        "placeId": "1812001",
+        "name": "斗龙村"
+      },
+      {
+        "placeId": "amap-B02F70NXY3",
+        "name": "担水村"
+      },
+      {
+        "placeId": "amap-B0FFJFNMZ8",
+        "name": "南园村"
+      },
+      {
+        "placeId": "amap-B02F70NXYZ",
+        "name": "谭井村"
+      },
+      {
+        "placeId": "amap-B0I04HUP1X",
+        "name": "洪屋村"
+      },
+      {
+        "placeId": "amap-B02F70NXZ0",
+        "name": "天轩村"
+      },
+      {
+        "placeId": "amap-B0I04HV3U7",
+        "name": "叮当村"
+      },
+      {
+        "placeId": "amap-B0I04HUHEP",
+        "name": "谭漏村"
+      },
+      {
+        "placeId": "amap-B02F70NXY2",
+        "name": "大问村"
+      },
+      {
+        "placeId": "amap-B0I04HUHEO",
+        "name": "谭郁村"
+      },
+      {
+        "placeId": "amap-B0I04HTNTW",
+        "name": "老兵村"
+      },
+      {
+        "placeId": "amap-B02F70NXZL",
+        "name": "林屋村"
+      },
+      {
+        "placeId": "amap-B0H1XY3PGJ",
+        "name": "大林后村"
+      },
+      {
+        "placeId": "amap-B0FFFAHI0R",
+        "name": "周屋村"
+      },
+      {
+        "placeId": "amap-B0I04HQ542",
+        "name": "上园村"
+      },
+      {
+        "placeId": "6834715",
+        "name": "深路河村"
+      },
+      {
+        "placeId": "osm-2065889086",
+        "name": "马白新村"
+      },
+      {
+        "placeId": "amap-B02F70NXY1",
+        "name": "大伦村"
+      },
+      {
+        "placeId": "amap-B0I04HU2C6",
+        "name": "上那洞村"
+      },
+      {
+        "placeId": "amap-B02F70NXYQ",
+        "name": "下那洞村"
+      },
+      {
+        "placeId": "amap-B0I04HQYW2",
+        "name": "鸿压村"
+      }
+    ],
+    "membershipComplete": false,
+    "classificationSource": {
+      "type": "user_confirmed",
+      "checkedAt": "2026-10-20",
+      "note": "用户确认谭北村委会及24个自然村的隶属关系。周屋采用大林后南侧B0FFFAHI0R，上园采用B0I04HQ542。用户确认谭北与潭北是同一驻地的两种写法，合并显示，保留两份原始来源。"
+    },
+    "coverage": {
+      "status": "illustrative",
+      "method": "member_distribution_envelope",
+      "bufferMeters": 250,
+      "landOnly": true,
+      "officialBoundaryAvailable": false,
+      "marineBoundaryAvailable": false,
+      "note": "根据用户确认的24个自然村位置周边250米分布包络制作陆地范围示意，并以主岛海岸线裁剪；不表示法定村界，海域暂不划定。",
+      "approvedByUser": true,
+      "checkedAt": "2026-10-20"
+    }
+  },
+  {
+    "id": "hongwei",
+    "name": "红卫社区",
+    "committeeName": "红卫社区居民委员会",
+    "administrativeType": "community",
+    "officeCaption": "居民委员会",
+    "officePlaceId": "amap-B02F701BQI",
+    "memberVillages": [
+      {
+        "placeId": "osm-11779523478",
+        "name": "下岭村"
+      },
+      {
+        "placeId": "6834720",
+        "name": "南角尾村"
+      }
+    ],
+    "membershipComplete": false,
+    "classificationSource": {
+      "type": "user_confirmed",
+      "checkedAt": "2026-10-20",
+      "note": "用户确认红卫社区居委会的行政驻地性质及下岭村、南角尾村的隶属关系。"
+    },
+    "coverage": {
+      "status": "illustrative",
+      "method": "member_distribution_envelope",
+      "bufferMeters": 250,
+      "includeOffice": true,
+      "landOnly": true,
+      "officialBoundaryAvailable": false,
+      "marineBoundaryAvailable": false,
+      "approvedByUser": true,
+      "checkedAt": "2026-10-20",
+      "note": "沿用已确认地点周边250米分布包络，并纳入居委会驻地，按主岛海岸线裁剪。仅为陆地范围示意，不表示法定社区边界；海域暂不划定。"
+    }
+  },
+  {
+    "id": "jinqian",
+    "name": "津前社区",
+    "committeeName": "津前社区居民委员会",
+    "administrativeType": "community",
+    "officeCaption": "居民委员会",
+    "officePlaceId": "amap-B0FFLKJ2CK",
+    "memberVillages": [
+      {
+        "placeId": "amap-B02F70NXZA",
+        "name": "橧棚村"
+      },
+      {
+        "placeId": "amap-B0I04HT149",
+        "name": "车路",
+        "placeKind": "locality"
+      }
+    ],
+    "membershipComplete": false,
+    "classificationSource": {
+      "type": "user_confirmed",
+      "checkedAt": "2026-10-20",
+      "note": "用户确认社区居委会的行政驻地性质及所属地点；车路为地点，不作为自然村。"
+    },
+    "coverage": {
+      "status": "illustrative",
+      "method": "member_distribution_envelope",
+      "bufferMeters": 250,
+      "includeOffice": true,
+      "landOnly": true,
+      "officialBoundaryAvailable": false,
+      "marineBoundaryAvailable": false,
+      "approvedByUser": true,
+      "checkedAt": "2026-10-20",
+      "note": "沿用已确认地点周边250米分布包络，并纳入居委会驻地，按主岛海岸线裁剪。仅为陆地范围示意，不表示法定社区边界；海域暂不划定。"
+    }
+  },
+  {
+    "id": "danshui",
+    "name": "淡水社区",
+    "committeeName": "淡水社区居民委员会",
+    "aliases": [
+      "淡水居民委员会",
+      "淡水居委会"
+    ],
+    "administrativeType": "community",
+    "officeCaption": "居民委员会",
+    "officePlaceId": null,
+    "officeLocationStatus": "unconfirmed",
+    "memberVillages": [
+      {
+        "placeId": "amap-B0FFHQ1LTN",
+        "name": "淡水市场",
+        "placeKind": "locality"
+      },
+      {
+        "placeId": "amap-B0IDV7I4BZ",
+        "name": "淡水社区退役军人服务站",
+        "placeKind": "locality"
+      },
+      {
+        "placeId": "amap-B02F70NY0A",
+        "name": "下港村"
+      }
+    ],
+    "membershipComplete": false,
+    "classificationSource": {
+      "type": "user_confirmed",
+      "checkedAt": "2026-10-20",
+      "note": "用户尚未找到淡水居委会驻地，明确暂以淡水市场、淡水社区退役军人服务站及下港村制作社区范围示意。市场与服务站均保留为地点，不冒充居委会或自然村；不另设行政驻地点。"
+    },
+    "coverage": {
+      "status": "illustrative",
+      "method": "member_distribution_envelope",
+      "bufferMeters": 250,
+      "includeOffice": false,
+      "landOnly": true,
+      "officialBoundaryAvailable": false,
+      "marineBoundaryAvailable": false,
+      "approvedByUser": true,
+      "checkedAt": "2026-10-20",
+      "note": "以用户指定的三处参考地点周边250米分布包络作暂定陆地范围示意，并按主岛海岸线裁剪；不表示法定社区边界，海域暂不划定。居委会驻地未确认，未纳入或代设驻地点。"
+    }
+  }
+]

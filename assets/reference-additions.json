@@ -1,0 +1,2342 @@
+[
+  {
+    "id": "amap-B0I04HTG6B",
+    "name": "上马村",
+    "lat": 20.896674,
+    "lng": 110.582927,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HTG6B",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HTG6B",
+      "name": "上马村",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.587142,
+      "lat": 20.893955
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。"
+  },
+  {
+    "id": "amap-B0I04HTNTS",
+    "name": "中下马",
+    "lat": 20.896679,
+    "lng": 110.579648,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HTNTS",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HTNTS",
+      "name": "中下马",
+      "type": "地名",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.583863,
+      "lat": 20.893962
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。"
+  },
+  {
+    "id": "amap-B02F70NXYF",
+    "name": "那凡",
+    "lat": 20.930937,
+    "lng": 110.600043,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXYF",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXYF",
+      "name": "那凡",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.604264,
+      "lat": 20.928213
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXYF&name=%E9%82%A3%E5%87%A1&lng=110.604264&lat=20.928213&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B0FFFQSKXO",
+    "name": "谭探仔",
+    "lat": 20.879717,
+    "lng": 110.573552,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0FFFQSKXO",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0FFFQSKXO",
+      "name": "谭探仔",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.577769,
+      "lat": 20.877006
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFFQSKXO&name=%E8%B0%AD%E6%8E%A2%E4%BB%94&lng=110.577769&lat=20.877006&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B02F70NXZG",
+    "name": "斗龙仔",
+    "lat": 20.877224,
+    "lng": 110.603727,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZG",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXZG",
+      "name": "斗龙仔",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.607948,
+      "lat": 20.874501
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXZG&name=%E6%96%97%E9%BE%99%E4%BB%94&lng=110.607948&lat=20.874501&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B02F70NXZB",
+    "name": "北赛",
+    "lat": 20.916184,
+    "lng": 110.602503,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZB",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXZB",
+      "name": "北赛",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.606725,
+      "lat": 20.91346
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXZB&name=%E5%8C%97%E8%B5%9B&lng=110.606725&lat=20.913460&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B0FFFQBWF4",
+    "name": "上园仔",
+    "lat": 20.899171,
+    "lng": 110.580651,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0FFFQBWF4",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0FFFQBWF4",
+      "name": "上园仔",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.584866,
+      "lat": 20.896453
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFFQBWF4&name=%E4%B8%8A%E5%9B%AD%E4%BB%94&lng=110.584866&lat=20.896453&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B0I04HRRH1",
+    "name": "兆庆",
+    "lat": 20.874661,
+    "lng": 110.571838,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HRRH1",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HRRH1",
+      "name": "兆庆",
+      "type": "地名",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.576056,
+      "lat": 20.871952
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HRRH1&name=%E5%85%86%E5%BA%86&lng=110.576056&lat=20.871952&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B02F70NXZA",
+    "name": "橧棚",
+    "lat": 20.906758,
+    "lng": 110.554088,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZA",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXZA",
+      "name": "橧棚",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.558328,
+      "lat": 20.904076
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXZA&name=%E6%A9%A7%E6%A3%9A&lng=110.558328&lat=20.904076&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B02F70NXZH",
+    "name": "洪拱",
+    "lat": 20.88367,
+    "lng": 110.598421,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZH",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXZH",
+      "name": "洪拱",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.602638,
+      "lat": 20.880946
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXZH&name=%E6%B4%AA%E6%8B%B1&lng=110.602638&lat=20.880946&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B02F70NXYZ",
+    "name": "谭井",
+    "lat": 20.928614,
+    "lng": 110.632307,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXYZ",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXYZ",
+      "name": "谭井",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.636572,
+      "lat": 20.925914
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXYZ&name=%E8%B0%AD%E4%BA%95&lng=110.636572&lat=20.925914&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B02F70NY0A",
+    "name": "下港",
+    "lat": 20.890109,
+    "lng": 110.559021,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY0A",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NY0A",
+      "name": "下港",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.563253,
+      "lat": 20.887418
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NY0A&name=%E4%B8%8B%E6%B8%AF&lng=110.563253&lat=20.887418&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B02F70NY7Q",
+    "name": "扫屯",
+    "lat": 20.908082,
+    "lng": 110.576066,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY7Q",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NY7Q",
+      "name": "扫屯",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.580284,
+      "lat": 20.905368
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NY7Q&name=%E6%89%AB%E5%B1%AF&lng=110.580284&lat=20.905368&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B0I04HU2C6",
+    "name": "上那洞",
+    "lat": 20.919985,
+    "lng": 110.621079,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HU2C6",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HU2C6",
+      "name": "上那洞",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.625323,
+      "lat": 20.917272
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HU2C6&name=%E4%B8%8A%E9%82%A3%E6%B4%9E&lng=110.625323&lat=20.917272&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B02F70NXYM",
+    "name": "谭北湾",
+    "lat": 20.930532,
+    "lng": 110.580105,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXYM",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXYM",
+      "name": "谭北湾",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.584322,
+      "lat": 20.927815
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXYM&name=%E8%B0%AD%E5%8C%97%E6%B9%BE&lng=110.584322&lat=20.927815&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B02F70NY06",
+    "name": "谭北沙",
+    "lat": 20.902692,
+    "lng": 110.617248,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY06",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NY06",
+      "name": "谭北沙",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.621486,
+      "lat": 20.899976
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NY06&name=%E8%B0%AD%E5%8C%97%E6%B2%99&lng=110.621486&lat=20.899976&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B02F70NXYQ",
+    "name": "下那洞",
+    "lat": 20.916754,
+    "lng": 110.621176,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXYQ",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXYQ",
+      "name": "下那洞",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.62542,
+      "lat": 20.914041
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXYQ&name=%E4%B8%8B%E9%82%A3%E6%B4%9E&lng=110.625420&lat=20.914041&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B02F70NXZ0",
+    "name": "天轩",
+    "lat": 20.926693,
+    "lng": 110.629941,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZ0",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXZ0",
+      "name": "天轩",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.634201,
+      "lat": 20.92399
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXZ0&name=%E5%A4%A9%E8%BD%A9&lng=110.634201&lat=20.923990&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B02F70NY0G",
+    "name": "英明",
+    "lat": 20.869792,
+    "lng": 110.579882,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY0G",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NY0G",
+      "name": "英明",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.584096,
+      "lat": 20.867075
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "approximate": true,
+      "outputDecimals": 6,
+      "note": "坐标转换近似值；小数位数不表示地图定位或实地测量精度。"
+    },
+    "correctionNote": "由调查点转为参考地点；依据已核对的高德地点详情及可见分享定位参数。坐标转换为近似值，不代表村界或测绘控制点。",
+    "surveyOrigins": [
+      {
+        "pointId": "fa5de45d-3ef8-4cb5-b19e-ffa5e4135a27",
+        "auditPath": "data/survey-reference-migrations.json"
+      }
+    ]
+  },
+  {
+    "id": "amap-B02F70NY0C",
+    "name": "咸宝",
+    "lat": 20.877785,
+    "lng": 110.566129,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY0C",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NY0C",
+      "name": "咸宝",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.570352,
+      "lat": 20.875083
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "approximate": true,
+      "outputDecimals": 6,
+      "note": "坐标转换近似值；小数位数不表示地图定位或实地测量精度。"
+    },
+    "correctionNote": "由调查点转为参考地点；依据已核对的高德地点详情及可见分享定位参数。坐标转换为近似值，不代表村界或测绘控制点。",
+    "surveyOrigins": [
+      {
+        "pointId": "a31051ec-23cb-42a8-9bba-6dd8b88b7dfe",
+        "auditPath": "data/survey-reference-migrations.json"
+      }
+    ]
+  },
+  {
+    "id": "amap-B0FFFRPRE2",
+    "name": "谭杰",
+    "lat": 20.877941,
+    "lng": 110.568388,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0FFFRPRE2",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0FFFRPRE2",
+      "name": "谭杰",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.572609,
+      "lat": 20.875236
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "approximate": true,
+      "outputDecimals": 6,
+      "note": "坐标转换近似值；小数位数不表示地图定位或实地测量精度。"
+    },
+    "correctionNote": "由调查点转为参考地点；依据已核对的高德地点详情及可见分享定位参数。坐标转换为近似值，不代表村界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFFRPRE2&name=%E8%B0%AD%E6%9D%B0&lng=110.572609&lat=20.875236&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "surveyOrigins": [
+      {
+        "pointId": "1ac474e7-052c-4f88-ad9b-7c8464fe8749",
+        "auditPath": "data/survey-reference-migrations.json"
+      }
+    ]
+  },
+  {
+    "id": "amap-B02F70NXZO",
+    "name": "龙池",
+    "lat": 20.880207,
+    "lng": 110.569957,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZO",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXZO",
+      "name": "龙池",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.574177,
+      "lat": 20.8775
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "approximate": true,
+      "outputDecimals": 6,
+      "note": "坐标转换近似值；小数位数不表示地图定位或实地测量精度。"
+    },
+    "correctionNote": "由调查点转为参考地点；依据已核对的高德地点详情及可见分享定位参数。坐标转换为近似值，不代表村界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXZO&name=%E9%BE%99%E6%B1%A0&lng=110.574177&lat=20.877500&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "surveyOrigins": [
+      {
+        "pointId": "2df6361d-137f-4ea9-8a4d-7476e539629c",
+        "auditPath": "data/survey-reference-migrations.json"
+      }
+    ]
+  },
+  {
+    "id": "amap-B02F70NY07",
+    "name": "谭探",
+    "lat": 20.876072,
+    "lng": 110.575574,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY07",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NY07",
+      "name": "谭探",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.57979,
+      "lat": 20.873359
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "approximate": true,
+      "outputDecimals": 6,
+      "note": "坐标转换近似值；小数位数不表示地图定位或实地测量精度。"
+    },
+    "correctionNote": "由调查点转为参考地点；依据已核对的高德地点详情及可见分享定位参数。坐标转换为近似值，不代表村界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NY07&name=%E8%B0%AD%E6%8E%A2&lng=110.579790&lat=20.873359&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "surveyOrigins": [
+      {
+        "pointId": "40f1fc45-e497-4a28-bfd2-345c6b522daa",
+        "auditPath": "data/survey-reference-migrations.json"
+      }
+    ]
+  },
+  {
+    "id": "amap-B02F70NY0H",
+    "name": "应凡",
+    "lat": 20.878927,
+    "lng": 110.575696,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY0H",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NY0H",
+      "name": "应凡",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.579912,
+      "lat": 20.876214
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "approximate": true,
+      "outputDecimals": 6,
+      "note": "坐标转换近似值；小数位数不表示地图定位或实地测量精度。"
+    },
+    "correctionNote": "由调查点转为参考地点；依据已核对的高德地点详情及可见分享定位参数。坐标转换为近似值，不代表村界或测绘控制点。",
+    "surveyOrigins": [
+      {
+        "pointId": "bfd166f2-4410-4820-98ce-b5518b4978d0",
+        "auditPath": "data/survey-reference-migrations.json"
+      }
+    ]
+  },
+  {
+    "id": "amap-B02F70NY7S",
+    "name": "祝彩村",
+    "lat": 20.873252,
+    "lng": 110.56884,
+    "nameSource": "用户确认（2026-10-20）",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY7S",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NY7S",
+      "name": "竹彩",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.573061,
+      "lat": 20.870547
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "approximate": true,
+      "outputDecimals": 6,
+      "note": "坐标转换近似值；小数位数不表示地图定位或实地测量精度。"
+    },
+    "correctionNote": "由调查点转为参考地点；依据已核对的高德地点详情及可见分享定位参数。坐标转换为近似值，不代表村界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NY7S&name=%E7%AB%B9%E5%BD%A9&lng=110.573061&lat=20.870547&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "surveyOrigins": [
+      {
+        "pointId": "2f2757aa-f914-4d87-b73f-71776ab07000",
+        "auditPath": "data/survey-reference-migrations.json"
+      }
+    ],
+    "aliases": [
+      "竹彩",
+      "竹彩村"
+    ],
+    "correctionHistory": [
+      {
+        "action": "user_name_correction",
+        "checkedAt": "2026-10-20",
+        "previousName": "竹彩",
+        "displayName": "祝彩村",
+        "reason": "用户确认祝彩村与原竹彩点位为同一处，采用祝彩村名称；坐标及原始高德来源保留。"
+      }
+    ],
+    "nameReview": {
+      "status": "user_name_corrected",
+      "checkedAt": "2026-10-20",
+      "previousName": "竹彩",
+      "displayName": "祝彩村",
+      "coordinatesUnchanged": true,
+      "reason": "用户确认是同一处，名称改为祝彩村。竹彩、竹彩村作为旧名检索。"
+    },
+    "manualPriority": true,
+    "manualPriorityScope": [
+      "name"
+    ]
+  },
+  {
+    "id": "amap-B02F70NXZK",
+    "name": "锦马",
+    "lat": 20.879578,
+    "lng": 110.581853,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZK",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXZK",
+      "name": "锦马",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.586067,
+      "lat": 20.876859
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "approximate": true,
+      "outputDecimals": 6,
+      "note": "坐标转换近似值；小数位数不表示地图定位或实地测量精度。"
+    },
+    "correctionNote": "由调查点转为参考地点；依据已核对的高德地点详情及可见分享定位参数。坐标转换为近似值，不代表村界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXZK&name=%E9%94%A6%E9%A9%AC&lng=110.586067&lat=20.876859&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "surveyOrigins": [
+      {
+        "pointId": "b6fb5908-a390-4658-94fd-2aa956d463a1",
+        "auditPath": "data/survey-reference-migrations.json"
+      }
+    ]
+  },
+  {
+    "id": "amap-B02F70NXZT",
+    "name": "那林",
+    "lat": 20.879634,
+    "lng": 110.58764,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZT",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXZT",
+      "name": "那林",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.591854,
+      "lat": 20.876912
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "approximate": true,
+      "outputDecimals": 6,
+      "note": "坐标转换近似值；小数位数不表示地图定位或实地测量精度。"
+    },
+    "correctionNote": "由调查点转为参考地点；依据已核对的高德地点详情及可见分享定位参数。坐标转换为近似值，不代表村界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXZT&name=%E9%82%A3%E6%9E%97&lng=110.591854&lat=20.876912&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "surveyOrigins": [
+      {
+        "pointId": "9866b822-6a3f-421a-9cc2-4458cf099ff9",
+        "auditPath": "data/survey-reference-migrations.json"
+      }
+    ]
+  },
+  {
+    "id": "amap-B02F70NXZS",
+    "name": "那昆",
+    "lat": 20.888151,
+    "lng": 110.588496,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZS",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXZS",
+      "name": "那昆",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.59271,
+      "lat": 20.885429
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "approximate": true,
+      "outputDecimals": 6,
+      "note": "坐标转换近似值；小数位数不表示地图定位或实地测量精度。"
+    },
+    "correctionNote": "由调查点转为参考地点；依据已核对的高德地点详情及可见分享定位参数。坐标转换为近似值，不代表村界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXZS&name=%E9%82%A3%E6%98%86&lng=110.592710&lat=20.885429&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "surveyOrigins": [
+      {
+        "pointId": "0be729c0-dc52-414d-86a3-6da63dd6bd7e",
+        "auditPath": "data/survey-reference-migrations.json"
+      }
+    ]
+  },
+  {
+    "id": "amap-B0I04HPPI7",
+    "name": "东方",
+    "lat": 20.868757,
+    "lng": 110.583785,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HPPI7",
+    "checkedAt": "2026-10-11",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HPPI7",
+      "name": "东方",
+      "type": "地名",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.587998,
+      "lat": 20.866037
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "approximate": true,
+      "outputDecimals": 6,
+      "note": "坐标转换近似值；小数位数不表示地图定位或实地测量精度。"
+    },
+    "correctionNote": "由调查点转为参考地点；依据已核对的高德地点详情及可见分享定位参数。坐标转换为近似值，不代表村界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HPPI7&name=%E4%B8%9C%E6%96%B9&lng=110.587998&lat=20.866037&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "surveyOrigins": [
+      {
+        "pointId": "d0e5d0d0-89e0-4213-ab37-e097e06d5b62",
+        "auditPath": "data/survey-reference-migrations.json"
+      }
+    ],
+    "locationReview": {
+      "status": "field_relation_confirmed",
+      "reason": "用户实地指认东方在西埠聚落西侧。本轮仅确认相对方位并保留原点，没有确认精确村中心。",
+      "checkedAt": "2026-10-12",
+      "evidencePath": "work/field-corrections-20261012.json",
+      "userSpatialRelation": {
+        "subject": "东方",
+        "relation": "west_of",
+        "object": "西埠"
+      },
+      "coordinatesUnchanged": true
+    },
+    "locationReviewHistory": [
+      {
+        "replacedAt": "2026-10-12T07:59:07.088Z",
+        "previousReview": {
+          "status": "address_supported",
+          "reason": "高德东方村内地址位于现有东方参考点附近，支持其周边位置；村内地址只作辅助证据，村中心仍需现场确认。东方坐标未移动。",
+          "checkedAt": "2026-10-11",
+          "evidencePath": "work/amap-west-address-checks-20261011.json",
+          "restorationAuditPath": "work/amap-reference-west-restoration-20261011.json",
+          "supportingAddressPlaceIds": [
+            "B0MR1DCZ5S"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "amap-B02F70NY0D",
+    "name": "咸田",
+    "lat": 20.914417,
+    "lng": 110.580553,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY0D",
+    "checkedAt": "2026-10-19",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NY0D",
+      "name": "咸田",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.584769,
+      "lat": 20.911699
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NY0D&name=%E5%92%B8%E7%94%B0&lng=110.584769&lat=20.911699&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B02F70NXXZ",
+    "name": "村场",
+    "lat": 20.91768,
+    "lng": 110.586584,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXXZ",
+    "checkedAt": "2026-10-19",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXXZ",
+      "name": "村场",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.590799,
+      "lat": 20.914958
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXXZ&name=%E6%9D%91%E5%9C%BA&lng=110.590799&lat=20.914958&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B0I04HRCDP",
+    "name": "讯地仔",
+    "lat": 20.933577,
+    "lng": 110.578371,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HRCDP",
+    "checkedAt": "2026-10-19",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HRCDP",
+      "name": "讯地仔",
+      "type": "地名",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.582589,
+      "lat": 20.930861
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HRCDP&name=%E8%AE%AF%E5%9C%B0%E4%BB%94&lng=110.582589&lat=20.930861&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B02F70NXY7",
+    "name": "后角",
+    "lat": 20.947181,
+    "lng": 110.589585,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY7",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXY7",
+      "name": "后角",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.593802,
+      "lat": 20.944459
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXY7&name=%E5%90%8E%E8%A7%92&lng=110.593802&lat=20.944459&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B02F70NXZR",
+    "name": "那甘尾",
+    "lat": 20.908362,
+    "lng": 110.591918,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZR",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXZR",
+      "name": "那甘尾",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.596134,
+      "lat": 20.905638
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXZR&name=%E9%82%A3%E7%94%98%E5%B0%BE&lng=110.596134&lat=20.905638&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B02F70NXYN",
+    "name": "糖房",
+    "lat": 20.925639,
+    "lng": 110.594137,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXYN",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXYN",
+      "name": "糖房",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.598354,
+      "lat": 20.922915
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXYN&name=%E7%B3%96%E6%88%BF&lng=110.598354&lat=20.922915&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B02F70NY7M",
+    "name": "庄屋",
+    "lat": 20.947014,
+    "lng": 110.59431,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY7M",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NY7M",
+      "name": "庄屋",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.598529,
+      "lat": 20.94429
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NY7M&name=%E5%BA%84%E5%B1%8B&lng=110.598529&lat=20.944290&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B02F70NXXX",
+    "name": "北港村",
+    "lat": 20.942485,
+    "lng": 110.594315,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXXX",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXXX",
+      "name": "北港村",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.598533,
+      "lat": 20.939761
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXXX&name=%E5%8C%97%E6%B8%AF%E6%9D%91&lng=110.598533&lat=20.939761&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc"
+  },
+  {
+    "id": "amap-B02F70NXZV",
+    "name": "那晏仔",
+    "lat": 20.889933,
+    "lng": 110.604831,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZV",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXZV",
+      "name": "那晏仔",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.609053,
+      "lat": 20.88721
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXZV&name=%E9%82%A3%E6%99%8F%E4%BB%94&lng=110.609053&lat=20.887210&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "那晏仔村"
+    ]
+  },
+  {
+    "id": "amap-B0I04HQK63",
+    "name": "余屋",
+    "lat": 20.892505,
+    "lng": 110.597416,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HQK63",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HQK63",
+      "name": "余屋",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.601633,
+      "lat": 20.889781
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HQK63&name=%E4%BD%99%E5%B1%8B&lng=110.601633&lat=20.889781&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "余屋村"
+    ]
+  },
+  {
+    "id": "amap-B0FFHN52OU",
+    "name": "东园村",
+    "lat": 20.890384,
+    "lng": 110.600485,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0FFHN52OU",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0FFHN52OU",
+      "name": "东园村",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.604704,
+      "lat": 20.88766
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFHN52OU&name=%E4%B8%9C%E5%9B%AD%E6%9D%91&lng=110.604704&lat=20.887660&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "东园村"
+    ]
+  },
+  {
+    "id": "amap-B0I04HPXEG",
+    "name": "西园村",
+    "lat": 20.887585,
+    "lng": 110.59762,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HPXEG",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HPXEG",
+      "name": "西园村",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.601837,
+      "lat": 20.884861
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HPXEG&name=%E8%A5%BF%E5%9B%AD%E6%9D%91&lng=110.601837&lat=20.884861&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "西园村"
+    ]
+  },
+  {
+    "id": "amap-B0FFFQM5XP",
+    "name": "杨屋",
+    "lat": 20.894268,
+    "lng": 110.598088,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0FFFQM5XP",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0FFFQM5XP",
+      "name": "杨屋",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.602306,
+      "lat": 20.891544
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFFQM5XP&name=%E6%9D%A8%E5%B1%8B&lng=110.602306&lat=20.891544&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "杨屋村"
+    ]
+  },
+  {
+    "id": "amap-B0I04HQYW1",
+    "name": "陈屋",
+    "lat": 20.895715,
+    "lng": 110.600311,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HQYW1",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HQYW1",
+      "name": "陈屋",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.60453,
+      "lat": 20.892991
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HQYW1&name=%E9%99%88%E5%B1%8B&lng=110.604530&lat=20.892991&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "陈屋村"
+    ]
+  },
+  {
+    "id": "amap-B02F70NY01",
+    "name": "上岭村",
+    "lat": 20.91122,
+    "lng": 110.577872,
+    "nameSource": "用户确认（2026-10-20）",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY01",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NY01",
+      "name": "上嶺村",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.582089,
+      "lat": 20.908505
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地点定位，用户确认显示名为上岭村；此点在咸田、扫屯附近，与陈屋东北侧的同名上岭村为两个独立地点。保留坐标、原高德上嶺村写法及历史，使用位置提示区分。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NY01&name=%E4%B8%8A%E5%B6%BA%E6%9D%91&lng=110.582089&lat=20.908505&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "上嶺村",
+      "上嶺",
+      "上岭"
+    ],
+    "locationHint": "咸田、扫屯附近",
+    "distinctFrom": "amap-B0I04HQYVZ",
+    "correctionHistory": [
+      {
+        "action": "homonym_disambiguation",
+        "checkedAt": "2026-10-20",
+        "previousName": "上岭村",
+        "displayName": "上嶺村",
+        "reason": "高德另有陈屋东北侧的上岭村B0I04HQYVZ；西侧记录恢复高德原写法以区分，坐标不变，保留简体搜索别名。"
+      },
+      {
+        "action": "user_name_correction",
+        "checkedAt": "2026-10-20",
+        "previousName": "上嶺村",
+        "displayName": "上岭村",
+        "reason": "用户确认咸田、扫屯附近此村同样叫上岭，与陈屋附近的上岭同名。两处保留独立ID，以位置提示区分。"
+      }
+    ],
+    "manualPriority": true,
+    "manualPriorityScope": [
+      "name"
+    ],
+    "nameReview": {
+      "status": "user_name_corrected",
+      "checkedAt": "2026-10-20",
+      "displayName": "上岭村",
+      "previousName": "上嶺村",
+      "coordinatesUnchanged": true,
+      "reason": "用户确认咸田、扫屯附近此村同样叫上岭，与陈屋附近的上岭同名。两处保留独立ID，以位置提示区分。"
+    }
+  },
+  {
+    "id": "amap-B0FFFQWKM1",
+    "name": "那昆仔",
+    "lat": 20.886666,
+    "lng": 110.592109,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0FFFQWKM1",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0FFFQWKM1",
+      "name": "那昆仔",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.596324,
+      "lat": 20.883942
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFFQWKM1&name=%E9%82%A3%E6%98%86%E4%BB%94&lng=110.596324&lat=20.883942&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "那昆仔村"
+    ]
+  },
+  {
+    "id": "amap-B0I04HTNTV",
+    "name": "谭等",
+    "lat": 20.882928,
+    "lng": 110.603073,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HTNTV",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HTNTV",
+      "name": "谭等",
+      "type": "地名",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.607293,
+      "lat": 20.880204
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HTNTV&name=%E8%B0%AD%E7%AD%89&lng=110.607293&lat=20.880204&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "谭等村"
+    ]
+  },
+  {
+    "id": "amap-B0I04HQYVZ",
+    "name": "上岭村",
+    "lat": 20.898965,
+    "lng": 110.602546,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HQYVZ",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HQYVZ",
+      "name": "上岭村",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.606767,
+      "lat": 20.896241
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。 用户指明陈屋北侧附近；坐标位于陈屋东北约430米，与岛西侧上嶺村为独立地点，不合并。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HQYVZ&name=%E4%B8%8A%E5%B2%AD%E6%9D%91&lng=110.606767&lat=20.896241&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "上岭"
+    ],
+    "locationHint": "陈屋东北约430米",
+    "distinctFrom": "amap-B02F70NY01",
+    "locationHintSource": {
+      "referencePlaceId": "amap-B0I04HQYW1",
+      "direction": "northeast",
+      "distanceMeters": 429.5
+    }
+  },
+  {
+    "id": "amap-B02F70NY0E",
+    "name": "新村仔村",
+    "lat": 20.90642,
+    "lng": 110.580624,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY0E",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NY0E",
+      "name": "新村仔村",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.58484,
+      "lat": 20.903702
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NY0E&name=%E6%96%B0%E6%9D%91%E4%BB%94%E6%9D%91&lng=110.584840&lat=20.903702&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "新村仔"
+    ]
+  },
+  {
+    "id": "amap-B02F70NXYU",
+    "name": "晏庭",
+    "lat": 20.91868,
+    "lng": 110.572986,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXYU",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXYU",
+      "name": "晏庭",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.577206,
+      "lat": 20.915969
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXYU&name=%E6%99%8F%E5%BA%AD&lng=110.577206&lat=20.915969&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "晏庭村"
+    ]
+  },
+  {
+    "id": "amap-B0FFH1IHVH",
+    "name": "六罗村",
+    "lat": 20.912901,
+    "lng": 110.570971,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0FFH1IHVH",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0FFH1IHVH",
+      "name": "六罗村",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.575192,
+      "lat": 20.910193
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFH1IHVH&name=%E5%85%AD%E7%BD%97%E6%9D%91&lng=110.575192&lat=20.910193&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "六罗"
+    ]
+  },
+  {
+    "id": "amap-B0FFJMG6HV",
+    "name": "豆屋村",
+    "lat": 20.913666,
+    "lng": 110.571397,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0FFJMG6HV",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0FFJMG6HV",
+      "name": "豆屋村",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.575618,
+      "lat": 20.910957
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFJMG6HV&name=%E8%B1%86%E5%B1%8B%E6%9D%91&lng=110.575618&lat=20.910957&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "豆屋"
+    ]
+  },
+  {
+    "id": "amap-B0I04HRRH0",
+    "name": "谭巴利村",
+    "lat": 20.887437,
+    "lng": 110.571056,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HRRH0",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HRRH0",
+      "name": "谭巴利村",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.575276,
+      "lat": 20.884729
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HRRH0&name=%E8%B0%AD%E5%B7%B4%E5%88%A9%E6%9D%91&lng=110.575276&lat=20.884729&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "谭巴利"
+    ]
+  },
+  {
+    "id": "amap-B0I04HQ543",
+    "name": "方屋",
+    "lat": 20.8997,
+    "lng": 110.563877,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HQ543",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HQ543",
+      "name": "方屋",
+      "type": "地名",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.568104,
+      "lat": 20.897001
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HQ543&name=%E6%96%B9%E5%B1%8B&lng=110.568104&lat=20.897001&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "方屋村"
+    ]
+  },
+  {
+    "id": "amap-B02F70NXZI",
+    "name": "后营",
+    "lat": 20.895117,
+    "lng": 110.563322,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZI",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXZI",
+      "name": "后营",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.567549,
+      "lat": 20.892419
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXZI&name=%E5%90%8E%E8%90%A5&lng=110.567549&lat=20.892419&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "后营村"
+    ]
+  },
+  {
+    "id": "amap-B02F70NY00",
+    "name": "上街",
+    "lat": 20.894939,
+    "lng": 110.560669,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY00",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NY00",
+      "name": "上街",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.564899,
+      "lat": 20.892245
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NY00&name=%E4%B8%8A%E8%A1%97&lng=110.564899&lat=20.892245&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "上街村"
+    ]
+  },
+  {
+    "id": "amap-B02F70NY0I",
+    "name": "招屋",
+    "lat": 20.903103,
+    "lng": 110.556417,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY0I",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NY0I",
+      "name": "招屋",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.560653,
+      "lat": 20.900417
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NY0I&name=%E6%8B%9B%E5%B1%8B&lng=110.560653&lat=20.900417&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "招屋村"
+    ]
+  },
+  {
+    "id": "amap-B0FFFQALSY",
+    "name": "毛歹",
+    "lat": 20.926812,
+    "lng": 110.622186,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0FFFQALSY",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0FFFQALSY",
+      "name": "毛歹",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.626432,
+      "lat": 20.9241
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFFQALSY&name=%E6%AF%9B%E6%AD%B9&lng=110.626432&lat=20.924100&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "毛歹村"
+    ]
+  },
+  {
+    "id": "amap-B02F70NXY1",
+    "name": "大伦",
+    "lat": 20.927955,
+    "lng": 110.611983,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXY1",
+      "name": "大伦",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.616215,
+      "lat": 20.925235
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXY1&name=%E5%A4%A7%E4%BC%A6&lng=110.616215&lat=20.925235&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "大伦村"
+    ]
+  },
+  {
+    "id": "amap-B02F70NXY3",
+    "name": "担水",
+    "lat": 20.931105,
+    "lng": 110.623527,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY3",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXY3",
+      "name": "担水",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.627776,
+      "lat": 20.928394
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXY3&name=%E6%8B%85%E6%B0%B4&lng=110.627776&lat=20.928394&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "担水村"
+    ]
+  },
+  {
+    "id": "amap-B0FFJFNMZ8",
+    "name": "南园村",
+    "lat": 20.929535,
+    "lng": 110.625431,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0FFJFNMZ8",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0FFJFNMZ8",
+      "name": "南园村",
+      "type": "地名",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.629683,
+      "lat": 20.926826
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFJFNMZ8&name=%E5%8D%97%E5%9B%AD%E6%9D%91&lng=110.629683&lat=20.926826&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "南园"
+    ]
+  },
+  {
+    "id": "amap-B0I04HUP1X",
+    "name": "洪屋",
+    "lat": 20.928594,
+    "lng": 110.631832,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HUP1X",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HUP1X",
+      "name": "洪屋",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.636096,
+      "lat": 20.925893
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HUP1X&name=%E6%B4%AA%E5%B1%8B&lng=110.636096&lat=20.925893&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "洪屋村"
+    ]
+  },
+  {
+    "id": "amap-B0I04HV3U7",
+    "name": "叮当村",
+    "lat": 20.922829,
+    "lng": 110.632104,
+    "nameSource": "用户确认（2026-10-20）",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HV3U7",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HV3U7",
+      "name": "叮噹",
+      "type": "地名",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.636368,
+      "lat": 20.920128
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。 用户确认名称为叮当，原高德写法叮噹保留为别名和来源。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HV3U7&name=%E5%8F%AE%E5%99%B9&lng=110.636368&lat=20.920128&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "manualPriority": true,
+    "manualPriorityScope": [
+      "name"
+    ],
+    "aliases": [
+      "叮当",
+      "叮噹",
+      "叮噹村"
+    ]
+  },
+  {
+    "id": "amap-B0I04HUHEP",
+    "name": "谭漏",
+    "lat": 20.924692,
+    "lng": 110.630749,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HUHEP",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HUHEP",
+      "name": "谭漏",
+      "type": "地名",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.635011,
+      "lat": 20.92199
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HUHEP&name=%E8%B0%AD%E6%BC%8F&lng=110.635011&lat=20.921990&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "谭漏村"
+    ]
+  },
+  {
+    "id": "amap-B02F70NXY2",
+    "name": "大问",
+    "lat": 20.922919,
+    "lng": 110.62304,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY2",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXY2",
+      "name": "大问",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.627288,
+      "lat": 20.920208
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXY2&name=%E5%A4%A7%E9%97%AE&lng=110.627288&lat=20.920208&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "大问村"
+    ]
+  },
+  {
+    "id": "amap-B0I04HUHEO",
+    "name": "谭郁",
+    "lat": 20.921746,
+    "lng": 110.617631,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HUHEO",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HUHEO",
+      "name": "谭郁",
+      "type": "地名",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.62187,
+      "lat": 20.91903
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HUHEO&name=%E8%B0%AD%E9%83%81&lng=110.621870&lat=20.919030&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "谭郁村"
+    ]
+  },
+  {
+    "id": "amap-B0I04HTNTW",
+    "name": "老兵",
+    "lat": 20.916617,
+    "lng": 110.617975,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HTNTW",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HTNTW",
+      "name": "老兵",
+      "type": "地名",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.622214,
+      "lat": 20.913901
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HTNTW&name=%E8%80%81%E5%85%B5&lng=110.622214&lat=20.913901&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "老兵村"
+    ]
+  },
+  {
+    "id": "amap-B02F70NXZL",
+    "name": "林屋",
+    "lat": 20.914233,
+    "lng": 110.615708,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZL",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXZL",
+      "name": "林屋",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.619944,
+      "lat": 20.911515
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXZL&name=%E6%9E%97%E5%B1%8B&lng=110.619944&lat=20.911515&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "林屋村"
+    ]
+  },
+  {
+    "id": "amap-B0H1XY3PGJ",
+    "name": "大林后村",
+    "lat": 20.913146,
+    "lng": 110.614555,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0H1XY3PGJ",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0H1XY3PGJ",
+      "name": "大林后村",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.618789,
+      "lat": 20.910428
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0H1XY3PGJ&name=%E5%A4%A7%E6%9E%97%E5%90%8E%E6%9D%91&lng=110.618789&lat=20.910428&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "大林后"
+    ]
+  },
+  {
+    "id": "amap-B0I04HQ542",
+    "name": "上园",
+    "lat": 20.905915,
+    "lng": 110.611696,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HQ542",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HQ542",
+      "name": "上园",
+      "type": "地名",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.615926,
+      "lat": 20.903195
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HQ542&name=%E4%B8%8A%E5%9B%AD&lng=110.615926&lat=20.903195&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "上园村"
+    ]
+  },
+  {
+    "id": "amap-B0I04HQYW2",
+    "name": "鸿压",
+    "lat": 20.933872,
+    "lng": 110.622987,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HQYW2",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HQYW2",
+      "name": "鸿压",
+      "type": "地名",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.627235,
+      "lat": 20.931161
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HQYW2&name=%E9%B8%BF%E5%8E%8B&lng=110.627235&lat=20.931161&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "鸿压村"
+    ]
+  },
+  {
+    "id": "amap-B0FFFAHI0R",
+    "name": "周屋",
+    "lat": 20.911397,
+    "lng": 110.615523,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0FFFAHI0R",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0FFFAHI0R",
+      "name": "周屋",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.619759,
+      "lat": 20.908679
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。 大林后村南侧为另一处同名周屋；保留宋皇村委会内原周屋ID、坐标和隶属，不推断本点行政归属。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFFAHI0R&name=%E5%91%A8%E5%B1%8B&lng=110.619759&lat=20.908679&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "aliases": [
+      "周屋村"
+    ],
+    "distinctFrom": "6834713",
+    "locationHint": "大林后村东南侧"
+  },
+  {
+    "id": "amap-B02F701BQI",
+    "name": "红卫社区",
+    "lat": 20.894081,
+    "lng": 110.555571,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F701BQI",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F701BQI",
+      "name": "硇洲镇红卫社区居民委员会",
+      "type": "居委会",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.559808,
+      "lat": 20.891396
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德居委会地点详情及可见分享参数定位；用户确认作为社区行政驻地，不作为独立自然村。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F701BQI&name=%E7%A1%87%E6%B4%B2%E9%95%87%E7%BA%A2%E5%8D%AB%E7%A4%BE%E5%8C%BA%E5%B1%85%E6%B0%91%E5%A7%94%E5%91%98%E4%BC%9A&lng=110.559808&lat=20.891396&address=%E7%8E%AF%E5%B2%9B%E7%BA%BF%E4%B8%8E%E6%BB%A8%E6%B5%B7%E8%B7%AF%E4%BA%A4%E5%8F%89%E5%8F%A3%E4%B8%9C%E5%8D%97280%E7%B1%B3&zoom=16&source=poi_detail&platform=pc",
+    "placeKind": "administrative_seat",
+    "aliases": [
+      "硇洲镇红卫社区居民委员会",
+      "红卫社区居民委员会",
+      "红卫社区居委会"
+    ]
+  },
+  {
+    "id": "amap-B0FFLKJ2CK",
+    "name": "津前社区",
+    "lat": 20.898369,
+    "lng": 110.552594,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0FFLKJ2CK",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0FFLKJ2CK",
+      "name": "津前社区居委",
+      "type": "居委会",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.556836,
+      "lat": 20.89569
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德居委会地点详情及可见分享参数定位；用户确认作为社区行政驻地，不作为独立自然村。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFLKJ2CK&name=%E6%B4%A5%E5%89%8D%E7%A4%BE%E5%8C%BA%E5%B1%85%E5%A7%94&lng=110.556836&lat=20.895690&address=%E6%94%BF%E5%92%8C%E8%B7%AF%E4%B8%8E%E6%B5%B7%E6%B8%AF%E8%B7%AF%E4%BA%A4%E5%8F%89%E5%8F%A3%E4%B8%9C60%E7%B1%B3&zoom=16&source=poi_detail&platform=pc",
+    "placeKind": "administrative_seat",
+    "aliases": [
+      "津前社区居委",
+      "津前社区居民委员会",
+      "津前社区居委会"
+    ]
+  },
+  {
+    "id": "amap-B0I04HT149",
+    "name": "车路",
+    "lat": 20.901139,
+    "lng": 110.55234,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HT149",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HT149",
+      "name": "车路",
+      "type": "道路",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.556582,
+      "lat": 20.89846
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德道路地点详情及可见分享参数定位；用户确认为津前社区所属地点，不作为自然村，不代表道路全线范围。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HT149&name=%E8%BD%A6%E8%B7%AF&lng=110.556582&lat=20.898460&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "placeKind": "locality"
+  },
+  {
+    "id": "amap-B0FFHQ1LTN",
+    "name": "淡水市场",
+    "lat": 20.898559,
+    "lng": 110.555237,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0FFHQ1LTN",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0FFHQ1LTN",
+      "name": "淡水市场",
+      "type": "农副产品",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.559475,
+      "lat": 20.895875
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地点详情及可见分享参数定位。用户暂指定为淡水社区范围示意参考地点，不作为居委会驻地，也不作为自然村。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFHQ1LTN&name=%E6%B7%A1%E6%B0%B4%E5%B8%82%E5%9C%BA&lng=110.559475&lat=20.895875&address=%E5%9B%BD%E9%98%B2%E8%B7%AF%E4%B8%8E%E6%95%99%E8%82%B2%E8%B7%AF%E4%BA%A4%E5%8F%89%E5%8F%A3%E8%A5%BF%E5%8D%9760%E7%B1%B3&zoom=16&source=poi_detail&platform=pc",
+    "placeKind": "locality"
+  },
+  {
+    "id": "amap-B0IDV7I4BZ",
+    "name": "淡水社区退役军人服务站",
+    "lat": 20.895892,
+    "lng": 110.553964,
+    "nameSource": "高德地图",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0IDV7I4BZ",
+    "checkedAt": "2026-10-20",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0IDV7I4BZ",
+      "name": "淡水社区退役军人服务站",
+      "type": "政府机关",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.558204,
+      "lat": 20.89321
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "依据高德地点详情及可见分享参数定位。用户暂指定为淡水社区范围示意参考地点，不作为居委会驻地，也不作为自然村。",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0IDV7I4BZ&name=%E6%B7%A1%E6%B0%B4%E7%A4%BE%E5%8C%BA%E9%80%80%E5%BD%B9%E5%86%9B%E4%BA%BA%E6%9C%8D%E5%8A%A1%E7%AB%99&lng=110.558204&lat=20.893210&address=%E7%8E%AF%E5%B2%9B%E7%BA%BF%E4%B8%8E%E6%BB%A8%E6%B5%B7%E8%B7%AF%E4%BA%A4%E5%8F%89%E5%8F%A3%E4%B8%9C%E5%8D%9720%E7%B1%B3&zoom=16&source=poi_detail&platform=pc",
+    "placeKind": "locality"
+  }
+]

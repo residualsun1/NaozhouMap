@@ -1,0 +1,2849 @@
+[
+  {
+    "id": "manual-beigang-builtup-20261020",
+    "name": "北港村委会驻地建成区（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.593124,
+        20.942935
+      ],
+      [
+        110.593274,
+        20.942966
+      ],
+      [
+        110.593516,
+        20.942895
+      ],
+      [
+        110.593859,
+        20.942931
+      ],
+      [
+        110.593961,
+        20.942966
+      ],
+      [
+        110.594111,
+        20.943061
+      ],
+      [
+        110.594325,
+        20.943051
+      ],
+      [
+        110.594341,
+        20.942931
+      ],
+      [
+        110.594572,
+        20.942941
+      ],
+      [
+        110.59469,
+        20.942856
+      ],
+      [
+        110.594733,
+        20.942254
+      ],
+      [
+        110.594417,
+        20.942239
+      ],
+      [
+        110.594256,
+        20.942319
+      ],
+      [
+        110.594191,
+        20.942199
+      ],
+      [
+        110.594036,
+        20.942079
+      ],
+      [
+        110.593907,
+        20.942069
+      ],
+      [
+        110.593832,
+        20.942179
+      ],
+      [
+        110.593805,
+        20.942364
+      ],
+      [
+        110.593719,
+        20.94249
+      ],
+      [
+        110.593698,
+        20.942575
+      ],
+      [
+        110.593435,
+        20.942605
+      ],
+      [
+        110.593183,
+        20.94265
+      ],
+      [
+        110.593103,
+        20.942735
+      ],
+      [
+        110.593124,
+        20.942935
+      ]
+    ],
+    "villageId": "amap-B02F70NXXX",
+    "coordinateSystem": "WGS84",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "高德卫星影像人工判读的行政驻地附近建成区，近似轮廓。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXXX&name=%E5%8C%97%E6%B8%AF%E6%9D%91&lng=110.598533&lat=20.939761&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "行政驻地及附近村委会卫生站、第十二小学等连续建筑群的近似轮廓，不是名为北港的自然村聚落，也不是北港行政村范围。影像拍摄日期未显示。",
+    "placeRole": "administrative_seat"
+  },
+  {
+    "id": "manual-tanbeisha-main-20261020",
+    "name": "谭北沙建成区（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.616764,
+        20.903109
+      ],
+      [
+        110.616978,
+        20.903134
+      ],
+      [
+        110.617096,
+        20.903119
+      ],
+      [
+        110.617096,
+        20.903078
+      ],
+      [
+        110.617262,
+        20.903058
+      ],
+      [
+        110.617278,
+        20.902943
+      ],
+      [
+        110.617423,
+        20.902898
+      ],
+      [
+        110.617524,
+        20.902868
+      ],
+      [
+        110.617556,
+        20.902772
+      ],
+      [
+        110.617487,
+        20.902702
+      ],
+      [
+        110.617444,
+        20.902642
+      ],
+      [
+        110.61738,
+        20.902607
+      ],
+      [
+        110.617433,
+        20.902537
+      ],
+      [
+        110.617369,
+        20.902442
+      ],
+      [
+        110.617273,
+        20.902427
+      ],
+      [
+        110.617171,
+        20.902457
+      ],
+      [
+        110.617037,
+        20.902452
+      ],
+      [
+        110.616983,
+        20.902477
+      ],
+      [
+        110.616908,
+        20.902467
+      ],
+      [
+        110.616812,
+        20.902537
+      ],
+      [
+        110.616796,
+        20.902613
+      ],
+      [
+        110.616769,
+        20.902698
+      ],
+      [
+        110.61678,
+        20.902813
+      ],
+      [
+        110.616699,
+        20.902883
+      ],
+      [
+        110.616715,
+        20.902999
+      ],
+      [
+        110.616764,
+        20.903109
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "根据高德可见卫星影像人工描绘的近似建成区，不代表村界、行政范围或逐栋建筑轮廓。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NY06&name=%E8%B0%AD%E5%8C%97%E6%B2%99&lng=110.621486&lat=20.899976&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "影像拍摄日期未显示；仅按可辨认建筑群描绘，避免连片覆盖农地。",
+    "villageId": "amap-B02F70NY06"
+  },
+  {
+    "id": "manual-tanbeisha-south-20261020",
+    "name": "谭北沙南侧建筑群（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.61724,
+        20.902367
+      ],
+      [
+        110.617337,
+        20.902347
+      ],
+      [
+        110.617326,
+        20.902271
+      ],
+      [
+        110.617353,
+        20.902246
+      ],
+      [
+        110.617369,
+        20.902146
+      ],
+      [
+        110.617407,
+        20.902126
+      ],
+      [
+        110.617423,
+        20.902056
+      ],
+      [
+        110.617498,
+        20.902021
+      ],
+      [
+        110.617508,
+        20.90194
+      ],
+      [
+        110.617439,
+        20.901895
+      ],
+      [
+        110.617337,
+        20.901906
+      ],
+      [
+        110.617251,
+        20.901946
+      ],
+      [
+        110.617165,
+        20.901961
+      ],
+      [
+        110.617149,
+        20.902016
+      ],
+      [
+        110.617171,
+        20.902101
+      ],
+      [
+        110.617198,
+        20.902116
+      ],
+      [
+        110.617192,
+        20.902176
+      ],
+      [
+        110.617214,
+        20.902246
+      ],
+      [
+        110.617214,
+        20.902322
+      ],
+      [
+        110.61724,
+        20.902367
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "根据高德可见卫星影像人工描绘的近似建成区，不代表村界、行政范围或逐栋建筑轮廓。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NY06&name=%E8%B0%AD%E5%8C%97%E6%B2%99&lng=110.621486&lat=20.899976&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "影像拍摄日期未显示；仅按可辨认建筑群描绘，避免连片覆盖农地。 此为邻近建筑群，不据此确定村庄归属。",
+    "nearbyPlaceId": "amap-B02F70NY06"
+  },
+  {
+    "id": "manual-tanbeisha-east-20261020",
+    "name": "谭北沙东侧建筑群（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.618237,
+        20.903248
+      ],
+      [
+        110.618371,
+        20.903263
+      ],
+      [
+        110.618381,
+        20.903143
+      ],
+      [
+        110.618435,
+        20.903132
+      ],
+      [
+        110.618435,
+        20.903072
+      ],
+      [
+        110.618526,
+        20.903057
+      ],
+      [
+        110.618569,
+        20.902977
+      ],
+      [
+        110.618574,
+        20.902892
+      ],
+      [
+        110.618531,
+        20.902857
+      ],
+      [
+        110.618537,
+        20.902767
+      ],
+      [
+        110.618414,
+        20.902717
+      ],
+      [
+        110.61829,
+        20.902722
+      ],
+      [
+        110.618183,
+        20.902757
+      ],
+      [
+        110.618076,
+        20.902782
+      ],
+      [
+        110.61806,
+        20.902867
+      ],
+      [
+        110.618039,
+        20.902942
+      ],
+      [
+        110.618039,
+        20.903068
+      ],
+      [
+        110.618076,
+        20.903158
+      ],
+      [
+        110.618178,
+        20.903168
+      ],
+      [
+        110.618231,
+        20.903188
+      ],
+      [
+        110.618237,
+        20.903248
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "根据高德可见卫星影像人工描绘的近似建成区，不代表村界、行政范围或逐栋建筑轮廓。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NY06&name=%E8%B0%AD%E5%8C%97%E6%B2%99&lng=110.621486&lat=20.899976&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "影像拍摄日期未显示；仅按可辨认建筑群描绘，避免连片覆盖农地。 此为邻近建筑群，不据此确定村庄归属。",
+    "nearbyPlaceId": "amap-B02F70NY06"
+  },
+  {
+    "id": "manual-sixteen-maodai-north-roadside-1-20261020",
+    "name": "毛歹点位北侧沿路建筑群（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.622394,
+        20.927749
+      ],
+      [
+        110.622502,
+        20.927739
+      ],
+      [
+        110.622577,
+        20.927683
+      ],
+      [
+        110.622662,
+        20.927713
+      ],
+      [
+        110.622716,
+        20.927793
+      ],
+      [
+        110.622807,
+        20.927783
+      ],
+      [
+        110.62285,
+        20.927688
+      ],
+      [
+        110.622769,
+        20.927618
+      ],
+      [
+        110.622684,
+        20.927583
+      ],
+      [
+        110.622534,
+        20.927593
+      ],
+      [
+        110.622394,
+        20.927593
+      ],
+      [
+        110.622352,
+        20.927679
+      ],
+      [
+        110.622261,
+        20.927689
+      ],
+      [
+        110.622239,
+        20.927814
+      ],
+      [
+        110.622368,
+        20.927834
+      ],
+      [
+        110.622394,
+        20.927749
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0FFFQALSY",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFFQALSY&name=%E6%AF%9B%E6%AD%B9&lng=110.626432&lat=20.924100&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-maodai-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-maodai-south-north-1-20261020",
+    "name": "毛歹点位南侧建筑群北片（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.621682,
+        20.926487
+      ],
+      [
+        110.621805,
+        20.926487
+      ],
+      [
+        110.621902,
+        20.926416
+      ],
+      [
+        110.621875,
+        20.926331
+      ],
+      [
+        110.621752,
+        20.926321
+      ],
+      [
+        110.621693,
+        20.926371
+      ],
+      [
+        110.621505,
+        20.926387
+      ],
+      [
+        110.621489,
+        20.926527
+      ],
+      [
+        110.621618,
+        20.926552
+      ],
+      [
+        110.621682,
+        20.926487
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0FFFQALSY",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFFQALSY&name=%E6%AF%9B%E6%AD%B9&lng=110.626432&lat=20.924100&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-maodai-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-maodai-south-roadside-1-20261020",
+    "name": "毛歹点位南侧沿路建筑群（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.621912,
+        20.926201
+      ],
+      [
+        110.621977,
+        20.926186
+      ],
+      [
+        110.622009,
+        20.926065
+      ],
+      [
+        110.621945,
+        20.92597
+      ],
+      [
+        110.621896,
+        20.9259
+      ],
+      [
+        110.621736,
+        20.92592
+      ],
+      [
+        110.621714,
+        20.926051
+      ],
+      [
+        110.621709,
+        20.926176
+      ],
+      [
+        110.62172,
+        20.926286
+      ],
+      [
+        110.621854,
+        20.926291
+      ],
+      [
+        110.621912,
+        20.926201
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0FFFQALSY",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFFQALSY&name=%E6%AF%9B%E6%AD%B9&lng=110.626432&lat=20.924100&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-maodai-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-maodai-southeast-junction-1-20261020",
+    "name": "毛歹点位东南路口建筑群（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.622678,
+        20.925614
+      ],
+      [
+        110.622743,
+        20.925684
+      ],
+      [
+        110.622855,
+        20.925679
+      ],
+      [
+        110.622984,
+        20.925599
+      ],
+      [
+        110.622941,
+        20.925483
+      ],
+      [
+        110.622812,
+        20.925423
+      ],
+      [
+        110.622668,
+        20.925444
+      ],
+      [
+        110.622577,
+        20.925409
+      ],
+      [
+        110.622475,
+        20.925454
+      ],
+      [
+        110.622437,
+        20.925579
+      ],
+      [
+        110.622534,
+        20.925624
+      ],
+      [
+        110.622678,
+        20.925614
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0FFFQALSY",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFFQALSY&name=%E6%AF%9B%E6%AD%B9&lng=110.626432&lat=20.924100&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-maodai-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-maodai-southwest-junction-1-20261020",
+    "name": "毛歹点位西南路口建筑群（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.621564,
+        20.92565
+      ],
+      [
+        110.621661,
+        20.925575
+      ],
+      [
+        110.621597,
+        20.92545
+      ],
+      [
+        110.621468,
+        20.92537
+      ],
+      [
+        110.621329,
+        20.925435
+      ],
+      [
+        110.621345,
+        20.92553
+      ],
+      [
+        110.621447,
+        20.92563
+      ],
+      [
+        110.621564,
+        20.92565
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0FFFQALSY",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFFQALSY&name=%E6%AF%9B%E6%AD%B9&lng=110.626432&lat=20.924100&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-maodai-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-dalun-south-extension-1-20261020",
+    "name": "大伦点位北侧建筑群南缘（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.611796,
+        20.928782
+      ],
+      [
+        110.611769,
+        20.928652
+      ],
+      [
+        110.611656,
+        20.928566
+      ],
+      [
+        110.611522,
+        20.928597
+      ],
+      [
+        110.611469,
+        20.928692
+      ],
+      [
+        110.61134,
+        20.928712
+      ],
+      [
+        110.611292,
+        20.928797
+      ],
+      [
+        110.611195,
+        20.928807
+      ],
+      [
+        110.611163,
+        20.928927
+      ],
+      [
+        110.611163,
+        20.92895977695528
+      ],
+      [
+        110.6116668,
+        20.9287712
+      ],
+      [
+        110.61174342477774,
+        20.928894661190558
+      ],
+      [
+        110.611796,
+        20.928782
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B02F70NXY1",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXY1&name=%E5%A4%A7%E4%BC%A6&lng=110.616215&lat=20.925235&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-dalun-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-hongya-main-1-20261020",
+    "name": "鸿压点位附近建筑群（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.623153,
+        20.934142
+      ],
+      [
+        110.623228,
+        20.934082
+      ],
+      [
+        110.623281,
+        20.933947
+      ],
+      [
+        110.623303,
+        20.933817
+      ],
+      [
+        110.623346,
+        20.933676
+      ],
+      [
+        110.62334,
+        20.933541
+      ],
+      [
+        110.623217,
+        20.933521
+      ],
+      [
+        110.623158,
+        20.933586
+      ],
+      [
+        110.623105,
+        20.933687
+      ],
+      [
+        110.622965,
+        20.933702
+      ],
+      [
+        110.622928,
+        20.933777
+      ],
+      [
+        110.622826,
+        20.933807
+      ],
+      [
+        110.622799,
+        20.933927
+      ],
+      [
+        110.622837,
+        20.934073
+      ],
+      [
+        110.622965,
+        20.934143
+      ],
+      [
+        110.623153,
+        20.934142
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0I04HQYW2",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HQYW2&name=%E9%B8%BF%E5%8E%8B&lng=110.627235&lat=20.931161&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-hongya-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-hongya-east-row-1-20261020",
+    "name": "鸿压点位东侧建筑群（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.624047,
+        20.934367
+      ],
+      [
+        110.624138,
+        20.934332
+      ],
+      [
+        110.624256,
+        20.934312
+      ],
+      [
+        110.624379,
+        20.934322
+      ],
+      [
+        110.624465,
+        20.934276
+      ],
+      [
+        110.624502,
+        20.934126
+      ],
+      [
+        110.624438,
+        20.934051
+      ],
+      [
+        110.624288,
+        20.934056
+      ],
+      [
+        110.624117,
+        20.934056
+      ],
+      [
+        110.624004,
+        20.934031
+      ],
+      [
+        110.623854,
+        20.934052
+      ],
+      [
+        110.623763,
+        20.934112
+      ],
+      [
+        110.623774,
+        20.934312
+      ],
+      [
+        110.623892,
+        20.934392
+      ],
+      [
+        110.624047,
+        20.934367
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0I04HQYW2",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HQYW2&name=%E9%B8%BF%E5%8E%8B&lng=110.627235&lat=20.931161&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-hongya-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-hongya-northeast-row-1-20261020",
+    "name": "鸿压点位东北侧沿路建筑群（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.624069,
+        20.934577
+      ],
+      [
+        110.624085,
+        20.934472
+      ],
+      [
+        110.624047,
+        20.934387
+      ],
+      [
+        110.62397911678832,
+        20.93437794890511
+      ],
+      [
+        110.62389322047244,
+        20.934391803149605
+      ],
+      [
+        110.623881,
+        20.934472
+      ],
+      [
+        110.623876,
+        20.934663
+      ],
+      [
+        110.623983,
+        20.934658
+      ],
+      [
+        110.624069,
+        20.934577
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0I04HQYW2",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HQYW2&name=%E9%B8%BF%E5%8E%8B&lng=110.627235&lat=20.931161&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-hongya-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-tanyu-east-roadside-1-20261020",
+    "name": "谭郁点位东侧沿路建筑群（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.61949,
+        20.922526
+      ],
+      [
+        110.619522,
+        20.922406
+      ],
+      [
+        110.619457,
+        20.922331
+      ],
+      [
+        110.619463,
+        20.922185
+      ],
+      [
+        110.619554,
+        20.922075
+      ],
+      [
+        110.61954113730506,
+        20.921974510195824
+      ],
+      [
+        110.61951855359689,
+        20.92194091289574
+      ],
+      [
+        110.619431,
+        20.9219
+      ],
+      [
+        110.61944623854966,
+        20.921833331345223
+      ],
+      [
+        110.61943946121498,
+        20.92182324884924
+      ],
+      [
+        110.619313,
+        20.92171
+      ],
+      [
+        110.619179,
+        20.921745
+      ],
+      [
+        110.619093,
+        20.92165
+      ],
+      [
+        110.619104,
+        20.921514
+      ],
+      [
+        110.619018,
+        20.921404
+      ],
+      [
+        110.618949,
+        20.921364
+      ],
+      [
+        110.618991,
+        20.921244
+      ],
+      [
+        110.618863,
+        20.921159
+      ],
+      [
+        110.618692,
+        20.921149
+      ],
+      [
+        110.618595,
+        20.921199
+      ],
+      [
+        110.618461,
+        20.921164
+      ],
+      [
+        110.618375,
+        20.921239
+      ],
+      [
+        110.618327,
+        20.921365
+      ],
+      [
+        110.618225,
+        20.9214
+      ],
+      [
+        110.618236,
+        20.92149
+      ],
+      [
+        110.6183,
+        20.921565
+      ],
+      [
+        110.618279,
+        20.921655
+      ],
+      [
+        110.618381,
+        20.921695
+      ],
+      [
+        110.618483,
+        20.921675
+      ],
+      [
+        110.618525,
+        20.92175
+      ],
+      [
+        110.618638,
+        20.921825
+      ],
+      [
+        110.618756,
+        20.92186
+      ],
+      [
+        110.618852,
+        20.92195
+      ],
+      [
+        110.618949,
+        20.922066
+      ],
+      [
+        110.619034,
+        20.922171
+      ],
+      [
+        110.619104,
+        20.922261
+      ],
+      [
+        110.619179,
+        20.922341
+      ],
+      [
+        110.619227,
+        20.922441
+      ],
+      [
+        110.61927,
+        20.922496
+      ],
+      [
+        110.61927,
+        20.922622
+      ],
+      [
+        110.619382,
+        20.922621
+      ],
+      [
+        110.61949,
+        20.922526
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0I04HUHEO",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HUHEO&name=%E8%B0%AD%E9%83%81&lng=110.621870&lat=20.919030&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-tanyu-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-tanyu-southeast-cluster-1-20261020",
+    "name": "谭郁点位东南侧建筑群（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.619425,
+        20.920772
+      ],
+      [
+        110.619602,
+        20.920777
+      ],
+      [
+        110.619779,
+        20.920772
+      ],
+      [
+        110.619929,
+        20.920782
+      ],
+      [
+        110.619988,
+        20.920707
+      ],
+      [
+        110.620138,
+        20.920772
+      ],
+      [
+        110.620298,
+        20.920752
+      ],
+      [
+        110.620395,
+        20.920691
+      ],
+      [
+        110.620454,
+        20.920556
+      ],
+      [
+        110.620459,
+        20.920426
+      ],
+      [
+        110.62044562348609,
+        20.920391165328372
+      ],
+      [
+        110.6202493,
+        20.9203619
+      ],
+      [
+        110.62022578403561,
+        20.920266460716455
+      ],
+      [
+        110.62009,
+        20.920291
+      ],
+      [
+        110.619982,
+        20.920251
+      ],
+      [
+        110.619822,
+        20.920306
+      ],
+      [
+        110.619688,
+        20.920361
+      ],
+      [
+        110.619581,
+        20.920361
+      ],
+      [
+        110.619468,
+        20.920472
+      ],
+      [
+        110.619388,
+        20.920447
+      ],
+      [
+        110.619345,
+        20.920547
+      ],
+      [
+        110.619259,
+        20.920527
+      ],
+      [
+        110.619227,
+        20.920612
+      ],
+      [
+        110.619206,
+        20.920712
+      ],
+      [
+        110.619206,
+        20.920823
+      ],
+      [
+        110.61934,
+        20.920843
+      ],
+      [
+        110.619425,
+        20.920772
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0I04HUHEO",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HUHEO&name=%E8%B0%AD%E9%83%81&lng=110.621870&lat=20.919030&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-tanyu-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-dingdang-main-1-20261020",
+    "name": "叮当村建成区（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.631724,
+        20.92339
+      ],
+      [
+        110.631852,
+        20.9234
+      ],
+      [
+        110.63189,
+        20.923355
+      ],
+      [
+        110.632023,
+        20.92335
+      ],
+      [
+        110.632098,
+        20.923325
+      ],
+      [
+        110.632222,
+        20.92337
+      ],
+      [
+        110.632318,
+        20.923324
+      ],
+      [
+        110.63235,
+        20.923214
+      ],
+      [
+        110.632334,
+        20.923064
+      ],
+      [
+        110.632371,
+        20.922959
+      ],
+      [
+        110.632371,
+        20.922783
+      ],
+      [
+        110.63243,
+        20.922653
+      ],
+      [
+        110.632302,
+        20.922618
+      ],
+      [
+        110.632168,
+        20.922643
+      ],
+      [
+        110.632034,
+        20.922613
+      ],
+      [
+        110.631932,
+        20.922643
+      ],
+      [
+        110.631783,
+        20.922619
+      ],
+      [
+        110.631718,
+        20.922659
+      ],
+      [
+        110.63159,
+        20.922619
+      ],
+      [
+        110.631504,
+        20.922689
+      ],
+      [
+        110.631456,
+        20.922784
+      ],
+      [
+        110.631477,
+        20.922875
+      ],
+      [
+        110.63144,
+        20.92301
+      ],
+      [
+        110.631493,
+        20.923105
+      ],
+      [
+        110.631483,
+        20.9232
+      ],
+      [
+        110.631547,
+        20.923245
+      ],
+      [
+        110.631531,
+        20.92333
+      ],
+      [
+        110.631531,
+        20.923441
+      ],
+      [
+        110.631633,
+        20.923466
+      ],
+      [
+        110.631724,
+        20.92339
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0I04HV3U7",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HV3U7&name=%E5%8F%AE%E5%99%B9&lng=110.636368&lat=20.920128&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-dingdang-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-dingdang-east-compound-1-20261020",
+    "name": "叮当点位东侧建筑群（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.633421,
+        20.923563
+      ],
+      [
+        110.633608,
+        20.923548
+      ],
+      [
+        110.633651,
+        20.923438
+      ],
+      [
+        110.633651,
+        20.923288
+      ],
+      [
+        110.633624,
+        20.923117
+      ],
+      [
+        110.633656,
+        20.922982
+      ],
+      [
+        110.633635,
+        20.922817
+      ],
+      [
+        110.633656,
+        20.922661
+      ],
+      [
+        110.633646,
+        20.922461
+      ],
+      [
+        110.633539,
+        20.922391
+      ],
+      [
+        110.633137,
+        20.922381
+      ],
+      [
+        110.633003,
+        20.922437
+      ],
+      [
+        110.633003,
+        20.922592
+      ],
+      [
+        110.633057,
+        20.922717
+      ],
+      [
+        110.633062,
+        20.922872
+      ],
+      [
+        110.633051,
+        20.922998
+      ],
+      [
+        110.633051,
+        20.923153
+      ],
+      [
+        110.633046,
+        20.923303
+      ],
+      [
+        110.633046,
+        20.923429
+      ],
+      [
+        110.633046,
+        20.923579
+      ],
+      [
+        110.633191,
+        20.923609
+      ],
+      [
+        110.633421,
+        20.923563
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0I04HV3U7",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HV3U7&name=%E5%8F%AE%E5%99%B9&lng=110.636368&lat=20.920128&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-dingdang-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-dalinhou-main-1-20261020",
+    "name": "大林后点位附近建筑群（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.614694,
+        20.913091
+      ],
+      [
+        110.614694,
+        20.912966
+      ],
+      [
+        110.614678,
+        20.912851
+      ],
+      [
+        110.614555,
+        20.912811
+      ],
+      [
+        110.614431,
+        20.912826
+      ],
+      [
+        110.61441,
+        20.912931
+      ],
+      [
+        110.614447,
+        20.912991
+      ],
+      [
+        110.614442,
+        20.913091
+      ],
+      [
+        110.614485,
+        20.913151
+      ],
+      [
+        110.614608,
+        20.913166
+      ],
+      [
+        110.614694,
+        20.913091
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0H1XY3PGJ",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0H1XY3PGJ&name=%E5%A4%A7%E6%9E%97%E5%90%8E%E6%9D%91&lng=110.618789&lat=20.910428&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-dalinhou-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-dalinhou-southwest-roadside-1-20261020",
+    "name": "大林后点位西南沿路建筑群（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.614083,
+        20.913021
+      ],
+      [
+        110.614131,
+        20.912966
+      ],
+      [
+        110.614222,
+        20.912956
+      ],
+      [
+        110.614244,
+        20.912861
+      ],
+      [
+        110.614153,
+        20.912771
+      ],
+      [
+        110.61403,
+        20.912741
+      ],
+      [
+        110.613901,
+        20.912796
+      ],
+      [
+        110.613864,
+        20.912881
+      ],
+      [
+        110.613864,
+        20.912977
+      ],
+      [
+        110.613987,
+        20.913027
+      ],
+      [
+        110.614083,
+        20.913021
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0H1XY3PGJ",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0H1XY3PGJ&name=%E5%A4%A7%E6%9E%97%E5%90%8E%E6%9D%91&lng=110.618789&lat=20.910428&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-dalinhou-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-dalinhou-northwest-roadside-1-20261020",
+    "name": "大林后点位西北沿路建筑群（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.613917,
+        20.913402
+      ],
+      [
+        110.614008,
+        20.913342
+      ],
+      [
+        110.613997,
+        20.913237
+      ],
+      [
+        110.613917,
+        20.913177
+      ],
+      [
+        110.613906,
+        20.913077
+      ],
+      [
+        110.613794,
+        20.913042
+      ],
+      [
+        110.613687,
+        20.913097
+      ],
+      [
+        110.613692,
+        20.913197
+      ],
+      [
+        110.613735,
+        20.913297
+      ],
+      [
+        110.613853,
+        20.913387
+      ],
+      [
+        110.613917,
+        20.913402
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0H1XY3PGJ",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0H1XY3PGJ&name=%E5%A4%A7%E6%9E%97%E5%90%8E%E6%9D%91&lng=110.618789&lat=20.910428&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-dalinhou-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-dalinhou-north-compound-1-20261020",
+    "name": "大林后点位北侧建筑群（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.614683,
+        20.913627
+      ],
+      [
+        110.614822,
+        20.913612
+      ],
+      [
+        110.614849,
+        20.913522
+      ],
+      [
+        110.614806,
+        20.913432
+      ],
+      [
+        110.614656,
+        20.913432
+      ],
+      [
+        110.614571,
+        20.913472
+      ],
+      [
+        110.614458,
+        20.913462
+      ],
+      [
+        110.614447,
+        20.913572
+      ],
+      [
+        110.61448,
+        20.913658
+      ],
+      [
+        110.614619,
+        20.913673
+      ],
+      [
+        110.614683,
+        20.913627
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0H1XY3PGJ",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0H1XY3PGJ&name=%E5%A4%A7%E6%9E%97%E5%90%8E%E6%9D%91&lng=110.618789&lat=20.910428&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-dalinhou-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-dalinhou-linwu-extension-1-20261020",
+    "name": "林屋建成区补充（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.61513042502287,
+        20.914427753876588
+      ],
+      [
+        110.6151487,
+        20.9143221
+      ],
+      [
+        110.6156573917721,
+        20.913924529896622
+      ],
+      [
+        110.615642,
+        20.913882
+      ],
+      [
+        110.61572908390822,
+        20.913868498618882
+      ],
+      [
+        110.6158562512445,
+        20.91376911047502
+      ],
+      [
+        110.61584,
+        20.913662
+      ],
+      [
+        110.615755,
+        20.913551
+      ],
+      [
+        110.615615,
+        20.913491
+      ],
+      [
+        110.615444,
+        20.913507
+      ],
+      [
+        110.615337,
+        20.913477
+      ],
+      [
+        110.615208,
+        20.913547
+      ],
+      [
+        110.615155,
+        20.913657
+      ],
+      [
+        110.615171,
+        20.913772
+      ],
+      [
+        110.615106,
+        20.913858
+      ],
+      [
+        110.61508,
+        20.913968
+      ],
+      [
+        110.614935,
+        20.913993
+      ],
+      [
+        110.614817,
+        20.914048
+      ],
+      [
+        110.614753,
+        20.914138
+      ],
+      [
+        110.614828,
+        20.914219
+      ],
+      [
+        110.614903,
+        20.914219
+      ],
+      [
+        110.614919,
+        20.914309
+      ],
+      [
+        110.614919,
+        20.914384
+      ],
+      [
+        110.61509,
+        20.914409
+      ],
+      [
+        110.61513042502287,
+        20.914427753876588
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B02F70NXZL",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0H1XY3PGJ&name=%E5%A4%A7%E6%9E%97%E5%90%8E%E6%9D%91&lng=110.618789&lat=20.910428&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-dalinhou-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-zhouwu-east-south-extension-1-20261020",
+    "name": "东侧周屋建成区南缘补充（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.614634,
+        20.91055
+      ],
+      [
+        110.614747,
+        20.91058
+      ],
+      [
+        110.6148,
+        20.910505
+      ],
+      [
+        110.614795,
+        20.910405
+      ],
+      [
+        110.614768,
+        20.910315
+      ],
+      [
+        110.614666,
+        20.91027
+      ],
+      [
+        110.614575,
+        20.910305
+      ],
+      [
+        110.614479,
+        20.910285
+      ],
+      [
+        110.614441,
+        20.91037
+      ],
+      [
+        110.614452,
+        20.910475
+      ],
+      [
+        110.6144448546768,
+        20.91052010485268
+      ],
+      [
+        110.61457349976159,
+        20.910575006765207
+      ],
+      [
+        110.614634,
+        20.91055
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0FFFAHI0R",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFFAHI0R&name=%E5%91%A8%E5%B1%8B&lng=110.619759&lat=20.908679&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-zhouwu-east-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-hongwu-north-extension-1-20261020",
+    "name": "洪屋点位附近建成区北缘补充（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.63075,
+        20.930159
+      ],
+      [
+        110.631029,
+        20.930228
+      ],
+      [
+        110.631318,
+        20.930158
+      ],
+      [
+        110.631639,
+        20.930328
+      ],
+      [
+        110.631918,
+        20.930458
+      ],
+      [
+        110.632164,
+        20.930608
+      ],
+      [
+        110.632389,
+        20.930818
+      ],
+      [
+        110.632581,
+        20.931058
+      ],
+      [
+        110.632592,
+        20.931289
+      ],
+      [
+        110.632796,
+        20.931399
+      ],
+      [
+        110.633085,
+        20.931428
+      ],
+      [
+        110.633299,
+        20.931288
+      ],
+      [
+        110.633331,
+        20.931027
+      ],
+      [
+        110.633331,
+        20.930787
+      ],
+      [
+        110.633406,
+        20.930616
+      ],
+      [
+        110.633299,
+        20.930376
+      ],
+      [
+        110.63302,
+        20.930276
+      ],
+      [
+        110.632742,
+        20.930176
+      ],
+      [
+        110.632646,
+        20.929986
+      ],
+      [
+        110.632731,
+        20.929825
+      ],
+      [
+        110.632892,
+        20.929755
+      ],
+      [
+        110.633085,
+        20.929755
+      ],
+      [
+        110.633277,
+        20.929835
+      ],
+      [
+        110.633449,
+        20.929814
+      ],
+      [
+        110.633642,
+        20.929634
+      ],
+      [
+        110.633652,
+        20.929403
+      ],
+      [
+        110.633524,
+        20.929213
+      ],
+      [
+        110.633267,
+        20.929143
+      ],
+      [
+        110.63321058787997,
+        20.929166161073674
+      ],
+      [
+        110.6329573,
+        20.9294132
+      ],
+      [
+        110.6325042,
+        20.9300523
+      ],
+      [
+        110.6325194,
+        20.9305794
+      ],
+      [
+        110.6318085,
+        20.9301121
+      ],
+      [
+        110.6312577,
+        20.9298021
+      ],
+      [
+        110.6306037,
+        20.9296103
+      ],
+      [
+        110.63028547660818,
+        20.92947247485384
+      ],
+      [
+        110.630215,
+        20.929698
+      ],
+      [
+        110.630215,
+        20.930039
+      ],
+      [
+        110.630429,
+        20.930119
+      ],
+      [
+        110.63075,
+        20.930159
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0I04HUP1X",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HUP1X&name=%E6%B4%AA%E5%B1%8B&lng=110.636096&lat=20.925893&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=17&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-hongwu-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-hongwu-west-extension-1-20261020",
+    "name": "洪屋点位附近建成区西缘补充（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.628545,
+        20.928848
+      ],
+      [
+        110.628769,
+        20.928878
+      ],
+      [
+        110.628973,
+        20.928828
+      ],
+      [
+        110.629144,
+        20.928738
+      ],
+      [
+        110.62917083299723,
+        20.928729006522904
+      ],
+      [
+        110.62918339447036,
+        20.927654701487434
+      ],
+      [
+        110.629155,
+        20.927665
+      ],
+      [
+        110.628919,
+        20.927535
+      ],
+      [
+        110.628673,
+        20.927546
+      ],
+      [
+        110.628395,
+        20.927636
+      ],
+      [
+        110.628181,
+        20.927596
+      ],
+      [
+        110.627934,
+        20.927737
+      ],
+      [
+        110.62787,
+        20.927987
+      ],
+      [
+        110.627881,
+        20.928258
+      ],
+      [
+        110.627838,
+        20.928509
+      ],
+      [
+        110.627891,
+        20.928729
+      ],
+      [
+        110.627966,
+        20.928879
+      ],
+      [
+        110.628298,
+        20.928899
+      ],
+      [
+        110.628545,
+        20.928848
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0I04HUP1X",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HUP1X&name=%E6%B4%AA%E5%B1%8B&lng=110.636096&lat=20.925893&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=17&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-hongwu-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-hongwu-northwest-branch-1-20261020",
+    "name": "洪屋点位西北侧建筑群补充（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.629423,
+        20.929499
+      ],
+      [
+        110.629444,
+        20.929348
+      ],
+      [
+        110.629487,
+        20.929238
+      ],
+      [
+        110.62970631100337,
+        20.92922163350721
+      ],
+      [
+        110.62919480651566,
+        20.929000096742175
+      ],
+      [
+        110.629059,
+        20.929068
+      ],
+      [
+        110.629037,
+        20.929239
+      ],
+      [
+        110.628973,
+        20.929349
+      ],
+      [
+        110.628941,
+        20.92961
+      ],
+      [
+        110.629187,
+        20.929639
+      ],
+      [
+        110.629423,
+        20.929499
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0I04HUP1X",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HUP1X&name=%E6%B4%AA%E5%B1%8B&lng=110.636096&lat=20.925893&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=17&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-hongwu-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-dawen-cluster-extension-1-20261020",
+    "name": "大问建成区补充（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.621626,
+        20.924825
+      ],
+      [
+        110.621894,
+        20.924814
+      ],
+      [
+        110.622098,
+        20.924864
+      ],
+      [
+        110.622333,
+        20.924764
+      ],
+      [
+        110.622558,
+        20.924764
+      ],
+      [
+        110.622708,
+        20.924653
+      ],
+      [
+        110.622912,
+        20.924563
+      ],
+      [
+        110.622944,
+        20.924342
+      ],
+      [
+        110.623126,
+        20.924212
+      ],
+      [
+        110.62315745265725,
+        20.924013775113593
+      ],
+      [
+        110.6229945,
+        20.9242586
+      ],
+      [
+        110.6226831,
+        20.9243483
+      ],
+      [
+        110.621915,
+        20.9240652
+      ],
+      [
+        110.6217516,
+        20.9237263
+      ],
+      [
+        110.6220669,
+        20.9233602
+      ],
+      [
+        110.6224457,
+        20.9230479
+      ],
+      [
+        110.6229178,
+        20.9227768
+      ],
+      [
+        110.6235384,
+        20.922675
+      ],
+      [
+        110.6236755,
+        20.9229753
+      ],
+      [
+        110.6235421264408,
+        20.923304476241704
+      ],
+      [
+        110.62364,
+        20.923219
+      ],
+      [
+        110.623704,
+        20.922989
+      ],
+      [
+        110.623876,
+        20.922818
+      ],
+      [
+        110.623758,
+        20.922548
+      ],
+      [
+        110.623533,
+        20.922478
+      ],
+      [
+        110.623255,
+        20.922498
+      ],
+      [
+        110.62303,
+        20.922398
+      ],
+      [
+        110.622751,
+        20.922298
+      ],
+      [
+        110.622516,
+        20.922409
+      ],
+      [
+        110.622344,
+        20.922569
+      ],
+      [
+        110.622098,
+        20.922669
+      ],
+      [
+        110.621851,
+        20.92276
+      ],
+      [
+        110.621712,
+        20.92293
+      ],
+      [
+        110.621691,
+        20.923171
+      ],
+      [
+        110.621562,
+        20.923382
+      ],
+      [
+        110.621498,
+        20.923612
+      ],
+      [
+        110.621444,
+        20.923843
+      ],
+      [
+        110.621327,
+        20.924003
+      ],
+      [
+        110.621294,
+        20.924244
+      ],
+      [
+        110.621209,
+        20.924414
+      ],
+      [
+        110.621209,
+        20.924625
+      ],
+      [
+        110.621434,
+        20.924704
+      ],
+      [
+        110.621626,
+        20.924825
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B02F70NXY2",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXY2&name=%E5%A4%A7%E9%97%AE&lng=110.627288&lat=20.920208&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=17&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-dawen-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-laobing-cluster-extension-1-20261020",
+    "name": "老兵建成区补充（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.617825,
+        20.91795
+      ],
+      [
+        110.617985,
+        20.917799
+      ],
+      [
+        110.618125,
+        20.917769
+      ],
+      [
+        110.61820797773446,
+        20.91763070377591
+      ],
+      [
+        110.6178445,
+        20.9175273
+      ],
+      [
+        110.6178752,
+        20.916947
+      ],
+      [
+        110.6179311,
+        20.9165017
+      ],
+      [
+        110.6183668,
+        20.916465
+      ],
+      [
+        110.6188617,
+        20.9166356
+      ],
+      [
+        110.6192005,
+        20.9171936
+      ],
+      [
+        110.6189245,
+        20.9176148
+      ],
+      [
+        110.61835587005386,
+        20.917668283540156
+      ],
+      [
+        110.618403,
+        20.917689
+      ],
+      [
+        110.618628,
+        20.917809
+      ],
+      [
+        110.61881,
+        20.917939
+      ],
+      [
+        110.619014,
+        20.917909
+      ],
+      [
+        110.619142,
+        20.917758
+      ],
+      [
+        110.619282,
+        20.917608
+      ],
+      [
+        110.619335,
+        20.917377
+      ],
+      [
+        110.619196,
+        20.917167
+      ],
+      [
+        110.619228,
+        20.916956
+      ],
+      [
+        110.619335,
+        20.916786
+      ],
+      [
+        110.61926,
+        20.916566
+      ],
+      [
+        110.619003,
+        20.916516
+      ],
+      [
+        110.618842,
+        20.916355
+      ],
+      [
+        110.618617,
+        20.916286
+      ],
+      [
+        110.618425,
+        20.916155
+      ],
+      [
+        110.618232,
+        20.916045
+      ],
+      [
+        110.618018,
+        20.916106
+      ],
+      [
+        110.617878,
+        20.916236
+      ],
+      [
+        110.617739,
+        20.916326
+      ],
+      [
+        110.617643,
+        20.916527
+      ],
+      [
+        110.617685,
+        20.916707
+      ],
+      [
+        110.617771,
+        20.916878
+      ],
+      [
+        110.617718,
+        20.917058
+      ],
+      [
+        110.617632,
+        20.917218
+      ],
+      [
+        110.617503,
+        20.917349
+      ],
+      [
+        110.617428,
+        20.917569
+      ],
+      [
+        110.617396,
+        20.91779
+      ],
+      [
+        110.617396,
+        20.91797
+      ],
+      [
+        110.6176,
+        20.91806
+      ],
+      [
+        110.617825,
+        20.91795
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0I04HTNTW",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HTNTW&name=%E8%80%81%E5%85%B5&lng=110.622214&lat=20.913901&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=17&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-laobing-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-shangyuanzi-east-extension-1-20261020",
+    "name": "上园仔建成区东缘补充（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.580983,
+        20.89869
+      ],
+      [
+        110.581107,
+        20.8987
+      ],
+      [
+        110.581225,
+        20.898665
+      ],
+      [
+        110.5813,
+        20.898605
+      ],
+      [
+        110.581343,
+        20.89849
+      ],
+      [
+        110.58133985461687,
+        20.89847706898048
+      ],
+      [
+        110.5809881,
+        20.8984683
+      ],
+      [
+        110.58097625729441,
+        20.89869293161113
+      ],
+      [
+        110.580983,
+        20.89869
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0FFFQBWF4",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFFQBWF4&name=%E4%B8%8A%E5%9B%AD%E4%BB%94&lng=110.584866&lat=20.896453&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-shangyuanzi-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  },
+  {
+    "id": "manual-sixteen-shangyuanzi-north-roadside-1-20261020",
+    "name": "上园仔点位北侧沿路建筑群补充（近似）",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.580946,
+        20.899948
+      ],
+      [
+        110.581042,
+        20.899953
+      ],
+      [
+        110.581128,
+        20.899928
+      ],
+      [
+        110.581236,
+        20.899953
+      ],
+      [
+        110.581343,
+        20.899898
+      ],
+      [
+        110.581429,
+        20.899828
+      ],
+      [
+        110.581456,
+        20.899703
+      ],
+      [
+        110.581407,
+        20.899622
+      ],
+      [
+        110.581252,
+        20.899582
+      ],
+      [
+        110.581118,
+        20.899637
+      ],
+      [
+        110.581005,
+        20.899642
+      ],
+      [
+        110.580935,
+        20.899727
+      ],
+      [
+        110.580849,
+        20.899742
+      ],
+      [
+        110.580774,
+        20.899822
+      ],
+      [
+        110.580742,
+        20.899877
+      ],
+      [
+        110.580742,
+        20.899953
+      ],
+      [
+        110.58086,
+        20.899983
+      ],
+      [
+        110.580946,
+        20.899948
+      ]
+    ],
+    "coordinateSystem": "WGS84",
+    "villageId": "amap-B0FFFQBWF4",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "依据可见卫星建筑群边缘补绘的近似建成区，已剔除现有阴影及岛外部分。",
+    "sourceUrl": "https://ditu.amap.com/ssr/embed/place?id=B0FFFQBWF4&name=%E4%B8%8A%E5%9B%AD%E4%BB%94&lng=110.584866&lat=20.896453&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=18&source=poi_detail&platform=pc",
+    "sourceScreenshot": "work/amap-sixteen-shangyuanzi-satellite-proof-20261020.png",
+    "sourceTraceFile": "work/amap-additional-villages-sixteen-outlines-20261020.json",
+    "checkedAt": "2026-10-20",
+    "approximate": true,
+    "note": "只表示可见建筑群，不代表自然村边界或逐栋建筑归属；影像拍摄日期未显示。"
+  }
+]

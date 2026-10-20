@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "revision": 1,
+  "records": [
+    {
+      "id": "d990865b-472c-4726-8c36-024347afca04",
+      "villageId": "amap-B02F70NXYM",
+      "villageKind": "reference",
+      "villageName": "谭北湾",
+      "deities": [
+        "广德太祖公",
+        "广福太祖公",
+        "班帅侯王",
+        "华光大帝",
+        "陈七娘娘",
+        "海晏婆"
+      ],
+      "temple": "",
+      "festival": "",
+      "source": "用户提供",
+      "visitedOn": "",
+      "note": "",
+      "createdAt": "2026-10-19T16:07:39.671Z",
+      "updatedAt": "2026-10-19T16:07:39.671Z"
+    }
+  ]
+}

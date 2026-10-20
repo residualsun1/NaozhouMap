@@ -1,0 +1,46 @@
+{
+  "retrievedAt": "2026-10-11T08:04:25.658963+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "sourceUrl": "https://www.openstreetmap.org/copyright",
+  "license": "ODbL 1.0",
+  "coordinateSystem": "WGS84",
+  "bbox": "20.865,110.548,20.953,110.640",
+  "osmTimestamp": "2026-10-11T08:02:36Z",
+  "elements": 567,
+  "counts": {
+    "roads": {
+      "way": 482
+    },
+    "buildings": {},
+    "residential": {
+      "way": 74
+    },
+    "water": {},
+    "places": {
+      "node": 11
+    }
+  },
+  "highwayTypes": {
+    "primary": 5,
+    "unclassified": 76,
+    "tertiary": 13,
+    "residential": 285,
+    "service": 23,
+    "track": 78,
+    "path": 2
+  },
+  "roadTagCoverage": {
+    "name": 0,
+    "ref": 5,
+    "surface": 0,
+    "width": 0,
+    "lanes": 3,
+    "tracktype": 0,
+    "bridge": 0,
+    "tunnel": 0
+  },
+  "rawBackup": "work\\osm-vector-raw-before-20261011T080408Z.json",
+  "query": "[out:json][timeout:60];\n(\n  way[highway](20.865,110.548,20.953,110.640);\n  relation[highway](20.865,110.548,20.953,110.640);\n  way[building](20.865,110.548,20.953,110.640);\n  relation[building](20.865,110.548,20.953,110.640);\n  way[\"building:part\"](20.865,110.548,20.953,110.640);\n  relation[\"building:part\"](20.865,110.548,20.953,110.640);\n  way[landuse=residential](20.865,110.548,20.953,110.640);\n  relation[landuse=residential](20.865,110.548,20.953,110.640);\n  way[waterway](20.865,110.548,20.953,110.640);\n  relation[waterway](20.865,110.548,20.953,110.640);\n  way[natural=water](20.865,110.548,20.953,110.640);\n  relation[natural=water](20.865,110.548,20.953,110.640);\n  node[place~\"^(village|hamlet|neighbourhood|suburb|town|locality)$\"](20.865,110.548,20.953,110.640);\n);\nout body geom;",
+  "requestErrors": [],
+  "limitation": "OSM mapped features only. No inferred buildings; bbox is clipped to the main island when rendering."
+}

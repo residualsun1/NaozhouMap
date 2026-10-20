@@ -1,0 +1,3 @@
+Lucide icons / ISC license
+https://github.com/lucide-icons/lucide
+map, search, scan, layers-2, database, map-pin-plus, x
