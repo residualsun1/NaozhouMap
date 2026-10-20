@@ -6,7 +6,7 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const output = path.join(root, 'dist');
 await mkdir(output, { recursive: true });
 // Only runtime assets are published; local archives and survey files stay local.
-for (const file of ['map.css', 'map-app.js', 'map-data.js', 'faith-records.js', 'cloud-access.js']) {
+for (const file of ['map.css', 'map-app.js', 'map-data.js', 'faith-records.js', 'cloud-access.js', 'sea-texture.svg']) {
   await copyFile(path.join(root, file), path.join(output, file));
 }
 const html = (await readFile(path.join(root, 'index.html'), 'utf8'))

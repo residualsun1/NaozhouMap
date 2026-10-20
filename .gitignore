@@ -18,6 +18,7 @@ __pycache__/
 !/work/lucide-atlas-icons.txt
 /*.zip
 /*.svg
+!/sea-texture.svg
 /map-preview.*
 /*.geojson
 /硇洲岛信仰记录-*

@@ -222,6 +222,8 @@ function Handle-PointsRequest($Context) {
 $staticFiles = @{
     '/map.css' = @{ Path = 'map.css'; Type = 'text/css; charset=utf-8' }
     '/map-app.js' = @{ Path = 'map-app.js'; Type = 'text/javascript; charset=utf-8' }
+    '/sea-texture.svg' = @{ Path = 'sea-texture.svg'; Type = 'image/svg+xml; charset=utf-8' }
+    '/cloud-access.js' = @{ Path = 'cloud-access.js'; Type = 'text/javascript; charset=utf-8' }
     '/faith-records.js' = @{ Path = 'faith-records.js'; Type = 'text/javascript; charset=utf-8' }
     '/map-data.js' = @{ Path = 'map-data.js'; Type = 'text/javascript; charset=utf-8' }
     '/assets/vector-map-data.json' = @{ Path = 'assets/vector-map-data.json'; Type = 'application/json; charset=utf-8' }
