@@ -6,8 +6,8 @@
       <feColorMatrix type="saturate" values="0"/>
     </filter>
   </defs>
-  <rect width="640" height="640" filter="url(#grain)" opacity=".028"/>
-  <g fill="none" stroke="#f2f6f5" stroke-width=".7" stroke-linecap="round" opacity=".09">
+  <rect width="640" height="640" filter="url(#grain)" opacity=".015"/>
+  <g fill="none" stroke="#f2f6f5" stroke-width=".7" stroke-linecap="round" opacity=".045">
     <path d="M28 42C48 38 60 44 75 41S103 36 117 40 M235 24C250 21 264 26 282 23 M438 57C456 52 472 59 488 55S518 52 532 56"/>
     <path d="M160 107C178 112 190 105 206 108S231 112 247 108 M354 137C373 131 390 138 408 134 M551 116C568 111 588 118 606 114"/>
     <path d="M21 210C39 205 52 212 69 208 M111 176C127 171 147 179 163 175 M292 217C311 211 331 220 351 214S375 212 386 215 M480 192C495 196 510 189 528 193"/>
@@ -16,7 +16,7 @@
     <path d="M102 465C123 471 142 462 160 466 M265 490C282 484 296 493 315 488 M427 452C445 447 461 455 478 450S503 448 516 452 M572 483C584 479 600 484 616 480"/>
     <path d="M27 560C45 554 61 563 80 558 M195 594C213 589 233 596 250 592 M341 548C356 553 373 545 389 549 M476 604C495 598 513 608 531 602S557 600 573 604"/>
   </g>
-  <g fill="none" stroke="#819ca8" stroke-width=".6" stroke-linecap="round" opacity=".065">
+  <g fill="none" stroke="#819ca8" stroke-width=".6" stroke-linecap="round" opacity=".03">
     <path d="M89 73C105 69 120 75 135 72 M328 79C345 75 363 81 379 77 M526 236C540 232 555 238 570 234"/>
     <path d="M40 253C53 257 67 251 81 254 M209 327C223 323 237 329 253 325 M364 467C380 462 396 469 412 465"/>
     <path d="M71 519C87 515 105 521 121 517 M264 573C278 568 295 575 311 571 M535 540C550 544 563 537 579 541"/>
