@@ -266,18 +266,21 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 @media(max-width:800px){
   main,main.details-open{height:100dvh;display:block;--sheet-size:clamp(235px,43dvh,410px)}
   .map-area{position:absolute;inset:0}
-  .search-panel,.details-open .search-panel{top:16px;left:16px;right:16px;width:auto;max-width:none}
-  .search-row input{font-size:16px;padding-top:9px;padding-bottom:9px}
+  .search-panel,.details-open .search-panel{top:78px;left:16px;right:auto;width:48px;max-width:calc(100% - 32px);transition:width .2s var(--ease),box-shadow .18s,border-color .18s}
+  .search-panel.is-expanded{width:min(380px,calc(100% - 32px))}
+  .search-row input{display:none;font-size:16px;padding-top:5px;padding-bottom:5px}
+  .search-panel.is-expanded .search-row input{display:block}
+  .search-panel:not(.is-expanded) #search-feedback{display:none}
   .detail-content input,.detail-content textarea{font-size:16px}
   .detail-content input{min-height:46px}
   .layer-toggle,.administrative-layer-control .layer-toggle{min-height:42px}
   .search-submit{width:36px;height:36px}
-  .map-toolbar,.details-open .map-toolbar{top:78px;left:16px;right:auto;gap:3px;max-width:calc(100% - 32px)}
+  .map-toolbar,.details-open .map-toolbar{top:16px;left:16px;right:auto;gap:3px;max-width:calc(100% - 32px)}
   .map-toolbar button{min-height:44px;padding:8px 11px;font-size:11px}
   .map-toolbar .ui-icon{width:15px;height:15px}
-  .map-stage,.details-open .map-stage{top:137px;bottom:0}
-  .north,.details-open .north{top:151px;left:21px}
-  .utility-panel,.details-open .utility-panel{top:136px;left:16px;right:16px;width:auto;max-width:none;max-height:calc(100% - 156px);padding:22px}
+  .map-stage,.details-open .map-stage{top:74px;bottom:0}
+  .north,.details-open .north{top:140px;left:32px}
+  .utility-panel,.details-open .utility-panel{top:78px;left:16px;right:16px;z-index:9;width:auto;max-width:none;max-height:calc(100% - 98px);padding:22px}
   .sidebar{position:absolute;left:12px;right:12px;bottom:0;height:var(--sheet-size);border:1px solid #e3e3e2;border-bottom:0;border-radius:17px 17px 0 0;box-shadow:0 -6px 28px #47484510;animation:sheet-in .25s var(--ease)}
   .detail-topbar{padding:19px 22px 17px}.section-eyebrow{margin-bottom:8px;font-size:8px}
   .detail-heading h2{font-size:23px}.review-badge{margin-top:4px}

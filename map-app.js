@@ -26,6 +26,23 @@
   const uid = () => crypto.randomUUID ? crypto.randomUUID() : 'p-'+Date.now()+'-'+Math.random().toString(36).slice(2);
   const status = text => { $('search-status').textContent = text; };
   const workspace = $('workspace');
+  const mobileSearch = matchMedia('(max-width: 800px)');
+  const searchPanel = document.querySelector('.search-panel');
+  const searchButton = document.querySelector('.search-submit');
+  function setSearchExpanded(expanded,focus=false){
+    const open=mobileSearch.matches&&expanded;
+    searchPanel.classList.toggle('is-expanded',open);
+    searchButton.setAttribute('aria-label',mobileSearch.matches&&!open?'展开搜索':'搜索');
+    if(mobileSearch.matches){searchButton.setAttribute('aria-expanded',String(open));searchButton.setAttribute('aria-controls','search-input');}
+    else{searchButton.removeAttribute('aria-expanded');searchButton.removeAttribute('aria-controls');}
+    if(mobileSearch.matches&&!open){
+      $('search-feedback').hidden=true;
+      if(searchPanel.contains(document.activeElement))document.activeElement.blur();
+    }
+    if(focus)(open?$('search-input'):searchButton).focus({preventScroll:true});
+  }
+  mobileSearch.addEventListener('change',()=>setSearchExpanded(false));
+  setSearchExpanded(false);
   let openPanel = null, panelTrigger = null;
   function setUtility(id=null,trigger=null,restoreFocus=false){
     const previousTrigger=panelTrigger;
@@ -39,7 +56,7 @@
   function syncDetails(expand=false){
     const visible=!$('reference-section').hidden||!$('editor-section').hidden;
     $('detail-panel').hidden=!visible;workspace.classList.toggle('details-open',visible);
-    if(expand){expandDetails();$('detail-content').scrollTop=0;setUtility();$('search-feedback').hidden=true;}
+    if(expand){expandDetails();$('detail-content').scrollTop=0;setUtility();$('search-feedback').hidden=true;setSearchExpanded(false);}
   }
   for(const name of ['layers','data'])$(name+'-toggle').addEventListener('click',event=>setUtility(openPanel===name+'-panel'?null:name+'-panel',event.currentTarget));
   $('administrative-key').addEventListener('click',event=>setUtility(openPanel==='layers-panel'?null:'layers-panel',event.currentTarget));
@@ -51,7 +68,7 @@
   });
   document.addEventListener('pointerdown',event=>{
     if(openPanel&&!$(openPanel).contains(event.target)&&!event.target.closest('#layers-toggle,#data-toggle,#save-indicator,#administrative-key,#cloud-login'))setUtility();
-    if(!event.target.closest('.search-panel'))$('search-feedback').hidden=true;
+    if(!event.target.closest('.search-panel')){$('search-feedback').hidden=true;setSearchExpanded(false);}
   });
   $('search-input').addEventListener('input',()=>{if(!$('search-input').value.trim()){$('search-results').replaceChildren();status('');$('search-feedback').hidden=true;}});
   const pathData = (coordinates, closed=false) => coordinates.map(([lng,lat],i)=>{const p=project(lng,lat);return (i?'L':'M')+p.x.toFixed(2)+' '+p.y.toFixed(2);}).join(' ')+(closed?' Z':'');
@@ -404,7 +421,9 @@
   $('point-form').addEventListener('submit',async e=>{e.preventDefault();if(blockedStorage||saving||!ready||!$('point-form').reportValidity()||!faith.mayLeave())return;const now=new Date().toISOString(),old=points.find(p=>p.id===editingId);const p={id:editingId||uid(),name:$('point-name').value.trim(),lat:Number($('point-lat').value),lng:Number($('point-lng').value),source:$('point-source').value.trim(),note:$('point-note').value.trim(),createdAt:old?.createdAt||now,updatedAt:now};if(!validPoint(p)){notify('请填写有效名称与经纬度。');return;}const next=points.slice(),i=next.findIndex(item=>item.id===p.id);if(i<0)next.push(p);else next[i]=p;if(await store(next)){closeEditor();notify('已保存：'+p.name);}});
   $('delete-point').addEventListener('click',async()=>{if(!faith.mayLeave())return;const i=points.findIndex(p=>p.id===editingId);if(i<0)return;const removed=points[i],next=points.filter(p=>p.id!==removed.id);if(!await store(next))return;closeEditor();notify('已移除：'+removed.name,async()=>{if(!points.some(p=>p.id===removed.id)){const restored=points.slice();restored.splice(Math.min(i,restored.length),0,removed);if(await store(restored))renderPoints();}});});
   $('search-form').addEventListener('submit',e=>{
-    e.preventDefault();const term=$('search-input').value.trim().toLocaleLowerCase();$('search-results').replaceChildren();$('search-feedback').hidden=false;if(!term){status('请输入村名、神明或道路。');return;}
+    e.preventDefault();
+    if(mobileSearch.matches&&!searchPanel.classList.contains('is-expanded')){setSearchExpanded(true,true);return;}
+    const term=$('search-input').value.trim().toLocaleLowerCase();$('search-results').replaceChildren();$('search-feedback').hidden=false;if(!term){status('请输入村名、神明或道路。');return;}
     const nameMatches=p=>[p.name,p.pinyin,...(p.aliases||[])].some(name=>name?.toLocaleLowerCase().includes(term)||(term.endsWith('村')&&term.length>1&&name?.toLocaleLowerCase().replace(/村$/,'').includes(term.slice(0,-1))));
     const local=points.filter(p=>nameMatches(p)||faith.matches(p.id,'survey',term)),refs=data.places.filter(p=>nameMatches(p)||faith.matches(p.id,'reference',term)),matchedRoads=[...roadGroups.values()].filter(group=>[group.label,group.ref,...group.roads.flatMap(p=>[p.name,p.ref])].some(name=>name?.toLocaleLowerCase().includes(term)));
     const matchedAreas=administrativeAreas.filter(area=>!area.officePlaceId&&[area.name,area.committeeName,...(area.aliases||[])].some(name=>name.toLocaleLowerCase().includes(term)));
@@ -419,7 +438,7 @@
   $('show-labels').addEventListener('change',layoutPins);$('show-road-labels').addEventListener('change',layoutPins);
   $('show-clusters').addEventListener('change',()=>{const visible=$('show-clusters').checked;for(const id of ['residential-layer','building-layer'])$(id).style.display=visible?'':'none';});
   $('zoom-in').addEventListener('click',()=>zoomAt(1.5,undefined,undefined,true));$('zoom-out').addEventListener('click',()=>zoomAt(1/1.5,undefined,undefined,true));
-  $('island-view').addEventListener('click',()=>{if(!mayLeaveEditor())return;closeEditor();clearReference();setUtility();$('search-feedback').hidden=true;$('search-results').replaceChildren();$('search-input').value='';status('');homeView(true);});
+  $('island-view').addEventListener('click',()=>{if(!mayLeaveEditor())return;closeEditor();clearReference();setUtility();setSearchExpanded(false);$('search-feedback').hidden=true;$('search-results').replaceChildren();$('search-input').value='';status('');homeView(true);});
   stage.addEventListener('wheel',e=>{e.preventDefault();const rect=stage.getBoundingClientRect();zoomAt(Math.exp(-Math.max(-300,Math.min(300,e.deltaY))*.002),e.clientX-rect.left,e.clientY-rect.top);},{passive:false});
   const midpoint=(a,b)=>({x:(a.x+b.x)/2,y:(a.y+b.y)/2,d:Math.hypot(a.x-b.x,a.y-b.y)});
   stage.addEventListener('pointerdown',e=>{if(e.target.closest('button')||e.button!==0)return;cancelCamera();stage.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(pointers.size===1){drag={x:e.clientX,y:e.clientY,view:{...view},clusterKey:e.target.closest('.residential')?.dataset.clusterKey};gestureMoved=false;}else if(pointers.size===2){const [a,b]=[...pointers.values()];pinch=midpoint(a,b);gestureMoved=true;}stage.classList.add('is-dragging');});
@@ -427,7 +446,7 @@
   function endPointer(e){if(!pointers.has(e.pointerId))return;const click=!gestureMoved&&pointers.size===1&&e.type==='pointerup',clusterKey=drag?.clusterKey;pointers.delete(e.pointerId);if(click&&picking){const rect=stage.getBoundingClientRect(),{w,h}=dimensions();const pos=unproject(view.x+(e.clientX-rect.left)/w*view.w,view.y+(e.clientY-rect.top)/h*view.h);setPickedLocation(pos.lng,pos.lat);}else if(click&&clusterKey){const cluster=clusterByKey.get(clusterKey);if(cluster)selectCluster(cluster);}pinch=null;if(pointers.size===1){const p=[...pointers.values()][0];drag={x:p.x,y:p.y,view:{...view}};}else if(!pointers.size){drag=null;stage.classList.remove('is-dragging');}}
   stage.addEventListener('pointerup',endPointer);stage.addEventListener('pointercancel',endPointer);
   svg.addEventListener('keydown',e=>{if(['+','=','-','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home'].includes(e.key)){e.preventDefault();if(e.key==='Home')homeView(true);else if(e.key==='+'||e.key==='=')zoomAt(1.5,undefined,undefined,true);else if(e.key==='-')zoomAt(1/1.5,undefined,undefined,true);else{cancelCamera();if(e.key==='ArrowUp')view.y-=view.h*.12;if(e.key==='ArrowDown')view.y+=view.h*.12;if(e.key==='ArrowLeft')view.x-=view.w*.12;if(e.key==='ArrowRight')view.x+=view.w*.12;update();}}});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(openPanel)setUtility(null,null,true);$('search-feedback').hidden=true;setPicking(false);}});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(openPanel)setUtility(null,null,true);if(searchPanel.classList.contains('is-expanded'))setSearchExpanded(false,true);$('search-feedback').hidden=true;setPicking(false);}});
   new ResizeObserver(()=>{
     if(!home||!view)return;
     const cx=view.x+view.w/2,cy=view.y+view.h/2,wasHome=!cameraIntent&&Math.abs(view.w-home.w)<1&&Math.hypot(cx-center.x,cy-center.y)<1;
