@@ -50,7 +50,7 @@
     $('sheet-toggle').textContent=collapsed?'展开':'收起';$('sheet-toggle').setAttribute('aria-expanded',String(!collapsed));faith.dismissPreview();
   });
   document.addEventListener('pointerdown',event=>{
-    if(openPanel&&!$(openPanel).contains(event.target)&&!event.target.closest('#layers-toggle,#data-toggle,#save-indicator,#administrative-key'))setUtility();
+    if(openPanel&&!$(openPanel).contains(event.target)&&!event.target.closest('#layers-toggle,#data-toggle,#save-indicator,#administrative-key,#cloud-login'))setUtility();
     if(!event.target.closest('.search-panel'))$('search-feedback').hidden=true;
   });
   $('search-input').addEventListener('input',()=>{if(!$('search-input').value.trim()){$('search-results').replaceChildren();status('');$('search-feedback').hidden=true;}});
