@@ -20,6 +20,9 @@
   const cloudMode = document.documentElement.dataset.deployment === 'netlify';
   const storageTarget = cloudMode ? '云端' : '项目文件';
   const pins = new Map(), pointers = new Map();
+  const labelSizes=new Map(),labelLeaders=$('label-leaders'),labelMeasure=document.createElement('div');
+  labelMeasure.className='label-measurement';labelMeasure.setAttribute('aria-hidden','true');stage.append(labelMeasure);
+  let labelTier=0,hoveredPin=null,focusedPin=null,labelFrame=null,labelContext='',wheelLabelTimer=null,hoverLeaveTimer=null,labelObstacleCache=[];
   let drag = null, pinch = null, gestureMoved = false;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   let cameraFrame = null, cameraIntent = null;
@@ -41,6 +44,7 @@
       if(searchPanel.contains(document.activeElement))document.activeElement.blur();
     }
     if(focus)(open?$('search-input'):searchButton).focus({preventScroll:true});
+    if(view)schedulePinLayout(true);
   }
   mobileSearch.addEventListener('change',()=>setSearchExpanded(false));
   setSearchExpanded(false);
@@ -52,6 +56,7 @@
     openPanel=id;panelTrigger=trigger;
     if(id){faith.dismissPreview();$(id).querySelector('button,input,summary')?.focus();}
     else if(restoreFocus)(previousTrigger?.hidden?$('layers-toggle'):previousTrigger)?.focus();
+    if(view)schedulePinLayout(true);
   }
   function expandDetails(){workspace.classList.remove('sheet-collapsed');$('sheet-toggle').textContent='收起';$('sheet-toggle').setAttribute('aria-expanded','true');}
   function syncDetails(expand=false){
@@ -250,7 +255,7 @@
       const cy=start.y+start.h/2+(goal.y+goal.h/2-start.y-start.h/2)*eased;
       const width=Math.exp(Math.log(start.w)+(Math.log(goal.w)-Math.log(start.w))*eased),{w,h}=dimensions();
       view={x:cx-width/2,y:cy-width*h/w/2,w:width,h:width*h/w};update();
-      if(t<1)cameraFrame=requestAnimationFrame(tick);else{cameraFrame=null;cameraIntent=null;stage.classList.remove('is-camera-moving');}
+      if(t<1)cameraFrame=requestAnimationFrame(tick);else{cameraFrame=null;cameraIntent=null;stage.classList.remove('is-camera-moving');schedulePinLayout();}
     };
     cameraFrame=requestAnimationFrame(tick);
   }
@@ -271,7 +276,7 @@
     const entries=[...data.places.map(p=>({...p,key:'ref-'+p.id,saved:false})),...points.map(p=>({...p,key:'saved-'+p.id,saved:true}))];
     if(draft)entries.push({...draft,name:'待保存',key:'draft',draft:true});
     const wanted=new Set(entries.map(p=>p.key));
-    for(const [key,item] of pins){if(!wanted.has(key)){item.button.remove();item.label.remove();pins.delete(key);}}
+    for(const [key,item] of pins){if(!wanted.has(key)){item.button.remove();item.label.remove();item.leader?.remove();pins.delete(key);}}
     for(const p of entries){
       let item=pins.get(p.key);
       if(!item){
@@ -292,45 +297,157 @@
         });
         label.addEventListener('pointerdown',event=>event.stopPropagation());
         label.addEventListener('click',select);
+        for(const node of [button,label]){
+          node.addEventListener('pointerenter',event=>{if(event.pointerType==='touch')return;clearTimeout(hoverLeaveTimer);hoveredPin=p.key;schedulePinLayout();});
+          node.addEventListener('pointerleave',event=>{if(button.contains(event.relatedTarget)||label.contains(event.relatedTarget))return;clearTimeout(hoverLeaveTimer);hoverLeaveTimer=setTimeout(()=>{if(hoveredPin===p.key){hoveredPin=null;schedulePinLayout();}},90);});
+        }
+        button.addEventListener('focus',()=>{focusedPin=p.key;schedulePinLayout();});
+        button.addEventListener('blur',()=>{if(focusedPin===p.key){focusedPin=null;schedulePinLayout();}});
         faith.bindPreview(button,label,()=>{const current=pins.get(p.key).point;return {id:current.id,kind:current.saved?'survey':'reference',name:current.name};});
         $('map-labels').append(button,label);item={button,label};pins.set(p.key,item);
       }
-      item.point=p;item.hasFaith=faith.hasRecords(p.id,p.saved?'survey':'reference');
+      item.point=p;item.projected=project(p.lng,p.lat);item.hasFaith=faith.hasRecords(p.id,p.saved?'survey':'reference');
       item.button.dataset.placeKind=p.placeKind||'reference';item.label.dataset.placeKind=p.placeKind||'reference';
       const administrative=p.placeKind==='administrative_seat',member=isAdministrativeMember(p);
       item.button.setAttribute('aria-label',p.name+(administrative?'，行政驻地，'+p.committeeName:member?'，'+(p.placeKind==='locality'?'地点':'自然村')+'，'+p.committeeName:p.saved?'，调查点位':'，参考地名')+(item.hasFaith?'，有信仰记录':''));
       if(item.hasFaith)item.button.removeAttribute('title');else item.button.title=administrative?p.committeeName+' · 行政驻地':p.name;
       item.label.replaceChildren(document.createTextNode(p.name));
       if(administrative){const caption=document.createElement('small');caption.textContent=p.administrativeCaption||p.committeeName;item.label.append(caption);}
+      if(administrative&&!item.leader){item.leader=document.createElementNS(NS,'line');item.leader.style.display='none';labelLeaders.append(item.leader);}
     }
+    rankPinDistribution();labelContext='';
     if(view)update();
   }
   const intersects=(a,b,gap=3)=>a.x<b.x+b.w+gap&&a.x+a.w+gap>b.x&&a.y<b.y+b.h+gap&&a.y+a.h+gap>b.y;
-  function layoutPins(){
-    faith.dismissPreview();
-    const {w,h}=dimensions(),occupied=[];const showNames=$('show-labels').checked;
-    const positioned=[...pins.values()].sort((a,b)=>priority(b.point)-priority(a.point)).map(item=>{const pt=project(item.point.lng,item.point.lat);return {item,x:(pt.x-view.x)/view.w*w,y:(pt.y-view.y)/view.h*h};});
-    for(const {x,y} of positioned)if(x>=0&&x<=w&&y>=0&&y<=h)occupied.push({x:x-5,y:y-5,w:10,h:10});
-    layoutAdministrativeLabels(occupied);
-    for(const {item,x,y} of positioned){
-      const p=item.point;
-      const visible=x>=0&&x<=w&&y>=0&&y<=h;item.button.hidden=!visible;if(!visible){item.label.hidden=true;continue;}
-      const active=p.saved?p.id===activeId:reference?.id===p.id;
-      const administrative=p.placeKind==='administrative_seat',member=isAdministrativeMember(p);
-      item.button.className='map-point'+(p.saved?' is-saved':'')+(p.draft?' is-draft':'')+(active?' is-active':'')+(item.hasFaith?' has-faith':'')+(administrative?' is-administrative':'')+(member?' is-member':'');item.button.style.left=x+'px';item.button.style.top=y+'px';
-      if(!showNames&&!active&&!p.draft){item.label.hidden=true;continue;}
-      const lw=p.name.length*12+9+(administrative?(p.administrativeCaption||p.committeeName).length*10+12:0),lh=administrative?25:21,positions=[[x+11,y-lh/2],[x-lw-11,y-lh/2],[x-lw/2,y-lh-11],[x-lw/2,y+11],[x+11,y-lh-8],[x-lw-11,y+8]];
-      let chosen=positions.find(([lx,ly])=>lx>=3&&ly>=3&&lx+lw<w-3&&ly+lh<h-3&&!occupied.some(r=>intersects({x:lx,y:ly,w:lw,h:lh},r)));
-      if(!chosen&&(active||p.draft))chosen=positions[0];
-      if(chosen){const [lx,ly]=chosen;occupied.push({x:lx,y:ly,w:lw,h:lh});item.label.style.left=lx+'px';item.label.style.top=ly+'px';item.label.className='place-label'+(p.saved?' is-saved':'')+(active?' is-active':'')+(item.hasFaith?' has-faith':'')+(administrative?' is-administrative':'')+(member?' is-member':'')+(member&&administrativeEnabled(p.administrativeAreaId)?' is-member-visible':'');item.label.hidden=false;}else item.label.hidden=true;
+  function schedulePinLayout(invalidate=false){
+    if(invalidate)labelContext='';
+    if(!view||labelFrame!==null)return;
+    labelFrame=requestAnimationFrame(()=>{labelFrame=null;layoutPins();});
+  }
+  // These ranks are presentation-only: spread early labels across the island.
+  function rankPinDistribution(){
+    const all=[...pins.values()],anchors=all.filter(item=>item.point.placeKind==='administrative_seat').map(item=>item.projected);
+    if(!anchors.length)anchors.push(center);
+    const remaining=all.filter(item=>item.point.placeKind!=='administrative_seat').sort((a,b)=>a.point.key.localeCompare(b.point.key));
+    for(const item of remaining)item.spreadDistance=Math.min(...anchors.map(p=>(item.projected.x-p.x)**2+(item.projected.y-p.y)**2));
+    let rank=0;
+    while(remaining.length){
+      let best=0;for(let i=1;i<remaining.length;i++)if(remaining[i].spreadDistance>remaining[best].spreadDistance)best=i;
+      const [chosen]=remaining.splice(best,1);chosen.spreadRank=rank++;
+      for(const item of remaining)item.spreadDistance=Math.min(item.spreadDistance,(item.projected.x-chosen.projected.x)**2+(item.projected.y-chosen.projected.y)**2);
     }
+  }
+  function pinPriority(item){
+    const p=item.point;
+    return p.draft?70:(p.saved?p.id===activeId:reference?.id===p.id)?60:p.key===focusedPin?56:p.key===hoveredPin?55:p.placeKind==='administrative_seat'?50:p.saved?40:p.placeKind==='natural_village'?20:10;
+  }
+  function updateLabelTier(zoom){
+    if(labelTier===0&&zoom>=1.38)labelTier=1;
+    if(labelTier===1&&zoom>=2.6)labelTier=2;
+    if(labelTier===2&&zoom<2.32)labelTier=1;
+    if(labelTier===1&&zoom<1.23)labelTier=0;
+    stage.dataset.labelLevel=['island','regional','local'][labelTier];
+  }
+  function labelObstacles(){
+    const origin=stage.getBoundingClientRect(),boxes=[];
+    for(const node of document.querySelectorAll('.search-panel,.map-toolbar,.utility-panel,.north,.zoom-controls,.map-footer,#administrative-key,#pick-message,#detail-panel')){
+      if(node.hidden||!node.getClientRects().length)continue;
+      const rect=node.getBoundingClientRect(),x=Math.max(0,rect.left-origin.left),y=Math.max(0,rect.top-origin.top),right=Math.min(origin.width,rect.right-origin.left),bottom=Math.min(origin.height,rect.bottom-origin.top);
+      if(right>x&&bottom>y)boxes.push({x,y,w:right-x,h:bottom-y});
+    }
+    return boxes;
+  }
+  function measurePinLabels(positioned,w){
+    const fragment=document.createDocumentFragment(),pending=[];
+    for(const entry of positioned){
+      const {item,active,emphasized,administrative}=entry,p=item.point,member=isAdministrativeMember(p);
+      const classes='place-label'+(p.saved?' is-saved':'')+(active?' is-active':'')+(emphasized?' is-emphasized':'')+(item.hasFaith?' has-faith':'')+(administrative?' is-administrative':'')+(member?' is-member':'')+(member&&administrativeEnabled(p.administrativeAreaId)?' is-member-visible':'');
+      item.label.className=classes+(item.label.classList.contains('is-visible')?' is-visible':'');item.label.hidden=false;
+      const maxWidth=Math.min(administrative?180:active?260:220,Math.max(60,w-20));item.label.style.setProperty('--label-max-width',maxWidth+'px');
+      entry.sizeKey=[p.key,item.label.textContent,classes,maxWidth].join('|');
+      if(!labelSizes.has(entry.sizeKey)){
+        const clone=item.label.cloneNode(true);clone.className=classes;clone.style.left='0';clone.style.top='0';fragment.append(clone);pending.push({clone,key:entry.sizeKey});
+      }
+    }
+    if(pending.length){
+      labelMeasure.replaceChildren(fragment);
+      for(const {clone,key} of pending)labelSizes.set(key,{w:Math.ceil(clone.offsetWidth),h:Math.ceil(clone.offsetHeight)});
+      labelMeasure.replaceChildren();
+    }
+    for(const entry of positioned)entry.size=labelSizes.get(entry.sizeKey);
+  }
+  function pinLabelPositions(x,y,lw,lh,administrative){
+    const gap=administrative?11:10;
+    const positions=[[x+gap,y-lh/2],[x-lw-gap,y-lh/2],[x-lw/2,y-lh-gap],[x-lw/2,y+gap],[x+gap,y-lh-gap],[x-lw-gap,y-lh-gap],[x+gap,y+gap],[x-lw-gap,y+gap]];
+    if(administrative)for(const distance of [22,36,50])positions.push([x+distance,y-lh/2],[x-lw-distance,y-lh/2],[x-lw/2,y-lh-distance],[x-lw/2,y+distance]);
+    return positions.map(([lx,ly],slot)=>({x:lx,y:ly,w:lw,h:lh,slot}));
+  }
+  function showPinLabel(item,box,x,y){
+    item.label.classList.toggle('is-visible',!!box);
+    if(item.leader)item.leader.style.display='none';
+    if(!box)return;
+    item.label.style.left=box.x+'px';item.label.style.top=box.y+'px';
+    if(item.leader){
+      const ex=Math.max(box.x,Math.min(box.x+box.w,x)),ey=Math.max(box.y,Math.min(box.y+box.h,y)),distance=Math.hypot(ex-x,ey-y);
+      if(distance>18){item.leader.setAttribute('x1',x+(ex-x)*7/distance);item.leader.setAttribute('y1',y+(ey-y)*7/distance);item.leader.setAttribute('x2',ex);item.leader.setAttribute('y2',ey);item.leader.style.display='';}
+    }
+  }
+  function layoutPins(){
+    const {w,h}=dimensions(),zoom=home.w/view.w,showNames=$('show-labels').checked;
+    const moving=stage.classList.contains('is-dragging')||stage.classList.contains('is-camera-moving')||wheelLabelTimer!==null;
+    if(!moving||!labelContext)updateLabelTier(zoom);
+    const context=[w,h,labelTier,activeId,reference?.id,hoveredPin,focusedPin,showNames,openPanel,searchPanel.className,visibleAdministrativeAreas.size].join('|');
+    const frozen=moving&&labelContext===context;
+    if(!frozen)labelObstacleCache=labelObstacles();
+    const occupied=labelObstacleCache.slice(),anchors=[],markerBoxes=[];
+    const positioned=[...pins.values()].sort((a,b)=>pinPriority(b)-pinPriority(a)||(a.spreadRank??-1)-(b.spreadRank??-1)||a.point.key.localeCompare(b.point.key)).map(item=>{
+      const p=item.point,pt=item.projected;
+      return {item,x:(pt.x-view.x)/view.w*w,y:(pt.y-view.y)/view.h*h,active:p.saved?p.id===activeId:reference?.id===p.id,emphasized:p.key===hoveredPin||p.key===focusedPin,administrative:p.placeKind==='administrative_seat'};
+    });
+    measurePinLabels(positioned,w);labelLeaders.setAttribute('viewBox',`0 0 ${w} ${h}`);
+    for(const entry of positioned){
+      const {item,x,y,active,administrative}=entry,p=item.point;entry.visible=x>=0&&x<=w&&y>=0&&y<=h;
+      item.button.hidden=!entry.visible;item.button.style.left=x+'px';item.button.style.top=y+'px';
+      item.button.className='map-point'+(p.saved?' is-saved':'')+(p.draft?' is-draft':'')+(active?' is-active':'')+(item.hasFaith?' has-faith':'')+(administrative?' is-administrative':'')+(isAdministrativeMember(p)?' is-member':'');
+      if(entry.visible)markerBoxes.push({x:x-5,y:y-5,w:10,h:10,key:p.key,important:administrative||active||p.saved});
+    }
+    const baseSpacing=w<600?66:100;
+    const spacing=labelTier===0?baseSpacing/Math.max(1,zoom):labelTier===1?Math.max(0,baseSpacing/1.38*(2.6-zoom)/1.22):0;
+    for(const entry of positioned){
+      const {item,x,y,active,emphasized,administrative,size}=entry,p=item.point,forced=active||emphasized||p.draft;
+      const eligible=entry.visible&&(showNames||forced)&&(forced||administrative||p.saved||p.placeKind==='natural_village'||labelTier>0);
+      let chosen=null;
+      if(eligible&&(!frozen||item.layoutVisible||forced)){
+        const positions=pinLabelPositions(x,y,size.w,size.h,administrative),last=item.labelSlot;
+        const ordered=last===undefined?positions:[positions[last],...positions.filter(box=>box.slot!==last)].filter(Boolean);
+        const within=box=>box.x>=5&&box.y>=5&&box.x+box.w<=w-5&&box.y+box.h<=h-5;
+        const free=box=>within(box)&&!occupied.some(r=>intersects(box,r,4));
+        const dense=!forced&&!administrative&&!p.saved&&anchors.some(a=>Math.hypot(a.x-x,a.y-y)<spacing);
+        if(!dense){
+          const candidates=frozen&&last!==undefined?[positions[last]]:ordered;
+          chosen=candidates.find(box=>free(box)&&!markerBoxes.some(r=>r.key!==p.key&&intersects(box,r,1)));
+          if(!chosen&&administrative&&!frozen)chosen=ordered.find(box=>free(box)&&!markerBoxes.some(r=>r.key!==p.key&&r.important&&intersects(box,r,1)));
+          if(!chosen&&forced){
+            const alternatives=ordered.map(box=>({...box,x:Math.max(5,Math.min(w-size.w-5,box.x)),y:Math.max(5,Math.min(h-size.h-5,box.y))}));
+            chosen=alternatives.find(free)||alternatives.sort((a,b)=>occupied.filter(r=>intersects(a,r)).length-occupied.filter(r=>intersects(b,r)).length)[0];
+          }
+        }
+      }
+      showPinLabel(item,chosen,x,y);
+      if(!frozen){item.layoutVisible=!!chosen;if(chosen)item.labelSlot=chosen.slot;}
+      if(chosen){occupied.push(chosen);anchors.push({x,y});}
+    }
+    labelContext=context;
+    occupied.push(...markerBoxes);layoutAdministrativeLabels(occupied);
     layoutRoadNames(occupied);
+    faith.repositionPreview();
   }
   function roadPlacements(viewport,w,h,occupied,fontSize=10,allDetail=false){
     const scale=w/viewport.w,placements=[];
     for(const group of roadGroups.values()){
       const lw=Array.from(group.label).reduce((n,c)=>n+(c.charCodeAt(0)>255?fontSize:fontSize*.6),8),lh=fontSize+7;
       for(const road of group.roads){
+        if(!allDetail&&labelTier===0&&road.kind!=='main')continue;
         if(!allDetail&&((road.kind==='minor'&&home.w/viewport.w<1.7)||(road.kind==='path'&&home.w/viewport.w<2.7)))continue;
         if(road.kind!=='main'&&scale*road.anchor.length<lw*1.8)continue;
         const {x:mx,y:my,angle}=road.anchor,x=(mx-viewport.x)*scale,y=(my-viewport.y)*h/viewport.h;
@@ -353,7 +470,6 @@
     for(const [key,label] of roadLabelNodes)if(!wanted.has(key))label.hidden=true;
   }
   function isAdministrativeMember(p){return p.placeKind==='natural_village'||p.placeKind==='locality';}
-  function priority(p){return p.draft?6:p.saved&&p.id===activeId?5:!p.saved&&reference?.id===p.id?5:p.placeKind==='administrative_seat'?4:p.saved?3:isAdministrativeMember(p)&&administrativeEnabled(p.administrativeAreaId)?2:p.coordinateSource==='OpenStreetMap'?1:0;}
   function validPoint(p){return p&&typeof p.id==='string'&&p.id.length<=120&&typeof p.name==='string'&&p.name.trim().length>0&&p.name.length<=100&&Number.isFinite(p.lat)&&p.lat>=-90&&p.lat<=90&&Number.isFinite(p.lng)&&p.lng>=-180&&p.lng<=180&&(p.source===undefined||typeof p.source==='string'&&p.source.length<=200)&&(p.note===undefined||typeof p.note==='string'&&p.note.length<=5000);}
   function cleanPoint(p){return {id:p.id,name:p.name.trim(),lat:p.lat,lng:p.lng,source:p.source||'',note:p.note||'',createdAt:typeof p.createdAt==='string'?p.createdAt:new Date().toISOString(),updatedAt:typeof p.updatedAt==='string'?p.updatedAt:new Date().toISOString()};}
   function storageStatus(text,error=false){$('storage-status').hidden=false;$('storage-status').textContent=text;$('storage-status').classList.toggle('error',error);const indicator=$('save-indicator');indicator.textContent=error?'保存需检查':text.startsWith('正在保存')?'保存中…':text.startsWith('正在读取')?'读取中…':text.startsWith('已保存')?'已保存':'已同步';indicator.title=text;indicator.classList.toggle('is-error',error);}
@@ -387,7 +503,7 @@
   function resultButton(name,detail,action){const b=document.createElement('button');b.type='button';b.className='result-button';const strong=document.createElement('strong');strong.textContent=name;b.append(strong);if(detail){const span=document.createElement('span');span.textContent=detail;b.append(span);}b.addEventListener('click',action);return b;}
   function renderPoints(){const list=$('point-list');list.replaceChildren();$('point-count').textContent=points.length+' 个';$('saved-points-section').hidden=!points.length;for(const p of points){const b=resultButton(p.name,`${p.lat.toFixed(6)}, ${p.lng.toFixed(6)}`,()=>selectPoint(p));b.setAttribute('aria-current',String(p.id===activeId));list.append(b);}rebuildPins();}
   function mayLeaveEditor(){return !faith.saving&&(!(formDirty&&!$('editor-section').hidden)&&!faith.dirty||window.confirm('当前填写内容尚未保存。要放弃填写并继续吗？'));}
-  function clearReference(){faith.clearVillage();reference=null;$('reference-section').hidden=true;$('administrative-context').hidden=true;$('administration-section').hidden=true;for(const path of svg.querySelectorAll('.is-selected'))path.classList.remove('is-selected');syncDetails();}
+  function clearReference(){faith.clearVillage();reference=null;hoveredPin=null;focusedPin=null;$('reference-section').hidden=true;$('administrative-context').hidden=true;$('administration-section').hidden=true;for(const path of svg.querySelectorAll('.is-selected'))path.classList.remove('is-selected');syncDetails();}
   function reviewText(p){const review=p.placeKind==='administrative_seat'?'行政驻地 · 位置待核对':p.locationReview?.status==='field_identified'?'实地指认':'待核对';return p.locationHint?p.locationHint+' · '+review:review;}
   function placeDescription(p){return p.placeKind==='administrative_seat'?p.committeeName+' · 行政驻地':isAdministrativeMember(p)?p.committeeName+' · '+(p.placeKind==='locality'?'地点':'自然村')+(p.locationHint?' · '+p.locationHint:''):reviewText(p);}
   function showReference(name,source,coordinates,canUse=true,review='待核对'){$('reference-section').hidden=false;$('reference-name').textContent=name;$('reference-review').textContent=review;$('reference-source').textContent=source;$('reference-coordinates').textContent=coordinates;$('use-reference').hidden=!canUse;$('reference-more').open=false;syncDetails(true);}
@@ -441,11 +557,11 @@
   $('show-clusters').addEventListener('change',()=>{const visible=$('show-clusters').checked;for(const id of ['residential-layer','building-layer'])$(id).style.display=visible?'':'none';});
   $('zoom-in').addEventListener('click',()=>zoomAt(1.5,undefined,undefined,true));$('zoom-out').addEventListener('click',()=>zoomAt(1/1.5,undefined,undefined,true));
   $('island-view').addEventListener('click',()=>{if(!mayLeaveEditor())return;closeEditor();clearReference();setUtility();setSearchExpanded(false);$('search-feedback').hidden=true;$('search-results').replaceChildren();$('search-input').value='';status('');homeView(true);});
-  stage.addEventListener('wheel',e=>{e.preventDefault();const rect=stage.getBoundingClientRect();zoomAt(Math.exp(-Math.max(-300,Math.min(300,e.deltaY))*.002),e.clientX-rect.left,e.clientY-rect.top);},{passive:false});
+  stage.addEventListener('wheel',e=>{e.preventDefault();clearTimeout(wheelLabelTimer);wheelLabelTimer=setTimeout(()=>{wheelLabelTimer=null;schedulePinLayout();},140);const rect=stage.getBoundingClientRect();zoomAt(Math.exp(-Math.max(-300,Math.min(300,e.deltaY))*.002),e.clientX-rect.left,e.clientY-rect.top);},{passive:false});
   const midpoint=(a,b)=>({x:(a.x+b.x)/2,y:(a.y+b.y)/2,d:Math.hypot(a.x-b.x,a.y-b.y)});
   stage.addEventListener('pointerdown',e=>{if(e.target.closest('button')||e.button!==0)return;cancelCamera();stage.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(pointers.size===1){drag={x:e.clientX,y:e.clientY,view:{...view},clusterKey:e.target.closest('.residential')?.dataset.clusterKey};gestureMoved=false;}else if(pointers.size===2){const [a,b]=[...pointers.values()];pinch=midpoint(a,b);gestureMoved=true;}stage.classList.add('is-dragging');});
   stage.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});const rect=stage.getBoundingClientRect();if(pointers.size===2){const [a,b]=[...pointers.values()],next=midpoint(a,b);if(pinch){const {w,h}=dimensions();view.x-=(next.x-pinch.x)*view.w/w;view.y-=(next.y-pinch.y)*view.h/h;zoomAt(next.d/Math.max(pinch.d,1),next.x-rect.left,next.y-rect.top);}pinch=next;}else if(drag){const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.hypot(dx,dy)>5)gestureMoved=true;const {w,h}=dimensions();view={...drag.view,x:drag.view.x-dx*drag.view.w/w,y:drag.view.y-dy*drag.view.h/h};update();}});
-  function endPointer(e){if(!pointers.has(e.pointerId))return;const click=!gestureMoved&&pointers.size===1&&e.type==='pointerup',clusterKey=drag?.clusterKey;pointers.delete(e.pointerId);if(click&&picking){const rect=stage.getBoundingClientRect(),{w,h}=dimensions();const pos=unproject(view.x+(e.clientX-rect.left)/w*view.w,view.y+(e.clientY-rect.top)/h*view.h);setPickedLocation(pos.lng,pos.lat);}else if(click&&clusterKey){const cluster=clusterByKey.get(clusterKey);if(cluster)selectCluster(cluster);}pinch=null;if(pointers.size===1){const p=[...pointers.values()][0];drag={x:p.x,y:p.y,view:{...view}};}else if(!pointers.size){drag=null;stage.classList.remove('is-dragging');}}
+  function endPointer(e){if(!pointers.has(e.pointerId))return;const click=!gestureMoved&&pointers.size===1&&e.type==='pointerup',clusterKey=drag?.clusterKey;pointers.delete(e.pointerId);if(click&&picking){const rect=stage.getBoundingClientRect(),{w,h}=dimensions();const pos=unproject(view.x+(e.clientX-rect.left)/w*view.w,view.y+(e.clientY-rect.top)/h*view.h);setPickedLocation(pos.lng,pos.lat);}else if(click&&clusterKey){const cluster=clusterByKey.get(clusterKey);if(cluster)selectCluster(cluster);}pinch=null;if(pointers.size===1){const p=[...pointers.values()][0];drag={x:p.x,y:p.y,view:{...view}};}else if(!pointers.size){drag=null;stage.classList.remove('is-dragging');schedulePinLayout();}}
   stage.addEventListener('pointerup',endPointer);stage.addEventListener('pointercancel',endPointer);
   svg.addEventListener('keydown',e=>{if(['+','=','-','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home'].includes(e.key)){e.preventDefault();if(e.key==='Home')homeView(true);else if(e.key==='+'||e.key==='=')zoomAt(1.5,undefined,undefined,true);else if(e.key==='-')zoomAt(1/1.5,undefined,undefined,true);else{cancelCamera();if(e.key==='ArrowUp')view.y-=view.h*.12;if(e.key==='ArrowDown')view.y+=view.h*.12;if(e.key==='ArrowLeft')view.x-=view.w*.12;if(e.key==='ArrowRight')view.x+=view.w*.12;update();}}});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(openPanel)setUtility(null,null,true);if(searchPanel.classList.contains('is-expanded'))setSearchExpanded(false,true);$('search-feedback').hidden=true;setPicking(false);}});
@@ -456,6 +572,9 @@
     if(wasHome)view={...home};else view={x:cx-view.w/2,y:cy-view.w*h/w/2,w:view.w,h:view.w*h/w};
     update();
   }).observe(stage);
+  const labelUIObserver=new ResizeObserver(()=>{if(view)schedulePinLayout(true);});
+  for(const node of document.querySelectorAll('.search-panel,.utility-panel,.map-toolbar'))labelUIObserver.observe(node);
+  document.fonts?.ready.then(()=>{labelSizes.clear();schedulePinLayout(true);});
   function download(name,type,text){if(downloadURL)URL.revokeObjectURL(downloadURL);downloadURL=URL.createObjectURL(new Blob([text],{type}));const a=document.createElement('a');a.href=downloadURL;a.download=name;a.textContent='下载 '+name;$('export-link').replaceChildren(a);$('export-link').hidden=false;$('export-preview').hidden=false;$('export-content').value=text;setUtility('data-panel',$('data-toggle'));a.click();notify('已生成：'+name);}
   const stamp=()=>new Date().toLocaleDateString('sv-SE',{timeZone:'Asia/Taipei'});
   function csvCell(value){let text=String(value??'');if(/^[=+\-@\t\r]/.test(text))text="'"+text;return '"'+text.replaceAll('"','""')+'"';}
@@ -486,7 +605,7 @@
       const pos=project(p.lng,p.lat),x=(pos.x-exportView.x)/unit,y=(pos.y-exportView.y)/unit;
       const administrative=p.placeKind==='administrative_seat',natural=p.placeKind==='natural_village',dot=document.createElementNS(NS,administrative?'rect':'circle');
       if(administrative){dot.setAttribute('x',pos.x-4.25*unit);dot.setAttribute('y',pos.y-4.25*unit);dot.setAttribute('width',8.5*unit);dot.setAttribute('height',8.5*unit);dot.setAttribute('rx',.75*unit);}else{dot.setAttribute('cx',pos.x);dot.setAttribute('cy',pos.y);dot.setAttribute('r',3.375*unit);}
-      const ink=p.saved||administrative?'#343a40':natural?'#4d5452':'#626b66';dot.setAttribute('fill',p.saved||administrative||natural?ink:'#f0ece4');dot.setAttribute('stroke',ink);dot.setAttribute('stroke-width',(administrative?1.5:1.25)*unit);dot.dataset.placeKind=p.placeKind||'reference';const title=document.createElementNS(NS,'title');title.textContent=p.name+' · '+(p.saved?'调查点位':placeDescription(p));dot.append(title);output.append(dot);
+      const ink=p.saved?'#343a40':administrative?'#343b3c':natural?'#4b5351':'#626b68';dot.setAttribute('fill',p.saved||administrative||natural?ink:'#f4f0e8');dot.setAttribute('stroke',ink);dot.setAttribute('stroke-width',(administrative?1.5:1.25)*unit);dot.dataset.placeKind=p.placeKind||'reference';const title=document.createElementNS(NS,'title');title.textContent=p.name+' · '+(p.saved?'调查点位':placeDescription(p));dot.append(title);output.append(dot);
       if(!$('show-labels').checked)continue;
       const lw=p.name.length*12+8+(administrative?(p.administrativeCaption||p.committeeName).length*9+10:0),lh=18,positions=[[x+8,y-lh/2],[x-lw-8,y-lh/2],[x-lw/2,y-lh-8],[x-lw/2,y+8],[x+8,y-lh-8],[x-lw-8,y+8]];
       const chosen=positions.find(([lx,ly])=>lx>=0&&ly>=0&&lx+lw<width&&ly+lh<height&&!occupied.some(r=>intersects({x:lx,y:ly,w:lw,h:lh},r)));

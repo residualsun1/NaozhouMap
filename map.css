@@ -112,9 +112,9 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .layer-toggle input:checked::after{content:"";width:7px;height:4px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:translateY(-1px) rotate(-45deg)}
 .legend{display:flex;flex-wrap:wrap;align-items:center;gap:13px;margin-top:20px;font-size:10px;color:#777974}
 .legend span{display:flex;align-items:center;gap:6px}
-.legend i{display:inline-block;width:8px;height:8px;border:1.25px solid #626b66;border-radius:50%;background:#f0ece4}
-.legend i.filled{background:#4d5452;border-color:#4d5452}
-.legend i.administrative-symbol{width:9px;height:9px;border-radius:1px;background:#343a40;border-color:#343a40}
+.legend i{display:inline-block;width:8px;height:8px;border:1.25px solid #626b68;border-radius:50%;background:#f4f0e8}
+.legend i.filled{background:#4b5351;border-color:#4b5351}
+.legend i.administrative-symbol{width:9px;height:9px;border-radius:1px;background:#343b3c;border-color:#343b3c}
 .road-legend{gap:15px;margin-top:14px}
 .road-legend i{width:18px;height:0;border:0;border-top:1px solid #d2d0c8;border-radius:0;background:none}
 .road-legend i.main-road{border-top:1.5px solid #c4c4bc}
@@ -163,23 +163,29 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .road-label.main{color:#858a87;font-weight:500}
 .labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .map-point{position:absolute;z-index:1;width:28px;height:28px;padding:0;border:0;border-radius:50%;background:transparent;pointer-events:auto;transform:translate(-50%,-50%);box-shadow:none}
-.map-point::before{content:"";position:absolute;box-sizing:border-box;left:50%;top:50%;width:8px;height:8px;border:1.25px solid #626b66;border-radius:50%;background:#f0ece4;transform:translate(-50%,-50%);transition:background .15s,box-shadow .15s,border-color .15s}
-.map-point[data-place-kind="natural_village"]::before{background:#4d5452;border-color:#4d5452}
+.map-point::before{content:"";position:absolute;box-sizing:border-box;left:50%;top:50%;width:8px;height:8px;border:1.25px solid #626b68;border-radius:50%;background:#f4f0e8;transform:translate(-50%,-50%);transition:background .15s,box-shadow .15s,border-color .15s}
+.map-point[data-place-kind="natural_village"]::before{background:#4b5351;border-color:#4b5351}
 .map-point:hover,.map-point:active{background:transparent;border:0}
 .map-point:hover::before{border-color:#343a40;box-shadow:0 0 0 2px #343a4010}
 .map-point:focus-visible{outline:none}
 .map-point:focus-visible::before{outline:2px solid #343a40;outline-offset:4px}
 .map-point.is-saved::before{background:#343a40;border-color:#343a40}
 .map-point.is-active{z-index:3}
-.map-point.is-active::before{background:#343a40;border-color:#343a40;box-shadow:0 0 0 1.5px #f0ece4,0 0 0 2.5px #343a4029}
+.map-point.is-active::before{background:#28343a;border-color:#28343a;box-shadow:0 0 0 2px #f4f0e8,0 0 0 4px #28343a66}
 .map-point.is-draft::before{width:11px;height:11px;border-radius:3px;background:#343a40;border-color:#343a40}
 .map-point.has-faith::after{content:"";position:absolute;left:calc(50% + 3px);top:calc(50% - 7px);width:4px;height:4px;background:#939591;border:1px solid #fff;border-radius:50%}
-.place-label{position:absolute;z-index:2;padding:2px 4px;pointer-events:auto;cursor:pointer;border-radius:3px;background:#f0ece4a6;font-size:11.5px;line-height:17px;white-space:nowrap;color:#4d5450;transition:background .15s,color .15s;box-shadow:none}
-.place-label[data-place-kind="locality"]{color:#777c7c}
+.place-label{position:absolute;z-index:2;width:max-content;max-width:var(--label-max-width,220px);padding:1px 3px;pointer-events:none;cursor:pointer;border-radius:2px;background:#f4f0e899;font-size:12px;font-weight:450;line-height:1.35;white-space:normal;overflow-wrap:anywhere;color:#414744;opacity:0;visibility:hidden;transition:opacity .15s,visibility 0s linear .15s,background .15s,color .15s;box-shadow:none}
+.place-label.is-visible{opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s}
+.place-label[data-place-kind="locality"],.place-label[data-place-kind="reference"]{font-size:11px;font-weight:400;color:#6a736f;background:#f4f0e84d}
 .place-label:hover{color:#20221f;background:#f7f3eb}
+.place-label.is-emphasized{color:#28343a;background:#f4f0e8e6}
 .place-label.is-saved{font-weight:600;border-bottom:1px solid #a2a69e}
-.place-label.is-active{z-index:3;border-radius:6px;background:#3d4543;color:#fff;font-weight:550;box-shadow:none}
-.north{position:absolute;top:86px;left:27px;text-align:center;pointer-events:none;font-size:8px;letter-spacing:.1em;line-height:1.3;color:#777974}
+.place-label.is-active{z-index:4;padding:5px 9px;border-radius:6px;background:#303a3e;color:#fff;font-size:12.5px;font-weight:600;box-shadow:none}
+.label-measurement{position:absolute;left:-10000px;top:0;visibility:hidden;pointer-events:none}
+.label-measurement .place-label{visibility:hidden!important;transition:none!important}
+.label-leaders{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;pointer-events:none}
+.label-leaders line{stroke:#747e76;stroke-width:.7;stroke-opacity:.65}
+.north{position:absolute;top:86px;left:27px;text-align:center;pointer-events:none;font-size:8px;letter-spacing:.1em;line-height:1.3;color:#68736f}
 .north span{display:block;margin-top:3px;font-size:24px;font-weight:300;line-height:1}
 .zoom-controls{position:absolute;z-index:4;right:24px;bottom:67px;display:flex;flex-direction:column;overflow:hidden;background:#fffffff5;border:1px solid white;border-radius:10px;box-shadow:var(--shadow)}
 .zoom-controls button{width:37px;height:37px;padding:0;border:0;border-radius:0;background:transparent;color:#6f716d;font-size:22px;font-weight:300}
@@ -189,7 +195,7 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .map-stage.is-dragging~.map-footer{opacity:.3}
 .map-footer a{pointer-events:auto;text-decoration:none}
 .scale-line{height:6px;margin-top:5px;border:1px solid #979996;border-top:0}
-.scale-text{font-variant-numeric:tabular-nums;font-size:9px}
+.scale-text{font-variant-numeric:tabular-nums;font-size:9px;color:#68736f}
 .pick-message{position:absolute;z-index:5;left:50%;bottom:67px;transform:translateX(-50%);padding:11px 17px;max-width:calc(100% - 120px);border-radius:9px;background:#535551;color:#fff;font-size:11px;line-height:1.7;white-space:nowrap;box-shadow:var(--shadow-panel);animation:content-in .2s var(--ease)}
 .toast{position:fixed;z-index:12;left:50%;bottom:26px;transform:translateX(-50%);max-width:min(440px,calc(100% - 32px));padding:12px 18px;border:1px solid #ffffff20;border-radius:11px;background:#393a38;color:#fff;box-shadow:var(--shadow-panel);font-size:12px;line-height:1.7;animation:toast-in .22s var(--ease)}
 .toast button{margin-left:14px;padding:3px 8px;border:0;background:#ffffff16;color:#fff;font-size:11px}
@@ -201,12 +207,14 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .administrative-layer-control .layer-toggle{min-height:32px;font-size:11px}
 .administrative-layer-control .note{margin:12px 0 15px;font-size:9px}
 .administrative-coverage{fill:url(#administrative-hatch);stroke:#a0a19e;stroke-width:.9;stroke-dasharray:4 5;vector-effect:non-scaling-stroke;pointer-events:none;transition:opacity .2s}
-.map-point.is-administrative::before{width:10px;height:10px;border:1.5px solid #343a40;border-radius:1px;background:#343a40;transform:translate(-50%,-50%)}
+.map-point.is-administrative::before{width:10px;height:10px;border:1.5px solid #343b3c;border-radius:1px;background:#343b3c;transform:translate(-50%,-50%)}
 .map-point.is-administrative:hover::before{background:#272d32;border-color:#272d32}
-.place-label.is-administrative{display:flex;align-items:baseline;gap:7px;font-weight:600}
-.place-label.is-administrative small{font-size:9px;font-weight:400;color:#777974}
+.map-point.is-administrative.is-active::before{background:#28343a;border-color:#28343a}
+.place-label.is-administrative{font-size:12.5px;font-weight:600;color:#303735;background:#f4f0e880}
+.place-label.is-administrative small{display:block;margin-top:2px;font-size:10px;font-weight:400;line-height:1.3;color:#6a736f}
+.place-label.is-administrative.is-active{color:#fff;background:#303a3e}
 .place-label.is-administrative.is-active small{color:#dee0dd}
-.place-label.is-member-visible{font-weight:550}
+.place-label.is-member-visible:not(.is-active){font-weight:500}
 .administrative-label{position:absolute;width:160px;min-height:47px;padding:6px 10px;border:0;border-radius:8px;background:#fbfbfae6;pointer-events:auto;text-align:center;color:#6e706c;box-shadow:0 0 22px 7px #fbfbfa66}
 .administrative-label strong{display:block;font-size:17px;font-weight:550;line-height:1.5;letter-spacing:.1em}
 .administrative-label small{display:block;font-size:9px;font-weight:400;line-height:1.7;color:#777974}
@@ -218,7 +226,6 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .administrative-key small{display:block;margin-top:2px;font-size:9px;line-height:1.6;color:#777974}
 .area-swatch{flex-shrink:0;width:22px;height:25px;border:1px dashed #a4a6a3;background:repeating-linear-gradient(-45deg,#e3e4e2 0,#e3e4e2 1px,#fbfbfa 1px,#fbfbfa 6px)}
 .map-stage.is-dragging~.administrative-key:not(:focus-visible){opacity:.24}
-.map-stage.is-camera-moving .place-label{transition:none}
 .administrative-context{display:flex;align-items:center;gap:9px;margin-bottom:25px;padding-bottom:20px;border-bottom:1px solid var(--line);font-size:10px;color:#777974}
 .administrative-context button{padding:4px 0;border:0;border-bottom:1px solid #d0d2cf;border-radius:0;background:transparent;font-size:11px;color:#6e706c;text-align:left}
 #administration-view[aria-pressed=true]{background:#f0f0ef;border-color:#d0d1ce;color:#747672}
@@ -298,7 +305,7 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
   .sheet-collapsed{--sheet-size:112px!important}.sheet-collapsed .sidebar .detail-content{display:none}
   .is-picking .sidebar{visibility:hidden}.is-picking .map-stage{bottom:0}.is-picking .map-footer{bottom:14px}
   .is-picking .zoom-controls,.is-picking .pick-message,.is-picking .administrative-key{bottom:61px}
-  .map-point{width:42px;height:42px}.place-label{font-size:11px}
+  .map-point{width:42px;height:42px}
   .map-footer{left:18px;right:18px;bottom:14px;font-size:8px;gap:16px}
   .zoom-controls{right:16px;bottom:61px}.zoom-controls button{width:44px;height:44px}
   .administrative-key{left:16px;bottom:61px;min-height:50px;padding:8px 11px}

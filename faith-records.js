@@ -27,7 +27,7 @@ window.createFaithRecords = options => {
     preview.hidden = true;
   }
   function positionPreview() {
-    const boxes = previewTargets.filter(target=>!target.hidden).map(target=>target.getBoundingClientRect());
+    const boxes = previewTargets.filter(target=>!target.hidden&&(!target.classList.contains('place-label')||target.classList.contains('is-visible'))).map(target=>target.getBoundingClientRect());
     const anchor = boxes.length ? {left:Math.min(...boxes.map(box=>box.left)),right:Math.max(...boxes.map(box=>box.right)),top:Math.min(...boxes.map(box=>box.top)),bottom:Math.max(...boxes.map(box=>box.bottom))} : null;
     const map = $('map-stage').getBoundingClientRect();
     const left = Math.max(8,map.left + 8), right = Math.min(innerWidth - 8,map.right - 8);
@@ -267,6 +267,7 @@ window.createFaithRecords = options => {
     mayLeave,
     bindPreview,
     dismissPreview,
+    repositionPreview() { if (!preview.hidden) positionPreview(); },
     selectVillage(selected) { closeForm(); village = selected; $('faith-section').hidden = false; render(); },
     clearVillage() { closeForm(); village = null; $('faith-section').hidden = true; },
     hasRecords(id,kind) { return !!state?.records.some(record=>record.villageId === id && record.villageKind === kind); },
