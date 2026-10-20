@@ -296,6 +296,7 @@
         $('map-labels').append(button,label);item={button,label};pins.set(p.key,item);
       }
       item.point=p;item.hasFaith=faith.hasRecords(p.id,p.saved?'survey':'reference');
+      item.button.dataset.placeKind=item.label.dataset.placeKind=p.placeKind||'reference';
       const administrative=p.placeKind==='administrative_seat',member=isAdministrativeMember(p);
       item.button.setAttribute('aria-label',p.name+(administrative?'，行政驻地，'+p.committeeName:member?'，'+(p.placeKind==='locality'?'地点':'自然村')+'，'+p.committeeName:p.saved?'，调查点位':'，参考地名')+(item.hasFaith?'，有信仰记录':''));
       if(item.hasFaith)item.button.removeAttribute('title');else item.button.title=administrative?p.committeeName+' · 行政驻地':p.name;

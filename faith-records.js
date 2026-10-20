@@ -131,7 +131,7 @@ window.createFaithRecords = options => {
     if (!records.length) {
       const empty = document.createElement('p');
       empty.className = 'note';
-      empty.textContent = state ? '暂无记录' : '';
+      empty.textContent = state ? '暂无收录记录' : '';
       list.append(empty);
     }
     for (const record of records) {
@@ -156,10 +156,10 @@ window.createFaithRecords = options => {
       names.className = 'deity-list';
       for (const name of record.deities) { const li = document.createElement('li'); li.textContent = name; names.append(li); }
       card.append(names);
-      for (const content of [record.festival,record.note,[record.source,record.visitedOn].filter(Boolean).join(' · ')]) {
+      for (const [kind,content] of [['festival',record.festival],['body',record.note],['meta',[record.source,record.visitedOn].filter(Boolean).join(' · ')]]) {
         if (!content) continue;
         const paragraph = document.createElement('p');
-        paragraph.className = 'faith-note';
+        paragraph.className = 'faith-note faith-' + kind;
         paragraph.textContent = content;
         card.append(paragraph);
       }
