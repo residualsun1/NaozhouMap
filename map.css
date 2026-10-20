@@ -147,8 +147,10 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 
 /* Cartography: shore, streets, settlements, labels */
 .coast{fill:#f0ece4;stroke:#d0cdc4;stroke-width:1.25;vector-effect:non-scaling-stroke}
-.residential{fill:#e5e3da;stroke:#cfcdc3;stroke-width:.5;vector-effect:non-scaling-stroke;cursor:pointer;transition:fill .16s,stroke .16s}
-.residential:hover,.residential:focus-visible,.residential.is-selected{fill:#dcdacf;stroke:#a4a498;stroke-width:.9;outline:none}
+.residential{fill:#d4d8c9;fill-opacity:.88;stroke:#aeb9a6;stroke-width:.4;stroke-opacity:.15;vector-effect:non-scaling-stroke;cursor:pointer;transition:fill .15s,fill-opacity .15s,stroke .15s,stroke-opacity .15s,stroke-width .15s}
+.residential:hover{fill:#c9d0be;stroke-opacity:.4;stroke-width:.5}
+.residential.is-selected{fill:#c4ccb8;fill-opacity:.94;stroke:#8b9881;stroke-opacity:.75;stroke-width:.8}
+.residential:focus-visible{stroke:#66745e;stroke-opacity:.9;stroke-width:1.1;outline:none}
 .water{fill:none;stroke:#b6c7cd;stroke-width:.7;vector-effect:non-scaling-stroke;pointer-events:none}
 .road{fill:none;stroke:#c8c6bd;stroke-width:.85;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;pointer-events:none}
 .road.main{stroke:#b8b8b0;stroke-width:1.5}
