@@ -141,11 +141,15 @@
   }
   function renderAdministrativeInfo(p){
     const area=administrativeById.get(p.administrativeAreaId);
-    $('administrative-context').hidden=!area||!isAdministrativeMember(p);
+    $('administrative-context').hidden=false;
+    $('administrative-member-kind').textContent=p.placeKind==='natural_village'?'自然村':p.placeKind==='administrative_seat'?'行政驻地':p.placeKind==='administrative_area'?'行政范围':p.kind==='survey'?'调查点位':p.kind==='road'?'道路':p.kind==='cluster'?'聚落':p.placeKind==='locality'?'地点':'参考地点';
+    const committee=area?.committeeName||p.committeeName||'';
+    $('administrative-affiliation').hidden=!committee;
+    $('administrative-affiliation-prefix').textContent=['administrative_seat','administrative_area'].includes(p.placeKind)?'':'隶属于';
+    $('parent-administration').textContent=committee;
+    $('parent-administration').disabled=!area;
     $('administration-section').hidden=!area||!['administrative_seat','administrative_area'].includes(p.placeKind);
     if(!area)return;
-    $('administrative-member-kind').textContent=(p.placeKind==='locality'?'地点':'自然村')+' · 隶属';
-    $('parent-administration').textContent=area.committeeName;
     $('parent-administration').onclick=()=>selectAdministrativeArea(area);
     $('administration-name').textContent=area.committeeName;
     $('administration-kind').textContent=area.administrativeType==='community'?'社区':'行政村';
@@ -160,6 +164,19 @@
       button.addEventListener('click',()=>selectReference(placeById.get(member.placeId)));
       $('administration-member-list').append(button);
     }
+  }
+  function renderArchiveOverview(p){
+    const visible=p.kind!=='road'&&p.kind!=='cluster';
+    $('place-overview-section').hidden=!visible;$('field-notes-section').hidden=!visible;
+    const introduction=[p.introduction,p.description,p.summary].find(value=>typeof value==='string'&&value.trim())||'';
+    $('place-overview').textContent=introduction||'暂无基本情况介绍';
+    $('place-overview').classList.toggle('is-empty',!introduction);
+    const notes=$('place-notes');notes.replaceChildren();
+    if(typeof p.note==='string'&&p.note.trim()){
+      const paragraph=document.createElement('p');paragraph.className='archive-prose';paragraph.textContent=p.note;notes.append(paragraph);
+    }
+    $('point-notes-edit').hidden=p.kind!=='survey';$('point-notes-edit').textContent=notes.childElementCount?'编辑':'填写';
+    $('field-notes-empty').hidden=!!notes.textContent.trim()||!!$('faith-notes').textContent.trim();
   }
   function coverageLabelPositions(x,y,lw,lh){
     const steps=[-4,-3,-2,-1,0,1,2,3,4];
@@ -503,11 +520,11 @@
   function resultButton(name,detail,action){const b=document.createElement('button');b.type='button';b.className='result-button';const strong=document.createElement('strong');strong.textContent=name;b.append(strong);if(detail){const span=document.createElement('span');span.textContent=detail;b.append(span);}b.addEventListener('click',action);return b;}
   function renderPoints(){const list=$('point-list');list.replaceChildren();$('point-count').textContent=points.length+' 个';$('saved-points-section').hidden=!points.length;for(const p of points){const b=resultButton(p.name,`${p.lat.toFixed(6)}, ${p.lng.toFixed(6)}`,()=>selectPoint(p));b.setAttribute('aria-current',String(p.id===activeId));list.append(b);}rebuildPins();}
   function mayLeaveEditor(){return !faith.saving&&(!(formDirty&&!$('editor-section').hidden)&&!faith.dirty||window.confirm('当前填写内容尚未保存。要放弃填写并继续吗？'));}
-  function clearReference(){faith.clearVillage();reference=null;hoveredPin=null;focusedPin=null;$('reference-section').hidden=true;$('administrative-context').hidden=true;$('administration-section').hidden=true;for(const path of svg.querySelectorAll('.is-selected'))path.classList.remove('is-selected');syncDetails();}
+  function clearReference(){faith.clearVillage();reference=null;hoveredPin=null;focusedPin=null;$('reference-section').hidden=true;$('administrative-context').hidden=true;$('administration-section').hidden=true;$('place-overview-section').hidden=true;$('field-notes-section').hidden=true;$('place-notes').replaceChildren();for(const path of svg.querySelectorAll('.is-selected'))path.classList.remove('is-selected');syncDetails();}
   function reviewText(p){const review=p.placeKind==='administrative_seat'?'行政驻地 · 位置待核对':p.locationReview?.status==='field_identified'?'实地指认':'待核对';return p.locationHint?p.locationHint+' · '+review:review;}
   function placeDescription(p){return p.placeKind==='administrative_seat'?p.committeeName+' · 行政驻地':isAdministrativeMember(p)?p.committeeName+' · '+(p.placeKind==='locality'?'地点':'自然村')+(p.locationHint?' · '+p.locationHint:''):reviewText(p);}
-  function showReference(name,source,coordinates,canUse=true,review='待核对'){$('reference-section').hidden=false;$('reference-name').textContent=name;$('reference-review').textContent=review;$('reference-source').textContent=source;$('reference-coordinates').textContent=coordinates;$('use-reference').hidden=!canUse;$('reference-more').open=false;syncDetails(true);}
-  function selectReference(p){if(!p||saving||!mayLeaveEditor())return false;closeEditor();clearReference();reference={...p,kind:'place'};showReference(p.name,`名称：${p.nameSource}；位置：${p.coordinateSource}。`+(p.placeKind==='administrative_seat'?' 行政驻地点，不作为独立自然村。':''),`${p.lat.toFixed(6)}, ${p.lng.toFixed(6)}`,true,reviewText(p));renderAdministrativeInfo(p);faith.selectVillage({id:p.id,kind:'reference',name:p.name,title:p.placeKind==='administrative_seat'?'驻地供奉记录':'供奉神明',hideWhenEmpty:p.placeKind==='administrative_seat'});focusPoint(p);layoutPins();return true;}
+  function showReference(name,source,coordinates,canUse=true,review='待核对'){$('reference-section').hidden=false;$('reference-name').textContent=name;$('reference-review').textContent=review;$('reference-source').textContent=source;$('reference-coordinates').textContent=coordinates;$('use-reference').hidden=!canUse;$('reference-more').open=false;renderAdministrativeInfo(reference||{});renderArchiveOverview(reference||{});syncDetails(true);}
+  function selectReference(p){if(!p||saving||!mayLeaveEditor())return false;closeEditor();clearReference();reference={...p,kind:'place'};showReference(p.name,`名称：${p.nameSource}；位置：${p.coordinateSource}。`+(p.placeKind==='administrative_seat'?' 行政驻地点，不作为独立自然村。':''),`${p.lat.toFixed(6)}, ${p.lng.toFixed(6)}`,true,reviewText(p));faith.selectVillage({id:p.id,kind:'reference',name:p.name});focusPoint(p);layoutPins();return true;}
   function selectCluster(p){
     if(saving||!mayLeaveEditor())return;closeEditor();clearReference();reference={...p,kind:'cluster'};
     showReference(p.name||'未命名聚落',p.sourceDescription||'OpenStreetMap 聚落轮廓，不代表村界。名称待现场核对。',`${p.lat.toFixed(6)}, ${p.lng.toFixed(6)} · 轮廓中心，近似`);
@@ -520,8 +537,8 @@
     const ids=new Set(group.roads.map(p=>String(p.id)));for(const path of $('road-layer').children)if(ids.has(path.dataset.roadId))path.classList.add('is-selected');focusGeometry(extent);
   }
   function selectPoint(p){if(saving||!mayLeaveEditor())return;clearReference();activeId=p.id;openEditor(p);renderPoints();focusPoint(p);}
-  function openEditor(p=null){if(saving)return;formDirty=false;editingId=p?.id||null;$('editor-section').hidden=false;$('editor-heading').textContent=editingId?'修改调查点位':'新增调查点位';$('reference-name').textContent=p?.name||'新增点位';$('reference-review').textContent=editingId?'调查点位':'';$('point-name').value=p?.name||'';$('point-lat').value=p?.lat??'';$('point-lng').value=p?.lng??'';$('point-source').value=p?.source||'';$('point-note').value=p?.note||'';$('delete-point').hidden=!editingId;draft=p?{lat:p.lat,lng:p.lng}:null;syncDetails(true);checkCoordinates();rebuildPins();if(editingId)faith.selectVillage({id:p.id,kind:'survey',name:p.name});$('point-name').focus({preventScroll:true});}
-  function closeEditor(){if(saving)return;faith.clearVillage();formDirty=false;editingId=null;activeId=null;draft=null;$('editor-section').hidden=true;setPicking(false);renderPoints();syncDetails();}
+  function openEditor(p=null){if(saving)return;formDirty=false;editingId=p?.id||null;$('editor-section').hidden=false;$('editor-heading').textContent=editingId?'修改调查点位':'新增调查点位';$('reference-name').textContent=p?.name||'新增点位';$('reference-review').textContent=editingId?'调查点位':'';$('point-name').value=p?.name||'';$('point-lat').value=p?.lat??'';$('point-lng').value=p?.lng??'';$('point-source').value=p?.source||'';$('point-note').value=p?.note||'';$('delete-point').hidden=!editingId;draft=p?{lat:p.lat,lng:p.lng}:null;renderAdministrativeInfo({...p,kind:'survey'});renderArchiveOverview({...p,kind:'survey'});$('reference-section').hidden=!editingId;$('reference-coordinates').textContent=p?`${p.lat.toFixed(6)}, ${p.lng.toFixed(6)}`:'';$('reference-source').textContent=p?.source||'';$('reference-more').open=false;$('use-reference').hidden=true;syncDetails(true);checkCoordinates();rebuildPins();if(editingId)faith.selectVillage({id:p.id,kind:'survey',name:p.name});$('point-name').focus({preventScroll:true});}
+  function closeEditor(){if(saving)return;faith.clearVillage();formDirty=false;editingId=null;activeId=null;draft=null;$('editor-section').hidden=true;if(!reference){$('reference-section').hidden=true;$('place-overview-section').hidden=true;$('field-notes-section').hidden=true;}setPicking(false);renderPoints();syncDetails();}
   function checkCoordinates(){const lat=$('point-lat').value,lng=$('point-lng').value;if(lat!==''&&lng!==''&&Number.isFinite(Number(lat))&&Number.isFinite(Number(lng))){draft={lat:Number(lat),lng:Number(lng)};$('point-location-status').textContent=onIsland(draft.lng,draft.lat)?'':'位置在海岸线外，请核对坐标。';}else{draft=null;$('point-location-status').textContent='';}rebuildPins();}
   function setPicking(enabled){faith.dismissPreview();picking=enabled;$('cancel-pick').hidden=!enabled;$('pick-message').hidden=!enabled;stage.classList.toggle('is-picking',enabled);workspace.classList.toggle('is-picking',enabled);if(view)update();}
   function setPickedLocation(lng,lat){
@@ -535,6 +552,7 @@
   $('close-editor').addEventListener('click',()=>{if(mayLeaveEditor())closeEditor();});$('pick-location').addEventListener('click',pick);$('cancel-pick').addEventListener('click',()=>setPicking(false));
   ['point-lat','point-lng'].forEach(id=>$(id).addEventListener('change',checkCoordinates));
   $('point-form').addEventListener('input',()=>{formDirty=true;});
+  $('point-notes-edit').addEventListener('click',()=>$('point-note').focus());
   window.addEventListener('beforeunload',e=>{if(saving||formDirty||faith.saving||faith.dirty){e.preventDefault();e.returnValue='';}});
   $('point-form').addEventListener('submit',async e=>{e.preventDefault();if(blockedStorage||saving||!ready||!$('point-form').reportValidity()||!faith.mayLeave())return;const now=new Date().toISOString(),old=points.find(p=>p.id===editingId);const p={id:editingId||uid(),name:$('point-name').value.trim(),lat:Number($('point-lat').value),lng:Number($('point-lng').value),source:$('point-source').value.trim(),note:$('point-note').value.trim(),createdAt:old?.createdAt||now,updatedAt:now};if(!validPoint(p)){notify('请填写有效名称与经纬度。');return;}const next=points.slice(),i=next.findIndex(item=>item.id===p.id);if(i<0)next.push(p);else next[i]=p;if(await store(next)){closeEditor();notify('已保存：'+p.name);}});
   $('delete-point').addEventListener('click',async()=>{if(!faith.mayLeave())return;const i=points.findIndex(p=>p.id===editingId);if(i<0)return;const removed=points[i],next=points.filter(p=>p.id!==removed.id);if(!await store(next))return;closeEditor();notify('已移除：'+removed.name,async()=>{if(!points.some(p=>p.id===removed.id)){const restored=points.slice();restored.splice(Math.min(i,restored.length),0,removed);if(await store(restored))renderPoints();}});});

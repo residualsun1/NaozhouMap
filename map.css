@@ -226,8 +226,20 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .administrative-key small{display:block;margin-top:2px;font-size:9px;line-height:1.6;color:#777974}
 .area-swatch{flex-shrink:0;width:22px;height:25px;border:1px dashed #a4a6a3;background:repeating-linear-gradient(-45deg,#e3e4e2 0,#e3e4e2 1px,#fbfbfa 1px,#fbfbfa 6px)}
 .map-stage.is-dragging~.administrative-key:not(:focus-visible){opacity:.24}
-.administrative-context{display:flex;align-items:center;gap:9px;margin-bottom:25px;padding-bottom:20px;border-bottom:1px solid var(--line);font-size:10px;color:#777974}
-.administrative-context button{padding:4px 0;border:0;border-bottom:1px solid #d0d2cf;border-radius:0;background:transparent;font-size:11px;color:#6e706c;text-align:left}
+.administrative-context{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;margin-top:10px;font-size:11px;line-height:1.7;color:#777974}
+.place-type{padding:1px 6px;border:1px solid #e4e5df;border-radius:4px;background:#f5f5f0;font-size:10px;line-height:1.6;color:#697168;white-space:nowrap}
+#administrative-affiliation{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:3px}
+.administrative-context button{padding:0;border:0;border-bottom:1px solid #d9dcd4;border-radius:0;background:transparent;font-size:11px;line-height:1.7;color:#777974;text-align:left}
+.administrative-context button:disabled{opacity:1;cursor:default;border-bottom-color:transparent}
+.archive-prose{margin:0;color:#4f564f;font-size:13px;font-weight:400;line-height:1.85;white-space:pre-wrap;overflow-wrap:anywhere}
+.archive-prose.is-empty,#field-notes-empty{color:#777974;font-size:12px;line-height:1.75}
+.field-note{padding:16px 0;border-bottom:1px solid var(--line)}
+.field-note:first-child{padding-top:0}.field-note:last-child{padding-bottom:0;border-bottom:0}
+.field-note-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}
+.field-note-heading h3{margin:0;font-size:12px;font-weight:500;line-height:1.6;color:#687066}
+.field-note-heading button{margin-left:auto}
+.field-note-source{margin:10px 0 0;font-size:11px;line-height:1.7;color:#777974;overflow-wrap:anywhere}
+#place-notes:not(:empty)+#faith-notes:not(:empty){margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
 #administration-view[aria-pressed=true]{background:#f0f0ef;border-color:#d0d1ce;color:#747672}
 #administration-members{margin-top:18px}
 .administration-member-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:10px}

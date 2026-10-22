@@ -53,7 +53,7 @@ window.createFaithRecords = options => {
     const title = document.createElement('strong');
     title.textContent = selected.name;
     const count = document.createElement('span');
-    count.textContent = '供奉神明 · ' + names.length;
+    count.textContent = '信仰神明 · ' + names.length;
     heading.append(title,count);
     const list = document.createElement('ul');
     for (const name of names) { const item = document.createElement('li'); item.textContent = name; list.append(item); }
@@ -112,7 +112,7 @@ window.createFaithRecords = options => {
     $('faith-add').disabled = !state || saving;
     $('faith-form').inert = saving;
     for (const id of ['faith-export-csv','faith-export-json','faith-import']) $(id).disabled = !state || saving;
-    for (const button of $('faith-list').querySelectorAll('button')) button.disabled = saving;
+    for (const node of [$('faith-list'),$('faith-notes')]) for (const button of node.querySelectorAll('button')) button.disabled = saving;
   }
   function closeForm() {
     $('faith-form').hidden = true;
@@ -124,14 +124,15 @@ window.createFaithRecords = options => {
   function render() {
     const list = $('faith-list');
     list.replaceChildren();
+    const notes = $('faith-notes');notes.replaceChildren();
     const records = state?.records.filter(sameVillage) || [];
-    $('faith-section').hidden = !village || (!!village.hideWhenEmpty && !records.length);
-    $('faith-title').textContent = village?.title || '供奉神明';
+    $('faith-section').hidden = !village;
+    $('faith-title').textContent = '信仰神明';
     $('faith-count').textContent = records.length > 1 ? records.length + ' 条' : '';
     if (!records.length) {
       const empty = document.createElement('p');
       empty.className = 'note';
-      empty.textContent = state ? '暂无记录' : '';
+      empty.textContent = state ? '暂无收录记录' : '';
       list.append(empty);
     }
     for (const record of records) {
@@ -156,7 +157,7 @@ window.createFaithRecords = options => {
       names.className = 'deity-list';
       for (const name of record.deities) { const li = document.createElement('li'); li.textContent = name; names.append(li); }
       card.append(names);
-      for (const content of [record.festival,record.note,[record.source,record.visitedOn].filter(Boolean).join(' · ')]) {
+      for (const content of [record.festival,[record.source,record.visitedOn].filter(Boolean).join(' · ')]) {
         if (!content) continue;
         const paragraph = document.createElement('p');
         paragraph.className = 'faith-note';
@@ -164,7 +165,19 @@ window.createFaithRecords = options => {
         card.append(paragraph);
       }
       list.append(card);
+      if (record.note?.trim()) {
+        const article=document.createElement('article');article.className='field-note';
+        const heading=document.createElement('div');heading.className='field-note-heading';
+        if(record.temple){const title=document.createElement('h3');title.textContent=record.temple;heading.append(title);}
+        const editNote=document.createElement('button');editNote.type='button';editNote.className='linkbutton';editNote.textContent='编辑';editNote.setAttribute('aria-label','编辑田野笔记'+(record.temple?'：'+record.temple:''));
+        editNote.addEventListener('click',()=>{if(mayLeave()){openForm(record);$('faith-more').open=true;$('faith-note').focus();}});heading.append(editNote);article.append(heading);
+        const body=document.createElement('p');body.className='archive-prose';body.textContent=record.note;article.append(body);
+        const context=[record.source,record.visitedOn].filter(Boolean).join(' · ');
+        if(context){const source=document.createElement('p');source.className='field-note-source';source.textContent=context;article.append(source);}
+        notes.append(article);
+      }
     }
+    $('field-notes-empty').hidden=!!$('place-notes').textContent.trim()||!!notes.childElementCount;
     enable();
   }
   function mayLeave() { return !saving && (!dirty || window.confirm('信仰记录尚未保存。要放弃填写吗？')); }
@@ -269,7 +282,7 @@ window.createFaithRecords = options => {
     dismissPreview,
     repositionPreview() { if (!preview.hidden) positionPreview(); },
     selectVillage(selected) { closeForm(); village = selected; $('faith-section').hidden = false; render(); },
-    clearVillage() { closeForm(); village = null; $('faith-section').hidden = true; },
+    clearVillage() { closeForm(); village = null; render(); },
     hasRecords(id,kind) { return !!state?.records.some(record=>record.villageId === id && record.villageKind === kind); },
     matches(id,kind,term) { return !!state?.records.some(record=>record.villageId === id && record.villageKind === kind && [...record.deities,record.temple].some(value=>value?.toLocaleLowerCase().includes(term))); }
   };
