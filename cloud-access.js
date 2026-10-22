@@ -26,7 +26,7 @@
     event.preventDefault();
     const submit=form.querySelector('[type=submit]');submit.disabled=true;
     try {
-      const response=await fetch('./api/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:$('cloud-password').value})});
+      const response=await fetch('/api/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:$('cloud-password').value})});
       const result=await response.json();
       if (!response.ok) throw Error(result.error||'登录未完成。');
       showAccess(true);dialog.close();
@@ -35,10 +35,10 @@
   });
   $('cloud-access-button').addEventListener('click',async()=>{
     if (!editable) {await login();return;}
-    const response=await fetch('./api/auth',{method:'DELETE'});
+    const response=await fetch('/api/auth',{method:'DELETE'});
     if (response.ok) showAccess(false);
   });
-  const ready=fetch('./api/auth',{cache:'no-store'}).then(async response=>{
+  const ready=fetch('/api/auth',{cache:'no-store'}).then(async response=>{
     if (!response.ok) throw Error();
     const result=await response.json();showAccess(!!result.editable);
   }).catch(()=>{showAccess(false);$('cloud-access-status').textContent='云端连接暂不可用';});

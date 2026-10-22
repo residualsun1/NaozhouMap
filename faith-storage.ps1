@@ -1,6 +1,6 @@
 ﻿$faithFile = Join-Path $PSScriptRoot 'data\village-faith.json'
 
-function Normalize-FaithRecords($Items) {
+function Normalize-FaithRecords($Items, $Previous=@(), $Catalog=$null) {
     if ($Items -isnot [array] -or $Items.Count -gt 10000) { throw 'Invalid faith records.' }
     $records = New-Object 'System.Collections.Generic.List[object]'
     $ids = New-Object 'System.Collections.Generic.HashSet[string]' ([StringComparer]::Ordinal)
@@ -10,12 +10,20 @@ function Normalize-FaithRecords($Items) {
         if ($item.villageName -isnot [string] -or $item.villageName.Trim().Length -eq 0 -or $item.villageName.Length -gt 100) { throw 'Invalid village name.' }
         if ($item.deities -isnot [array] -or $item.deities.Count -lt 1 -or $item.deities.Count -gt 100) { throw 'Enter at least one deity.' }
         $deities = New-Object 'System.Collections.Generic.List[string]'
-        $names = New-Object 'System.Collections.Generic.HashSet[string]' ([StringComparer]::Ordinal)
         foreach ($name in $item.deities) {
             if ($name -isnot [string] -or $name.Trim().Length -eq 0 -or $name.Length -gt 100) { throw 'Invalid deity name.' }
-            if ($names.Add($name.Trim())) { $deities.Add($name.Trim()) }
+            $deities.Add($name.Trim())
         }
         $record = [ordered]@{ id = $item.id; villageId = $item.villageId; villageKind = $item.villageKind; villageName = $item.villageName.Trim(); deities = $deities.ToArray() }
+        $old = $Previous | Where-Object { $_.id -ceq $item.id } | Select-Object -First 1
+        $hasLinks = $item.PSObject.Properties.Name -contains 'deityLinks'
+        if (-not $hasLinks -and $old.deityLinks.Count -gt 0 -and ((ConvertTo-Json -InputObject $record.deities -Compress) -cne (ConvertTo-Json -InputObject $old.deities -Compress) -or $item.villageId -cne $old.villageId -or $item.villageKind -cne $old.villageKind)) { throw 'Refresh this page before changing linked deity names or villages.' }
+        if ($hasLinks -or $null -ne $old.deityLinks) {
+            if ($null -eq $Catalog) { $Catalog = Read-Deities }
+            if ($hasLinks -and $null -eq $item.deityLinks) { throw 'Invalid deity links.' }
+            $rawLinks = @(); if ($hasLinks) { $rawLinks = @($item.deityLinks) } else { $rawLinks = @($old.deityLinks) }
+            $record.deityLinks = Normalize-DeityLinks $rawLinks $record.deities $Catalog
+        }
         foreach ($field in @('temple','festival','source','visitedOn','note','createdAt','updatedAt')) {
             $limit = switch ($field) { 'festival' { 500 } 'note' { 5000 } 'visitedOn' { 10 } 'createdAt' { 100 } 'updatedAt' { 100 } default { 200 } }
             $value = $item.$field
@@ -67,7 +75,7 @@ function Handle-FaithRequest($Context) {
     try {
         $body = Read-JsonBody $request
         if ($body.version -ne 1 -or -not (Test-Revision $body.revision)) { throw 'Invalid faith data version.' }
-        $records = Normalize-FaithRecords $body.records
+        $records = Normalize-FaithRecords $body.records $current.records (Read-Deities)
     } catch { Send-Json $Context 400 @{ error = $_.Exception.Message }; return }
     if ([int]$body.revision -ne $current.revision) {
         $current.error = 'Records changed in another page.'

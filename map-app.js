@@ -636,5 +636,12 @@
   const archives = window.createPlaceArchives({download,editSurveyNote:()=>$('point-note').focus()});
   const faith = window.createFaithRecords({download,onChange:rebuildPins});
   for(const area of administrativeAreas)setAdministrativeLayer(area,false);
-  renderPoints();homeView();load();
+  function openLinkedPlace(){
+    const query=new URLSearchParams(location.search),id=query.get('placeId'),kind=query.get('placeKind');if(!id)return;
+    const point=kind==='survey'?points.find(point=>point.id===id):kind==='reference'?placeById.get(id):null;
+    if(!point){notify('未找到对应地点，资料可能已更新。');return;}
+    if(kind==='survey')selectPoint(point);else selectReference(point);
+    if(query.get('faithId'))faith.focusRecord(query.get('faithId'));
+  }
+  renderPoints();homeView();load().then(openLinkedPlace);
 })();

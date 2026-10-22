@@ -9,6 +9,16 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
+[[redirects]]
+  from = "/deities"
+  to = "/deities.html"
+  status = 200
+
+[[redirects]]
+  from = "/deities/"
+  to = "/deities.html"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]

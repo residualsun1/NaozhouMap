@@ -2,6 +2,7 @@ import { getStore } from '@netlify/blobs';
 import pointsSeed from '../seed/points.json' with {type:'json'};
 import faithSeed from '../seed/faith.json' with {type:'json'};
 import { authorized, json, sameOrigin } from './auth.mjs';
+import { deitySeed, normalizeDeityCatalog, normalizeDeityLinks } from './deities.mjs';
 
 const revisionValid = value => Number.isInteger(value) && value >= 0 && value < 2147483647;
 const required = (value, limit) => typeof value === 'string' && value.trim().length > 0 && value.length <= limit;
@@ -25,12 +26,15 @@ export function normalizePoints(items) {
     return {id:item.id,name:item.name.trim(),lat:item.lat,lng:item.lng,source:text(item.source,200),note:text(item.note,5000),createdAt:text(item.createdAt,100)||new Date().toISOString(),updatedAt:text(item.updatedAt,100)||new Date().toISOString()};
   });
 }
-export function normalizeFaith(items) {
+export function normalizeFaith(items, previous=[], catalog=deitySeed) {
   identifiers(items);
   return items.map(item => {
     if (!required(item.villageId,120) || !['reference','survey'].includes(item.villageKind) || !required(item.villageName,100)) throw Error('村庄关联无效。');
     if (!Array.isArray(item.deities) || !item.deities.length || item.deities.length > 100 || item.deities.some(name=>!required(name,100))) throw Error('神明名称无效。');
-    const record = {id:item.id,villageId:item.villageId,villageKind:item.villageKind,villageName:item.villageName.trim(),deities:[...new Set(item.deities.map(name=>name.trim()))]};
+    const record = {id:item.id,villageId:item.villageId,villageKind:item.villageKind,villageName:item.villageName.trim(),deities:item.deities.map(name=>name.trim())};
+    const old = previous.find(record=>record.id===item.id);
+    if (item.deityLinks === undefined && old?.deityLinks?.length && (JSON.stringify(record.deities)!==JSON.stringify(old.deities) || item.villageId!==old.villageId || item.villageKind!==old.villageKind)) throw Error('此记录已有关联，请刷新页面后再修改神明名称或村庄。');
+    if (item.deityLinks !== undefined || old?.deityLinks !== undefined) record.deityLinks = normalizeDeityLinks(item.deityLinks ?? old.deityLinks,record.deities,catalog);
     for (const [field,limit] of Object.entries({temple:200,festival:500,source:200,visitedOn:10,note:5000,createdAt:100,updatedAt:100})) record[field]=text(item[field],limit);
     if (record.visitedOn && (!/^\d{4}-\d{2}-\d{2}$/.test(record.visitedOn) || new Date(record.visitedOn).toISOString().slice(0,10)!==record.visitedOn)) throw Error('走访日期无效。');
     record.createdAt ||= new Date().toISOString();record.updatedAt ||= new Date().toISOString();
@@ -48,7 +52,7 @@ export function normalizeArchives(items) {
     return {id:item.id,villageId:item.villageId,villageKind:item.villageKind,villageName:item.villageName.trim(),introduction:text(item.introduction,20000),note:text(item.note,20000),createdAt:text(item.createdAt,100)||new Date().toISOString(),updatedAt:text(item.updatedAt,100)||new Date().toISOString()};
   });
 }
-const seeds = {points:pointsSeed,faith:faithSeed,archives:{version:1,revision:0,records:[]}};
+const seeds = {points:pointsSeed,faith:faithSeed,archives:{version:1,revision:0,records:[]},deities:deitySeed};
 const normalizers = {points:normalizePoints,faith:normalizeFaith,archives:normalizeArchives};
 async function readState(store,kind) {
   const entry=await store.getWithMetadata(kind,{type:'json'});
@@ -65,14 +69,17 @@ export function recordsHandler(kind, storeFactory = () => getStore({name:'naozho
       if (Number(request.headers.get('content-length')) > 5*1024*1024) return json({error:'资料过大，请分批导入。'},413);
       const raw=await request.text();
       if (Buffer.byteLength(raw)>5*1024*1024) return json({error:'资料过大，请分批导入。'},413);
-      let body,items;
+      let body,items,deityCatalog;
       try {
         body=JSON.parse(raw);
         if (!revisionValid(body.revision) || (kind!=='points' && body.version!==1)) throw Error('记录版本无效。');
-        items=normalizers[kind](kind==='points'?body.points:body.records);
+        if (kind==='deities') { deityCatalog=normalizeDeityCatalog(body,current.state); items=deityCatalog.records; }
+        else if (kind==='faith') items=normalizeFaith(body.records,current.state.records,(await readState(store,'deities')).state);
+        else items=normalizers[kind](kind==='points'?body.points:body.records);
       } catch(error) {return json({error:error.message},400);}
       if (body.revision!==current.state.revision) return json(current.state,409);
       const next={version:1,revision:current.state.revision+1,[kind==='points'?'points':'records']:items};
+      if (kind==='deities') next.titles=deityCatalog.titles;
       if (kind==='points') {
         const retired=new Set(pointsSeed.deletedIds);
         if (items.some(point=>retired.has(point.id))) return json({error:'这些点位已转为参考地点，请创建新的调查记录。'},422);

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>硇洲岛田野图集 · Naozhou Field Atlas</title>
   <link rel="stylesheet" href="./map.css">
+  <link rel="stylesheet" href="./deity-atlas.css">
 </head>
 <body>
   <main id="workspace">
@@ -28,6 +29,7 @@
         <div id="search-feedback" hidden><p id="search-status" class="status" role="status" aria-live="polite"></p><div id="search-results" class="result-list"></div></div>
       </div>
       <div class="map-toolbar" aria-label="地图工具">
+        <a class="deity-entry" href="/deities" aria-label="神明谱系"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v15M3 4c4-1 6 0 9 2 3-2 5-3 9-2v15c-4-1-6 0-9 2-3-2-5-3-9-2z"/></svg><span>谱系</span></a>
         <button id="island-view" type="button"><svg class="ui-icon" aria-hidden="true" focusable="false"
   xmlns="http://www.w3.org/2000/svg"
   width="24"
@@ -186,7 +188,11 @@
           <div class="section-title"><h2><span id="faith-title">信仰神明</span><span id="faith-count" class="count"></span></h2><button id="faith-add" type="button" aria-label="新增信仰记录" disabled>新增</button></div>
           <div id="faith-list"></div>
           <form id="faith-form" hidden>
-            <label for="faith-deities">信仰神明</label><textarea id="faith-deities" rows="6" maxlength="5000" required placeholder="每行一位"></textarea>
+            <label for="faith-deity-search">查找神明或别名</label><input id="faith-deity-search" autocomplete="off" maxlength="100" placeholder="输入名称，选择神明档案">
+            <p id="faith-picker-status" class="faith-picker-caption" role="status" aria-live="polite"></p>
+            <div id="faith-deity-results" class="faith-picker-results"></div>
+            <div id="faith-picker-actions" class="faith-picker-actions" hidden><button id="faith-deity-create" type="button">新建神明档案</button><button id="faith-deity-legacy" type="button">仅记录名称 · 待关联</button></div>
+            <div id="faith-picked-list" class="faith-choices" aria-label="已选择的神明"></div><textarea id="faith-deities" hidden></textarea>
             <details id="faith-more"><summary>补充资料</summary><label for="faith-temple">宫庙／供奉场所</label><input id="faith-temple" maxlength="200"><label for="faith-festival">祭期与活动</label><input id="faith-festival" maxlength="500" placeholder="如：农历三月初三"><label for="faith-source">资料来源</label><input id="faith-source" maxlength="200"><label for="faith-visitedOn">走访日期</label><input id="faith-visitedOn" type="date"><label for="faith-note">访谈笔记</label><textarea id="faith-note" maxlength="5000"></textarea></details>
             <div class="button-row form-actions"><button type="submit" class="primary">保存记录</button><button id="faith-cancel" type="button">取消</button><button id="faith-delete" type="button" hidden>移除</button></div>
           </form>
@@ -225,6 +231,7 @@
       <div class="button-row form-actions"><button type="submit" class="primary">登录</button><button id="cloud-login-cancel" type="button">取消</button></div>
     </form>
   </dialog>
-  <script src="./map-data.js"></script><script src="./cloud-access.js"></script><script src="./place-archives.js"></script><script src="./faith-records.js"></script><script src="./map-app.js"></script>
+  <dialog id="quick-deity-dialog" class="atlas-dialog" aria-labelledby="quick-deity-heading"><form id="quick-deity-form" class="quick-deity-form"><h2 id="quick-deity-heading">新建神明档案</h2><p class="note">同名神明可分别建档。</p><div id="quick-deity-fields"></div><div class="button-row form-actions"><button type="submit" class="primary">保存并关联</button><button id="quick-deity-cancel" type="button">取消</button></div><p id="quick-deity-status" class="status" role="status" aria-live="polite"></p></form></dialog>
+  <script src="./map-data.js"></script><script src="./cloud-access.js"></script><script src="./deity-catalog.js"></script><script src="./place-archives.js"></script><script src="./faith-records.js"></script><script src="./map-app.js"></script>
 </body>
 </html>

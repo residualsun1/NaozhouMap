@@ -35,6 +35,18 @@ npm run build
 主要文件：`index.html`、`map.css`、`map-app.js`、`faith-records.js`、`map-data.js`。
 `cloud-access.js` 只在 Netlify 构建中启用；`netlify/functions/` 提供 `/api/points`、`/api/faith`、`/api/archives` 和 `/api/auth`。
 村庄「基本情况」和独立「田野笔记」由 `place-archives.js` 编辑，线上存入独立云端档案，本地存入 `data/place-archives.json`；首次填写时创建，不修改原有地理、点位及信仰资料。数据面板可导入、导出档案备份。调查点位原有笔记仍通过点位表单编辑和保存。
+
+### 神明谱系
+
+地图工具栏的书册入口打开 `/deities`。总库支持八类地方神函、多神函归属、待分类、别名检索、建档、编辑及归档；同名档案由不同 ID 区分。初始总库为空，不按历史名称自动建档或合并。八类原始索引保留名称和 ID，可增补其他神函、编辑增补项。
+
+`/api/deities` 返回 `{version:1,revision,titles,records}`，沿用编辑登录与 revision 冲突控制。线上使用独立的 `deities` 存储，本地存入 `data/deities.json`。归档保留神明 ID 和已有村庄关联，不做级联删除。
+
+信仰记录原有 `deities` 数组及其他字段保留，兼容增加 `deityLinks: [{id,deityId,nameIndex,localName,localTitle}]`；`nameIndex` 对应原数组位置，引用只通过 `deityId` 建立。同名可对应不同 ID，同一 ID 可跨村庄、宫庙或记录引用。旧客户端省略关联字段时，后端保留已有关系；如果同时改动已关联的名称或村庄则拒绝保存，要求刷新。没有关联的旧记录始终有效。
+
+总库详情按 ID 动态汇总 `/api/faith` 的村庄与记录；共享的 `DeityAtlas.villagesFor()` 和 `mapURL()` 可供后续地理展示使用。`/?placeKind=reference&placeId=…&faithId=…` 可定位地点及原记录；调查点位使用 `placeKind=survey`。这些关系不代表轮祀或流动方向。
+
+总库页面可导入、导出 JSON；信仰备份包含完整关联，CSV 也列出神明 ID 和当地信息。恢复到其他项目时先导入神明总库，再导入信仰记录；同编号的现有资料保留。
 发布目录仅包含运行所需文件，本地备份、访谈存档和工作截图不上传到网站。
 
 ## 地图资料与署名
