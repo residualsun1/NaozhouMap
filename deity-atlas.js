@@ -2,9 +2,11 @@
   'use strict';
   const $=id=>document.getElementById(id), A=window.DeityAtlas, el=A.element;
   const catalog=A.createCatalog();
+  const returnMap=new URLSearchParams(location.search).get('mapReturn')||'';
+  if(returnMap)for(const link of document.querySelectorAll('.atlas-brand>a,.atlas-map-link'))link.href=A.exploreURL('',returnMap);
   let selected=new URLSearchParams(location.search).get('id'), filter='all', editing=null, fields=null, dirty=false, saving=false, faith=null, faithError='', titlesDirty=false;
   function mayLeave(){return !saving&&!catalog.saving&&(!dirty||window.confirm('神明档案尚未保存。要放弃填写吗？'));}
-  function setURL(id,replace=false){history[replace?'replaceState':'pushState']({},'',id?A.profileURL(id):'/deities');}
+  function setURL(id,replace=false){history[replace?'replaceState':'pushState']({},'',id?A.profileURL(id,returnMap):'/deities'+(returnMap?'?mapReturn='+encodeURIComponent(returnMap):''));}
   function choose(id,replace=false){if(!mayLeave())return;selected=id;editing=null;dirty=false;setURL(id,replace);render();$('deity-detail').scrollTop=0;}
   function categoryName(){return filter==='all'?'全部神明':filter==='unclassified'?'待分类':filter==='archived'?'已归档':catalog.state?.titles.find(title=>title.id===filter)?.name||'全部神明';}
   function matchesFilter(record,key){return key==='archived'?!!record.archivedAt:!record.archivedAt&&(key==='all'||(key==='unclassified'?!record.titleIds.length:record.titleIds.includes(key)));}
@@ -27,6 +29,7 @@
     const node=$('deity-record');node.replaceChildren();
     const back=el('button','linkbutton deity-mobile-back','返回神明列表');back.type='button';back.addEventListener('click',()=>choose(null));node.append(back,el('span','atlas-eyebrow','神明档案 · DEITY RECORD'));
     const heading=el('div','deity-record-heading'),title=el('div');title.append(el('h2','',record.name));const badges=el('div','deity-badges');const titles=record.titleIds.map(id=>catalog.state.titles.find(title=>title.id===id)?.name).filter(Boolean);for(const name of titles.length?titles:['待分类'])badges.append(el('span','deity-badge',name));if(record.archivedAt)badges.append(el('span','deity-badge','已归档'));title.append(badges);const edit=el('button','linkbutton','编辑档案');edit.type='button';edit.addEventListener('click',()=>startEdit(record));heading.append(title,edit);node.append(heading);
+    const distribution=el('a','deity-map-distribution','在地图中查看分布 ↗');distribution.href=A.exploreURL(record.id,returnMap);node.append(distribution);
     if(record.aliases.length)node.append(section('别名与地方称谓',record.aliases.join('、')));
     node.append(section('神明简介',record.description),section('身份差异与争议说明',record.identityNote));
     const relations=el('section','deity-section'),villages=faith?A.villagesFor(record.id,faith.records):[];

@@ -1,11 +1,13 @@
 /* Village faith records use stable place IDs and their own project file. */
 window.createFaithRecords = options => {
   'use strict';
-  const {download, onChange} = options;
+  const {download, onChange, onExploreDeity} = options;
   const $ = id => document.getElementById(id);
   const textLimits = {temple:200, festival:500, source:200, visitedOn:10, note:5000, createdAt:100, updatedAt:100};
   const fields = ['temple','festival','source','visitedOn','note'];
   let state = null, village = null, editingId = null, dirty = false, saving = false;
+  let loadError='';const listeners=new Set();
+  function changed(){onChange();for(const listener of listeners)listener();}
   const A=window.DeityAtlas,catalog=A.createCatalog();
   let choices=[],linkingIndex=null,quickFields=null,quickDirty=false,quickSaving=false,highlightedRecordId=null,pendingRecordFocus=false;
   const key = (kind, id) => kind + ':' + id;
@@ -203,7 +205,7 @@ window.createFaithRecords = options => {
       card.append(row);
       const names = document.createElement('ul');
       names.className = 'deity-list';
-      record.deities.forEach((name,index)=>{const li=document.createElement('li'),relation=record.deityLinks?.find(link=>link.nameIndex===index);if(relation){const link=document.createElement('a');link.href=A.profileURL(relation.deityId);link.textContent=relation.localName||name;link.title='查看神明档案'+(relation.localTitle?' · '+relation.localTitle:'');li.append(link);}else{const label=document.createElement('span');label.className='legacy-deity';label.append(document.createTextNode(name));const pending=document.createElement('small');pending.textContent='待关联';label.append(pending);li.append(label);}names.append(li);});
+      record.deities.forEach((name,index)=>{const li=document.createElement('li'),relation=record.deityLinks?.find(link=>link.nameIndex===index);if(relation){const link=document.createElement('a');link.href=A.profileURL(relation.deityId);link.textContent=relation.localName||name;link.title='查看神明档案'+(relation.localTitle?' · '+relation.localTitle:'');li.append(link);if(onExploreDeity){const explore=document.createElement('button');explore.type='button';explore.className='deity-distribution-link';explore.setAttribute('aria-label','在地图中查看'+(relation.localName||name)+'的分布');explore.title='在地图中查看分布';explore.textContent='分布';explore.addEventListener('click',()=>onExploreDeity(relation.deityId));li.append(explore);}}else{const label=document.createElement('span');label.className='legacy-deity';label.append(document.createTextNode(name));const pending=document.createElement('small');pending.textContent='待关联';label.append(pending);li.append(label);}names.append(li);});
       card.append(names);
       for (const content of [record.festival,[record.source,record.visitedOn].filter(Boolean).join(' · ')]) {
         if (!content) continue;
@@ -257,13 +259,15 @@ window.createFaithRecords = options => {
       const result = await response.json();
       if (response.status === 409) {
         state = validate(result);
+        loadError='';
         render();
-        onChange();
+        changed();
         throw Error('另一页面已更新，填写内容仍保留，请再次保存。');
       }
       if (!response.ok) throw Error(result.error||'未能保存，请保留当前填写内容。');
       state = validate(result);
-      onChange();
+      loadError='';
+      changed();
       status('已保存');
       return true;
     } catch (error) { status(error.message); return false; }
@@ -325,13 +329,16 @@ window.createFaithRecords = options => {
       const response = await (window.NaozhouCloud?.request || fetch)('./api/faith',{cache:'no-store'});
       if (!response.ok) throw Error('信仰资料未能读取，请重新打开地图。');
       state = validate(await response.json());
+      loadError='';
       status('');
-      onChange();
-    } catch (error) { status(error.message); }
+    } catch (error) { loadError=error.message;status(error.message); }
     render();
+    changed();return state;
   }
-  load();
+  const ready=load();
   return {
+    ready,get catalog(){return catalog;},get records(){return state?.records||null;},get error(){return loadError;},reload:load,
+    subscribe(listener){listeners.add(listener);return()=>listeners.delete(listener);},
     get dirty() { return dirty||quickDirty; },
     get saving() { return saving||quickSaving||catalog.saving; },
     mayLeave,

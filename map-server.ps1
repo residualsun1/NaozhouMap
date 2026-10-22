@@ -234,6 +234,8 @@ $staticFiles = @{
     '/deity-catalog.js' = @{ Path = 'deity-catalog.js'; Type = 'text/javascript; charset=utf-8' }
     '/deity-atlas.js' = @{ Path = 'deity-atlas.js'; Type = 'text/javascript; charset=utf-8' }
     '/deity-atlas.css' = @{ Path = 'deity-atlas.css'; Type = 'text/css; charset=utf-8' }
+    '/deity-explorer.js' = @{ Path = 'deity-explorer.js'; Type = 'text/javascript; charset=utf-8' }
+    '/deity-explorer.css' = @{ Path = 'deity-explorer.css'; Type = 'text/css; charset=utf-8' }
     '/map-data.js' = @{ Path = 'map-data.js'; Type = 'text/javascript; charset=utf-8' }
     '/assets/vector-map-data.json' = @{ Path = 'assets/vector-map-data.json'; Type = 'application/json; charset=utf-8' }
 }

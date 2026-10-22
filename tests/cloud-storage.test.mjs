@@ -134,3 +134,19 @@ test('ID links span villages without merging names, and old clients cannot erase
   const reopened=await (await faith(new Request(origin+'/api/faith'))).json();
   assert.equal(reopened.records.find(item=>item.id==='faith-a').deityLinks.length,2);
 });
+test('deity map relations deduplicate stable places and retain records without coordinates',async()=>{
+  const context={window:{},URLSearchParams};runInNewContext(await readFile(new URL('../deity-catalog.js',import.meta.url),'utf8'),context);
+  const A=context.window.DeityAtlas;
+  const record={id:'map-record-a',villageId:'village-a',villageKind:'reference',villageName:'同名村',deities:['当地称谓'],deityLinks:[{id:'map-link-a',deityId:'deity-map',nameIndex:0}]};
+  const records=[record,{...record,id:'map-record-b',deityLinks:[{id:'map-link-b',deityId:'deity-map',nameIndex:0}]},{...record,id:'map-record-c',villageId:'village-b'},{...record,id:'map-record-missing',villageId:'missing-village'},{...record,id:'other-god',villageId:'other-village',deityLinks:[{id:'other-link',deityId:'other-deity',nameIndex:0}]}];
+  const before=JSON.stringify(records);
+  const result=A.locatedVillagesFor('deity-map',records,(_kind,id)=>id==='village-a'?{id,lat:20.9,lng:110.58}:id==='village-b'?{id,lat:NaN,lng:110.6}:null);
+  assert.equal(result.length,3);assert.equal(result.filter(village=>village.point).length,1);
+  assert.equal(result.find(village=>village.id==='village-a').records.length,2);
+  assert.equal(JSON.stringify(records),before);
+  assert.equal(A.locatedVillagesFor('unknown',records,()=>null).length,0);
+  const profile=new URL(A.profileURL('stable deity','return-token'),'https://atlas.example');
+  assert.equal(profile.searchParams.get('id'),'stable deity');assert.equal(profile.searchParams.get('mapReturn'),'return-token');
+  const map=new URL(A.exploreURL('stable deity','return-token'),'https://atlas.example');
+  assert.equal(map.searchParams.get('deity'),'stable deity');assert.equal(map.searchParams.get('mapReturn'),'return-token');
+});

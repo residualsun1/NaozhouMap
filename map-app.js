@@ -16,6 +16,8 @@
   let view, home, points = [], activeId = null, editingId = null, reference = null, draft = null;
   let picking = false, blockedStorage = false, toastTimer, downloadURL, raf;
   let projectRevision = null, saving = false, ready = false, formDirty = false;
+  let explorer=null,exploringDeityId=null,highlightSignature='';
+  let deityPlaceKeys=new Set();
   const projectMode = location.protocol !== 'file:';
   const cloudMode = document.documentElement.dataset.deployment === 'netlify';
   const storageTarget = cloudMode ? '云端' : '项目文件';
@@ -61,6 +63,7 @@
   function expandDetails(){workspace.classList.remove('sheet-collapsed');$('sheet-toggle').textContent='收起';$('sheet-toggle').setAttribute('aria-expanded','true');}
   function syncDetails(expand=false){
     const visible=!$('reference-section').hidden||!$('editor-section').hidden;
+    if(visible&&explorer?.isOpen)explorer.suspend();
     $('detail-panel').hidden=!visible;workspace.classList.toggle('details-open',visible);
     if(expand){expandDetails();$('detail-content').scrollTop=0;setUtility();$('search-feedback').hidden=true;setSearchExpanded(false);}
   }
@@ -270,8 +273,9 @@
     };
     cameraFrame=requestAnimationFrame(tick);
   }
-  function homeView(animate=false){home=makeHome();if(!view||!animate){cancelCamera();view={...home};update();}else flyTo({type:'home'},600);}
+  function homeView(animate=false){explorer?.cancelAutoFocus();home=makeHome();if(!view||!animate){cancelCamera();view={...home};update();}else flyTo({type:'home'},600);}
   function zoomAt(factor,x,y,animate=false){
+    explorer?.cancelAutoFocus();
     const source=animate&&cameraIntent?.zoom?cameraIntent.view:view;
     cancelCamera();const {w,h}=dimensions();x??=w/2;y??=h/2;
     const width=Math.max(home.w/32,Math.min(home.w,source.w/factor)),scale=width/source.w;
@@ -319,6 +323,7 @@
       }
       item.point=p;item.projected=project(p.lng,p.lat);item.hasFaith=faith.hasRecords(p.id,p.saved?'survey':'reference');
       item.button.dataset.placeKind=p.placeKind||'reference';item.label.dataset.placeKind=p.placeKind||'reference';
+      item.button.dataset.placeKey=p.key;item.label.dataset.placeKey=p.key;
       const administrative=p.placeKind==='administrative_seat',member=isAdministrativeMember(p);
       item.button.setAttribute('aria-label',p.name+(administrative?'，行政驻地，'+p.committeeName:member?'，'+(p.placeKind==='locality'?'地点':'自然村')+'，'+p.committeeName:p.saved?'，调查点位':'，参考地名')+(item.hasFaith?'，有信仰记录':''));
       if(item.hasFaith)item.button.removeAttribute('title');else item.button.title=administrative?p.committeeName+' · 行政驻地':p.name;
@@ -350,8 +355,9 @@
   }
   function pinPriority(item){
     const p=item.point;
-    return p.draft?70:(p.saved?p.id===activeId:reference?.id===p.id)?60:p.key===focusedPin?56:p.key===hoveredPin?55:p.placeKind==='administrative_seat'?50:p.saved?40:p.placeKind==='natural_village'?20:10;
+    return p.draft?70:(p.saved?p.id===activeId:reference?.id===p.id)?60:p.key===focusedPin?56:p.key===hoveredPin?55:deityPlaceKeys.has(p.key)?52:p.placeKind==='administrative_seat'?50:p.saved?40:p.placeKind==='natural_village'?20:10;
   }
+  function deityPinClass(p){return deityPlaceKeys.has(p.key)?' is-deity-linked':exploringDeityId&&deityPlaceKeys.size?' is-deity-muted':'';}
   function updateLabelTier(zoom){
     if(labelTier===0&&zoom>=1.38)labelTier=1;
     if(labelTier===1&&zoom>=2.6)labelTier=2;
@@ -361,7 +367,7 @@
   }
   function labelObstacles(){
     const origin=stage.getBoundingClientRect(),boxes=[];
-    for(const node of document.querySelectorAll('.search-panel,.map-toolbar,.utility-panel,.north,.zoom-controls,.map-footer,#administrative-key,#pick-message,#detail-panel')){
+    for(const node of document.querySelectorAll('.search-panel,.map-toolbar,.utility-panel,.north,.zoom-controls,.map-footer,#administrative-key,#pick-message,#detail-panel,#deity-explorer')){
       if(node.hidden||!node.getClientRects().length)continue;
       const rect=node.getBoundingClientRect(),x=Math.max(0,rect.left-origin.left),y=Math.max(0,rect.top-origin.top),right=Math.min(origin.width,rect.right-origin.left),bottom=Math.min(origin.height,rect.bottom-origin.top);
       if(right>x&&bottom>y)boxes.push({x,y,w:right-x,h:bottom-y});
@@ -372,7 +378,7 @@
     const fragment=document.createDocumentFragment(),pending=[];
     for(const entry of positioned){
       const {item,active,emphasized,administrative}=entry,p=item.point,member=isAdministrativeMember(p);
-      const classes='place-label'+(p.saved?' is-saved':'')+(active?' is-active':'')+(emphasized?' is-emphasized':'')+(item.hasFaith?' has-faith':'')+(administrative?' is-administrative':'')+(member?' is-member':'')+(member&&administrativeEnabled(p.administrativeAreaId)?' is-member-visible':'');
+      const classes='place-label'+(p.saved?' is-saved':'')+(active?' is-active':'')+(emphasized?' is-emphasized':'')+(item.hasFaith?' has-faith':'')+(administrative?' is-administrative':'')+(member?' is-member':'')+(member&&administrativeEnabled(p.administrativeAreaId)?' is-member-visible':'')+deityPinClass(p);
       item.label.className=classes+(item.label.classList.contains('is-visible')?' is-visible':'');item.label.hidden=false;
       const maxWidth=Math.min(administrative?180:active?260:220,Math.max(60,w-20));item.label.style.setProperty('--label-max-width',maxWidth+'px');
       entry.sizeKey=[p.key,item.label.textContent,classes,maxWidth].join('|');
@@ -407,7 +413,7 @@
     const {w,h}=dimensions(),zoom=home.w/view.w,showNames=$('show-labels').checked;
     const moving=stage.classList.contains('is-dragging')||stage.classList.contains('is-camera-moving')||wheelLabelTimer!==null;
     if(!moving||!labelContext)updateLabelTier(zoom);
-    const context=[w,h,labelTier,activeId,reference?.id,hoveredPin,focusedPin,showNames,openPanel,searchPanel.className,visibleAdministrativeAreas.size].join('|');
+    const context=[w,h,labelTier,activeId,reference?.id,hoveredPin,focusedPin,showNames,openPanel,searchPanel.className,visibleAdministrativeAreas.size,exploringDeityId].join('|');
     const frozen=moving&&labelContext===context;
     if(!frozen)labelObstacleCache=labelObstacles();
     const occupied=labelObstacleCache.slice(),anchors=[],markerBoxes=[];
@@ -419,21 +425,21 @@
     for(const entry of positioned){
       const {item,x,y,active,administrative}=entry,p=item.point;entry.visible=x>=0&&x<=w&&y>=0&&y<=h;
       item.button.hidden=!entry.visible;item.button.style.left=x+'px';item.button.style.top=y+'px';
-      item.button.className='map-point'+(p.saved?' is-saved':'')+(p.draft?' is-draft':'')+(active?' is-active':'')+(item.hasFaith?' has-faith':'')+(administrative?' is-administrative':'')+(isAdministrativeMember(p)?' is-member':'');
+      item.button.className='map-point'+(p.saved?' is-saved':'')+(p.draft?' is-draft':'')+(active?' is-active':'')+(item.hasFaith?' has-faith':'')+(administrative?' is-administrative':'')+(isAdministrativeMember(p)?' is-member':'')+deityPinClass(p);
       if(entry.visible)markerBoxes.push({x:x-5,y:y-5,w:10,h:10,key:p.key,important:administrative||active||p.saved});
     }
     const baseSpacing=w<600?66:100;
     const spacing=labelTier===0?baseSpacing/Math.max(1,zoom):labelTier===1?Math.max(0,baseSpacing/1.38*(2.6-zoom)/1.22):0;
     for(const entry of positioned){
       const {item,x,y,active,emphasized,administrative,size}=entry,p=item.point,forced=active||emphasized||p.draft;
-      const eligible=entry.visible&&(showNames||forced)&&(forced||administrative||p.saved||p.placeKind==='natural_village'||labelTier>0);
+      const linked=deityPlaceKeys.has(p.key),eligible=entry.visible&&(showNames||forced)&&(forced||linked||administrative||p.saved||p.placeKind==='natural_village'||labelTier>0);
       let chosen=null;
       if(eligible&&(!frozen||item.layoutVisible||forced)){
         const positions=pinLabelPositions(x,y,size.w,size.h,administrative),last=item.labelSlot;
         const ordered=last===undefined?positions:[positions[last],...positions.filter(box=>box.slot!==last)].filter(Boolean);
         const within=box=>box.x>=5&&box.y>=5&&box.x+box.w<=w-5&&box.y+box.h<=h-5;
         const free=box=>within(box)&&!occupied.some(r=>intersects(box,r,4));
-        const dense=!forced&&!administrative&&!p.saved&&anchors.some(a=>Math.hypot(a.x-x,a.y-y)<spacing);
+        const dense=!forced&&!linked&&!administrative&&!p.saved&&anchors.some(a=>Math.hypot(a.x-x,a.y-y)<spacing);
         if(!dense){
           const candidates=frozen&&last!==undefined?[positions[last]]:ordered;
           chosen=candidates.find(box=>free(box)&&!markerBoxes.some(r=>r.key!==p.key&&intersects(box,r,1)));
@@ -570,12 +576,12 @@
   $('island-view').addEventListener('click',()=>{if(!mayLeaveEditor())return;closeEditor();clearReference();setUtility();setSearchExpanded(false);$('search-feedback').hidden=true;$('search-results').replaceChildren();$('search-input').value='';status('');homeView(true);});
   stage.addEventListener('wheel',e=>{e.preventDefault();clearTimeout(wheelLabelTimer);wheelLabelTimer=setTimeout(()=>{wheelLabelTimer=null;schedulePinLayout();},140);const rect=stage.getBoundingClientRect();zoomAt(Math.exp(-Math.max(-300,Math.min(300,e.deltaY))*.002),e.clientX-rect.left,e.clientY-rect.top);},{passive:false});
   const midpoint=(a,b)=>({x:(a.x+b.x)/2,y:(a.y+b.y)/2,d:Math.hypot(a.x-b.x,a.y-b.y)});
-  stage.addEventListener('pointerdown',e=>{if(e.target.closest('button')||e.button!==0)return;cancelCamera();stage.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(pointers.size===1){drag={x:e.clientX,y:e.clientY,view:{...view},clusterKey:e.target.closest('.residential')?.dataset.clusterKey};gestureMoved=false;}else if(pointers.size===2){const [a,b]=[...pointers.values()];pinch=midpoint(a,b);gestureMoved=true;}stage.classList.add('is-dragging');});
+  stage.addEventListener('pointerdown',e=>{if(e.target.closest('button')||e.button!==0)return;explorer?.cancelAutoFocus();cancelCamera();stage.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(pointers.size===1){drag={x:e.clientX,y:e.clientY,view:{...view},clusterKey:e.target.closest('.residential')?.dataset.clusterKey};gestureMoved=false;}else if(pointers.size===2){const [a,b]=[...pointers.values()];pinch=midpoint(a,b);gestureMoved=true;}stage.classList.add('is-dragging');});
   stage.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});const rect=stage.getBoundingClientRect();if(pointers.size===2){const [a,b]=[...pointers.values()],next=midpoint(a,b);if(pinch){const {w,h}=dimensions();view.x-=(next.x-pinch.x)*view.w/w;view.y-=(next.y-pinch.y)*view.h/h;zoomAt(next.d/Math.max(pinch.d,1),next.x-rect.left,next.y-rect.top);}pinch=next;}else if(drag){const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.hypot(dx,dy)>5)gestureMoved=true;const {w,h}=dimensions();view={...drag.view,x:drag.view.x-dx*drag.view.w/w,y:drag.view.y-dy*drag.view.h/h};update();}});
   function endPointer(e){if(!pointers.has(e.pointerId))return;const click=!gestureMoved&&pointers.size===1&&e.type==='pointerup',clusterKey=drag?.clusterKey;pointers.delete(e.pointerId);if(click&&picking){const rect=stage.getBoundingClientRect(),{w,h}=dimensions();const pos=unproject(view.x+(e.clientX-rect.left)/w*view.w,view.y+(e.clientY-rect.top)/h*view.h);setPickedLocation(pos.lng,pos.lat);}else if(click&&clusterKey){const cluster=clusterByKey.get(clusterKey);if(cluster)selectCluster(cluster);}pinch=null;if(pointers.size===1){const p=[...pointers.values()][0];drag={x:p.x,y:p.y,view:{...view}};}else if(!pointers.size){drag=null;stage.classList.remove('is-dragging');schedulePinLayout();}}
   stage.addEventListener('pointerup',endPointer);stage.addEventListener('pointercancel',endPointer);
-  svg.addEventListener('keydown',e=>{if(['+','=','-','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home'].includes(e.key)){e.preventDefault();if(e.key==='Home')homeView(true);else if(e.key==='+'||e.key==='=')zoomAt(1.5,undefined,undefined,true);else if(e.key==='-')zoomAt(1/1.5,undefined,undefined,true);else{cancelCamera();if(e.key==='ArrowUp')view.y-=view.h*.12;if(e.key==='ArrowDown')view.y+=view.h*.12;if(e.key==='ArrowLeft')view.x-=view.w*.12;if(e.key==='ArrowRight')view.x+=view.w*.12;update();}}});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(openPanel)setUtility(null,null,true);if(searchPanel.classList.contains('is-expanded'))setSearchExpanded(false,true);$('search-feedback').hidden=true;setPicking(false);}});
+  svg.addEventListener('keydown',e=>{if(['+','=','-','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home'].includes(e.key)){e.preventDefault();explorer?.cancelAutoFocus();if(e.key==='Home')homeView(true);else if(e.key==='+'||e.key==='=')zoomAt(1.5,undefined,undefined,true);else if(e.key==='-')zoomAt(1/1.5,undefined,undefined,true);else{cancelCamera();if(e.key==='ArrowUp')view.y-=view.h*.12;if(e.key==='ArrowDown')view.y+=view.h*.12;if(e.key==='ArrowLeft')view.x-=view.w*.12;if(e.key==='ArrowRight')view.x+=view.w*.12;update();}}});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(openPanel)setUtility(null,null,true);if(searchPanel.classList.contains('is-expanded'))setSearchExpanded(false,true);if(explorer?.isOpen&&!e.target.closest('input,textarea,select'))explorer.close();$('search-feedback').hidden=true;setPicking(false);}});
   new ResizeObserver(()=>{
     if(!home||!view)return;
     const cx=view.x+view.w/2,cy=view.y+view.h/2,wasHome=!cameraIntent&&Math.abs(view.w-home.w)<1&&Math.hypot(cx-center.x,cy-center.y)<1;
@@ -634,9 +640,28 @@
   });
   if(data.meta?.osmTimestamp)$('geometry-date').textContent='道路快照：'+data.meta.osmTimestamp.slice(0,10)+'。';
   const archives = window.createPlaceArchives({download,editSurveyNote:()=>$('point-note').focus()});
-  const faith = window.createFaithRecords({download,onChange:rebuildPins});
+  const faith = window.createFaithRecords({download,onChange:rebuildPins,onExploreDeity:id=>explorer?.open(id)});
+  explorer=window.createDeityExplorer({
+    faith,
+    resolvePlace:(kind,id)=>kind==='reference'?placeById.get(id):kind==='survey'?points.find(point=>point.id===id):null,
+    beforeOpen(){if(saving||!mayLeaveEditor())return false;closeEditor();clearReference();cancelCamera();setUtility();setSearchExpanded(false);$('search-feedback').hidden=true;return true;},
+    onClose:cancelCamera,
+    onHighlight(id,villages){
+      const keys=villages.map(village=>(village.kind==='survey'?'saved-':'ref-')+village.id),signature=JSON.stringify([id,keys.slice().sort()]);if(signature===highlightSignature)return;
+      highlightSignature=signature;exploringDeityId=id;deityPlaceKeys=new Set(keys);labelContext='';if(view)update();
+    },
+    onFocus(villages){
+      if(villages.length===1){focusPoint(villages[0].point);return;}
+      if(!villages.length)return;const positions=villages.map(village=>project(village.point.lng,village.point.lat));
+      focusGeometry({left:Math.min(...positions.map(p=>p.x)),right:Math.max(...positions.map(p=>p.x)),top:Math.min(...positions.map(p=>p.y)),bottom:Math.max(...positions.map(p=>p.y))});
+    },
+    onPlace(village){if(!village.point)return;if(village.kind==='survey')selectPoint(village.point);else selectReference(village.point);},
+    captureView(){return {center:unproject(view.x+view.w/2,view.y+view.h/2),width:view.w};},
+    restoreView(saved){if(!saved||!Number.isFinite(saved.center?.lng)||Math.abs(saved.center.lng)>180||!Number.isFinite(saved.center?.lat)||Math.abs(saved.center.lat)>85||!Number.isFinite(saved.width)||saved.width<=0)return false;const p=project(saved.center.lng,saved.center.lat),{w,h}=dimensions();flyTo({type:'view',view:{x:p.x-saved.width/2,y:p.y-saved.width*h/w/2,w:saved.width,h:saved.width*h/w}},300);return true;}
+  });
   for(const area of administrativeAreas)setAdministrativeLayer(area,false);
   function openLinkedPlace(){
+    if(explorer.restoreFromURL())return;
     const query=new URLSearchParams(location.search),id=query.get('placeId'),kind=query.get('placeKind');if(!id)return;
     const point=kind==='survey'?points.find(point=>point.id===id):kind==='reference'?placeById.get(id):null;
     if(!point){notify('未找到对应地点，资料可能已更新。');return;}

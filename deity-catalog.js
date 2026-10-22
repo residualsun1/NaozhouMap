@@ -2,8 +2,9 @@
 window.DeityAtlas = (() => {
   'use strict';
   const uid = () => crypto.randomUUID ? crypto.randomUUID() : 'deity-'+Date.now()+'-'+Math.random().toString(36).slice(2);
-  const profileURL = id => '/deities?id='+encodeURIComponent(id);
+  const profileURL = (id,returnMap='') => '/deities?'+new URLSearchParams({id,...(returnMap?{mapReturn:returnMap}:{})});
   const mapURL = (kind,id,recordId='') => '/?'+new URLSearchParams({placeKind:kind,placeId:id,...(recordId?{faithId:recordId}:{})});
+  const exploreURL = (id='',returnMap='') => '/?'+new URLSearchParams({...(id?{deity:id}:{}),...(returnMap?{mapReturn:returnMap}:{})});
   function element(tag,className='',text='') {
     const node=document.createElement(tag); if(className)node.className=className; if(text)node.textContent=text; return node;
   }
@@ -65,5 +66,12 @@ window.DeityAtlas = (() => {
     for(const record of records){const links=(record.deityLinks||[]).filter(link=>link.deityId===deityId);if(!links.length)continue;const key=record.villageKind+':'+record.villageId;if(!villages.has(key))villages.set(key,{key,id:record.villageId,kind:record.villageKind,name:record.villageName,records:[]});villages.get(key).records.push({record,links});}
     return [...villages.values()].sort((a,b)=>a.name.localeCompare(b.name,'zh-CN'));
   }
-  return {uid,element,profileURL,mapURL,validate,createCatalog,createFields,villagesFor};
+  function locatedVillagesFor(deityId,records,resolvePlace){
+    return villagesFor(deityId,records).map(village=>{
+      const place=resolvePlace(village.kind,village.id);
+      const usable=place&&Number.isFinite(place.lat)&&Math.abs(place.lat)<=90&&Number.isFinite(place.lng)&&Math.abs(place.lng)<=180;
+      return {...village,point:usable?place:null};
+    });
+  }
+  return {uid,element,profileURL,mapURL,exploreURL,validate,createCatalog,createFields,villagesFor,locatedVillagesFor};
 })();
