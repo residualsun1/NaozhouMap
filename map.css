@@ -206,7 +206,12 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .administrative-layer-control h3{display:flex;align-items:center;gap:8px;margin-bottom:11px;font-size:11px;font-weight:500;color:#777974}
 .administrative-layer-control .layer-toggle{min-height:32px;font-size:11px}
 .administrative-layer-control .note{margin:12px 0 15px;font-size:9px}
-.administrative-coverage{fill:url(#administrative-hatch);stroke:#a0a19e;stroke-width:.9;stroke-dasharray:4 5;vector-effect:non-scaling-stroke;pointer-events:none;transition:opacity .2s}
+#administrative-fill-layer{opacity:.45}
+#administrative-boundary-layer{opacity:.9}
+.administrative-coverage,.administrative-boundary{pointer-events:none;transition:opacity .18s ease}
+.administrative-coverage.is-visible,.administrative-boundary.is-visible{transition-duration:.2s}
+.administrative-coverage{fill:#b8cec4;stroke:none}
+.administrative-boundary{fill:none;stroke:#789789;stroke-width:1.6;stroke-dasharray:5 3;stroke-linejoin:round;vector-effect:non-scaling-stroke}
 .map-point.is-administrative::before{width:10px;height:10px;border:1.5px solid #343b3c;border-radius:1px;background:#343b3c;transform:translate(-50%,-50%)}
 .map-point.is-administrative:hover::before{background:#272d32;border-color:#272d32}
 .map-point.is-administrative.is-active::before{background:#28343a;border-color:#28343a}
@@ -224,7 +229,7 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .administrative-key-copy{flex:1;min-width:0}
 .administrative-key strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px;font-weight:550;line-height:1.6;color:#747672}
 .administrative-key small{display:block;margin-top:2px;font-size:9px;line-height:1.6;color:#777974}
-.area-swatch{flex-shrink:0;width:22px;height:25px;border:1px dashed #a4a6a3;background:repeating-linear-gradient(-45deg,#e3e4e2 0,#e3e4e2 1px,#fbfbfa 1px,#fbfbfa 6px)}
+.area-swatch{flex-shrink:0;width:22px;height:25px;border:1.5px dashed #789789;border-radius:3px;background:#b8cec473}
 .map-stage.is-dragging~.administrative-key:not(:focus-visible){opacity:.24}
 .administrative-context{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;margin-top:10px;font-size:11px;line-height:1.7;color:#777974}
 .place-type{padding:1px 6px;border:1px solid #e4e5df;border-radius:4px;background:#f5f5f0;font-size:10px;line-height:1.6;color:#697168;white-space:nowrap}

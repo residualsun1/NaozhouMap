@@ -125,11 +125,11 @@
   function setAdministrativeLayer(area,enabled,focus=false){
     if(enabled)visibleAdministrativeAreas.add(area.id);else visibleAdministrativeAreas.delete(area.id);
     administrativeControls.get(area.id).checked=enabled;
-    const coveragePath=administrativePaths.get(area.id);coveragePath.style.display='';coveragePath.style.opacity=enabled?'1':'0';
+    for(const path of administrativePaths.get(area.id)){path.classList.toggle('is-visible',enabled);path.style.opacity=enabled?'1':'0';}
     const visible=administrativeAreas.filter(item=>administrativeEnabled(item.id));
     $('administrative-layer').style.display='';
     $('administrative-key').hidden=!visible.length;
-    $('administrative-key-name').textContent=visible.length===1?visible[0].name:'行政范围 · '+visible.length+' 个';
+    $('administrative-key-name').textContent=visible.length===1?visible[0].committeeName:'行政范围 · '+visible.length+' 个';
     $('administrative-key').setAttribute('aria-label',(visible.length===1?visible[0].name+'范围示意':'行政范围，已显示 '+visible.length+' 个')+'，打开图层设置');
     syncAdministrativeViewButton();
     if(enabled&&focus)focusGeometry(area);
@@ -211,8 +211,13 @@
   }
   drawFeatures(clusters,'residential-layer','residential');drawFeatures(data.waters,'water-layer','water');drawFeatures(roads,'road-layer','road');drawFeatures(data.buildings,'building-layer','building');
   for(const area of administrativeAreas){
-    const path=document.createElementNS(NS,'path');path.setAttribute('class','administrative-coverage');path.setAttribute('d',pathData(area.coordinates,true));
-    path.dataset.administrativeAreaId=area.id;path.style.display='none';$('administrative-layer').append(path);administrativePaths.set(area.id,path);
+    // Composite opaque fills once so overlapping range sketches retain one tint.
+    const geometry=pathData(area.coordinates,true),paths=[];
+    for(const [group,className] of [['administrative-fill-layer','administrative-coverage'],['administrative-boundary-layer','administrative-boundary']]){
+      const path=document.createElementNS(NS,'path');path.setAttribute('class',className);path.setAttribute('d',geometry);
+      path.dataset.administrativeAreaId=area.id;path.style.opacity='0';$(group).append(path);paths.push(path);
+    }
+    administrativePaths.set(area.id,paths);
     const label=document.createElement('button');label.type='button';label.className='administrative-label';label.hidden=true;
     label.setAttribute('aria-label',area.name+'范围示意，'+area.committeeName);
     const title=document.createElement('strong'),subtitle=document.createElement('small');title.textContent=area.name;subtitle.textContent=(area.officeCaption||area.committeeName)+' · 范围示意';label.append(title,subtitle);
@@ -241,7 +246,6 @@
     if(raf)return;
     raf=requestAnimationFrame(()=>{
       raf=null;clampView();svg.setAttribute('viewBox',`${view.x} ${view.y} ${view.w} ${view.h}`);
-      $('administrative-hatch').setAttribute('patternTransform',`scale(${view.w/dimensions().w})`);
       const zoom=home.w/view.w;svg.classList.toggle('detail-minor',zoom>=1.7);svg.classList.toggle('detail-paths',zoom>=2.7);
       layoutPins();drawScale();
     });
@@ -607,8 +611,7 @@
     const style=document.createElementNS(NS,'style');style.textContent='.coast{fill:#f0ece4;stroke:#d0cdc4;stroke-width:1.25;vector-effect:non-scaling-stroke}.road{fill:none;stroke:#d2d0c8;stroke-width:.75;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}.road.main{stroke:#c4c4bc;stroke-width:1.35}.road.minor{stroke:#dedbd3;stroke-width:.55}.road.path{stroke:#d5d6cb;stroke-width:.6;stroke-opacity:.8;stroke-dasharray:2 4}.residential{fill:#d8ddd0;fill-opacity:.76;stroke:#aeb9a6;stroke-width:.35;stroke-opacity:.08;vector-effect:non-scaling-stroke}.building{fill:#d9d7cc;stroke:#c3c2b7;stroke-width:.4;vector-effect:non-scaling-stroke}.water{fill:none;stroke:#b6c7cd;stroke-width:.7;vector-effect:non-scaling-stroke}text{font-family:system-ui,Microsoft YaHei,sans-serif;fill:#4d5450;paint-order:stroke;stroke:#f0ece4;stroke-linejoin:round}';output.prepend(style);
     // A background rectangle changes only the page, never the map geometry.
     const sea=document.createElementNS(NS,'rect');sea.setAttribute('x',exportView.x);sea.setAttribute('y',exportView.y);sea.setAttribute('width',exportView.w);sea.setAttribute('height',exportView.h);sea.setAttribute('fill','#b6c7cd');sea.setAttribute('data-decoration','sea');output.insertBefore(sea,output.querySelector('#coast'));
-    const adminStyle=document.createElementNS(NS,'style');adminStyle.textContent='.administrative-coverage{fill:url(#administrative-hatch);stroke:#77776e;stroke-width:1.2;stroke-dasharray:6 5;vector-effect:non-scaling-stroke}';output.prepend(adminStyle);
-    output.querySelector('#administrative-hatch').setAttribute('patternTransform',`scale(${unit})`);
+    const adminStyle=document.createElementNS(NS,'style');adminStyle.textContent='#administrative-fill-layer{opacity:.45}#administrative-boundary-layer{opacity:.9}.administrative-coverage{fill:#b8cec4;stroke:none}.administrative-boundary{fill:none;stroke:#789789;stroke-width:1.6;stroke-dasharray:5 3;stroke-linejoin:round;vector-effect:non-scaling-stroke}';output.prepend(adminStyle);
     const meta=document.createElementNS(NS,'metadata');meta.textContent=JSON.stringify({coordinateSystem:'WGS84',projection:'Web Mercator',attribution:'© OpenStreetMap contributors (ODbL), GeoNames (CC BY 4.0)',osmSnapshot:data.meta?.osmTimestamp,settlementMeaning:'建成区轮廓，不代表村界。',administrativeLayerVisible:administrativeEnabled(),visibleAdministrativeAreaIds:[...visibleAdministrativeAreas],administrativeAreas:data.administrativeAreas||[],note:'行政驻地点不作为独立自然村；行政范围仅为已确认地点分布示意，按海岸线裁剪，不表示法定村界或海域管辖。地点位置仍需实地核对。'});output.append(meta);
     const occupied=[],entries=[...points.map(p=>({...p,saved:true})),...data.places.map(p=>({...p,saved:false}))].sort((a,b)=>(b.placeKind==='administrative_seat')-(a.placeKind==='administrative_seat'));
     for(const p of entries){const pos=project(p.lng,p.lat);occupied.push({x:(pos.x-exportView.x)/unit-4,y:(pos.y-exportView.y)/unit-4,w:8,h:8});}
@@ -635,7 +638,7 @@
       }
     }
     const credit=document.createElementNS(NS,'text');credit.setAttribute('x',bounds.left);credit.setAttribute('y',bounds.bottom+bh*.045);credit.setAttribute('font-size',8*unit);credit.setAttribute('stroke-width',2*unit);credit.textContent='© OpenStreetMap contributors · openstreetmap.org/copyright · GeoNames (CC BY 4.0)'+(data.meta?.supplementalSettlementAreaCount?' · 补充建成区：高德卫星影像人工判读（近似）':'');output.append(credit);
-    if(administrativeEnabled()){const note=credit.cloneNode(false);note.setAttribute('y',bounds.bottom+bh*.058);note.textContent='斜线区域：'+administrativeAreas.filter(area=>administrativeEnabled(area.id)).map(area=>area.committeeName).join('、')+'范围示意，按已确认地点分布制作；仅陆地，不表示法定行政边界。';output.append(note);}
+    if(administrativeEnabled()){const note=credit.cloneNode(false);note.setAttribute('y',bounds.bottom+bh*.058);note.textContent='灰绿色区域：'+administrativeAreas.filter(area=>administrativeEnabled(area.id)).map(area=>area.committeeName).join('、')+'范围示意，按已确认地点分布制作；仅陆地，不表示法定行政边界。';output.append(note);}
     download('硇洲岛田野地图-'+stamp()+'.svg','image/svg+xml;charset=utf-8','<?xml version="1.0" encoding="UTF-8"?>\n'+new XMLSerializer().serializeToString(output));
   });
   if(data.meta?.osmTimestamp)$('geometry-date').textContent='道路快照：'+data.meta.osmTimestamp.slice(0,10)+'。';
