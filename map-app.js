@@ -27,7 +27,7 @@
   let labelTier=0,hoveredPin=null,focusedPin=null,labelFrame=null,labelContext='',wheelLabelTimer=null,hoverLeaveTimer=null,labelObstacleCache=[];
   let drag = null, pinch = null, gestureMoved = false;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  let cameraFrame = null, cameraIntent = null;
+  let cameraFrame = null, cameraIntent = null, desktopRetainedWidth = 0;
   const uid = () => crypto.randomUUID ? crypto.randomUUID() : 'p-'+Date.now()+'-'+Math.random().toString(36).slice(2);
   const status = text => { $('search-status').textContent = text; };
   const workspace = $('workspace');
@@ -242,6 +242,10 @@
       const controlsBottom=Math.max(...[document.querySelector('.map-toolbar'),$('search-form')].map(node=>node?.getBoundingClientRect().bottom||stageTop));
       // Reserve framing space only: the map canvas still extends behind the controls.
       top=Math.min(100,Math.max(76,controlsBottom-stageTop+14),Math.max(0,h-88));
+    }else{
+      const stageTop=stage.getBoundingClientRect().top;
+      const controlsBottom=Math.max(...[document.querySelector('.map-toolbar'),$('search-form')].map(node=>node?.getBoundingClientRect().bottom||stageTop));
+      top=Math.min(Math.max(0,controlsBottom-stageTop+16),Math.max(0,h-120));
     }
     return {w,h,top,ratio:w/(h-top)};
   }
@@ -251,10 +255,14 @@
     const fullHeight=width*h/w;
     return {x:center.x-width/2,y:center.y-fullHeight/2-top*width/w/2,w:width,h:fullHeight};
   }
+  function cameraWidthLimits(){
+    const retained=mobileSearch.matches?0:desktopRetainedWidth;
+    return {min:retained?Math.min(home.w/32,retained):home.w/32,max:Math.max(home.w,retained)};
+  }
   function cancelCamera(){if(cameraFrame!==null)cancelAnimationFrame(cameraFrame);cameraFrame=null;cameraIntent=null;stage.classList.remove('is-camera-moving');}
   function clampView(){
     const {w,h}=dimensions(),centerX=view.x+view.w/2,centerY=view.y+view.h/2;
-    view.w=Math.max(home.w/32,Math.min(home.w,view.w));view.h=view.w*h/w;
+    const limits=cameraWidthLimits();view.w=Math.max(limits.min,Math.min(limits.max,view.w));view.h=view.w*h/w;
     const cx=Math.max(bounds.left,Math.min(bounds.right,centerX)),cy=Math.max(bounds.top,Math.min(bounds.bottom,centerY));
     view.x=cx-view.w/2;view.y=cy-view.h/2;
   }
@@ -299,7 +307,7 @@
     explorer?.cancelAutoFocus();
     const source=animate&&cameraIntent?.zoom?cameraIntent.view:view;
     cancelCamera();const {w,h}=dimensions();x??=w/2;y??=h/2;
-    const width=Math.max(home.w/32,Math.min(home.w,source.w/factor)),scale=width/source.w;
+    const limits=cameraWidthLimits(),width=Math.max(limits.min,Math.min(limits.max,source.w/factor)),scale=width/source.w;
     const next={x:source.x+x/w*source.w*(1-scale),y:source.y+y/h*source.h*(1-scale),w:width,h:source.h*scale};
     if(animate)flyTo({type:'view',view:next,zoom:true},220);else{view=next;update();}
   }
@@ -603,11 +611,16 @@
   stage.addEventListener('pointerup',endPointer);stage.addEventListener('pointercancel',endPointer);
   svg.addEventListener('keydown',e=>{if(['+','=','-','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home'].includes(e.key)){e.preventDefault();explorer?.cancelAutoFocus();if(e.key==='Home')homeView(true);else if(e.key==='+'||e.key==='=')zoomAt(1.5,undefined,undefined,true);else if(e.key==='-')zoomAt(1/1.5,undefined,undefined,true);else{cancelCamera();if(e.key==='ArrowUp')view.y-=view.h*.12;if(e.key==='ArrowDown')view.y+=view.h*.12;if(e.key==='ArrowLeft')view.x-=view.w*.12;if(e.key==='ArrowRight')view.x+=view.w*.12;update();}}});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(openPanel)setUtility(null,null,true);if(searchPanel.classList.contains('is-expanded'))setSearchExpanded(false,true);if(explorer?.isOpen&&!e.target.closest('input,textarea,select'))explorer.close();$('search-feedback').hidden=true;setPicking(false);}});
+  let previousWindowWidth=window.innerWidth,previousWindowHeight=window.innerHeight;
   new ResizeObserver(()=>{
     if(!home||!view)return;
+    const windowResized=window.innerWidth!==previousWindowWidth||window.innerHeight!==previousWindowHeight;
+    previousWindowWidth=window.innerWidth;previousWindowHeight=window.innerHeight;
     const cx=view.x+view.w/2,cy=view.y+view.h/2,wasHome=!cameraIntent&&Math.abs(view.w-home.w)<1&&Math.hypot(cx-(home.x+home.w/2),cy-(home.y+home.h/2))<1;
+    // Panel transitions change the visible canvas, not the desktop camera scale.
+    if(!mobileSearch.matches)desktopRetainedWidth=windowResized?0:view.w;
     home=makeHome();const {w,h}=dimensions();
-    if(wasHome)view={...home};else view={x:cx-view.w/2,y:cy-view.w*h/w/2,w:view.w,h:view.w*h/w};
+    if(wasHome&&(mobileSearch.matches||windowResized))view={...home};else view={x:cx-view.w/2,y:cy-view.w*h/w/2,w:view.w,h:view.w*h/w};
     update();
   }).observe(stage);
   const labelUIObserver=new ResizeObserver(()=>{if(view)schedulePinLayout(true);});
