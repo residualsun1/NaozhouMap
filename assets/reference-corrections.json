@@ -1632,6 +1632,28 @@
         },
         "previousSourceLocation": null,
         "previousCheckedAt": null
+      },
+      {
+        "replacedAt": "2026-10-22T18:05:00.443Z",
+        "previousLocation": {
+          "coordinateSystem": "WGS84",
+          "lng": 110.56747,
+          "lat": 20.876951,
+          "source": "高德地图（GCJ-02 转 WGS84，近似）",
+          "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZX"
+        },
+        "previousSourceLocation": {
+          "provider": "高德地图",
+          "placeId": "B02F70NXZX",
+          "name": "南港村",
+          "type": "村庄",
+          "coordinateSystem": "GCJ-02",
+          "lng": 110.571692,
+          "lat": 20.874247
+        },
+        "previousCheckedAt": "2026-10-11",
+        "previousEmbedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXZX&name=%E5%8D%97%E6%B8%AF%E6%9D%91&lng=110.571692&lat=20.874247&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+        "previousCorrectionNote": "依据高德地图同名村庄或地名详情及可见分享嵌入参数复核。保留现有村名和旧坐标历史；本点不是村庄边界或测绘控制点。"
       }
     ],
     "originalCoordinates": {
@@ -1643,28 +1665,30 @@
     },
     "id": "osm-2065803577",
     "name": "南港村",
-    "lng": 110.56747,
-    "lat": 20.876951,
+    "lng": 110.571249,
+    "lat": 20.875803,
     "nameSource": "OpenStreetMap",
     "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
-    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZX",
-    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXZX&name=%E5%8D%97%E6%B8%AF%E6%9D%91&lng=110.571692&lat=20.874247&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
-    "checkedAt": "2026-10-11",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HQCS0",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HQCS0&name=%E5%8D%97%E6%B8%AF%E6%9D%91%E6%B0%91%E5%A7%94%E5%91%98%E4%BC%9A&lng=110.575468&lat=20.873095&address=%E6%B9%9B%E6%B1%9F%E7%BB%8F%E6%B5%8E%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91%E5%8C%BA%E5%8D%97%E6%B8%AF%E5%B0%8F%E5%AD%A6%E8%A5%BF%E5%8C%97%E4%BE%A770%E7%B1%B3&zoom=16&source=poi_detail&platform=pc",
+    "checkedAt": "2026-10-23",
     "previousLocation": {
       "coordinateSystem": "WGS84",
-      "lng": 110.57259,
-      "lat": 20.87587,
-      "source": "OpenStreetMap",
-      "sourceUrl": "https://www.openstreetmap.org/node/2065803577"
+      "lng": 110.56747,
+      "lat": 20.876951,
+      "source": "高德地图（GCJ-02 转 WGS84，近似）",
+      "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZX"
     },
     "sourceLocation": {
       "provider": "高德地图",
-      "placeId": "B02F70NXZX",
-      "name": "南港村",
-      "type": "村庄",
+      "placeId": "B0I04HQCS0",
+      "name": "南港村民委员会",
+      "type": "村委会",
       "coordinateSystem": "GCJ-02",
-      "lng": 110.571692,
-      "lat": 20.874247
+      "lng": 110.575468,
+      "lat": 20.873095,
+      "address": "湛江经济技术开发区南港小学西北侧70米",
+      "shareUrl": "https://surl.amap.com/4xf0ycSS4h4"
     },
     "coordinateTransform": {
       "method": "coordtransform WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
@@ -1673,7 +1697,7 @@
       "outputDecimals": 6,
       "note": "近似转换；小数位数不表示测绘精度。"
     },
-    "correctionNote": "依据高德地图同名村庄或地名详情及可见分享嵌入参数复核。保留现有村名和旧坐标历史；本点不是村庄边界或测绘控制点。"
+    "correctionNote": "根据用户指出的驻地位置问题，对照高德地图“南港村民委员会”机构详情及可见分享嵌入参数修正行政驻地。保留地图名称“南港村”、稳定地点 ID 与旧坐标历史；原高德同名村庄 POI 不再用作村委会驻地。本点为行政办公地点，不表示自然村聚落、村界或测绘控制点。"
   },
   {
     "correctionHistory": [
