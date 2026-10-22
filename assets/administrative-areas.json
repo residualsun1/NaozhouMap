@@ -432,8 +432,14 @@
         "name": "林屋村"
       },
       {
+        "placeId": "amap-B0FFFRPTHP",
+        "name": "大林村"
+      },
+      {
         "placeId": "amap-B0H1XY3PGJ",
-        "name": "大林后村"
+        "name": "大林后村",
+        "placeKind": "locality",
+        "parentVillageId": "amap-B0FFFRPTHP"
       },
       {
         "placeId": "amap-B0FFFAHI0R",
@@ -466,13 +472,17 @@
       {
         "placeId": "amap-B0I04HQYW2",
         "name": "鸿压村"
+      },
+      {
+        "placeId": "amap-B02F70OIC4",
+        "name": "后村仔村"
       }
     ],
     "membershipComplete": false,
     "classificationSource": {
       "type": "user_confirmed",
-      "checkedAt": "2026-10-20",
-      "note": "用户确认谭北村委会及24个自然村的隶属关系。周屋采用大林后南侧B0FFFAHI0R，上园采用B0I04HQ542。用户确认谭北与潭北是同一驻地的两种写法，合并显示，保留两份原始来源。"
+      "checkedAt": "2026-10-23",
+      "note": "用户确认谭北村委会所属村落，并于2026-10-23补充确认后村仔村为谭北所属自然村，大林与大林后为同一片区内的紧邻聚落。以大林村为村庄片区，大林后保留原ID、名称和坐标，作为片内聚落，不与大林平级，不合并档案或信仰记录。周屋采用大林后南侧B0FFFAHI0R，上园采用B0I04HQ542。用户确认谭北与潭北是同一驻地的两种写法，合并显示，保留两份原始来源。"
     },
     "coverage": {
       "status": "illustrative",
@@ -481,9 +491,9 @@
       "landOnly": true,
       "officialBoundaryAvailable": false,
       "marineBoundaryAvailable": false,
-      "note": "根据用户确认的24个自然村位置周边250米分布包络制作陆地范围示意，并以主岛海岸线裁剪；不表示法定村界，海域暂不划定。",
+      "note": "根据用户确认的所属村落位置周边250米分布包络制作陆地范围示意，并以主岛海岸线裁剪；不表示法定村界，海域暂不划定。",
       "approvedByUser": true,
-      "checkedAt": "2026-10-20"
+      "checkedAt": "2026-10-23"
     }
   },
   {
