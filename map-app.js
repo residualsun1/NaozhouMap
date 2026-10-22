@@ -37,6 +37,9 @@
   function setSearchExpanded(expanded,focus=false){
     const open=mobileSearch.matches&&expanded;
     searchPanel.classList.toggle('is-expanded',open);
+    workspace.classList.toggle('mobile-search-open',open);
+    document.querySelector('.map-toolbar').inert=open;
+    if(open){setUtility();if(explorer?.isOpen)explorer.suspend();}
     $('search-input').inert=mobileSearch.matches&&!open;
     searchButton.setAttribute('aria-label',mobileSearch.matches&&!open?'展开搜索':'搜索');
     if(mobileSearch.matches){searchButton.setAttribute('aria-expanded',String(open));searchButton.setAttribute('aria-controls','search-input');}
@@ -49,9 +52,11 @@
     if(view)schedulePinLayout(true);
   }
   mobileSearch.addEventListener('change',()=>setSearchExpanded(false));
+  $('search-collapse').addEventListener('click',()=>setSearchExpanded(false,true));
   setSearchExpanded(false);
   let openPanel = null, panelTrigger = null;
   function setUtility(id=null,trigger=null,restoreFocus=false){
+    if(id&&mobileSearch.matches){setSearchExpanded(false);if(explorer?.isOpen)explorer.suspend();}
     const previousTrigger=panelTrigger;
     for(const name of ['layers','data']){$(name+'-panel').hidden=id!==name+'-panel';$(name+'-toggle').setAttribute('aria-expanded',String(id===name+'-panel'));}
     $('administrative-key').setAttribute('aria-expanded',String(id==='layers-panel'));
@@ -230,10 +235,21 @@
   function onIsland(lng,lat){let inside=false;const ring=data.coastline;for(let i=0,j=ring.length-1;i<ring.length;j=i++){const [xi,yi]=ring[i],[xj,yj]=ring[j];if((yi>lat)!==(yj>lat)&&lng<(xj-xi)*(lat-yi)/(yj-yi)+xi)inside=!inside;}return inside;}
   function notify(text,undo){clearTimeout(toastTimer);const toast=$('toast');toast.replaceChildren(document.createTextNode(text));if(undo){const b=document.createElement('button');b.textContent='撤销';b.addEventListener('click',()=>{undo();toast.hidden=true;});toast.append(b);}toast.hidden=false;toastTimer=setTimeout(()=>{toast.hidden=true;},undo?12000:4500);}
   function dimensions(){return {w:Math.max(stage.clientWidth,1),h:Math.max(stage.clientHeight,1)};}
+  function cameraViewport(){
+    const {w,h}=dimensions();let top=0;
+    if(mobileSearch.matches){
+      const stageTop=stage.getBoundingClientRect().top;
+      const controlsBottom=Math.max(...[document.querySelector('.map-toolbar'),$('search-form')].map(node=>node?.getBoundingClientRect().bottom||stageTop));
+      // Reserve framing space only: the map canvas still extends behind the controls.
+      top=Math.min(100,Math.max(76,controlsBottom-stageTop+14),Math.max(0,h-88));
+    }
+    return {w,h,top,ratio:w/(h-top)};
+  }
   function makeHome(){
-    const {w,h}=dimensions(),ratio=w/h;let width=bw*1.17,height=bh*1.17;
+    const {w,h,top,ratio}=cameraViewport();let width=bw*1.17,height=bh*1.17;
     if(width/height<ratio)width=height*ratio;else height=width/ratio;
-    return {x:center.x-width/2,y:center.y-height/2,w:width,h:height};
+    const fullHeight=width*h/w;
+    return {x:center.x-width/2,y:center.y-fullHeight/2-top*width/w/2,w:width,h:fullHeight};
   }
   function cancelCamera(){if(cameraFrame!==null)cancelAnimationFrame(cameraFrame);cameraFrame=null;cameraIntent=null;stage.classList.remove('is-camera-moving');}
   function clampView(){
@@ -252,9 +268,9 @@
     });
   }
   function intentView(intent){
-    const {w,h}=dimensions(),ratio=w/h;
+    const {w,h,top,ratio}=cameraViewport(),fullRatio=w/h;
     if(intent.type==='home')return {...home};
-    if(intent.type==='view'){const v=intent.view;return {x:v.x,y:v.y+v.h/2-v.w/ratio/2,w:v.w,h:v.w/ratio};}
+    if(intent.type==='view'){const v=intent.view;return {x:v.x,y:v.y+v.h/2-v.w/fullRatio/2,w:v.w,h:v.w/fullRatio};}
     let cx,cy,width;
     if(intent.type==='point'){
       const point=project(intent.point.lng,intent.point.lat);cx=point.x;cy=point.y;width=Math.min(home.w,Math.max(bw*.32,1800));
@@ -262,7 +278,7 @@
       const f=intent.feature;cx=(f.left+f.right)/2;cy=(f.top+f.bottom)/2;
       width=Math.min(home.w,Math.max((f.right-f.left)*1.45,(f.bottom-f.top)*1.45*ratio,home.w/16));
     }
-    return {x:cx-width/2,y:cy-width/ratio/2,w:width,h:width/ratio};
+    return {x:cx-width/2,y:cy-width/fullRatio/2-top*width/w/2,w:width,h:width/fullRatio};
   }
   function flyTo(intent,duration){
     cancelCamera();const start={...view},started=performance.now();cameraIntent=intent;
@@ -589,7 +605,7 @@
   document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(openPanel)setUtility(null,null,true);if(searchPanel.classList.contains('is-expanded'))setSearchExpanded(false,true);if(explorer?.isOpen&&!e.target.closest('input,textarea,select'))explorer.close();$('search-feedback').hidden=true;setPicking(false);}});
   new ResizeObserver(()=>{
     if(!home||!view)return;
-    const cx=view.x+view.w/2,cy=view.y+view.h/2,wasHome=!cameraIntent&&Math.abs(view.w-home.w)<1&&Math.hypot(cx-center.x,cy-center.y)<1;
+    const cx=view.x+view.w/2,cy=view.y+view.h/2,wasHome=!cameraIntent&&Math.abs(view.w-home.w)<1&&Math.hypot(cx-(home.x+home.w/2),cy-(home.y+home.h/2))<1;
     home=makeHome();const {w,h}=dimensions();
     if(wasHome)view={...home};else view={x:cx-view.w/2,y:cy-view.w*h/w/2,w:view.w,h:view.w*h/w};
     update();

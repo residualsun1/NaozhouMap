@@ -12,7 +12,7 @@
   <main id="workspace">
     <section class="map-area" aria-label="硇洲岛田野矢量地图">
       <div class="search-panel">
-        <form id="search-form" class="search-row"><input id="search-input" aria-label="村名、神明或道路" placeholder="搜索村庄、神明或道路" maxlength="100" autocomplete="off"><button class="search-submit" type="submit" aria-label="搜索"><svg class="ui-icon" aria-hidden="true" focusable="false"
+        <form id="search-form" class="search-row"><button id="search-collapse" type="button" aria-label="收起搜索"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button><input id="search-input" aria-label="村名、神明或道路" placeholder="搜索村庄、神明或道路" maxlength="100" autocomplete="off"><button class="search-submit" type="submit" aria-label="搜索"><svg class="ui-icon" aria-hidden="true" focusable="false"
   xmlns="http://www.w3.org/2000/svg"
   width="24"
   height="24"
@@ -79,7 +79,7 @@
   <path d="M3 12A9 3 0 0 0 21 12" />
 </svg>
 <span>数据</span></button>
-        <button id="add-point" class="primary" type="button"><svg class="ui-icon" aria-hidden="true" focusable="false"
+        <button id="add-point" class="primary" type="button" aria-label="新增调查点位"><svg class="ui-icon" aria-hidden="true" focusable="false"
   xmlns="http://www.w3.org/2000/svg"
   width="24"
   height="24"
@@ -95,7 +95,7 @@
   <path d="M16 18h6" />
   <path d="M19 15v6" />
 </svg>
-<span>新增点位</span></button>
+<span class="desktop-label">新增点位</span><span class="mobile-label">新增</span></button>
         <button id="cancel-pick" type="button" hidden>取消选点</button>
       </div>
       <section id="layers-panel" class="utility-panel" aria-label="图层设置" hidden>
@@ -153,7 +153,7 @@
         <svg id="vector-map" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" role="group" aria-label="硇洲岛海岸线、道路与聚落，可缩放拖动" tabindex="0"><defs><clipPath id="island-clip"><path id="island-clip-path"/></clipPath></defs><path id="coast" class="coast"/><g id="island-features" clip-path="url(#island-clip)"><g id="administrative-layer" style="display:none"><g id="administrative-fill-layer"></g><g id="administrative-boundary-layer"></g></g><g id="residential-layer"></g><g id="building-layer"></g><g id="water-layer"></g><g id="road-layer"></g></g></svg>
         <svg id="label-leaders" class="label-leaders" aria-hidden="true"></svg><div id="road-labels" class="labels" aria-hidden="true"></div><div id="administrative-labels" class="labels"></div><div id="map-labels" class="labels"></div>
       </div>
-      <div class="north" aria-hidden="true">N<span>↑</span></div>
+      <div class="north" role="img" aria-label="正北方向"><span class="north-legacy">N<i>↑</i></span><svg class="mobile-compass" viewBox="0 0 32 32" aria-hidden="true"><text x="16" y="9" text-anchor="middle" font-size="9" fill="#475d5b">N</text><path d="M16 12 12.5 20H19.5Z" fill="#475d5b"/><path d="m12.5 20 3.5 6 3.5-6Z" fill="#a7b8b3"/></svg></div>
       <div class="zoom-controls"><button id="zoom-in" type="button" aria-label="放大">+</button><button id="zoom-out" type="button" aria-label="缩小">−</button></div>
       <div id="pick-message" class="pick-message" role="status" hidden>点击岛上位置</div>
       <button id="administrative-key" class="administrative-key" type="button" aria-controls="layers-panel" aria-expanded="false" hidden><span class="area-swatch" aria-hidden="true"></span><span class="administrative-key-copy"><strong id="administrative-key-name"></strong><small>行政范围 · 陆地分布示意</small></span></button>
