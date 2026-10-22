@@ -157,6 +157,7 @@ if administrative_path.exists():
     for area in json.loads(administrative_path.read_text(encoding='utf-8')):
         office = by_id[area['officePlaceId']] if area.get('officePlaceId') else None
         member_specs = area['memberVillages']
+        member_specs_by_id = {m['placeId']: m for m in member_specs}
         members = [by_id[m['placeId']] for m in member_specs]
         member_kinds = {m['placeId']: m.get('placeKind', 'natural_village') for m in member_specs}
         if any(kind not in {'natural_village', 'locality'} for kind in member_kinds.values()):
@@ -164,6 +165,12 @@ if administrative_path.exists():
         member_ids = {p['id'] for p in members}
         if len(member_ids) != len(members) or office and office['id'] in member_ids:
             raise ValueError('Administrative seat and member places must be distinct.')
+        for member in member_specs:
+            parent_id = member.get('parentVillageId')
+            if parent_id is not None and (not isinstance(parent_id, str) or member_kinds[member['placeId']] != 'locality'
+                    or parent_id == member['placeId'] or parent_id not in member_ids
+                    or member_kinds[parent_id] != 'natural_village'):
+                raise ValueError('A settlement part needs a distinct parent village in the same administrative area.')
         area_places = member_ids | ({office['id']} if office else set())
         if area['id'] in area_ids or assigned_places & area_places:
             raise ValueError('Duplicate administrative area or conflicting village membership.')
@@ -177,6 +184,9 @@ if administrative_path.exists():
                 p['administrativeVillageName'] = area['name']
             p['placeKind'] = 'administrative_seat' if p is office else member_kinds[p['id']]
             p['classificationSource'] = area['classificationSource']
+            parent_id = member_specs_by_id.get(p['id'], {}).get('parentVillageId')
+            if parent_id is not None:
+                p.update(parentVillageId=parent_id, parentVillageName=by_id[parent_id]['name'])
         if office and area.get('officeCaption'):
             office['administrativeCaption'] = area['officeCaption']
         if office:

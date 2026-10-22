@@ -150,6 +150,30 @@
         },
         "previousSourceLocation": null,
         "previousCheckedAt": null
+      },
+      {
+        "replacedAt": "2026-10-22T18:20:13.132531+00:00",
+        "previousName": "赤马",
+        "previousLocation": {
+          "coordinateSystem": "WGS84",
+          "lng": 110.57742,
+          "lat": 20.897211,
+          "source": "高德地图（GCJ-02 转 WGS84，近似）",
+          "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZC"
+        },
+        "previousSourceLocation": {
+          "provider": "高德地图",
+          "placeId": "B02F70NXZC",
+          "name": "赤马",
+          "type": "村庄",
+          "coordinateSystem": "GCJ-02",
+          "lng": 110.581636,
+          "lat": 20.894496
+        },
+        "previousCheckedAt": "2026-10-11",
+        "previousEmbedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXZC&name=%E8%B5%A4%E9%A9%AC&lng=110.581636&lat=20.894496&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+        "previousNameSource": "GeoNames 中文别名",
+        "previousCorrectionNote": "依据高德地图同名村庄或地名详情及可见分享嵌入参数复核。保留现有村名和旧坐标历史；本点不是村庄边界或测绘控制点。"
       }
     ],
     "originalCoordinates": {
@@ -160,29 +184,29 @@
       "sourceUrl": "https://www.geonames.org/6834712/"
     },
     "id": "6834712",
-    "name": "赤马",
-    "lng": 110.57742,
-    "lat": 20.897211,
-    "nameSource": "GeoNames 中文别名",
+    "name": "赤马村",
+    "lng": 110.58084,
+    "lat": 20.896553,
+    "nameSource": "高德地图",
     "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
-    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZC",
-    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXZC&name=%E8%B5%A4%E9%A9%AC&lng=110.581636&lat=20.894496&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
-    "checkedAt": "2026-10-11",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HU9YW",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HU9YW&name=%E8%B5%A4%E9%A9%AC%E6%9D%91&lng=110.585055&lat=20.893835&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "checkedAt": "2026-10-23",
     "previousLocation": {
       "coordinateSystem": "WGS84",
-      "lng": 110.57947,
-      "lat": 20.89659,
-      "source": "GeoNames",
-      "sourceUrl": "https://www.geonames.org/6834712/"
+      "lng": 110.57742,
+      "lat": 20.897211,
+      "source": "高德地图（GCJ-02 转 WGS84，近似）",
+      "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZC"
     },
     "sourceLocation": {
       "provider": "高德地图",
-      "placeId": "B02F70NXZC",
-      "name": "赤马",
+      "placeId": "B0I04HU9YW",
+      "name": "赤马村",
       "type": "村庄",
       "coordinateSystem": "GCJ-02",
-      "lng": 110.581636,
-      "lat": 20.894496
+      "lng": 110.585055,
+      "lat": 20.893835
     },
     "coordinateTransform": {
       "method": "coordtransform WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
@@ -191,7 +215,17 @@
       "outputDecimals": 6,
       "note": "近似转换；小数位数不表示测绘精度。"
     },
-    "correctionNote": "依据高德地图同名村庄或地名详情及可见分享嵌入参数复核。保留现有村名和旧坐标历史；本点不是村庄边界或测绘控制点。"
+    "correctionNote": "依据高德精确搜索“赤马村”的地点详情及可见分享参数重新定位，替换原“赤马”标点。保留稳定业务 ID 与旧来源历史，避免已有档案、信仰记录失联。用户确认赤马村为宋皇村委会下的小片区，包含赤马（主村）、上马、下马；中下马保留原名称，不与下马合并。本点表示地图地点定位，不表示聚落边界或测绘控制点。",
+    "shareUrl": "https://surl.amap.com/4KpIEiaf840",
+    "aliases": [
+      "赤马"
+    ],
+    "settlementNames": [
+      "赤马（主村）",
+      "上马",
+      "下马"
+    ],
+    "settlementNote": "中下马保留原称谓，不与下马合并；下马独立点位待核。"
   },
   {
     "correctionHistory": [

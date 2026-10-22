@@ -84,8 +84,8 @@ window.createDeityExplorer = options => {
         const row=el(village.point?'button':'article','explorer-village');if(village.point){row.type='button';row.setAttribute('aria-label','定位并查看'+village.name+'档案');row.addEventListener('click',()=>onPlace(village));}
         row.dataset.placeKey=village.key;
         const heading=el('div','explorer-village-heading');heading.append(el('strong','',village.name),el('span','',village.point?'定位并查看档案 ↗':'位置待确认'));row.append(heading);
-        const kind=village.point?.placeKind,type=kind==='natural_village'?'自然村':kind==='administrative_seat'?'行政驻地':kind==='locality'?'地点':village.kind==='survey'?'调查点位':'';
-        if(type)row.append(el('small','',type+' · '+village.records.length+' 条记录'));
+        const point=village.point,kind=point?.placeKind,type=point?.parentVillageId?'片内聚落':point?.settlementNames?.length?'村庄片区':kind==='natural_village'?'自然村':kind==='administrative_seat'?'行政驻地':kind==='locality'?'地点':village.kind==='survey'?'调查点位':'';
+        if(type)row.append(el('small','',[type,point?.parentVillageName&&point.parentVillageName+'片区',village.records.length+' 条记录'].filter(Boolean).join(' · ')));
         else row.append(el('small','',village.records.length+' 条记录'));
         const names=[...new Set(village.records.flatMap(({record,links})=>links.map(link=>link.localName||record.deities[link.nameIndex]).filter(Boolean)))];
         const titles=[...new Set(village.records.flatMap(({links})=>links.map(link=>link.localTitle).filter(Boolean)))];

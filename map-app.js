@@ -150,7 +150,13 @@
   function renderAdministrativeInfo(p){
     const area=administrativeById.get(p.administrativeAreaId);
     $('administrative-context').hidden=false;
-    $('administrative-member-kind').textContent=p.placeKind==='natural_village'?'自然村':p.placeKind==='administrative_seat'?'行政驻地':p.placeKind==='administrative_area'?'行政范围':p.kind==='survey'?'调查点位':p.kind==='road'?'道路':p.kind==='cluster'?'聚落':p.placeKind==='locality'?'地点':'参考地点';
+    $('administrative-member-kind').textContent=placeType(p);
+    const parent=placeById.get(p.parentVillageId);
+    $('parent-village-context').hidden=!p.parentVillageId;
+    $('parent-village').textContent=parent?.name||p.parentVillageName||'';
+    $('parent-village').disabled=!parent;
+    $('parent-village').onclick=parent?()=>selectReference(parent):null;
+    renderSettlements(p);
     const committee=area?.committeeName||p.committeeName||'';
     $('administrative-affiliation').hidden=!committee;
     $('administrative-affiliation-prefix').textContent=['administrative_seat','administrative_area'].includes(p.placeKind)?'':'隶属于';
@@ -164,14 +170,44 @@
     $('administration-view').onclick=()=>setAdministrativeLayer(area,!administrativeEnabled(area.id),true);
     syncAdministrativeViewButton();
     $('administration-members').open=false;
-    const villages=area.memberVillages.filter(member=>member.placeKind!=='locality').length,localities=area.memberVillages.length-villages;
-    $('administration-members-summary').textContent=(area.officePlaceId?'已确认 ':'范围参考：')+[villages?villages+' 个自然村':'',localities?localities+' 个地点':''].filter(Boolean).join(' · ');
+    const members=area.memberVillages.map(member=>({...member,point:placeById.get(member.placeId)}));
+    const parentId=member=>member.point?.parentVillageId||member.parentVillageId;
+    const settlements=members.filter(member=>parentId(member)).length;
+    const localities=members.filter(member=>!parentId(member)&&(member.point?.placeKind||member.placeKind)==='locality').length;
+    const villages=members.length-settlements-localities;
+    $('administration-members-summary').textContent=(area.officePlaceId?'已确认 ':'范围参考：')+[villages?villages+' 个自然村':'',settlements?settlements+' 个片内聚落':'',localities?localities+' 个地点':''].filter(Boolean).join(' · ');
     $('administration-member-list').replaceChildren();
-    for(const member of area.memberVillages){
+    const memberButton=member=>{
       const button=document.createElement('button');button.type='button';button.textContent=member.name;
-      button.addEventListener('click',()=>selectReference(placeById.get(member.placeId)));
-      $('administration-member-list').append(button);
+      button.disabled=!member.point;
+      if(member.point){button.setAttribute('aria-label',member.name+'，'+placeDescription(member.point));button.addEventListener('click',()=>selectReference(member.point));}
+      if(parentId(member)||member.point?.settlementNames?.length){const caption=document.createElement('small');caption.textContent=parentId(member)?'片内聚落':'村庄片区';button.append(caption);}
+      return button;
+    };
+    for(const member of members){
+      if(parentId(member)&&members.some(parent=>parent.placeId===parentId(member)))continue;
+      const children=members.filter(child=>parentId(child)===member.placeId);
+      if(!children.length){$('administration-member-list').append(memberButton(member));continue;}
+      const group=document.createElement('div');group.className='administration-member-group';group.append(memberButton(member));
+      const list=document.createElement('div');list.className='administration-member-children';
+      for(const child of children)list.append(memberButton(child));
+      group.append(list);$('administration-member-list').append(group);
     }
+  }
+  function renderSettlements(p){
+    const names=Array.isArray(p.settlementNames)?p.settlementNames:[];
+    $('settlement-section').hidden=!names.length;$('settlement-list').replaceChildren();$('settlement-related').replaceChildren();$('settlement-related').hidden=true;
+    $('settlement-note').textContent=p.settlementNote||'';$('settlement-note').hidden=!p.settlementNote;
+    if(!names.length)return;
+    const children=data.places.filter(child=>child.parentVillageId===p.id),linked=new Set();
+    const locationLink=(name,point)=>{const button=document.createElement('button');button.type='button';button.textContent=name;button.setAttribute('aria-label','查看'+point.name+'，'+placeDescription(point));button.addEventListener('click',()=>selectReference(point));return button;};
+    for(const name of names){
+      const child=children.find(item=>item.name.replace(/村$/,'')===name.replace(/村$/,''));
+      if(child){linked.add(child.id);$('settlement-list').append(locationLink(name,child));}
+      else{const label=document.createElement('span');label.textContent=name;$('settlement-list').append(label);}
+    }
+    const related=children.filter(child=>!linked.has(child.id));
+    if(related.length){$('settlement-related').hidden=false;$('settlement-related').append(document.createTextNode('相关点位'));for(const child of related)$('settlement-related').append(locationLink(child.name,child));}
   }
   function renderArchiveOverview(p){
     const visible=p.kind!=='road'&&p.kind!=='cluster';
@@ -354,8 +390,8 @@
       item.button.dataset.placeKind=p.placeKind||'reference';item.label.dataset.placeKind=p.placeKind||'reference';
       item.button.dataset.placeKey=p.key;item.label.dataset.placeKey=p.key;
       const administrative=p.placeKind==='administrative_seat',member=isAdministrativeMember(p);
-      item.button.setAttribute('aria-label',p.name+(administrative?'，行政驻地，'+p.committeeName:member?'，'+(p.placeKind==='locality'?'地点':'自然村')+'，'+p.committeeName:p.saved?'，调查点位':'，参考地名')+(item.hasFaith?'，有信仰记录':''));
-      if(item.hasFaith)item.button.removeAttribute('title');else item.button.title=administrative?p.committeeName+' · 行政驻地':p.name;
+      item.button.setAttribute('aria-label',p.name+(administrative||member?'，'+placeDescription(p):p.saved?'，调查点位':'，参考地名')+(item.hasFaith?'，有信仰记录':''));
+      if(item.hasFaith)item.button.removeAttribute('title');else item.button.title=administrative||member?p.name+' · '+placeDescription(p):p.name;
       item.label.replaceChildren(document.createTextNode(p.name));
       if(administrative){const caption=document.createElement('small');caption.textContent=p.administrativeCaption||p.committeeName;item.label.append(caption);}
       if(administrative&&!item.leader){item.leader=document.createElementNS(NS,'line');item.leader.style.display='none';labelLeaders.append(item.leader);}
@@ -516,6 +552,7 @@
     for(const [key,label] of roadLabelNodes)if(!wanted.has(key))label.hidden=true;
   }
   function isAdministrativeMember(p){return p.placeKind==='natural_village'||p.placeKind==='locality';}
+  function placeType(p){return p.parentVillageId?'片内聚落':p.settlementNames?.length?'村庄片区':p.placeKind==='natural_village'?'自然村':p.placeKind==='administrative_seat'?'行政驻地':p.placeKind==='administrative_area'?'行政范围':p.kind==='survey'?'调查点位':p.kind==='road'?'道路':p.kind==='cluster'?'聚落':p.placeKind==='locality'?'地点':'参考地点';}
   function validPoint(p){return p&&typeof p.id==='string'&&p.id.length<=120&&typeof p.name==='string'&&p.name.trim().length>0&&p.name.length<=100&&Number.isFinite(p.lat)&&p.lat>=-90&&p.lat<=90&&Number.isFinite(p.lng)&&p.lng>=-180&&p.lng<=180&&(p.source===undefined||typeof p.source==='string'&&p.source.length<=200)&&(p.note===undefined||typeof p.note==='string'&&p.note.length<=5000);}
   function cleanPoint(p){return {id:p.id,name:p.name.trim(),lat:p.lat,lng:p.lng,source:p.source||'',note:p.note||'',createdAt:typeof p.createdAt==='string'?p.createdAt:new Date().toISOString(),updatedAt:typeof p.updatedAt==='string'?p.updatedAt:new Date().toISOString()};}
   function storageStatus(text,error=false){$('storage-status').hidden=false;$('storage-status').textContent=text;$('storage-status').classList.toggle('error',error);const indicator=$('save-indicator');indicator.textContent=error?'保存需检查':text.startsWith('正在保存')?'保存中…':text.startsWith('正在读取')?'读取中…':text.startsWith('已保存')?'已保存':'已同步';indicator.title=text;indicator.classList.toggle('is-error',error);}
@@ -549,9 +586,9 @@
   function resultButton(name,detail,action){const b=document.createElement('button');b.type='button';b.className='result-button';const strong=document.createElement('strong');strong.textContent=name;b.append(strong);if(detail){const span=document.createElement('span');span.textContent=detail;b.append(span);}b.addEventListener('click',action);return b;}
   function renderPoints(){const list=$('point-list');list.replaceChildren();$('point-count').textContent=points.length+' 个';$('saved-points-section').hidden=!points.length;for(const p of points){const b=resultButton(p.name,`${p.lat.toFixed(6)}, ${p.lng.toFixed(6)}`,()=>selectPoint(p));b.setAttribute('aria-current',String(p.id===activeId));list.append(b);}rebuildPins();}
   function mayLeaveEditor(){return !faith.saving&&!archives.saving&&(!(formDirty&&!$('editor-section').hidden)&&!faith.dirty&&!archives.dirty||window.confirm('当前填写内容尚未保存。要放弃填写并继续吗？'));}
-  function clearReference(){faith.clearVillage();archives.clear();reference=null;hoveredPin=null;focusedPin=null;$('reference-section').hidden=true;$('administrative-context').hidden=true;$('administration-section').hidden=true;$('place-overview-section').hidden=true;$('field-notes-section').hidden=true;for(const path of svg.querySelectorAll('.is-selected'))path.classList.remove('is-selected');syncDetails();}
+  function clearReference(){faith.clearVillage();archives.clear();reference=null;hoveredPin=null;focusedPin=null;$('reference-section').hidden=true;$('administrative-context').hidden=true;$('administration-section').hidden=true;$('settlement-section').hidden=true;$('place-overview-section').hidden=true;$('field-notes-section').hidden=true;for(const path of svg.querySelectorAll('.is-selected'))path.classList.remove('is-selected');syncDetails();}
   function reviewText(p){const review=p.placeKind==='administrative_seat'?'行政驻地 · 位置待核对':p.locationReview?.status==='field_identified'?'实地指认':'待核对';return p.locationHint?p.locationHint+' · '+review:review;}
-  function placeDescription(p){return p.placeKind==='administrative_seat'?p.committeeName+' · 行政驻地':isAdministrativeMember(p)?p.committeeName+' · '+(p.placeKind==='locality'?'地点':'自然村')+(p.locationHint?' · '+p.locationHint:''):reviewText(p);}
+  function placeDescription(p){return p.placeKind==='administrative_seat'?p.committeeName+' · 行政驻地':isAdministrativeMember(p)?[p.committeeName,placeType(p),p.parentVillageName&&p.parentVillageName+'片区',p.locationHint].filter(Boolean).join(' · '):reviewText(p);}
   function showReference(name,source,coordinates,canUse=true,review='待核对'){$('reference-section').hidden=false;$('reference-name').textContent=name;$('reference-review').textContent=review;$('reference-source').textContent=source;$('reference-coordinates').textContent=coordinates;$('use-reference').hidden=!canUse;$('reference-more').open=false;renderAdministrativeInfo(reference||{});renderArchiveOverview(reference||{});syncDetails(true);}
   function selectReference(p){if(!p||saving||!mayLeaveEditor())return false;closeEditor();clearReference();reference={...p,kind:'place'};showReference(p.name,`名称：${p.nameSource}；位置：${p.coordinateSource}。`+(p.placeKind==='administrative_seat'?' 行政驻地点，不作为独立自然村。':''),`${p.lat.toFixed(6)}, ${p.lng.toFixed(6)}`,true,reviewText(p));faith.selectVillage({id:p.id,kind:'reference',name:p.name});focusPoint(p);layoutPins();return true;}
   function selectCluster(p){

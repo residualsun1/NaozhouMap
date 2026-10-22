@@ -234,7 +234,7 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .map-stage.is-dragging~.administrative-key:not(:focus-visible){opacity:.24}
 .administrative-context{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;margin-top:10px;font-size:11px;line-height:1.7;color:#777974}
 .place-type{padding:1px 6px;border:1px solid #e4e5df;border-radius:4px;background:#f5f5f0;font-size:10px;line-height:1.6;color:#697168;white-space:nowrap}
-#administrative-affiliation{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:3px}
+#administrative-affiliation,#parent-village-context{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:3px}
 .administrative-context button{padding:0;border:0;border-bottom:1px solid #d9dcd4;border-radius:0;background:transparent;font-size:11px;line-height:1.7;color:#777974;text-align:left}
 .administrative-context button:disabled{opacity:1;cursor:default;border-bottom-color:transparent}
 .archive-prose{margin:0;color:#4f564f;font-size:13px;font-weight:400;line-height:1.85;white-space:pre-wrap;overflow-wrap:anywhere}
@@ -252,6 +252,16 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 #administration-members{margin-top:18px}
 .administration-member-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:10px}
 .administration-member-list button{padding:9px 4px;font-size:10px;line-height:1.6;white-space:normal;overflow-wrap:anywhere;background:#fff}
+.administration-member-group{grid-column:1/-1;display:grid;gap:7px}
+.administration-member-group>button{text-align:left;padding-inline:10px}
+.administration-member-group button small{margin-left:6px;font-size:9px;font-weight:400;color:#777974}
+.administration-member-children{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-left:10px;padding-left:12px;border-left:1px solid #dcded5}
+.settlement-list{display:flex;flex-wrap:wrap;gap:7px}
+.settlement-list>span,.settlement-list>button{padding:5px 9px;border:1px solid #e5e6de;border-radius:5px;background:transparent;font-size:12px;font-weight:400;line-height:1.6;color:#4f564f}
+.settlement-list>button:hover{background:#f1f2ec}
+.settlement-related{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px;margin-top:12px;font-size:11px;color:#777974}
+.settlement-related button{padding:2px 4px;border:0;border-bottom:1px solid #d9dcd4;border-radius:0;background:transparent;font-size:11px;color:#697168}
+#settlement-note{margin:12px 0 0;font-size:11px;line-height:1.7}
 .administrative-caveat{margin:16px 0 0;font-size:9px}
 
 /* Faith archive, preview and forms */
