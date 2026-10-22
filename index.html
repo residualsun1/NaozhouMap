@@ -141,6 +141,7 @@
         <details class="section"><summary>参考地名<span id="reference-count" class="count"></span></summary><div id="reference-list" class="result-list"></div></details>
         <section class="section"><h3>调查点位</h3><div class="button-row"><button id="export-csv" type="button">CSV</button><button id="export-geojson" type="button">GeoJSON</button><button id="import-button" type="button">导入</button></div><input id="import-file" type="file" accept=".geojson,.json,application/json,application/geo+json" hidden></section>
         <section class="section"><h3>信仰记录</h3><div class="button-row"><button id="faith-export-csv" type="button" disabled>信仰 CSV</button><button id="faith-export-json" type="button" disabled>信仰备份</button><button id="faith-import" type="button" disabled>导入</button></div><input id="faith-import-file" type="file" accept=".json,application/json" hidden></section>
+        <section class="section"><h3>村庄档案</h3><div class="button-row"><button id="archive-export" type="button" disabled>档案备份</button><button id="archive-import" type="button" disabled>导入</button></div><input id="archive-import-file" type="file" accept=".json,application/json" hidden><p id="archive-import-status" class="status" role="status" aria-live="polite"></p></section>
         <button id="export-svg" type="button" class="full">导出矢量 SVG</button>
         <p id="export-link" class="note" hidden></p><details id="export-preview" hidden><summary>查看或复制导出内容</summary><textarea id="export-content" class="export-preview" readonly aria-label="导出文件内容"></textarea></details>
         <details class="source-details"><summary>数据来源</summary><p>海岸线、道路、聚落与建筑：<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>（ODbL）。地名：OpenStreetMap、<a href="https://www.geonames.org/" target="_blank" rel="noopener noreferrer">GeoNames</a>（CC BY 4.0）及逐处核对资料。补充聚落轮廓依据<a href="https://ditu.amap.com/" target="_blank" rel="noopener noreferrer">高德卫星影像</a>人工判读。参考位置待实地核对。</p><p>聚落阴影表示已收录的建成区，不代表村界；空白处也可能存在尚未收录的村庄。细路与小径随放大显示。<span id="geometry-date"></span></p><p>行政驻地点及所属地点由调查者确认。斜线区域依已确认地点分布制作，仅为陆地范围示意，不表示法定行政边界；海域暂不划定。</p></details>
@@ -172,7 +173,15 @@
 </svg>
 </button></div></div>
       <div id="detail-content" class="detail-content">
-        <section id="place-overview-section" class="section" hidden><div class="section-title"><h2>基本情况</h2></div><p id="place-overview" class="archive-prose"></p></section>
+        <section id="place-overview-section" class="section" hidden>
+          <div class="section-title"><h2>基本情况</h2><button id="place-overview-edit" type="button" class="linkbutton" aria-label="编辑基本情况" disabled>编辑</button></div>
+          <p id="place-overview" class="archive-prose"></p>
+          <form id="archive-introduction-form" class="archive-form" hidden>
+            <label for="archive-introduction">基本情况</label><textarea id="archive-introduction" rows="7" maxlength="20000"></textarea>
+            <div class="button-row form-actions"><button type="submit" class="primary">保存</button><button type="button" data-archive-cancel>取消</button></div>
+          </form>
+          <p id="archive-introduction-status" class="status" role="status" aria-live="polite"></p>
+        </section>
         <section id="faith-section" class="section" hidden>
           <div class="section-title"><h2><span id="faith-title">信仰神明</span><span id="faith-count" class="count"></span></h2><button id="faith-add" type="button" aria-label="新增信仰记录" disabled>新增</button></div>
           <div id="faith-list"></div>
@@ -183,7 +192,16 @@
           </form>
           <p id="faith-status" class="status" role="status" aria-live="polite"></p>
         </section>
-        <section id="field-notes-section" class="section" hidden><div class="section-title"><h2>田野笔记</h2><button id="point-notes-edit" type="button" class="linkbutton" hidden>编辑</button></div><div id="place-notes"></div><div id="faith-notes"></div><p id="field-notes-empty" class="note">暂无田野笔记</p></section>
+        <section id="field-notes-section" class="section" hidden>
+          <div class="section-title"><h2>田野笔记</h2><button id="point-notes-edit" type="button" class="linkbutton" aria-label="编辑田野笔记" disabled>编辑</button></div>
+          <div id="place-notes"></div>
+          <form id="archive-note-form" class="archive-form" hidden>
+            <label for="archive-note">田野笔记</label><textarea id="archive-note" rows="8" maxlength="20000"></textarea>
+            <div class="button-row form-actions"><button type="submit" class="primary">保存</button><button type="button" data-archive-cancel>取消</button></div>
+          </form>
+          <p id="archive-note-status" class="status" role="status" aria-live="polite"></p>
+          <div id="faith-notes"></div><p id="field-notes-empty" class="note">暂无田野笔记</p>
+        </section>
         <section id="editor-section" class="section" hidden>
           <div class="section-title"><h2 id="editor-heading">新增调查点位</h2><button id="close-editor" type="button">取消</button></div>
           <form id="point-form">
@@ -207,6 +225,6 @@
       <div class="button-row form-actions"><button type="submit" class="primary">登录</button><button id="cloud-login-cancel" type="button">取消</button></div>
     </form>
   </dialog>
-  <script src="./map-data.js"></script><script src="./cloud-access.js"></script><script src="./faith-records.js"></script><script src="./map-app.js"></script>
+  <script src="./map-data.js"></script><script src="./cloud-access.js"></script><script src="./place-archives.js"></script><script src="./faith-records.js"></script><script src="./map-app.js"></script>
 </body>
 </html>

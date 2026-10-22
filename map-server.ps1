@@ -218,6 +218,7 @@ function Handle-PointsRequest($Context) {
 }
 
 . (Join-Path $PSScriptRoot 'faith-storage.ps1')
+. (Join-Path $PSScriptRoot 'archive-storage.ps1')
 
 $staticFiles = @{
     '/map.css' = @{ Path = 'map.css'; Type = 'text/css; charset=utf-8' }
@@ -225,6 +226,7 @@ $staticFiles = @{
     '/sea-texture.svg' = @{ Path = 'sea-texture.svg'; Type = 'image/svg+xml; charset=utf-8' }
     '/cloud-access.js' = @{ Path = 'cloud-access.js'; Type = 'text/javascript; charset=utf-8' }
     '/faith-records.js' = @{ Path = 'faith-records.js'; Type = 'text/javascript; charset=utf-8' }
+    '/place-archives.js' = @{ Path = 'place-archives.js'; Type = 'text/javascript; charset=utf-8' }
     '/map-data.js' = @{ Path = 'map-data.js'; Type = 'text/javascript; charset=utf-8' }
     '/assets/vector-map-data.json' = @{ Path = 'assets/vector-map-data.json'; Type = 'application/json; charset=utf-8' }
 }
@@ -262,6 +264,8 @@ try {
                 Handle-PointsRequest $context
             } elseif ($requestPath -eq '/api/faith') {
                 Handle-FaithRequest $context
+            } elseif ($requestPath -eq '/api/archives') {
+                Handle-ArchivesRequest $context
             } elseif (($requestPath -eq '/' -or $requestPath -eq '/index.html' -or $staticFiles.ContainsKey($requestPath)) -and ($context.Request.HttpMethod -eq 'GET' -or $context.Request.HttpMethod -eq 'HEAD')) {
                 if ($requestPath -eq '/' -or $requestPath -eq '/index.html') {
                     $filePath = $mapFile

@@ -177,7 +177,7 @@ window.createFaithRecords = options => {
         notes.append(article);
       }
     }
-    $('field-notes-empty').hidden=!!$('place-notes').textContent.trim()||!!notes.childElementCount;
+    $('field-notes-empty').hidden=!$('archive-note-form').hidden||!!$('place-notes').textContent.trim()||!!notes.childElementCount;
     enable();
   }
   function mayLeave() { return !saving && (!dirty || window.confirm('信仰记录尚未保存。要放弃填写吗？')); }

@@ -70,3 +70,25 @@ test('invalid coordinates and retired IDs cannot enter cloud records',async()=>{
   assert.equal((await handler(request('points',{revision:current.revision,points:[{...point,lat:100}]}))).status,400);
   assert.equal((await handler(request('points',{revision:current.revision,points:[{...point,id:current.deletedIds[0]}]}))).status,422);
 });
+test('village introduction and notes persist independently without a deity record',async()=>{
+  const store=memoryStore(),handler=recordsHandler('archives',()=>store);
+  const initial=await (await handler(new Request(origin+'/api/archives'))).json();
+  assert.equal(initial.records.length,0);
+  const record={id:'isolated-archive',villageId:'isolated-village',villageKind:'reference',villageName:'隔离测试村庄',introduction:'隔离测试简介\n第二段',note:'隔离测试田野笔记'};
+  assert.equal((await handler(request('archives',{version:1,revision:initial.revision,records:[record]},false))).status,401);
+  const first=await (await handler(request('archives',{version:1,revision:initial.revision,records:[record]}))).json();
+  assert.equal(first.records[0].introduction,record.introduction);
+  const second=await handler(request('archives',{version:1,revision:first.revision,records:[{...first.records[0],note:'仅修改笔记'}]}));
+  assert.equal(second.status,200);
+  const reopened=await (await handler(new Request(origin+'/api/archives'))).json();
+  assert.equal(reopened.records[0].note,'仅修改笔记');
+  assert.equal(reopened.records[0].introduction,record.introduction);
+  assert.equal((await handler(request('archives',{version:1,revision:first.revision,records:[]}))).status,409);
+  assert.equal((await (await recordsHandler('faith',()=>store)(new Request(origin+'/api/faith'))).json()).records[0].deities.length,6);
+});
+test('village archives reject oversized text and duplicate place links',async()=>{
+  const store=memoryStore(),handler=recordsHandler('archives',()=>store);
+  const record={id:'archive-a',villageId:'same-village',villageKind:'reference',villageName:'隔离测试',introduction:'',note:''};
+  assert.equal((await handler(request('archives',{version:1,revision:0,records:[{...record,note:'a'.repeat(20001)}]}))).status,400);
+  assert.equal((await handler(request('archives',{version:1,revision:0,records:[record,{...record,id:'archive-b'}]}))).status,400);
+});

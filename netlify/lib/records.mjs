@@ -37,7 +37,19 @@ export function normalizeFaith(items) {
     return record;
   });
 }
-const seeds = {points:pointsSeed,faith:faithSeed};
+export function normalizeArchives(items) {
+  identifiers(items);
+  const places = new Set();
+  return items.map(item => {
+    if (!required(item.villageId,120) || !['reference','survey'].includes(item.villageKind) || !required(item.villageName,100)) throw Error('村庄关联无效。');
+    const key = item.villageKind + ':' + item.villageId;
+    if (places.has(key)) throw Error('同一村庄存在重复档案。');
+    places.add(key);
+    return {id:item.id,villageId:item.villageId,villageKind:item.villageKind,villageName:item.villageName.trim(),introduction:text(item.introduction,20000),note:text(item.note,20000),createdAt:text(item.createdAt,100)||new Date().toISOString(),updatedAt:text(item.updatedAt,100)||new Date().toISOString()};
+  });
+}
+const seeds = {points:pointsSeed,faith:faithSeed,archives:{version:1,revision:0,records:[]}};
+const normalizers = {points:normalizePoints,faith:normalizeFaith,archives:normalizeArchives};
 async function readState(store,kind) {
   const entry=await store.getWithMetadata(kind,{type:'json'});
   return {state:entry?.data || structuredClone(seeds[kind]),etag:entry?.etag};
@@ -56,8 +68,8 @@ export function recordsHandler(kind, storeFactory = () => getStore({name:'naozho
       let body,items;
       try {
         body=JSON.parse(raw);
-        if (!revisionValid(body.revision) || (kind==='faith' && body.version!==1)) throw Error('记录版本无效。');
-        items=kind==='points'?normalizePoints(body.points):normalizeFaith(body.records);
+        if (!revisionValid(body.revision) || (kind!=='points' && body.version!==1)) throw Error('记录版本无效。');
+        items=normalizers[kind](kind==='points'?body.points:body.records);
       } catch(error) {return json({error:error.message},400);}
       if (body.revision!==current.state.revision) return json(current.state,409);
       const next={version:1,revision:current.state.revision+1,[kind==='points'?'points':'records']:items};

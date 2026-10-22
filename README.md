@@ -33,7 +33,8 @@ npm run build
 ```
 
 主要文件：`index.html`、`map.css`、`map-app.js`、`faith-records.js`、`map-data.js`。
-`cloud-access.js` 只在 Netlify 构建中启用；`netlify/functions/` 提供 `/api/points`、`/api/faith` 和 `/api/auth`。
+`cloud-access.js` 只在 Netlify 构建中启用；`netlify/functions/` 提供 `/api/points`、`/api/faith`、`/api/archives` 和 `/api/auth`。
+村庄「基本情况」和独立「田野笔记」由 `place-archives.js` 编辑，线上存入独立云端档案，本地存入 `data/place-archives.json`；首次填写时创建，不修改原有地理、点位及信仰资料。数据面板可导入、导出档案备份。调查点位原有笔记仍通过点位表单编辑和保存。
 发布目录仅包含运行所需文件，本地备份、访谈存档和工作截图不上传到网站。
 
 ## 地图资料与署名
