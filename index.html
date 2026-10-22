@@ -31,23 +31,6 @@
       </div>
       <div class="map-toolbar" aria-label="地图工具">
         <button id="deity-explorer-toggle" class="deity-entry" type="button" aria-label="神明探索" aria-expanded="false" aria-controls="deity-explorer"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v15M3 4c4-1 6 0 9 2 3-2 5-3 9-2v15c-4-1-6 0-9 2-3-2-5-3-9-2z"/></svg><span>神明</span></button>
-        <button id="island-view" type="button"><svg class="ui-icon" aria-hidden="true" focusable="false"
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <path d="M3 7V5a2 2 0 0 1 2-2h2" />
-  <path d="M17 3h2a2 2 0 0 1 2 2v2" />
-  <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
-  <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
-</svg>
-<span>全岛</span></button>
         <button id="layers-toggle" type="button" aria-expanded="false" aria-controls="layers-panel"><svg class="ui-icon" aria-hidden="true" focusable="false"
   xmlns="http://www.w3.org/2000/svg"
   width="24"
@@ -154,7 +137,11 @@
         <svg id="label-leaders" class="label-leaders" aria-hidden="true"></svg><div id="road-labels" class="labels" aria-hidden="true"></div><div id="administrative-labels" class="labels"></div><div id="map-labels" class="labels"></div>
       </div>
       <div class="north" role="img" aria-label="正北方向"><span class="north-legacy">N<i>↑</i></span><svg class="mobile-compass" viewBox="0 0 32 32" aria-hidden="true"><text x="16" y="9" text-anchor="middle" font-size="9" fill="#475d5b">N</text><path d="M16 12 12.5 20H19.5Z" fill="#475d5b"/><path d="m12.5 20 3.5 6 3.5-6Z" fill="#a7b8b3"/></svg></div>
-      <div class="zoom-controls"><button id="zoom-in" type="button" aria-label="放大">+</button><button id="zoom-out" type="button" aria-label="缩小">−</button></div>
+      <div class="zoom-controls" role="group" aria-label="地图视角控制">
+        <button id="island-view" type="button" title="显示全岛" aria-label="显示全岛"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/></svg></button>
+        <button id="zoom-in" type="button" title="放大" aria-label="放大">+</button>
+        <button id="zoom-out" type="button" title="缩小" aria-label="缩小">−</button>
+      </div>
       <div id="pick-message" class="pick-message" role="status" hidden>点击岛上位置</div>
       <button id="administrative-key" class="administrative-key" type="button" aria-controls="layers-panel" aria-expanded="false" hidden><span class="area-swatch" aria-hidden="true"></span><span class="administrative-key-copy"><strong id="administrative-key-name"></strong><small>行政范围 · 陆地分布示意</small></span></button>
       <div class="map-footer"><div><span id="scale-text" class="scale-text"></span><div id="scale-line" class="scale-line"></div></div><div>© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a> · <a href="https://www.geonames.org/" target="_blank" rel="noopener noreferrer">GeoNames</a></div></div>

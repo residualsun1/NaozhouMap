@@ -188,10 +188,13 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .north{position:absolute;top:86px;left:27px;text-align:center;pointer-events:none;font-size:8px;letter-spacing:.1em;line-height:1.3;color:#68736f}
 .north-legacy{display:block}.north-legacy i{display:block;margin-top:3px;font-size:24px;font-weight:300;font-style:normal;line-height:1}
 .mobile-label,.mobile-compass,#search-collapse{display:none}
-.zoom-controls{position:absolute;z-index:4;right:24px;bottom:67px;display:flex;flex-direction:column;overflow:hidden;background:#fffffff5;border:1px solid white;border-radius:10px;box-shadow:var(--shadow)}
-.zoom-controls button{width:37px;height:37px;padding:0;border:0;border-radius:0;background:transparent;color:#6f716d;font-size:22px;font-weight:300}
-.zoom-controls button:hover{background:#efefee}
-.zoom-controls button+button{border-top:1px solid #eeeeed}
+.zoom-controls{position:absolute;z-index:4;right:24px;bottom:67px;display:flex;flex-direction:column;overflow:hidden;background:rgba(250,249,246,.9);border:1px solid rgba(255,255,255,.65);border-radius:13px;box-shadow:0 3px 12px rgba(35,48,50,.07)}
+.zoom-controls button{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:48px;height:46px;padding:0;border:0;border-radius:0;background:transparent;color:#414946;font-size:22px;font-weight:300;line-height:1;touch-action:manipulation}
+.zoom-controls .ui-icon{width:18px;height:18px}
+.zoom-controls button:hover:not(:disabled){background:rgba(225,232,226,.65)}
+.zoom-controls button:active:not(:disabled){background:#dce5dd}
+.zoom-controls button:focus-visible{outline:2px solid #607c72;outline-offset:-3px}
+.zoom-controls button+button{border-top:1px solid #e5e7e3}
 .map-footer{position:absolute;left:24px;right:24px;bottom:17px;display:flex;align-items:flex-end;justify-content:space-between;gap:18px;pointer-events:none;color:#777974;font-size:8px;line-height:1.6;text-shadow:0 1px 2px var(--map),0 0 4px var(--map);transition:opacity .12s}
 .map-stage.is-dragging~.map-footer{opacity:.3}
 .map-footer a{pointer-events:auto;text-decoration:none}
@@ -376,10 +379,12 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
   .detail-heading h2{font-size:23px}.review-badge{margin-top:4px}
   .detail-content{padding:22px 22px 32px}.detail-actions button{min-height:44px;min-width:44px}
   #sheet-toggle{display:flex;padding:5px 8px;font-size:10px}
-  main.details-open:has(#editor-section:not([hidden])),main.details-open:has(#faith-form:not([hidden])){--sheet-size:min(540px,calc(100dvh - 190px))}
+  main.details-open:has(#editor-section:not([hidden])),main.details-open:has(#faith-form:not([hidden])){--sheet-size:min(540px,calc(100dvh - 224px - env(safe-area-inset-top,0px)))}
   .details-open .map-stage{bottom:var(--sheet-size);min-height:88px}
   .details-open .map-footer{bottom:calc(var(--sheet-size) + 14px)}
   .details-open .zoom-controls,.details-open .pick-message,.details-open .administrative-key{bottom:calc(var(--sheet-size) + 61px)}
+  .details-open:not(.is-picking) .zoom-controls{bottom:calc(var(--sheet-size) + 16px)}
+  .details-open:not(.is-picking) .map-footer{right:72px}
   .sheet-collapsed{--sheet-size:112px!important}.sheet-collapsed .sidebar .detail-content{display:none}
   .is-picking .sidebar{visibility:hidden}.is-picking .map-stage{bottom:0}.is-picking .map-footer{bottom:14px}
   .is-picking .zoom-controls,.is-picking .pick-message,.is-picking .administrative-key{bottom:61px}
