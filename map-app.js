@@ -237,8 +237,9 @@
   }
   function cancelCamera(){if(cameraFrame!==null)cancelAnimationFrame(cameraFrame);cameraFrame=null;cameraIntent=null;stage.classList.remove('is-camera-moving');}
   function clampView(){
-    const {w,h}=dimensions();view.w=Math.max(home.w/32,Math.min(home.w,view.w));view.h=view.w*h/w;
-    const cx=Math.max(bounds.left,Math.min(bounds.right,view.x+view.w/2)),cy=Math.max(bounds.top,Math.min(bounds.bottom,view.y+view.h/2));
+    const {w,h}=dimensions(),centerX=view.x+view.w/2,centerY=view.y+view.h/2;
+    view.w=Math.max(home.w/32,Math.min(home.w,view.w));view.h=view.w*h/w;
+    const cx=Math.max(bounds.left,Math.min(bounds.right,centerX)),cy=Math.max(bounds.top,Math.min(bounds.bottom,centerY));
     view.x=cx-view.w/2;view.y=cy-view.h/2;
   }
   function update(){
