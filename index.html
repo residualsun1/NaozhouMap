@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="./deity-explorer.css">
   <link rel="stylesheet" href="./field-journal.css">
   <link rel="stylesheet" href="./place-reader.css">
+  <link rel="stylesheet" href="./people.css">
 </head>
 <body>
   <main id="workspace">
@@ -130,6 +131,7 @@
         <section class="section"><h3>调查点位</h3><div class="button-row"><button id="export-csv" type="button">CSV</button><button id="export-geojson" type="button">GeoJSON</button><button id="import-button" type="button">导入</button></div><input id="import-file" type="file" accept=".geojson,.json,application/json,application/geo+json" hidden></section>
         <section class="section"><h3>信仰记录</h3><div class="button-row"><button id="faith-export-csv" type="button" disabled>信仰 CSV</button><button id="faith-export-json" type="button" disabled>信仰备份</button><button id="faith-import" type="button" disabled>导入</button></div><input id="faith-import-file" type="file" accept=".json,application/json" hidden></section>
         <section class="section"><h3>村庄档案</h3><div class="button-row"><button id="archive-export" type="button" disabled>档案备份</button><button id="archive-import" type="button" disabled>导入</button></div><input id="archive-import-file" type="file" accept=".json,application/json" hidden><p id="archive-import-status" class="status" role="status" aria-live="polite"></p></section>
+        <section class="section"><h3>相关人物</h3><a class="people-workbench-link" href="/people">打开人物档案 ↗</a></section>
         <button id="export-svg" type="button" class="full">导出矢量 SVG</button>
         <p id="export-link" class="note" hidden></p><details id="export-preview" hidden><summary>查看或复制导出内容</summary><textarea id="export-content" class="export-preview" readonly aria-label="导出文件内容"></textarea></details>
         <details class="source-details"><summary>数据来源</summary><p>海岸线、道路、聚落与建筑：<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>（ODbL）。地名：OpenStreetMap、<a href="https://www.geonames.org/" target="_blank" rel="noopener noreferrer">GeoNames</a>（CC BY 4.0）及逐处核对资料。补充聚落轮廓依据<a href="https://ditu.amap.com/" target="_blank" rel="noopener noreferrer">高德卫星影像</a>人工判读。参考位置待实地核对。</p><p>聚落阴影表示已收录的建成区，不代表村界；空白处也可能存在尚未收录的村庄。细路与小径随放大显示。<span id="geometry-date"></span></p><p>行政驻地点及所属地点由调查者确认。斜线区域依已确认地点分布制作，仅为陆地范围示意，不表示法定行政边界；海域暂不划定。</p></details>
@@ -195,6 +197,10 @@
           <p id="faith-status" class="status" role="status" aria-live="polite"></p>
           <div id="faith-notes" aria-label="信仰记录访谈笔记"></div>
         </section>
+        <section id="people-section" class="section" data-reading-label="相关人物" hidden>
+          <div class="section-title"><h2>相关人物</h2><button id="people-add" type="button" class="linkbutton">＋ 添加人物</button></div>
+          <div id="people-village-list"></div><p id="people-status" class="status" role="status" aria-live="polite"></p>
+        </section>
         <section id="field-notes-section" class="section" data-reading-label="田野日志" hidden>
           <div class="section-title journal-heading"><div><h2>田野日志</h2><span class="journal-eyebrow">FIELD JOURNAL</span><p id="journal-count" class="journal-count"></p></div><button id="journal-add" type="button" class="linkbutton" disabled>＋ 新增记录</button></div>
           <div id="journal-filters" class="journal-filters"><label for="journal-year">年份<select id="journal-year" aria-label="年份"><option value="all">全部年份</option><option value="unknown">日期待考</option></select></label><label for="journal-type">类型<select id="journal-type" aria-label="类型"><option value="all">全部类型</option><option value="observation">走访观察</option><option value="interview">访谈</option><option value="ritual">仪式记录</option><option value="research">研究札记</option><option value="other">其他</option></select></label></div>
@@ -209,6 +215,7 @@
             <label for="journal-content">记录正文</label><textarea id="journal-content" required rows="10" maxlength="100000" placeholder="记录现场观察、访谈与思考，保留段落。"></textarea>
             <label for="journal-tags">主题标签 <span>选填，以逗号分隔</span></label><input id="journal-tags" maxlength="1600" placeholder="如：古树、地名、仪式">
             <label for="journal-source">资料来源或访谈备注 <span>选填</span></label><textarea id="journal-source" rows="2" maxlength="3000"></textarea>
+            <div id="journal-people-picker"></div>
             <label for="journal-visibility">可见范围</label><select id="journal-visibility"><option value="editors">仅授权编辑者</option><option value="public">公开记录</option></select><p class="note journal-privacy-note">新记录默认仅编辑者可见。公开前会再次确认。</p>
             <p id="journal-form-status" class="status" role="status" aria-live="polite"></p>
             <div class="button-row form-actions"><button type="submit" class="primary">保存记录</button><button id="journal-cancel" type="button">取消</button></div>
@@ -256,6 +263,20 @@
     </form>
   </dialog>
   <dialog id="quick-deity-dialog" class="atlas-dialog" aria-labelledby="quick-deity-heading"><form id="quick-deity-form" class="quick-deity-form"><h2 id="quick-deity-heading">新建神明档案</h2><p class="note">同名神明可分别建档。</p><div id="quick-deity-fields"></div><div class="button-row form-actions"><button type="submit" class="primary">保存并关联</button><button id="quick-deity-cancel" type="button">取消</button></div><p id="quick-deity-status" class="status" role="status" aria-live="polite"></p></form></dialog>
-  <script src="./map-data.js"></script><script src="./cloud-access.js"></script><script src="./deity-catalog.js"></script><script src="./place-archives.js"></script><script src="./faith-records.js"></script><script src="./field-journal.js"></script><script src="./deity-explorer.js"></script><script src="./place-reader.js"></script><script src="./map-app.js"></script>
+  <dialog id="people-picker" class="people-picker" aria-labelledby="people-picker-heading">
+    <div class="people-village-heading"><h2 id="people-picker-heading">关联人物</h2><button id="people-picker-close" type="button" aria-label="关闭人物关联">关闭</button></div>
+    <form id="people-link-form">
+      <label for="people-search">查找姓名、法号或别名</label><input id="people-search" type="search" maxlength="200" autocomplete="off"><div id="people-search-results" class="people-entry-results"></div>
+      <button id="people-create" type="button" class="linkbutton">＋ 新建人物档案</button>
+      <section id="people-link-fields" hidden><h3 id="people-selected"></h3><label for="people-relation">与本村的关系</label><input id="people-relation" maxlength="100" list="people-relations" value="走访关联" required><datalist id="people-relations"><option value="居住"><option value="出生"><option value="活动"><option value="仪式主持"><option value="走访关联"></datalist>
+        <label for="people-link-note">关联说明</label><textarea id="people-link-note" rows="2" maxlength="5000"></textarea><label for="people-link-source">关联依据</label><textarea id="people-link-source" rows="2" maxlength="3000"></textarea>
+        <label class="people-inline-check"><input id="people-link-public" type="checkbox">允许公开这项村庄关联（仍受人物档案可见范围限制）</label>
+        <div class="button-row form-actions"><button type="submit" class="primary">保存关联</button><button id="people-unlink" type="button">解除关联</button></div>
+      </section>
+    </form>
+    <form id="people-create-form" hidden><div id="people-create-fields"></div><div class="button-row form-actions"><button type="submit" class="primary">保存并关联本村</button><button id="people-create-back" type="button">返回选择</button></div></form>
+    <p id="people-picker-status" class="status" role="status" aria-live="polite"></p>
+  </dialog>
+  <script src="./map-data.js"></script><script src="./cloud-access.js"></script><script src="./deity-catalog.js"></script><script src="./people-catalog.js"></script><script src="./people-map.js"></script><script src="./place-archives.js"></script><script src="./faith-records.js"></script><script src="./field-journal.js"></script><script src="./deity-explorer.js"></script><script src="./place-reader.js"></script><script src="./map-app.js"></script>
 </body>
 </html>

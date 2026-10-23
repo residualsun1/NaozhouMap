@@ -85,7 +85,7 @@ window.createPlaceReader = options => {
   dialog.addEventListener('cancel',event=>{event.preventDefault();if(dialog.classList.contains('is-menu-open'))setMenu(false);else returnToMap();});
   // Actions that intentionally return to geographic exploration keep their existing handlers.
   dialog.addEventListener('click',event=>{
-    if(event.target.closest('#parent-village,#parent-administration,#settlement-list button,#settlement-related button,#administration-member-list button,#administration-view,#use-reference,#place-overview-edit,#faith-add,.faith-card-heading .linkbutton,.field-note-heading .linkbutton,#journal-add,.journal-edit'))close({immediate:true,restoreFocus:false});
+    if(event.target.closest('#parent-village,#parent-administration,#settlement-list button,#settlement-related button,#administration-member-list button,#administration-view,#use-reference,#place-overview-edit,#faith-add,.faith-card-heading .linkbutton,.field-note-heading .linkbutton,#journal-add,.journal-edit,#people-add,.people-village-heading button'))close({immediate:true,restoreFocus:false});
   },true);
   window.addEventListener('popstate',()=>{
     const query=new URLSearchParams(location.search);

@@ -41,6 +41,9 @@ function Normalize-JournalEntry($Item, $Previous) {
     $deityIds = New-Object 'System.Collections.Generic.List[string]'
     foreach ($id in $deities) { $value = Journal-Text $id 120 $true; if ($deityIds -cnotcontains $value) { $deityIds.Add($value) } }
     $record.deityIds = @($deityIds.ToArray())
+    $peopleLinks = @()
+    if ($null -ne $Item.peopleLinks) { $peopleLinks = $Item.peopleLinks } elseif ($null -ne $Previous.peopleLinks) { $peopleLinks = $Previous.peopleLinks }
+    $record.peopleLinks = Normalize-PeopleLinks $peopleLinks
     $record.legacyKey = Journal-Text $(if ($null -ne $Item.legacyKey) { $Item.legacyKey } else { $Previous.legacyKey }) 300
     if ($null -ne $Previous -and ($Previous.placeId -cne $record.placeId -or $Previous.placeKind -cne $record.placeKind -or [string]$Previous.legacyKey -cne $record.legacyKey)) { throw 'Cannot change the place or legacy source of an existing entry.' }
     $now = [DateTimeOffset]::UtcNow
@@ -95,6 +98,14 @@ function Handle-JournalRequest($Context) {
         $records = @($current.records | Where-Object { $_.id -cne $id })
     } else {
         try { $record = Normalize-JournalEntry $body.record $previous } catch { Send-Json $Context 400 @{ error = $_.Exception.Message }; return }
+        if ($record.peopleLinks.Count) {
+            try { $people = Read-People } catch { Send-Json $Context 503 @{ error = 'People references could not be checked; your text has been retained.' }; return }
+            foreach ($link in $record.peopleLinks) {
+                if (-not @($people.records | Where-Object { $_.id -ceq $link.personId }).Count -and -not @($Previous.peopleLinks | Where-Object { $_.personId -ceq $link.personId }).Count) { Send-Json $Context 400 @{ error = 'Referenced person was not found.' }; return }
+            }
+        }
+        $publicLinksExpanded = $record.visibility -ceq 'public' -and @($record.peopleLinks | Where-Object { $link = $_; $link.public -and -not @($Previous.peopleLinks | Where-Object { $_.personId -ceq $link.personId -and $_.roleInEntry -ceq $link.roleInEntry -and $_.public }).Count }).Count
+        if ($publicLinksExpanded -and ($body.confirmPublic -isnot [bool] -or -not $body.confirmPublic)) { Send-Json $Context 400 @{ error = 'Please confirm before publishing new people references.' }; return }
         if ($record.visibility -ceq 'public' -and $previous.visibility -cne 'public' -and ($body.confirmPublic -isnot [bool] -or -not $body.confirmPublic)) { Send-Json $Context 400 @{ error = 'Please confirm before publishing this entry.' }; return }
         if ($record.legacyKey -and @($current.records | Where-Object { $_.id -cne $record.id -and $_.placeId -ceq $record.placeId -and $_.placeKind -ceq $record.placeKind -and $_.legacyKey -ceq $record.legacyKey }).Count) { $result = Journal-Response $current $request; $result.recordConflict = $true; $result.error = 'This legacy note already has a journal entry.'; Send-Json $Context 409 $result; return }
         $records = @($current.records | Where-Object { $_.id -cne $id }) + @($record)

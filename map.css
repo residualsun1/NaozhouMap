@@ -409,3 +409,35 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+/* Related people reuse the archive's quiet reading hierarchy. */
+.people-village-row{padding:16px 0;border-bottom:1px solid #e5e5df}
+.people-village-row:last-child{border-bottom:0;padding-bottom:0}
+.people-village-heading{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+.people-village-heading h2{margin:0;font-size:21px}
+.people-village-heading a{color:#3f574b;text-decoration:none;font-size:14px;font-weight:550}
+.people-village-heading .linkbutton{flex-shrink:0;font-size:11px}
+.people-village-row .note{margin:6px 0;color:#7b8179;font-size:11px}
+.people-relation-copy{margin:6px 0 0;color:#6b746b;white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.75}
+.people-workbench-link{display:inline-block;min-height:40px;color:#536d5c;font-size:13px}
+.people-picker{width:min(600px,calc(100% - 32px));max-height:86dvh;overflow:auto;padding:28px;background:#faf9f6;color:#303735;border:1px solid #e5e5df;border-radius:16px;box-shadow:0 12px 45px #27332c21}
+.people-picker::backdrop{background:#27332c45}
+.people-picker>.people-village-heading{margin-bottom:24px}
+.people-picker h3{margin:24px 0 16px;font-size:16px}
+.people-inline-check{display:flex;align-items:flex-start;gap:8px;font-size:11px;line-height:1.8;margin:18px 0}
+.people-inline-check input[type=checkbox]{appearance:auto;flex-shrink:0;width:15px;height:15px;min-height:15px;margin:4px 0 0;padding:0;accent-color:#61786a}
+.people-entry-results{max-height:240px;overflow:auto;overscroll-behavior:contain;margin:12px 0}
+.people-entry-results .result-button{display:block;width:100%;padding:10px 12px;text-align:left;background:transparent;border:0;border-radius:6px;min-height:44px}
+.people-entry-results .result-button:hover{background:#edf0e7}
+.people-entry-results strong,.people-entry-results span{display:block;font-size:13px}
+.people-entry-results span{margin-top:4px;font-size:11px;color:#7e8878}
+.journal-people{margin:24px 0;border-block:1px solid #e5e5df;padding:16px 0}
+.journal-people>summary{font-size:12px;font-weight:550}
+.journal-person-choice{margin-top:18px;padding:16px 0;border-top:1px solid #e5e5df}
+.journal-person-choice details{margin-top:14px}
+.journal-person-choice details summary{font-size:11px;color:#7b8377}
+.journal-related-people{margin:24px 0}
+.journal-related-people h4{font-size:12px;margin:0 0 12px;color:#687263}
+.journal-person-reading{padding:12px 0;border-bottom:1px solid #e8e8df}
+.journal-person-reading>a{font-size:14px;color:#536e5d}
+.journal-person-reading p{margin:8px 0 0}
+@media(max-width:800px){.people-picker{padding:24px 20px;max-height:90dvh}.people-picker input,.people-picker textarea,.people-picker select{font-size:16px}.people-picker button{min-height:44px}.people-picker input[type=checkbox]{font-size:14px}.journal-person-choice input{font-size:16px}.people-village-row{padding:18px 0}.people-village-heading .linkbutton{min-height:36px}}

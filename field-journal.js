@@ -11,7 +11,8 @@ window.createFieldJournal = options => {
     $('journal-confirm-message').textContent=message;$('journal-confirm-accept').textContent=label;confirmation.returnValue='';confirmation.showModal();$('journal-confirm-cancel').focus();
     return new Promise(resolve=>{finishConfirmation=resolve;});
   }
-  let place=null,state=null,legacy=null,legacyInput=null,editing=null,draftId=null,dirty=false,saving=false,loading=false,loadId=0,legacyId=0,openedId=null,loadError='';
+  let place=null,state=null,legacy=null,legacyInput=null,editing=null,draftId=null,dirty=false,saving=false,loading=false,loadId=0,legacyId=0,openedId=null,pendingEntry=null,loadError='';
+  const peoplePicker=window.createJournalPeople($('journal-people-picker'),options.peopleCatalog,()=>{dirty=true;});
   const placeKey = () => place ? place.kind+':'+place.id : '';
   const request = (...args) => (window.NaozhouCloud?.request || fetch)(...args);
   const endpoint = () => './api/field-entries?'+new URLSearchParams({placeId:place.id,placeKind:place.kind});
@@ -48,6 +49,16 @@ window.createFieldJournal = options => {
       for (const id of record.deityIds) {const link=element('a','',options.catalog?.get(id)?.name||'神明档案');link.href=window.DeityAtlas.profileURL(id);links.append(link);}
       body.append(links);
     }
+    if(record.peopleLinks?.length){
+      const group=element('div','journal-related-people');group.append(element('h4','','相关人物'));
+      for(const relation of record.peopleLinks){
+        const row=element('div','journal-person-reading'),link=element('a','',options.peopleCatalog.get(relation.personId)?.displayName||'人物档案');link.href=window.PeopleArchive.profileURL(relation.personId);
+        row.append(link,element('span','journal-source',' · '+relation.roleInEntry));
+        for(const [field,label] of [['notes','关联说明'],['narratedAt','讲述时间'],['eventDateText','所述事件时间'],['narrativeSource','叙述来源']])if(relation[field])row.append(element('p','journal-source',label+'：'+relation[field]));
+        group.append(row);
+      }
+      body.append(group);
+    }
     if (record.createdAt) body.append(element('p','journal-source','录入：'+record.createdAt.slice(0,10)+(record.updatedAt!==record.createdAt?' · 更新：'+record.updatedAt.slice(0,10):'')));
     if (state?.editable && !record.legacy) {
       const actions=element('div','journal-actions');
@@ -58,6 +69,7 @@ window.createFieldJournal = options => {
   }
   function timelineItem(record) {
     const item=element('article','journal-entry'),details=element('details','journal-record'),summary=element('summary','journal-summary');
+    item.dataset.entryId=record.id;
     const header=element('div','journal-entry-header');
     const meta=element('div','journal-entry-meta');meta.append(element('span','journal-date',dateLabel(record)),element('span','journal-kind',record.legacy?'历史笔记':types[record.recordType]||'其他'));
     if (state?.editable && !record.legacy) meta.append(element('span','journal-visibility',record.visibility==='public'?'公开':'仅编辑者'));
@@ -95,6 +107,7 @@ window.createFieldJournal = options => {
     $('journal-retry').hidden=!loadError;
     if(loadError)$('journal-status').textContent=loadError;
     enable();
+    if(pendingEntry){const target=[...timeline.querySelectorAll('.journal-entry')].find(item=>item.dataset.entryId===pendingEntry);if(target){pendingEntry=null;requestAnimationFrame(()=>{if(target.isConnected)target.scrollIntoView({block:'start'});});}}
   }
   async function load() {
     if(!place)return;
@@ -106,7 +119,7 @@ window.createFieldJournal = options => {
     } catch(error) {if(sequence===loadId)loadError=error.message;}
     finally {if(sequence===loadId){loading=false;render();}}
   }
-  function closeForm() {form.hidden=true;form.reset();editing=null;draftId=null;dirty=false;$('journal-form-status').textContent='';render();}
+  function closeForm() {form.hidden=true;form.reset();peoplePicker.set();editing=null;draftId=null;dirty=false;$('journal-form-status').textContent='';render();}
   function mayLeave() {return !saving && (!dirty || window.confirm('田野日志尚未保存。要放弃填写吗？'));}
   function syncDateInput(value=$('journal-observed').value) {
     const precision=$('journal-precision').value,input=$('journal-observed');
@@ -122,11 +135,14 @@ window.createFieldJournal = options => {
     const selected=placeKey();
     if(window.NaozhouCloud && !await window.NaozhouCloud.requireEditor())return;
     if(placeKey()!==selected)return;
-    if(!state.editable){await load();if(!state?.editable)return;}
+    if(!state?.editable){await load();if(!state?.editable||placeKey()!==selected)return;}
+    if(record&&!record.legacy){record=state.records.find(item=>item.id===record.id);if(!record){$('journal-status').textContent='记录已更新，请重新打开。';return;}}
+    if(!options.peopleCatalog.state?.editable)await options.peopleCatalog.load().catch(()=>{});
+    if(placeKey()!==selected)return;
     editing=record?{...record,tags:[...(record.tags||[])]}:null;draftId=record&&!record.legacy?record.id:crypto.randomUUID();form.reset();
     $('journal-form-title').textContent=record?.legacy?'编辑历史笔记':record?'编辑记录':'新增记录';
     for(const [id,value] of Object.entries({title:record?.legacy?'历史笔记':record?.title||'',content:record?.content||'',precision:record?.datePrecision||'unknown','original-date':record?.originalDateText||'','record-type':record?.recordType||'observation',tags:record?.tags?.join('，')||'',source:record?.source||'',visibility:record?.legacy?'editors':record?.visibility||'editors'}))$('journal-'+id).value=value;
-    syncDateInput(record?.observedAt||'');form.hidden=false;dirty=false;$('journal-form-status').textContent='';render();options.onFormOpen?.();$('journal-title').focus({preventScroll:true});form.scrollIntoView({block:'start'});
+    peoplePicker.set(record?.peopleLinks||[]);syncDateInput(record?.observedAt||'');form.hidden=false;dirty=false;$('journal-form-status').textContent='';render();options.onFormOpen?.();$('journal-title').focus({preventScroll:true});form.scrollIntoView({block:'start'});
   }
   async function mutate(body) {
     saving=true;enable();
@@ -153,9 +169,11 @@ window.createFieldJournal = options => {
   form.addEventListener('submit',async event=>{
     event.preventDefault();if(!place||!state||saving||!form.reportValidity())return;
     const visibility=$('journal-visibility').value;
-    const confirmPublic=visibility==='public' && editing?.visibility!=='public';
-    if(confirmPublic && !await confirmAction('将这条日志公开到网站？所有访客都能阅读标题、正文和来源，请确认已适合公开。','确认公开'))return;
+    const peopleLinks=peoplePicker.read();
+    const confirmPublic=visibility==='public' && (editing?.visibility!=='public'||peopleLinks.some(link=>link.public&&!editing?.peopleLinks?.some(old=>old.personId===link.personId&&old.roleInEntry===link.roleInEntry&&old.public)));
+    if(confirmPublic && !await confirmAction('将这条日志及允许公开的人物关联展示到网站？请确认正文、来源与人物关系已适合公开。','确认公开'))return;
     const record={id:draftId,placeId:place.id,placeKind:place.kind,title:$('journal-title').value.trim(),content:$('journal-content').value.trim(),observedAt:$('journal-observed').value,datePrecision:$('journal-precision').value,originalDateText:$('journal-original-date').value.trim(),recordType:$('journal-record-type').value,tags:$('journal-tags').value.split(/[,，、\n]/).map(value=>value.trim()).filter(Boolean),source:$('journal-source').value.trim(),visibility,deityIds:editing?.deityIds||[],legacyKey:editing?.legacyKey||''};
+    record.peopleLinks=peopleLinks;
     $('journal-form-status').textContent='保存中…';
     try {await mutate({action:'save',record,baseUpdatedAt:editing&&!editing.legacy?editing.updatedAt:null,confirmPublic});openedId=record.id;$('journal-year').value='all';$('journal-type').value='all';closeForm();$('journal-status').textContent='已保存 · '+(visibility==='public'?'公开记录':'仅编辑者可见');$('journal-add').focus({preventScroll:true});}
     catch(error){$('journal-form-status').textContent=error.message;}
@@ -167,9 +185,11 @@ window.createFieldJournal = options => {
     load();
   });
   options.catalog?.subscribe(()=>{if(place&&form.hidden)render();});
+  options.peopleCatalog.subscribe(()=>{if(place&&form.hidden)render();});
   return {
     get dirty(){return dirty;},get saving(){return saving;},mayLeave,
-    selectPlace(selected){++loadId;++legacyId;place=selected;state=null;legacy=null;legacyInput=null;loading=false;loadError='';openedId=null;$('journal-year').value='all';$('journal-type').value='all';closeForm();if(place)load();},
+    focusEntry(id){if(!id)return;pendingEntry=openedId=id;$('journal-year').value='all';$('journal-type').value='all';render();},
+    selectPlace(selected){++loadId;++legacyId;place=selected;state=null;legacy=null;legacyInput=null;loading=false;loadError='';openedId=null;pendingEntry=null;$('journal-year').value='all';$('journal-type').value='all';closeForm();if(place)load();},
     async setLegacy(value){
       if(!place||!value?.content){++legacyId;legacy=null;legacyInput=null;render();return;}
       if(legacyInput===value.content)return;legacyInput=value.content;

@@ -221,6 +221,7 @@ function Handle-PointsRequest($Context) {
 . (Join-Path $PSScriptRoot 'faith-storage.ps1')
 . (Join-Path $PSScriptRoot 'archive-storage.ps1')
 . (Join-Path $PSScriptRoot 'journal-storage.ps1')
+. (Join-Path $PSScriptRoot 'people-storage.ps1')
 
 $staticFiles = @{
     '/map.css' = @{ Path = 'map.css'; Type = 'text/css; charset=utf-8' }
@@ -236,6 +237,13 @@ $staticFiles = @{
     '/deities' = @{ Path = 'deities.html'; Type = 'text/html; charset=utf-8' }
     '/deities/' = @{ Path = 'deities.html'; Type = 'text/html; charset=utf-8' }
     '/deities.html' = @{ Path = 'deities.html'; Type = 'text/html; charset=utf-8' }
+    '/people' = @{ Path = 'people.html'; Type = 'text/html; charset=utf-8' }
+    '/people/' = @{ Path = 'people.html'; Type = 'text/html; charset=utf-8' }
+    '/people.html' = @{ Path = 'people.html'; Type = 'text/html; charset=utf-8' }
+    '/people-catalog.js' = @{ Path = 'people-catalog.js'; Type = 'text/javascript; charset=utf-8' }
+    '/people-page.js' = @{ Path = 'people-page.js'; Type = 'text/javascript; charset=utf-8' }
+    '/people-map.js' = @{ Path = 'people-map.js'; Type = 'text/javascript; charset=utf-8' }
+    '/people.css' = @{ Path = 'people.css'; Type = 'text/css; charset=utf-8' }
     '/deity-catalog.js' = @{ Path = 'deity-catalog.js'; Type = 'text/javascript; charset=utf-8' }
     '/deity-atlas.js' = @{ Path = 'deity-atlas.js'; Type = 'text/javascript; charset=utf-8' }
     '/deity-atlas.css' = @{ Path = 'deity-atlas.css'; Type = 'text/css; charset=utf-8' }
@@ -284,6 +292,8 @@ try {
                 Handle-JournalRequest $context
             } elseif ($requestPath -eq '/api/deities') {
                 Handle-DeitiesRequest $context
+            } elseif ($requestPath -eq '/api/people') {
+                Handle-PeopleRequest $context
             } elseif (($requestPath -eq '/' -or $requestPath -eq '/index.html' -or $staticFiles.ContainsKey($requestPath)) -and ($context.Request.HttpMethod -eq 'GET' -or $context.Request.HttpMethod -eq 'HEAD')) {
                 if ($requestPath -eq '/' -or $requestPath -eq '/index.html') {
                     $filePath = $mapFile

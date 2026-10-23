@@ -1,5 +1,6 @@
 import { getStore } from '@netlify/blobs';
 import { authorized, json, sameOrigin } from './auth.mjs';
+import { normalizePeopleLinks, publicPerson } from './people.mjs';
 
 const empty = () => ({version:1, revision:0, records:[]});
 const revisionValid = value => Number.isInteger(value) && value >= 0 && value < 2147483647;
@@ -35,17 +36,18 @@ export function normalizeFieldEntry(input, previous, now = new Date().toISOStrin
   const deityIds = input.deityIds ?? previous?.deityIds ?? [];
   if (!Array.isArray(deityIds) || deityIds.length > 100) throw Error('神明关联格式无效。');
   record.deityIds = [...new Set(deityIds.map(id=>text(id,120,true)))];
+  record.peopleLinks = normalizePeopleLinks(input.peopleLinks ?? previous?.peopleLinks ?? []);
   record.legacyKey = text(input.legacyKey ?? previous?.legacyKey,300);
   if (previous && (previous.placeId!==record.placeId || previous.placeKind!==record.placeKind || (previous.legacyKey||'')!==record.legacyKey)) throw Error('不能改变已有日志的地点或历史笔记来源。');
   record.createdAt = previous?.createdAt || now;
   record.updatedAt = new Date(Math.max(Date.parse(now), previous ? Date.parse(previous.updatedAt)+1 : 0)).toISOString();
   return record;
 }
-function visibleState(state, request, editable) {
+function visibleState(state, request, editable, publicPeople=new Set()) {
   const query = new URL(request.url).searchParams;
   return {version:1,revision:editable?state.revision:null,editable,records:state.records.filter(record =>
     (editable || record.visibility==='public') && (!query.has('placeId') || record.placeId===query.get('placeId')) &&
-    (!query.has('placeKind') || record.placeKind===query.get('placeKind')))};
+    (!query.has('placeKind') || record.placeKind===query.get('placeKind'))).map(record=>editable?record:{...record,peopleLinks:(record.peopleLinks||[]).filter(link=>link.public===true&&publicPeople.has(link.personId))})};
 }
 const respond = (value,status=200,headers={}) => json(value,status,{'Cache-Control':'private, no-store',Vary:'Cookie',...headers});
 export function fieldJournalHandler(storeFactory = () => getStore({name:'naozhou-field-atlas',consistency:'strong'})) {
@@ -61,7 +63,15 @@ export function fieldJournalHandler(storeFactory = () => getStore({name:'naozhou
         if (state?.version!==1 || !revisionValid(state.revision) || !Array.isArray(state.records) || new Set(state.records.map(record=>record.id)).size!==state.records.length) throw Error('Invalid journal state.');
         return {state,etag:entry?.etag};
       }
-      const current = await read(), result = state => visibleState(state,request,editable);
+      const current = await read();
+      let peopleState;
+      async function readPeople(){
+        if(!peopleState){const document=await store.getWithMetadata('people',{type:'json'});peopleState=document?.data||{version:1,records:[]};if(peopleState.version!==1||!Array.isArray(peopleState.records))throw Error('Invalid people state.');}
+        return peopleState;
+      }
+      const publicPeople=new Set();
+      if(!editable&&current.state.records.some(record=>record.visibility==='public'&&record.peopleLinks?.length))for(const person of (await readPeople()).records)if(publicPerson(person))publicPeople.add(person.id);
+      const result = state => visibleState(state,request,editable,publicPeople);
       if (request.method==='GET') return respond(result(current.state));
       if (!(request.headers.get('content-type')||'').startsWith('application/json')) return respond({error:'Use application/json.'},415);
       if (Number(request.headers.get('content-length'))>512*1024) return respond({error:'单条日志过大。'},413);
@@ -85,6 +95,13 @@ export function fieldJournalHandler(storeFactory = () => getStore({name:'naozhou
         let record;
         try { record=normalizeFieldEntry(body.record,previous); }
         catch(error) { return respond({error:error.message},400); }
+        if(record.peopleLinks.length){
+          const ids=new Set((await readPeople()).records.map(person=>person.id));
+          const retained=new Set((previous?.peopleLinks||[]).map(link=>link.personId));
+          if(record.peopleLinks.some(link=>!ids.has(link.personId)&&!retained.has(link.personId)))return respond({error:'关联人物不存在，请重新选择已有档案。'},400);
+        }
+        const publicLinksExpanded=record.visibility==='public'&&record.peopleLinks.some(link=>link.public&&!previous?.peopleLinks?.some(old=>old.personId===link.personId&&old.roleInEntry===link.roleInEntry&&old.public));
+        if(publicLinksExpanded&&body.confirmPublic!==true)return respond({error:'请确认后再公开新增的人物关联。'},400);
         if (record.visibility==='public' && previous?.visibility!=='public' && body.confirmPublic!==true) return respond({error:'请确认后再将日志公开到网站。'},400);
         if (record.legacyKey && current.state.records.some(item=>item.id!==record.id && item.placeId===record.placeId && item.placeKind===record.placeKind && item.legacyKey===record.legacyKey)) return respond({...result(current.state),recordConflict:true,error:'这条历史笔记已整理为日志，请打开已有记录。'},409);
         nextRecords = previous ? current.state.records.map(item=>item.id===record.id?record:item) : current.state.records.concat(record);

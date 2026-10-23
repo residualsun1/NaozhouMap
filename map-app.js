@@ -585,7 +585,7 @@
   }
   function resultButton(name,detail,action){const b=document.createElement('button');b.type='button';b.className='result-button';const strong=document.createElement('strong');strong.textContent=name;b.append(strong);if(detail){const span=document.createElement('span');span.textContent=detail;b.append(span);}b.addEventListener('click',action);return b;}
   function renderPoints(){const list=$('point-list');list.replaceChildren();$('point-count').textContent=points.length+' 个';$('saved-points-section').hidden=!points.length;for(const p of points){const b=resultButton(p.name,`${p.lat.toFixed(6)}, ${p.lng.toFixed(6)}`,()=>selectPoint(p));b.setAttribute('aria-current',String(p.id===activeId));list.append(b);}rebuildPins();}
-  function mayLeaveEditor(){return !faith.saving&&!archives.saving&&!journal.saving&&(!(formDirty&&!$('editor-section').hidden)&&!faith.dirty&&!archives.dirty&&!journal.dirty||window.confirm('当前填写内容尚未保存。要放弃填写并继续吗？'));}
+  function mayLeaveEditor(){return !faith.saving&&!archives.saving&&!journal.saving&&!people.saving&&(!(formDirty&&!$('editor-section').hidden)&&!faith.dirty&&!archives.dirty&&!journal.dirty&&!people.dirty||window.confirm('当前填写内容尚未保存。要放弃填写并继续吗？'));}
   function clearReference(){faith.clearVillage();archives.clear();reference=null;hoveredPin=null;focusedPin=null;$('reference-section').hidden=true;$('administrative-context').hidden=true;$('administration-section').hidden=true;$('settlement-section').hidden=true;$('place-overview-section').hidden=true;$('field-notes-section').hidden=true;for(const path of svg.querySelectorAll('.is-selected'))path.classList.remove('is-selected');syncDetails();}
   function reviewText(p){const review=p.placeKind==='administrative_seat'?'行政驻地 · 位置待核对':p.locationReview?.status==='field_identified'?'实地指认':'待核对';return p.locationHint?p.locationHint+' · '+review:review;}
   function placeDescription(p){return p.placeKind==='administrative_seat'?p.committeeName+' · 行政驻地':isAdministrativeMember(p)?[p.committeeName,placeType(p),p.parentVillageName&&p.parentVillageName+'片区',p.locationHint].filter(Boolean).join(' · '):reviewText(p);}
@@ -619,7 +619,7 @@
   $('close-editor').addEventListener('click',()=>{if(mayLeaveEditor())closeEditor();});$('pick-location').addEventListener('click',pick);$('cancel-pick').addEventListener('click',()=>setPicking(false));
   ['point-lat','point-lng'].forEach(id=>$(id).addEventListener('change',checkCoordinates));
   $('point-form').addEventListener('input',()=>{formDirty=true;});
-  window.addEventListener('beforeunload',e=>{if(saving||formDirty||faith.saving||faith.dirty||archives.saving||archives.dirty||journal.saving||journal.dirty){e.preventDefault();e.returnValue='';}});
+  window.addEventListener('beforeunload',e=>{if(saving||formDirty||faith.saving||faith.dirty||archives.saving||archives.dirty||journal.saving||journal.dirty||people.saving||people.dirty){e.preventDefault();e.returnValue='';}});
   $('point-form').addEventListener('submit',async e=>{e.preventDefault();if(blockedStorage||saving||!ready||!$('point-form').reportValidity()||!faith.mayLeave()||!archives.mayLeave()||!journal.mayLeave())return;const now=new Date().toISOString(),old=points.find(p=>p.id===editingId);const p={id:editingId||uid(),name:$('point-name').value.trim(),lat:Number($('point-lat').value),lng:Number($('point-lng').value),source:$('point-source').value.trim(),note:$('point-note').value.trim(),createdAt:old?.createdAt||now,updatedAt:now};if(!validPoint(p)){notify('请填写有效名称与经纬度。');return;}const next=points.slice(),i=next.findIndex(item=>item.id===p.id);if(i<0)next.push(p);else next[i]=p;if(await store(next)){closeEditor();notify('已保存：'+p.name);}});
   $('delete-point').addEventListener('click',async()=>{if(!faith.mayLeave()||!archives.mayLeave()||!journal.mayLeave())return;const i=points.findIndex(p=>p.id===editingId);if(i<0)return;const removed=points[i],next=points.filter(p=>p.id!==removed.id);if(!await store(next))return;closeEditor();notify('已移除：'+removed.name,async()=>{if(!points.some(p=>p.id===removed.id)){const restored=points.slice();restored.splice(Math.min(i,restored.length),0,removed);if(await store(restored))renderPoints();}});});
   $('search-form').addEventListener('submit',e=>{
@@ -711,8 +711,9 @@
   });
   if(data.meta?.osmTimestamp)$('geometry-date').textContent='道路快照：'+data.meta.osmTimestamp.slice(0,10)+'。';
   const faith = window.createFaithRecords({download,onChange:rebuildPins,onExploreDeity:id=>{reader?.close({immediate:true,restoreFocus:false});explorer?.open(id);}});
-  const journal = window.createFieldJournal({catalog:faith.catalog,beforeEdit:()=>faith.mayLeave()&&archives.mayLeave(),onFormOpen:expandDetails});
-  const archives = window.createPlaceArchives({download,onPlaceChange:selected=>{journal.selectPlace(selected);reader?.selectPlace(selected);},onLegacy:note=>journal.setLegacy(note)});
+  const people = window.createVillagePeople({beforeEdit:()=>faith.mayLeave()&&archives.mayLeave()&&journal.mayLeave()});
+  const journal = window.createFieldJournal({catalog:faith.catalog,peopleCatalog:people.catalog,beforeEdit:()=>faith.mayLeave()&&archives.mayLeave()&&people.mayLeave(),onFormOpen:expandDetails});
+  const archives = window.createPlaceArchives({download,onPlaceChange:selected=>{journal.selectPlace(selected);people.selectPlace(selected);reader?.selectPlace(selected);},onLegacy:note=>journal.setLegacy(note)});
   function selectLinkedPlace(kind,id){
     if(kind==='reference'){
       const point=placeById.get(id);if(point)return selectReference(point);
@@ -722,7 +723,7 @@
     return false;
   }
   reader=window.createPlaceReader({
-    beforeOpen(){if(saving||faith.saving||archives.saving||journal.saving)return false;cancelCamera();faith.dismissPreview();setUtility();setSearchExpanded(false);return true;},
+    beforeOpen(){if(saving||faith.saving||archives.saving||journal.saving||people.saving)return false;cancelCamera();faith.dismissPreview();setUtility();setSearchExpanded(false);return true;},
     closeArchive:closePlaceRecord,selectPlace:selectLinkedPlace
   });
   explorer=window.createDeityExplorer({
@@ -750,6 +751,7 @@
     if(!id)return;
     if(!selectLinkedPlace(kind,id)){notify('未找到对应地点，资料可能已更新。');return;}
     if(query.get('faithId'))faith.focusRecord(query.get('faithId'));
+    if(query.get('entryId'))journal.focusEntry(query.get('entryId'));
     if(query.get('view')==='reading')reader.open();
   }
   renderPoints();homeView();load().then(openLinkedPlace);

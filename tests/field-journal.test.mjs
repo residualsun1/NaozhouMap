@@ -92,3 +92,22 @@ test('legacy linking is explicit, unique and never modifies the old collection',
   assert.equal(duplicate.status,409);
   assert.deepEqual((await store.getWithMetadata('archives')).data,old);
 });
+
+test('journal people references remain independent, preserve old-client writes and honor current publication',async()=>{
+  const store=memoryJournalStore(),handler=fieldJournalHandler(()=>store);
+  const people={version:1,revision:1,records:[{id:'private-person',displayName:'私人对象',visibility:'editors'},{id:'public-person',displayName:'公开化名',visibility:'summary',publicSummary:'获准摘要',roles:[],placeLinks:[]}]};
+  await store.setJSON('people',people);
+  let state=await(await handler(get())).json();
+  const peopleLinks=[{personId:'private-person',roleInEntry:'受访者',notes:'未公开关系',public:true},{personId:'public-person',roleInEntry:'亲历叙述者',public:true},{personId:'public-person',roleInEntry:'转述者',notes:'未授权的叙述关系',public:false}];
+  state=await save(handler,state,{...record('linked'),visibility:'public',peopleLinks},null,{confirmPublic:true});
+  let anonymous=await(await handler(get(false))).json();
+  assert.deepEqual(anonymous.records[0].peopleLinks.map(link=>[link.personId,link.roleInEntry]),[['public-person','亲历叙述者']]);
+  assert.equal(JSON.stringify(anonymous).includes('未公开关系'),false);
+  const {peopleLinks:oldLinks,...oldClient}=state.records[0];
+  state=await save(handler,state,{...oldClient,title:'只改标题'},state.records[0]);
+  assert.deepEqual(state.records[0].peopleLinks,oldLinks);assert.equal(state.records[0].content,record('linked').content);
+  const invalid=await handler(post({action:'save',revision:state.revision,record:{...record('bad-reference'),peopleLinks:[{personId:'nonexistent'}]}}));assert.equal(invalid.status,400);
+  people.records[1].visibility='editors';await store.setJSON('people',people);
+  anonymous=await(await handler(get(false))).json();assert.deepEqual(anonymous.records[0].peopleLinks,[]);
+  const editor=await(await handler(get())).json();assert.equal(editor.records[0].peopleLinks.length,3);
+});

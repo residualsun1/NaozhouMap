@@ -20,6 +20,21 @@
   status = 200
 
 [[headers]]
+  for = "/people"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[redirects]]
+  from = "/people"
+  to = "/people.html"
+  status = 200
+
+[[redirects]]
+  from = "/people/"
+  to = "/people.html"
+  status = 200
+
+[[headers]]
   for = "/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"
