@@ -34,7 +34,15 @@ npm run build
 
 主要文件：`index.html`、`map.css`、`map-app.js`、`faith-records.js`、`map-data.js`。
 `cloud-access.js` 只在 Netlify 构建中启用；`netlify/functions/` 提供 `/api/points`、`/api/faith`、`/api/archives` 和 `/api/auth`。
-村庄「基本情况」和独立「田野笔记」由 `place-archives.js` 编辑，线上存入独立云端档案，本地存入 `data/place-archives.json`；首次填写时创建，不修改原有地理、点位及信仰资料。数据面板可导入、导出档案备份。调查点位原有笔记仍通过点位表单编辑和保存。
+村庄「基本情况」由 `place-archives.js` 编辑，线上存入独立云端档案，本地存入 `data/place-archives.json`。数据面板可导入、导出原档案备份。调查点位原有笔记仍通过点位表单编辑和保存。
+
+### 田野日志
+
+村庄档案的「田野日志」支持多条纯文本记录、观察日期（日／月／年／待考）、类型、标签、来源与年份／类型筛选。`field-journal.js` 通过稳定地点 ID 和地点种类关联；`/api/field-entries` 逐条保存、编辑或删除，沿用 revision、条件写入和原编辑登录。云端集合为 `field_entries`，本地文件为 `data/field-entries.json`；本地服务更新后需重新启动「打开地图.cmd」。
+
+新日志默认仅授权编辑者可见，公开必须明确确认；未登录的云端请求只能读取公开日志。当前共享编辑口令不区分个人，因此本期没有声称为某位研究者独享的私人草稿。日志不会写入浏览器公共缓存或静态发布目录。
+
+旧档案和调查点位笔记仍保留原字段，作为「日期未注明」的历史笔记展示。可主动整理为日志并补日期，以来源指纹避免同一旧笔记重复显示；不自动迁移、覆盖或清空原文。信仰资料的访谈笔记仍留在信仰分区。日志预留稳定神明 ID 引用，不推断空间流动。
 
 ### 神明谱系
 

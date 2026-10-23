@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="./map.css">
   <link rel="stylesheet" href="./deity-atlas.css">
   <link rel="stylesheet" href="./deity-explorer.css">
+  <link rel="stylesheet" href="./field-journal.css">
 </head>
 <body>
   <main id="workspace">
@@ -191,16 +192,26 @@
             <div class="button-row form-actions"><button type="submit" class="primary">保存记录</button><button id="faith-cancel" type="button">取消</button><button id="faith-delete" type="button" hidden>移除</button></div>
           </form>
           <p id="faith-status" class="status" role="status" aria-live="polite"></p>
+          <div id="faith-notes" aria-label="信仰记录访谈笔记"></div>
         </section>
         <section id="field-notes-section" class="section" hidden>
-          <div class="section-title"><h2>田野笔记</h2><button id="point-notes-edit" type="button" class="linkbutton" aria-label="编辑田野笔记" disabled>编辑</button></div>
-          <div id="place-notes"></div>
-          <form id="archive-note-form" class="archive-form" hidden>
-            <label for="archive-note">田野笔记</label><textarea id="archive-note" rows="8" maxlength="20000"></textarea>
-            <div class="button-row form-actions"><button type="submit" class="primary">保存</button><button type="button" data-archive-cancel>取消</button></div>
+          <div class="section-title journal-heading"><div><h2>田野日志</h2><span class="journal-eyebrow">FIELD JOURNAL</span><p id="journal-count" class="journal-count"></p></div><button id="journal-add" type="button" class="linkbutton" disabled>＋ 新增记录</button></div>
+          <div id="journal-filters" class="journal-filters"><label for="journal-year">年份<select id="journal-year" aria-label="年份"><option value="all">全部年份</option><option value="unknown">日期待考</option></select></label><label for="journal-type">类型<select id="journal-type" aria-label="类型"><option value="all">全部类型</option><option value="observation">走访观察</option><option value="interview">访谈</option><option value="ritual">仪式记录</option><option value="research">研究札记</option><option value="other">其他</option></select></label></div>
+          <p id="journal-status" class="status" role="status" aria-live="polite"></p><button id="journal-retry" type="button" class="linkbutton" hidden>重新读取</button>
+          <div id="journal-timeline" class="journal-timeline" tabindex="0" aria-label="村庄田野日志时间线"></div>
+          <form id="journal-form" class="journal-form" hidden>
+            <h3 id="journal-form-title">新增记录</h3>
+            <label for="journal-title">标题</label><input id="journal-title" required maxlength="200" autocomplete="off">
+            <div class="journal-date-row"><div><label for="journal-precision">日期精度</label><select id="journal-precision"><option value="unknown">日期待考</option><option value="day">具体日期</option><option value="month">仅知年月</option><option value="year">仅知年份</option></select></div><div><label for="journal-observed">观察日期</label><input id="journal-observed" type="date" disabled></div></div>
+            <label for="journal-original-date">原始时间表述 <span>选填</span></label><input id="journal-original-date" maxlength="300" placeholder="如：农历三月初三、约在某年冬季">
+            <label for="journal-record-type">记录类型</label><select id="journal-record-type"><option value="observation">走访观察</option><option value="interview">访谈</option><option value="ritual">仪式记录</option><option value="research">研究札记</option><option value="other">其他</option></select>
+            <label for="journal-content">记录正文</label><textarea id="journal-content" required rows="10" maxlength="100000" placeholder="记录现场观察、访谈与思考，保留段落。"></textarea>
+            <label for="journal-tags">主题标签 <span>选填，以逗号分隔</span></label><input id="journal-tags" maxlength="1600" placeholder="如：古树、地名、仪式">
+            <label for="journal-source">资料来源或访谈备注 <span>选填</span></label><textarea id="journal-source" rows="2" maxlength="3000"></textarea>
+            <label for="journal-visibility">可见范围</label><select id="journal-visibility"><option value="editors">仅授权编辑者</option><option value="public">公开记录</option></select><p class="note journal-privacy-note">新记录默认仅编辑者可见。公开前会再次确认。</p>
+            <p id="journal-form-status" class="status" role="status" aria-live="polite"></p>
+            <div class="button-row form-actions"><button type="submit" class="primary">保存记录</button><button id="journal-cancel" type="button">取消</button></div>
           </form>
-          <p id="archive-note-status" class="status" role="status" aria-live="polite"></p>
-          <div id="faith-notes"></div><p id="field-notes-empty" class="note">暂无田野笔记</p>
         </section>
         <section id="editor-section" class="section" hidden>
           <div class="section-title"><h2 id="editor-heading">新增调查点位</h2><button id="close-editor" type="button">取消</button></div>
@@ -230,6 +241,7 @@
     </aside>
   </main>
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <dialog id="journal-confirm" class="cloud-login" aria-labelledby="journal-confirm-title" aria-describedby="journal-confirm-message"><form method="dialog"><h2 id="journal-confirm-title">确认操作</h2><p id="journal-confirm-message" class="note"></p><div class="button-row form-actions"><button id="journal-confirm-cancel" value="cancel" autofocus>取消</button><button id="journal-confirm-accept" value="confirm" class="primary">确认</button></div></form></dialog>
   <dialog id="cloud-login" class="cloud-login" aria-labelledby="cloud-login-title">
     <form id="cloud-login-form">
       <h2 id="cloud-login-title">登录编辑</h2><p class="note">输入编辑口令，保存至云端。</p>
@@ -239,6 +251,6 @@
     </form>
   </dialog>
   <dialog id="quick-deity-dialog" class="atlas-dialog" aria-labelledby="quick-deity-heading"><form id="quick-deity-form" class="quick-deity-form"><h2 id="quick-deity-heading">新建神明档案</h2><p class="note">同名神明可分别建档。</p><div id="quick-deity-fields"></div><div class="button-row form-actions"><button type="submit" class="primary">保存并关联</button><button id="quick-deity-cancel" type="button">取消</button></div><p id="quick-deity-status" class="status" role="status" aria-live="polite"></p></form></dialog>
-  <script src="./map-data.js"></script><script src="./cloud-access.js"></script><script src="./deity-catalog.js"></script><script src="./place-archives.js"></script><script src="./faith-records.js"></script><script src="./deity-explorer.js"></script><script src="./map-app.js"></script>
+  <script src="./map-data.js"></script><script src="./cloud-access.js"></script><script src="./deity-catalog.js"></script><script src="./place-archives.js"></script><script src="./faith-records.js"></script><script src="./field-journal.js"></script><script src="./deity-explorer.js"></script><script src="./map-app.js"></script>
 </body>
 </html>

@@ -1,9 +1,9 @@
 /* Village prose is stored separately from geography, survey points and faith records. */
 window.createPlaceArchives = options => {
   'use strict';
-  const {download, editSurveyNote} = options;
+  const {download, onPlaceChange, onLegacy} = options;
   const $ = id => document.getElementById(id);
-  const fields = ['introduction','note'];
+  const fields = ['introduction'];
   let state = null, place = null, editing = null, dirty = false, saving = false;
   const matches = (record, selected=place) => selected && record.villageId === selected.id && record.villageKind === selected.kind;
   const current = () => state?.records.find(record=>matches(record));
@@ -20,12 +20,9 @@ window.createPlaceArchives = options => {
     return {version:1,revision:document.revision,records:document.records};
   }
   function enable() {
-    for (const id of ['place-overview-edit','point-notes-edit']) { $(id).hidden = !place; $(id).disabled = !state || saving; }
+    $('place-overview-edit').hidden = !place; $('place-overview-edit').disabled = !state || saving;
     for (const id of ['archive-export','archive-import']) $(id).disabled = !state || saving;
     for (const field of fields) $('archive-' + field + '-form').inert = saving;
-  }
-  function updateEmpty() {
-    $('field-notes-empty').hidden = editing === 'note' || !!$('place-notes').textContent.trim() || !!$('faith-notes').textContent.trim();
   }
   function render() {
     const record = current();
@@ -34,10 +31,8 @@ window.createPlaceArchives = options => {
     $('place-overview').textContent = introduction || '暂无基本情况介绍';
     $('place-overview').classList.toggle('is-empty',!introduction);
     $('place-overview').hidden = editing === 'introduction';
-    $('place-notes').replaceChildren();
-    if (note) { const paragraph = document.createElement('p'); paragraph.className = 'archive-prose'; paragraph.textContent = note; $('place-notes').append(paragraph); }
-    $('place-notes').hidden = editing === 'note';
-    updateEmpty(); enable();
+    onLegacy?.(note ? {content:note,source:place?.kind==='survey'?'原调查点位笔记':'原村庄档案田野笔记'} : null);
+    enable();
   }
   function closeForm() {
     for (const field of fields) { $('archive-' + field + '-form').hidden = true; $('archive-' + field + '-status').textContent = ''; }
@@ -46,7 +41,6 @@ window.createPlaceArchives = options => {
   function mayLeave() { return !saving && (!dirty || window.confirm('村庄档案尚未保存。要放弃填写吗？')); }
   function openForm(field) {
     if (!place || !state || saving || !mayLeave()) return;
-    if (field === 'note' && place.kind === 'survey') { closeForm(); editSurveyNote(); return; }
     closeForm(); editing = field;
     $('archive-' + field).value = current()?.[field] ?? place[field] ?? '';
     $('archive-' + field + '-form').hidden = false; render();
@@ -79,7 +73,6 @@ window.createPlaceArchives = options => {
     });
   }
   $('place-overview-edit').addEventListener('click',()=>openForm('introduction'));
-  $('point-notes-edit').addEventListener('click',()=>openForm('note'));
   $('archive-export').addEventListener('click',()=>{
     if (state) download('硇洲岛村庄档案-' + new Date().toLocaleDateString('sv-SE') + '.json','application/json;charset=utf-8',JSON.stringify({...state,exportedAt:new Date().toISOString()},null,2));
   });
@@ -109,7 +102,7 @@ window.createPlaceArchives = options => {
   load();
   return {
     get dirty() { return dirty; }, get saving() { return saving; }, mayLeave,
-    selectPlace(selected) { place = selected; closeForm(); },
-    clear() { place = null; closeForm(); }
+    selectPlace(selected) { place = selected; onPlaceChange?.(selected); closeForm(); },
+    clear() { place = null; onPlaceChange?.(null); closeForm(); }
   };
 };

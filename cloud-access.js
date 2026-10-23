@@ -4,11 +4,12 @@
   const $ = id => document.getElementById(id);
   const dialog = $('cloud-login'), form = $('cloud-login-form');
   let editable=false, pendingLogin=null, finishLogin=null;
-  function showAccess(value) {
+  function showAccess(value,reason='session') {
     editable=value;
     $('cloud-access').hidden=false;
     $('cloud-access-button').textContent=value?'退出编辑':'登录编辑';
     $('cloud-access-status').textContent=value?'已登录 · 云端保存':'公开浏览 · 登录后可编辑';
+    document.dispatchEvent(new CustomEvent('naozhou-access-change',{detail:{editable:value,reason}}));
   }
   function login() {
     if (pendingLogin) return pendingLogin;
@@ -35,14 +36,18 @@
   });
   $('cloud-access-button').addEventListener('click',async()=>{
     if (!editable) {await login();return;}
+    if (!document.dispatchEvent(new CustomEvent('naozhou-before-logout',{cancelable:true}))) return;
     const response=await fetch('/api/auth',{method:'DELETE'});
-    if (response.ok) showAccess(false);
+    if (response.ok) showAccess(false,'logout');
   });
   const ready=fetch('/api/auth',{cache:'no-store'}).then(async response=>{
     if (!response.ok) throw Error();
     const result=await response.json();showAccess(!!result.editable);
   }).catch(()=>{showAccess(false);$('cloud-access-status').textContent='云端连接暂不可用';});
   window.NaozhouCloud={
+    ready,
+    get editable(){return editable;},
+    async requireEditor(){await ready;return editable || await login();},
     async request(url,options={}) {
       await ready;
       let response=await fetch(url,options);

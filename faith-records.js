@@ -219,7 +219,7 @@ window.createFaithRecords = options => {
         const article=document.createElement('article');article.className='field-note';
         const heading=document.createElement('div');heading.className='field-note-heading';
         if(record.temple){const title=document.createElement('h3');title.textContent=record.temple;heading.append(title);}
-        const editNote=document.createElement('button');editNote.type='button';editNote.className='linkbutton';editNote.textContent='编辑';editNote.setAttribute('aria-label','编辑田野笔记'+(record.temple?'：'+record.temple:''));
+        const editNote=document.createElement('button');editNote.type='button';editNote.className='linkbutton';editNote.textContent='编辑';editNote.setAttribute('aria-label','编辑访谈笔记'+(record.temple?'：'+record.temple:''));
         editNote.addEventListener('click',()=>{if(mayLeave()){openForm(record);$('faith-more').open=true;$('faith-note').focus();}});heading.append(editNote);article.append(heading);
         const body=document.createElement('p');body.className='archive-prose';body.textContent=record.note;article.append(body);
         const context=[record.source,record.visitedOn].filter(Boolean).join(' · ');
@@ -227,7 +227,6 @@ window.createFaithRecords = options => {
         notes.append(article);
       }
     }
-    $('field-notes-empty').hidden=!$('archive-note-form').hidden||!!$('place-notes').textContent.trim()||!!notes.childElementCount;
     focusPendingRecord();
     enable();
   }

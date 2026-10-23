@@ -220,6 +220,7 @@ function Handle-PointsRequest($Context) {
 . (Join-Path $PSScriptRoot 'deity-storage.ps1')
 . (Join-Path $PSScriptRoot 'faith-storage.ps1')
 . (Join-Path $PSScriptRoot 'archive-storage.ps1')
+. (Join-Path $PSScriptRoot 'journal-storage.ps1')
 
 $staticFiles = @{
     '/map.css' = @{ Path = 'map.css'; Type = 'text/css; charset=utf-8' }
@@ -228,6 +229,8 @@ $staticFiles = @{
     '/cloud-access.js' = @{ Path = 'cloud-access.js'; Type = 'text/javascript; charset=utf-8' }
     '/faith-records.js' = @{ Path = 'faith-records.js'; Type = 'text/javascript; charset=utf-8' }
     '/place-archives.js' = @{ Path = 'place-archives.js'; Type = 'text/javascript; charset=utf-8' }
+    '/field-journal.js' = @{ Path = 'field-journal.js'; Type = 'text/javascript; charset=utf-8' }
+    '/field-journal.css' = @{ Path = 'field-journal.css'; Type = 'text/css; charset=utf-8' }
     '/deities' = @{ Path = 'deities.html'; Type = 'text/html; charset=utf-8' }
     '/deities/' = @{ Path = 'deities.html'; Type = 'text/html; charset=utf-8' }
     '/deities.html' = @{ Path = 'deities.html'; Type = 'text/html; charset=utf-8' }
@@ -275,6 +278,8 @@ try {
                 Handle-FaithRequest $context
             } elseif ($requestPath -eq '/api/archives') {
                 Handle-ArchivesRequest $context
+            } elseif ($requestPath -eq '/api/field-entries') {
+                Handle-JournalRequest $context
             } elseif ($requestPath -eq '/api/deities') {
                 Handle-DeitiesRequest $context
             } elseif (($requestPath -eq '/' -or $requestPath -eq '/index.html' -or $staticFiles.ContainsKey($requestPath)) -and ($context.Request.HttpMethod -eq 'GET' -or $context.Request.HttpMethod -eq 'HEAD')) {
