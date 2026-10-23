@@ -1,0 +1,109 @@
+/* The reader owns presentation only; the same archive nodes return to the quick panel. */
+.detail-actions #expand-reading{gap:5px;white-space:nowrap;font-size:10px}
+.detail-actions #expand-reading .ui-icon{width:14px;height:14px}
+.reader-location-heading{display:none}
+.place-reader{position:fixed;inset:0;width:100%;max-width:none;height:100%;height:100dvh;max-height:none;margin:0;padding:0;border:0;background:#faf9f6;color:#303735;overflow:hidden}
+.place-reader::backdrop{background:#faf9f6}
+.place-reader[open]{display:flex;flex-direction:column;animation:reader-in .26s var(--ease)}
+.place-reader.is-leaving{opacity:0;transform:translateY(7px);transition:opacity .18s ease,transform .18s ease}
+.reader-topbar{display:grid;grid-template-columns:1fr minmax(0,1fr) 1fr;align-items:center;gap:20px;min-height:68px;padding:10px max(28px,env(safe-area-inset-right));border-bottom:1px solid #e6e7df;background:#faf9f6;flex-shrink:0}
+.reader-topbar button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:42px;padding:8px 10px;border:0;background:transparent;color:#68746b;font-size:12px}
+.reader-topbar button:hover{background:#eeefe8;color:#303c33}
+#reader-back{justify-self:start;margin-left:-10px}
+#reader-place-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center;font-size:12px;font-weight:500;color:#7c837a}
+.reader-tools{display:flex;align-items:center;justify-content:flex-end;gap:6px}
+#reader-menu{display:none}
+.reader-scroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;scroll-behavior:smooth}
+.reader-layout{display:grid;grid-template-columns:176px minmax(0,780px);justify-content:center;align-items:start;gap:72px;max-width:1200px;margin:0 auto;padding:58px 40px 100px}
+.reader-toc{position:sticky;top:38px;padding-top:9px}
+.reader-toc>p{margin:0 0 22px;font-size:11px;color:#81897d;letter-spacing:.04em}
+.reader-toc>p span{display:block;margin-top:7px;font-size:8px;letter-spacing:.13em;color:#9a9f94}
+#reader-chapters{display:grid;gap:6px;border-left:1px solid #e0e4d9}
+#reader-chapters button{width:100%;min-height:40px;padding:9px 0 9px 16px;border:0;border-left:2px solid transparent;margin-left:-1px;border-radius:0;background:transparent;color:#7c8579;text-align:left;font-size:12px;line-height:1.6}
+#reader-chapters button:hover{color:#344e3d}
+#reader-chapters button[aria-current="location"]{border-left-color:#7a9380;color:#395141;font-weight:600}
+.reader-document{min-width:0;padding-bottom:20px}
+.reader-document>.detail-heading{margin:0 0 52px;padding:0 0 34px;border-bottom:1px solid #e0e4d9}
+.reader-document .section-eyebrow{margin-bottom:22px;font-size:10px;letter-spacing:.1em;color:#858d80}
+.reader-document .section-eyebrow span{font-size:9px}
+.reader-document .detail-heading h2{font-size:36px;line-height:1.4;letter-spacing:.03em;color:#2e3931}
+.reader-document .administrative-context{margin-top:20px;font-size:12px;gap:12px}
+.reader-document>.detail-content{overflow:visible;padding:0;scrollbar-gutter:auto}
+.reader-document .detail-content>section{margin:0 0 50px;padding:0 0 42px;border-bottom:1px solid #e5e7df;scroll-margin-top:32px}
+.reader-document .detail-content>section:last-child{margin-bottom:0;border-bottom:0}
+.reader-document .section-title{align-items:baseline;margin-bottom:22px}
+.reader-document .section-title h2,.reader-document .reader-location-heading{font-size:21px;font-weight:600;line-height:1.5;color:#364235;letter-spacing:.015em}
+.reader-document .archive-prose,.reader-document .journal-content{font-size:16px;line-height:1.85;color:#4a5549}
+.reader-document .archive-prose.is-empty{font-size:14px;color:#8d9486}
+.reader-document .settlement-list{line-height:1.9;font-size:15px}
+.reader-document .note{font-size:13px;line-height:1.9}
+.reader-document .faith-card{padding:24px 0}
+.reader-document .faith-card:first-child{padding-top:0}
+.reader-document .faith-card-heading h3{font-size:16px;line-height:1.7}
+.reader-document .deity-list{gap:9px}
+.reader-document .deity-list li{padding:6px 11px;font-size:14px;background:#f0f2e9;border-color:#e0e5d8}
+.reader-document .faith-note,.reader-document .field-note-source{font-size:12px;line-height:1.9}
+.reader-document .field-note{margin-top:28px}
+.reader-document .field-note-heading h3{font-size:14px}
+.reader-document .journal-heading{margin-bottom:24px}
+.reader-document .journal-count{font-size:12px}
+.reader-document .journal-filters{max-width:430px;gap:14px;margin-bottom:30px}
+.reader-document #journal-timeline{max-height:none;overflow:visible;padding:0}
+.reader-document .journal-entries{margin-left:4px;padding-left:24px}
+.reader-document .journal-entry{margin-bottom:32px}
+.reader-document .journal-entry::before{left:-29px;top:8px}
+.reader-document .journal-entry-title{font-size:18px;line-height:1.65;margin:6px 0 12px}
+.reader-document .journal-excerpt{font-size:15px;line-height:1.85}
+.reader-document .journal-date{font-size:12px}
+.reader-document .journal-full{margin-top:20px;padding-top:22px}
+.reader-document .journal-source{font-size:12px;line-height:1.9}
+.reader-document .journal-pending-title{font-size:13px;margin:34px 0 24px;padding-top:28px}
+.reader-document .journal-form textarea{min-height:320px;font-size:16px;line-height:1.8}
+.reader-document .form-actions{position:static;background:transparent}
+.reader-document #editor-section{display:none}
+.reader-document .reader-location-heading{display:block;margin:0 0 22px}
+.reader-document #reference-more>summary{display:none}
+.reader-document #reference-more{padding:0}
+.reader-document #reference-coordinates{font-size:12px}
+.reader-document #reference-source{font-size:13px;line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere}
+.reader-document #reference-review{margin:0 0 12px}
+@keyframes reader-in{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:801px) and (max-width:1050px){
+  .reader-layout{grid-template-columns:142px minmax(0,1fr);gap:38px;padding:46px 32px 80px}
+}
+@media(max-width:800px){
+  .detail-actions #expand-reading{gap:4px;min-width:0;padding:6px 5px}
+  .detail-actions #expand-reading .ui-icon{width:13px;height:13px}
+  .reader-topbar{min-height:60px;gap:10px;padding:calc(7px + env(safe-area-inset-top,0px)) 20px 7px;grid-template-columns:auto minmax(0,1fr) auto}
+  .reader-topbar button{min-height:44px;padding:8px;font-size:11px;gap:5px}
+  #reader-back{margin-left:-8px}
+  #reader-place-name{font-size:11px}
+  #reader-menu{display:inline-flex}
+  .reader-tools{gap:1px}
+  .reader-layout{display:block;padding:34px 23px calc(60px + env(safe-area-inset-bottom,0px))}
+  .reader-toc{display:none;position:fixed;z-index:2;top:calc(70px + env(safe-area-inset-top,0px));left:12px;right:12px;max-height:65dvh;overflow:auto;padding:22px;border:1px solid #e1e5db;border-radius:12px;background:#faf9f6;box-shadow:0 10px 40px #26372a12}
+  .place-reader.is-menu-open .reader-toc{display:block}
+  .reader-toc>p{margin-bottom:14px}
+  .reader-toc>p span{display:inline;margin-left:10px}
+  #reader-chapters button{min-height:44px;font-size:13px}
+  .reader-document>.detail-heading{margin-bottom:36px;padding-bottom:28px}
+  .reader-document .section-eyebrow{font-size:9px;margin-bottom:18px}
+  .reader-document .section-eyebrow span{display:inline;font-size:8px}
+  .reader-document .detail-heading h2{font-size:28px;line-height:1.5}
+  .reader-document .administrative-context{gap:9px;margin-top:15px;line-height:1.8}
+  .reader-document .detail-content>section{margin-bottom:36px;padding-bottom:32px;scroll-margin-top:24px}
+  .reader-document .section-title h2,.reader-document .reader-location-heading{font-size:20px}
+  .reader-document .archive-prose,.reader-document .journal-content{font-size:15px;line-height:1.8}
+  .reader-document .journal-entry-title{font-size:17px}
+  .reader-document .journal-excerpt{font-size:14px;line-height:1.8}
+  .reader-document .journal-entries{padding-left:19px}
+  .reader-document .journal-entry::before{left:-24px}
+}
+@media(max-width:360px){
+  .detail-actions{gap:0}.detail-actions #expand-reading{font-size:9px;gap:2px}.detail-actions #expand-reading .ui-icon{display:none}
+  .reader-topbar{padding-left:14px;padding-right:14px;gap:5px}.reader-topbar button{font-size:10px}
+  .reader-layout{padding-left:20px;padding-right:20px}
+}
+@media(prefers-reduced-motion:reduce){
+  .place-reader[open]{animation:none}.place-reader.is-leaving{transition:none}.reader-scroll{scroll-behavior:auto}
+}

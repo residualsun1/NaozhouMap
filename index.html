@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="./deity-atlas.css">
   <link rel="stylesheet" href="./deity-explorer.css">
   <link rel="stylesheet" href="./field-journal.css">
+  <link rel="stylesheet" href="./place-reader.css">
 </head>
 <body>
   <main id="workspace">
@@ -148,7 +149,7 @@
       <div class="map-footer"><div><span id="scale-text" class="scale-text"></span><div id="scale-line" class="scale-line"></div></div><div>© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a> · <a href="https://www.geonames.org/" target="_blank" rel="noopener noreferrer">GeoNames</a></div></div>
     </section>
     <aside id="detail-panel" class="sidebar" aria-label="地点资料" hidden>
-      <div class="detail-topbar"><div class="detail-heading"><span class="section-eyebrow">地方档案 <span>PLACE RECORD</span></span><h2 id="reference-name">地点资料</h2><div id="administrative-context" class="administrative-context" hidden><span id="administrative-member-kind" class="place-type"></span><span id="parent-village-context" hidden>所属片区 <button id="parent-village" type="button"></button></span><span id="administrative-affiliation" hidden><span id="administrative-affiliation-prefix">隶属于</span><button id="parent-administration" type="button"></button></span></div></div><div class="detail-actions"><button id="sheet-toggle" type="button" aria-expanded="true" aria-controls="detail-content">收起</button><button id="close-reference" type="button" aria-label="关闭地点资料"><svg class="ui-icon" aria-hidden="true" focusable="false"
+      <div class="detail-topbar"><div class="detail-heading"><span class="section-eyebrow">地方档案 <span>PLACE RECORD</span></span><h2 id="reference-name" tabindex="-1">地点资料</h2><div id="administrative-context" class="administrative-context" hidden><span id="administrative-member-kind" class="place-type"></span><span id="parent-village-context" hidden>所属片区 <button id="parent-village" type="button"></button></span><span id="administrative-affiliation" hidden><span id="administrative-affiliation-prefix">隶属于</span><button id="parent-administration" type="button"></button></span></div></div><div class="detail-actions"><button id="sheet-toggle" type="button" aria-expanded="true" aria-controls="detail-content">收起</button><button id="expand-reading" type="button" aria-expanded="false" aria-controls="place-reader" title="展开阅读完整档案" disabled><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg><span>展开阅读</span></button><button id="close-reference" type="button" aria-label="关闭地点资料"><svg class="ui-icon" aria-hidden="true" focusable="false"
   xmlns="http://www.w3.org/2000/svg"
   width="24"
   height="24"
@@ -164,7 +165,7 @@
 </svg>
 </button></div></div>
       <div id="detail-content" class="detail-content">
-        <section id="place-overview-section" class="section" hidden>
+        <section id="place-overview-section" class="section" data-reading-label="基本情况" hidden>
           <div class="section-title"><h2>基本情况</h2><button id="place-overview-edit" type="button" class="linkbutton" aria-label="编辑基本情况" disabled>编辑</button></div>
           <p id="place-overview" class="archive-prose"></p>
           <form id="archive-introduction-form" class="archive-form" hidden>
@@ -173,13 +174,13 @@
           </form>
           <p id="archive-introduction-status" class="status" role="status" aria-live="polite"></p>
         </section>
-        <section id="settlement-section" class="section" hidden>
+        <section id="settlement-section" class="section" data-reading-label="聚落构成" hidden>
           <div class="section-title"><h2>聚落构成</h2></div>
           <div id="settlement-list" class="settlement-list"></div>
           <div id="settlement-related" class="settlement-related" hidden></div>
           <p id="settlement-note" class="note" hidden></p>
         </section>
-        <section id="faith-section" class="section" hidden>
+        <section id="faith-section" class="section" data-reading-label="信仰神明" hidden>
           <div class="section-title"><h2><span id="faith-title">信仰神明</span><span id="faith-count" class="count"></span></h2><button id="faith-add" type="button" aria-label="新增信仰记录" disabled>新增</button></div>
           <div id="faith-list"></div>
           <form id="faith-form" hidden>
@@ -194,7 +195,7 @@
           <p id="faith-status" class="status" role="status" aria-live="polite"></p>
           <div id="faith-notes" aria-label="信仰记录访谈笔记"></div>
         </section>
-        <section id="field-notes-section" class="section" hidden>
+        <section id="field-notes-section" class="section" data-reading-label="田野日志" hidden>
           <div class="section-title journal-heading"><div><h2>田野日志</h2><span class="journal-eyebrow">FIELD JOURNAL</span><p id="journal-count" class="journal-count"></p></div><button id="journal-add" type="button" class="linkbutton" disabled>＋ 新增记录</button></div>
           <div id="journal-filters" class="journal-filters"><label for="journal-year">年份<select id="journal-year" aria-label="年份"><option value="all">全部年份</option><option value="unknown">日期待考</option></select></label><label for="journal-type">类型<select id="journal-type" aria-label="类型"><option value="all">全部类型</option><option value="observation">走访观察</option><option value="interview">访谈</option><option value="ritual">仪式记录</option><option value="research">研究札记</option><option value="other">其他</option></select></label></div>
           <p id="journal-status" class="status" role="status" aria-live="polite"></p><button id="journal-retry" type="button" class="linkbutton" hidden>重新读取</button>
@@ -223,7 +224,7 @@
             <div class="button-row form-actions"><button type="submit" class="primary">保存点位</button><button id="delete-point" type="button" hidden>移除点位</button></div>
           </form>
         </section>
-        <section id="reference-section" hidden><details id="reference-more"><summary>位置与来源</summary><span id="reference-review" class="review-badge"></span><p id="reference-coordinates" class="note"></p><p id="reference-source" class="note"></p><section id="administration-section" class="section" hidden><div class="section-title"><h2 id="administration-name"></h2><span id="administration-kind" class="small-badge">行政村</span></div><button id="administration-view" class="full" type="button" aria-pressed="false">查看范围示意</button><details id="administration-members"><summary id="administration-members-summary"></summary><div id="administration-member-list" class="administration-member-list"></div></details><p class="note administrative-caveat">陆地范围示意 · 海域暂不划定</p></section><button id="use-reference" type="button" class="full">记为调查点位</button></details></section>
+        <section id="reference-section" data-reading-label="位置与来源" hidden><h2 class="reader-location-heading">位置与来源</h2><details id="reference-more"><summary>位置与来源</summary><span id="reference-review" class="review-badge"></span><p id="reference-coordinates" class="note"></p><p id="reference-source" class="note"></p><section id="administration-section" class="section" hidden><div class="section-title"><h2 id="administration-name"></h2><span id="administration-kind" class="small-badge">行政村</span></div><button id="administration-view" class="full" type="button" aria-pressed="false">查看范围示意</button><details id="administration-members"><summary id="administration-members-summary"></summary><div id="administration-member-list" class="administration-member-list"></div></details><p class="note administrative-caveat">陆地范围示意 · 海域暂不划定</p></section><button id="use-reference" type="button" class="full">记为调查点位</button></details></section>
       </div>
     </aside>
     <aside id="deity-explorer" class="deity-explorer" aria-labelledby="explorer-heading" hidden>
@@ -240,6 +241,10 @@
       </div>
     </aside>
   </main>
+  <dialog id="place-reader" class="place-reader" aria-label="地方档案展开阅读">
+    <header class="reader-topbar"><button id="reader-back" type="button"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h13"/></svg><span>返回地图</span></button><span id="reader-place-name"></span><div class="reader-tools"><button id="reader-menu" type="button" aria-expanded="false" aria-controls="reader-toc">目录</button><button id="reader-close" type="button" aria-label="关闭地方档案并返回地图"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div></header>
+    <div id="reader-scroll" class="reader-scroll" tabindex="-1"><div class="reader-layout"><nav id="reader-toc" class="reader-toc" aria-label="档案章节目录"><p>档案目录 <span>CONTENTS</span></p><div id="reader-chapters"></div></nav><article id="reader-document" class="reader-document"></article></div></div>
+  </dialog>
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
   <dialog id="journal-confirm" class="cloud-login" aria-labelledby="journal-confirm-title" aria-describedby="journal-confirm-message"><form method="dialog"><h2 id="journal-confirm-title">确认操作</h2><p id="journal-confirm-message" class="note"></p><div class="button-row form-actions"><button id="journal-confirm-cancel" value="cancel" autofocus>取消</button><button id="journal-confirm-accept" value="confirm" class="primary">确认</button></div></form></dialog>
   <dialog id="cloud-login" class="cloud-login" aria-labelledby="cloud-login-title">
@@ -251,6 +256,6 @@
     </form>
   </dialog>
   <dialog id="quick-deity-dialog" class="atlas-dialog" aria-labelledby="quick-deity-heading"><form id="quick-deity-form" class="quick-deity-form"><h2 id="quick-deity-heading">新建神明档案</h2><p class="note">同名神明可分别建档。</p><div id="quick-deity-fields"></div><div class="button-row form-actions"><button type="submit" class="primary">保存并关联</button><button id="quick-deity-cancel" type="button">取消</button></div><p id="quick-deity-status" class="status" role="status" aria-live="polite"></p></form></dialog>
-  <script src="./map-data.js"></script><script src="./cloud-access.js"></script><script src="./deity-catalog.js"></script><script src="./place-archives.js"></script><script src="./faith-records.js"></script><script src="./field-journal.js"></script><script src="./deity-explorer.js"></script><script src="./map-app.js"></script>
+  <script src="./map-data.js"></script><script src="./cloud-access.js"></script><script src="./deity-catalog.js"></script><script src="./place-archives.js"></script><script src="./faith-records.js"></script><script src="./field-journal.js"></script><script src="./deity-explorer.js"></script><script src="./place-reader.js"></script><script src="./map-app.js"></script>
 </body>
 </html>

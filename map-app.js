@@ -16,7 +16,7 @@
   let view, home, points = [], activeId = null, editingId = null, reference = null, draft = null;
   let picking = false, blockedStorage = false, toastTimer, downloadURL, raf;
   let projectRevision = null, saving = false, ready = false, formDirty = false;
-  let explorer=null,exploringDeityId=null,highlightSignature='';
+  let explorer=null,reader=null,exploringDeityId=null,highlightSignature='';
   let deityPlaceKeys=new Set();
   const projectMode = location.protocol !== 'file:';
   const cloudMode = document.documentElement.dataset.deployment === 'netlify';
@@ -614,7 +614,8 @@
   function pick(){formDirty=true;setPicking(true);svg.focus({preventScroll:true});}
   $('add-point').addEventListener('click',()=>{if(!mayLeaveEditor())return;clearReference();openEditor();pick();});
   $('use-reference').addEventListener('click',()=>{const p=reference;if(!p||p.kind==='road'||!mayLeaveEditor())return;clearReference();openEditor(p.kind==='cluster'?{name:'',lat:p.lat,lng:p.lng,source:p.sourceLabel||'OpenStreetMap 聚落轮廓，待现场核对',note:p.sourceDescription||'轮廓中心为近似位置，村名与实际范围待现场核对。'}:{name:p.name,lat:p.lat,lng:p.lng,source:p.nameSource+'；位置：'+p.coordinateSource});formDirty=true;});
-  $('close-reference').addEventListener('click',()=>{if(!mayLeaveEditor())return;if(!$('editor-section').hidden)closeEditor();clearReference();layoutPins();});
+  function closePlaceRecord(){if(!mayLeaveEditor())return false;reader?.close({immediate:true,restoreFocus:false});if(!$('editor-section').hidden)closeEditor();clearReference();layoutPins();return true;}
+  $('close-reference').addEventListener('click',closePlaceRecord);
   $('close-editor').addEventListener('click',()=>{if(mayLeaveEditor())closeEditor();});$('pick-location').addEventListener('click',pick);$('cancel-pick').addEventListener('click',()=>setPicking(false));
   ['point-lat','point-lng'].forEach(id=>$(id).addEventListener('change',checkCoordinates));
   $('point-form').addEventListener('input',()=>{formDirty=true;});
@@ -709,9 +710,21 @@
     download('硇洲岛田野地图-'+stamp()+'.svg','image/svg+xml;charset=utf-8','<?xml version="1.0" encoding="UTF-8"?>\n'+new XMLSerializer().serializeToString(output));
   });
   if(data.meta?.osmTimestamp)$('geometry-date').textContent='道路快照：'+data.meta.osmTimestamp.slice(0,10)+'。';
-  const faith = window.createFaithRecords({download,onChange:rebuildPins,onExploreDeity:id=>explorer?.open(id)});
+  const faith = window.createFaithRecords({download,onChange:rebuildPins,onExploreDeity:id=>{reader?.close({immediate:true,restoreFocus:false});explorer?.open(id);}});
   const journal = window.createFieldJournal({catalog:faith.catalog,beforeEdit:()=>faith.mayLeave()&&archives.mayLeave(),onFormOpen:expandDetails});
-  const archives = window.createPlaceArchives({download,onPlaceChange:selected=>journal.selectPlace(selected),onLegacy:note=>journal.setLegacy(note)});
+  const archives = window.createPlaceArchives({download,onPlaceChange:selected=>{journal.selectPlace(selected);reader?.selectPlace(selected);},onLegacy:note=>journal.setLegacy(note)});
+  function selectLinkedPlace(kind,id){
+    if(kind==='reference'){
+      const point=placeById.get(id);if(point)return selectReference(point);
+      const area=id.startsWith('area:')&&administrativeById.get(id.slice(5));if(area){selectAdministrativeArea(area);return reference?.administrativeAreaId===area.id;}
+    }
+    if(kind==='survey'){const point=points.find(point=>point.id===id);if(point){selectPoint(point);return editingId===id;}}
+    return false;
+  }
+  reader=window.createPlaceReader({
+    beforeOpen(){if(saving||faith.saving||archives.saving||journal.saving)return false;cancelCamera();faith.dismissPreview();setUtility();setSearchExpanded(false);return true;},
+    closeArchive:closePlaceRecord,selectPlace:selectLinkedPlace
+  });
   explorer=window.createDeityExplorer({
     faith,
     resolvePlace:(kind,id)=>kind==='reference'?placeById.get(id):kind==='survey'?points.find(point=>point.id===id):null,
@@ -732,12 +745,12 @@
   });
   for(const area of administrativeAreas)setAdministrativeLayer(area,false);
   function openLinkedPlace(){
-    if(explorer.restoreFromURL())return;
-    const query=new URLSearchParams(location.search),id=query.get('placeId'),kind=query.get('placeKind');if(!id)return;
-    const point=kind==='survey'?points.find(point=>point.id===id):kind==='reference'?placeById.get(id):null;
-    if(!point){notify('未找到对应地点，资料可能已更新。');return;}
-    if(kind==='survey')selectPoint(point);else selectReference(point);
+    const query=new URLSearchParams(location.search),id=query.get('placeId'),kind=query.get('placeKind');
+    if(query.get('view')!=='reading'&&explorer.restoreFromURL())return;
+    if(!id)return;
+    if(!selectLinkedPlace(kind,id)){notify('未找到对应地点，资料可能已更新。');return;}
     if(query.get('faithId'))faith.focusRecord(query.get('faithId'));
+    if(query.get('view')==='reading')reader.open();
   }
   renderPoints();homeView();load().then(openLinkedPlace);
 })();

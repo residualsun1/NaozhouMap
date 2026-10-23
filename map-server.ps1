@@ -231,6 +231,8 @@ $staticFiles = @{
     '/place-archives.js' = @{ Path = 'place-archives.js'; Type = 'text/javascript; charset=utf-8' }
     '/field-journal.js' = @{ Path = 'field-journal.js'; Type = 'text/javascript; charset=utf-8' }
     '/field-journal.css' = @{ Path = 'field-journal.css'; Type = 'text/css; charset=utf-8' }
+    '/place-reader.js' = @{ Path = 'place-reader.js'; Type = 'text/javascript; charset=utf-8' }
+    '/place-reader.css' = @{ Path = 'place-reader.css'; Type = 'text/css; charset=utf-8' }
     '/deities' = @{ Path = 'deities.html'; Type = 'text/html; charset=utf-8' }
     '/deities/' = @{ Path = 'deities.html'; Type = 'text/html; charset=utf-8' }
     '/deities.html' = @{ Path = 'deities.html'; Type = 'text/html; charset=utf-8' }
