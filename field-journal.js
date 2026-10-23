@@ -49,19 +49,21 @@ window.createFieldJournal = options => {
       body.append(links);
     }
     if (record.createdAt) body.append(element('p','journal-source','录入：'+record.createdAt.slice(0,10)+(record.updatedAt!==record.createdAt?' · 更新：'+record.updatedAt.slice(0,10):'')));
-    if (state?.editable) {
+    if (state?.editable && !record.legacy) {
       const actions=element('div','journal-actions');
-      const edit=element('button','linkbutton',record.legacy?'整理为日志':'编辑');edit.type='button';edit.setAttribute('aria-label',(record.legacy?'整理历史笔记':'编辑日志')+'：'+record.title);edit.addEventListener('click',()=>openForm(record));actions.append(edit);
-      if (!record.legacy) {const remove=element('button','linkbutton','删除');remove.type='button';remove.setAttribute('aria-label','删除日志：'+record.title);remove.addEventListener('click',()=>removeEntry(record));actions.append(remove);}
+      const remove=element('button','linkbutton','删除');remove.type='button';remove.setAttribute('aria-label','删除日志：'+record.title);remove.addEventListener('click',()=>removeEntry(record));actions.append(remove);
       body.append(actions);
     }
     return body;
   }
   function timelineItem(record) {
     const item=element('article','journal-entry'),details=element('details','journal-record'),summary=element('summary','journal-summary');
+    const header=element('div','journal-entry-header');
     const meta=element('div','journal-entry-meta');meta.append(element('span','journal-date',dateLabel(record)),element('span','journal-kind',record.legacy?'历史笔记':types[record.recordType]||'其他'));
     if (state?.editable && !record.legacy) meta.append(element('span','journal-visibility',record.visibility==='public'?'公开':'仅编辑者'));
-    summary.append(meta,element('h3','journal-entry-title',record.title),element('p','journal-excerpt',record.content.length>130?record.content.slice(0,130)+'…':record.content));
+    const edit=element('button','linkbutton journal-edit','编辑');edit.type='button';edit.setAttribute('aria-label',(record.legacy?'编辑历史笔记':'编辑日志')+'：'+record.title);edit.title=state?.editable?'修改日期、标题和正文':'登录后修改日期、标题和正文';edit.addEventListener('click',()=>openForm(record));
+    header.append(meta,edit);item.append(header);
+    summary.append(element('h3','journal-entry-title',record.title),element('p','journal-excerpt',record.content.length>130?record.content.slice(0,130)+'…':record.content));
     if (record.tags?.length) {const tags=element('div','journal-tags');for(const tag of record.tags)tags.append(element('span','',tag));summary.append(tags);}
     if (record.attachments?.length) summary.append(element('span','journal-source',record.attachments.length+' 个附件'));
     const read=element('span','journal-read-label','查看完整记录');summary.append(read);details.append(summary);item.append(details);
@@ -122,7 +124,7 @@ window.createFieldJournal = options => {
     if(placeKey()!==selected)return;
     if(!state.editable){await load();if(!state?.editable)return;}
     editing=record?{...record,tags:[...(record.tags||[])]}:null;draftId=record&&!record.legacy?record.id:crypto.randomUUID();form.reset();
-    $('journal-form-title').textContent=record?.legacy?'整理历史笔记':record?'编辑记录':'新增记录';
+    $('journal-form-title').textContent=record?.legacy?'编辑历史笔记':record?'编辑记录':'新增记录';
     for(const [id,value] of Object.entries({title:record?.legacy?'历史笔记':record?.title||'',content:record?.content||'',precision:record?.datePrecision||'unknown','original-date':record?.originalDateText||'','record-type':record?.recordType||'observation',tags:record?.tags?.join('，')||'',source:record?.source||'',visibility:record?.legacy?'editors':record?.visibility||'editors'}))$('journal-'+id).value=value;
     syncDateInput(record?.observedAt||'');form.hidden=false;dirty=false;$('journal-form-status').textContent='';render();options.onFormOpen?.();$('journal-title').focus({preventScroll:true});form.scrollIntoView({block:'start'});
   }

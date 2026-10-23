@@ -14,6 +14,8 @@
 .journal-summary{padding:0;min-height:44px;color:inherit;white-space:normal}
 .journal-summary::before{display:none}.journal-record[open]>.journal-summary{margin-bottom:15px}
 .journal-entry-meta{display:flex;align-items:baseline;flex-wrap:wrap;gap:5px 9px;font-size:10px;line-height:1.6;color:#858b80}
+.journal-entry-header{display:flex;align-items:baseline;justify-content:space-between;gap:10px;min-height:32px}
+.journal-entry-header .journal-entry-meta{min-width:0;flex:1}.journal-edit{flex-shrink:0;min-height:32px;padding:4px 2px;font-size:11px}
 .journal-date{font-size:12px;color:#71826f;font-variant-numeric:tabular-nums}.journal-visibility{font-size:9px;color:#8b9087}
 .journal-entry-title{margin:7px 0 8px;font-size:15px;font-weight:600;line-height:1.55;color:#374037;letter-spacing:0;overflow-wrap:anywhere}
 .journal-excerpt{margin:0;color:#737c6e;font-size:13px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere}
@@ -36,6 +38,6 @@
   main.details-open:has(#journal-form:not([hidden])){--sheet-size:min(680px,calc(100dvh - 224px - env(safe-area-inset-top,0px)))}
   .journal-heading>button{min-height:44px}.journal-filters select,.journal-form select,.journal-form input{min-height:44px;font-size:16px}
   .journal-form textarea{font-size:16px;min-height:250px}.journal-form #journal-source{min-height:88px}
-  .journal-form .form-actions{bottom:-30px;padding:12px 0 calc(10px + env(safe-area-inset-bottom,0px))}.journal-form .form-actions button,.journal-actions button{min-height:44px}
+  .journal-form .form-actions{bottom:-30px;padding:12px 0 calc(10px + env(safe-area-inset-bottom,0px))}.journal-form .form-actions button,.journal-actions button,.journal-edit{min-height:44px}
   .journal-timeline{max-height:55dvh}.journal-date-row{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
 }
