@@ -6,7 +6,7 @@ window.createDeityExplorer = options => {
   const workspace=$('workspace'),panel=$('deity-explorer'),toggle=$('deity-explorer-toggle');
   const desktop=matchMedia('(min-width:801px)'),reducedMotion=matchMedia('(prefers-reduced-motion:reduce)');
   const storageKey='naozhou-deity-map-context-v1';
-  let opened=false,selectedId=null,collapsed=false,loading=false,catalogError='',pendingFocus=false,categorySignature='';
+  let opened=false,selectedId=null,collapsed=false,loading=false,catalogError='',pendingFocus=false,categorySignature='',sphereMode='villages';
   function syncURL(){
     const url=new URL(location.href);
     for(const key of ['explore','deity','mapReturn'])url.searchParams.delete(key);
@@ -14,6 +14,23 @@ window.createDeityExplorer = options => {
     history.replaceState(history.state,'',url.pathname+url.search+url.hash);
   }
   function relations(){return selectedId&&faith.records?A.locatedVillagesFor(selectedId,faith.records,resolvePlace):[];}
+  function syncSphere(located=relations().filter(village=>village.point)){
+    const usable=opened&&!!selectedId&&!!catalog.get(selectedId)&&!loading&&!catalogError&&!faith.error&&Array.isArray(faith.records);
+    const enabled=usable&&sphereMode==='sphere';
+    $('explorer-view-mode').hidden=!opened||!selectedId;
+    for(const [id,mode] of [['explorer-mode-villages','villages'],['explorer-mode-sphere','sphere']]){
+      $(id).setAttribute('aria-pressed',String(sphereMode===mode));$(id).disabled=!usable;
+    }
+    const result=options.onSphereChange?.({enabled,deityId:selectedId,villages:enabled?located:[]});
+    $('explorer-sphere-legend').hidden=!enabled;
+    if(!enabled){$('explorer-sphere-state').textContent='';return;}
+    const count=Number.isInteger(result?.pointCount)?result.pointCount:Number.isInteger(result?.count)?result.count:located.length;
+    const kind=result?.kind||(count===0?'empty':count===1?'point':count===2?'pair':'polygon');
+    const state=kind==='empty'?'暂无可用于生成祭祀圈的关联地点。':kind==='point'?'当前仅有 1 处可定位地点。':kind==='pair'?'2 处可定位地点 · 分别显示点位外环':kind==='degenerate'?'位置近乎共线 · 仅显示关联点':result?.outlineOnly?'分布范围较大 · 仅显示概化轮廓':count+' 处可定位地点';
+    const legend=$('explorer-sphere-legend');legend.classList.toggle('is-points',kind!=='polygon');legend.classList.toggle('is-outline',!!result?.outlineOnly);
+    legend.querySelector('span').textContent=(kind!=='polygon'?'关联点':result?.outlineOnly?'绿色轮廓':'绿色区域')+' · 共同供奉分布示意';
+    $('explorer-sphere-state').textContent=state+(result?.rejectedCount>0?' · 部分异常或离岛位置未参与范围计算':'');
+  }
   function setCollapsed(value){collapsed=!!value;workspace.classList.toggle('explorer-collapsed',opened&&collapsed);$('explorer-sheet-toggle').textContent=collapsed?'展开':'收起';$('explorer-sheet-toggle').setAttribute('aria-expanded',String(!collapsed));$('explorer-heading').textContent=collapsed&&catalog.get(selectedId)?catalog.get(selectedId).name:'神明探索';}
   function showPanel(value){opened=value;panel.hidden=!value;workspace.classList.toggle('explorer-open',value);toggle.setAttribute('aria-expanded',String(value));setCollapsed(collapsed);}
   function empty(title,copy='',link=false){$('explorer-empty').hidden=false;$('explorer-gallery').hidden=true;$('explorer-empty-title').textContent=title;$('explorer-empty-copy').textContent=copy;$('explorer-empty-link').hidden=!link;if(link)$('explorer-workbench').hidden=true;}
@@ -62,6 +79,7 @@ window.createDeityExplorer = options => {
     const error=catalogError||faith.error;
     const locations=relations(),located=locations.filter(village=>village.point);
     onHighlight(selectedId,error?[]:located);
+    syncSphere(located);
     if(loading||!catalog.state&&!catalogError){$('explorer-gallery').hidden=true;$('explorer-status').textContent='正在读取神明资料…';return;}
     if(catalogError){$('explorer-gallery').hidden=true;$('explorer-status').textContent=catalogError;$('explorer-retry').hidden=false;return;}
     if(browsing){
@@ -106,21 +124,22 @@ window.createDeityExplorer = options => {
     else $('explorer-close').focus({preventScroll:true});
     return true;
   }
-  function close(){pendingFocus=false;selectedId=null;options.onClose?.();showPanel(false);syncURL();onHighlight(null,[]);toggle.focus({preventScroll:true});}
-  function suspend(){pendingFocus=false;showPanel(false);syncURL();}
+  function close(){pendingFocus=false;selectedId=null;options.onClose?.();showPanel(false);syncURL();onHighlight(null,[]);syncSphere([]);toggle.focus({preventScroll:true});}
+  function suspend(){pendingFocus=false;showPanel(false);syncURL();syncSphere([]);}
   async function reload(){
     if(loading)return;loading=true;render();
     const results=await Promise.allSettled([catalog.load(),faith.reload()]);
     catalogError=results[0].status==='rejected'?results[0].reason.message:'';loading=false;render();
   }
   function captureReturn(){
-    try{const token=A.uid();sessionStorage.setItem(storageKey,JSON.stringify({version:1,token,deityId:selectedId,query:$('explorer-search').value,category:$('explorer-category').value,collapsed,view:captureView()}));return token;}catch{return '';}
+    try{const token=A.uid();sessionStorage.setItem(storageKey,JSON.stringify({version:1,token,deityId:selectedId,query:$('explorer-search').value,category:$('explorer-category').value,collapsed,sphereMode,view:captureView()}));return token;}catch{return '';}
   }
   function prepareLink(event){const token=captureReturn();event.currentTarget.href=selectedId?A.profileURL(selectedId,token):'/deities'+(token?'?mapReturn='+encodeURIComponent(token):'');}
   for(const id of ['explorer-full-record','explorer-workbench','explorer-empty-link'])$(id).addEventListener('click',prepareLink);
   $('explorer-close').addEventListener('click',close);toggle.addEventListener('click',()=>opened?close():open());
   $('explorer-search').addEventListener('input',render);$('explorer-category').addEventListener('change',render);
   $('explorer-change').addEventListener('click',()=>{select(null,false);$('explorer-search').focus({preventScroll:true});});
+  for(const [id,mode] of [['explorer-mode-villages','villages'],['explorer-mode-sphere','sphere']])$(id).addEventListener('click',()=>{sphereMode=mode;syncSphere();});
   $('explorer-fit').addEventListener('click',()=>{const located=relations().filter(village=>village.point);if(located.length)onFocus(located);});
   $('explorer-retry').addEventListener('click',reload);$('explorer-sheet-toggle').addEventListener('click',()=>setCollapsed(!collapsed));
   for(const [id,direction] of [['explorer-previous',-1],['explorer-next',1]])$(id).addEventListener('click',()=>{const list=$('explorer-list');list.scrollBy({left:direction*Math.max(180,list.clientWidth*.8),behavior:reducedMotion.matches?'instant':'smooth'});});
@@ -133,6 +152,7 @@ window.createDeityExplorer = options => {
     const query=new URLSearchParams(location.search),token=query.get('mapReturn'),requested=query.get('deity');let saved=null;
     if(token)try{const candidate=JSON.parse(sessionStorage.getItem(storageKey));if(candidate?.version===1&&candidate.token===token)saved=candidate;}catch{}
     if(!requested&&!saved&&query.get('explore')!=='1')return false;
+    if(saved&&['villages','sphere'].includes(saved.sphereMode))sphereMode=saved.sphereMode;
     if(!open(requested||saved?.deityId||undefined))return false;
     if(saved){
       $('explorer-search').value=typeof saved.query==='string'?saved.query:'';

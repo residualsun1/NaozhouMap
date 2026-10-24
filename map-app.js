@@ -88,6 +88,25 @@
   const pathData = (coordinates, closed=false) => coordinates.map(([lng,lat],i)=>{const p=project(lng,lat);return (i?'L':'M')+p.x.toFixed(2)+' '+p.y.toFixed(2);}).join(' ')+(closed?' Z':'');
   const coastPath = pathData(data.coastline,true);
   $('coast').setAttribute('d',coastPath); $('island-clip-path').setAttribute('d',coastPath);
+  const sphereFill=$('ritual-sphere-fill-layer'),sphereBoundary=$('ritual-sphere-boundary-layer');
+  let sphereSignature='',sphereGeometry={kind:'empty',count:0,pointCount:0},sphereClearTimer=null;
+  function renderRitualSphere({enabled,deityId,villages}){
+    clearTimeout(sphereClearTimer);workspace.classList.toggle('ritual-sphere-active',!!(enabled&&deityId));
+    if(!enabled||!deityId){
+      sphereFill.classList.remove('is-visible');sphereBoundary.classList.remove('is-visible');
+      sphereClearTimer=setTimeout(()=>{sphereFill.firstElementChild.removeAttribute('d');sphereBoundary.firstElementChild.removeAttribute('d');sphereSignature='';},reducedMotion.matches?0:220);
+      return {kind:'empty',count:0,pointCount:0};
+    }
+    const signature=JSON.stringify([deityId,villages.map(village=>[village.kind,village.id,village.point?.lng,village.point?.lat])]);
+    if(signature!==sphereSignature){
+      sphereSignature=signature;sphereGeometry=window.RitualSphere.build(villages,project,coast);
+      const path=sphereGeometry.polygon.map((point,index)=>(index?'L':'M')+point.x.toFixed(2)+' '+point.y.toFixed(2)).join(' ')+(sphereGeometry.polygon.length?' Z':'');
+      sphereFill.firstElementChild.setAttribute('d',path);sphereBoundary.firstElementChild.setAttribute('d',path);
+    }
+    sphereFill.classList.toggle('is-visible',sphereGeometry.kind==='polygon'&&!sphereGeometry.outlineOnly);
+    sphereBoundary.classList.toggle('is-visible',sphereGeometry.kind==='polygon');
+    return sphereGeometry;
+  }
   function roadKind(type){
     if(/^(motorway|trunk|primary|secondary|tertiary)(?:_link)?$/.test(type))return 'main';
     if(['track','path','footway','cycleway','steps','bridleway'].includes(type))return 'path';
@@ -673,6 +692,8 @@
   $('import-file').addEventListener('change',async()=>{const file=$('import-file').files[0];if(!file)return;try{if(file.size>10*1024*1024)throw Error('文件超过 10 MB。');const obj=JSON.parse(await file.text());if(obj.type!=='FeatureCollection'||!Array.isArray(obj.features)||obj.features.length>10000)throw Error('请选择本地图导出的 GeoJSON 备份。');const incoming=obj.features.map(f=>{if(f.type!=='Feature'||f.geometry?.type!=='Point'||!Array.isArray(f.geometry.coordinates))throw Error('备份包含无效点位。');const props=f.properties||{},p={id:typeof f.id==='string'?f.id:uid(),name:props.name,lng:f.geometry.coordinates[0],lat:f.geometry.coordinates[1],source:props.source,note:props.note,createdAt:props.createdAt,updatedAt:props.updatedAt};if(!validPoint(p))throw Error('备份中的名称或坐标无效。');return cleanPoint(p);});if(new Set(incoming.map(p=>p.id)).size!==incoming.length)throw Error('备份内存在重复编号。');const ids=new Set(points.map(p=>p.id)),added=incoming.filter(p=>!ids.has(p.id));blockedStorage=false;if(await store([...points,...added])){renderPoints();notify(`导入 ${added.length} 个点位；同编号的现有记录已保留。`);}}catch(err){notify('导入失败：'+err.message);}finally{$('import-file').value='';}});
   $('export-svg').addEventListener('click',()=>{
     const output=svg.cloneNode(true),exportView={x:bounds.left-bw*.06,y:bounds.top-bh*.06,w:bw*1.12,h:bh*1.12},width=1000,height=width*exportView.h/exportView.w,unit=exportView.w/width;
+    // This temporary research overlay is separate from the existing base-map export.
+    for(const layer of output.querySelectorAll('.ritual-sphere-layer'))layer.remove();
     output.removeAttribute('tabindex');output.removeAttribute('class');output.setAttribute('width',String(width));output.setAttribute('height',String(Math.round(height)));output.setAttribute('viewBox',`${exportView.x} ${exportView.y} ${exportView.w} ${exportView.h}`);output.setAttribute('preserveAspectRatio','xMidYMid meet');
     for(const node of output.querySelectorAll('[tabindex]')){node.removeAttribute('tabindex');node.removeAttribute('role');}
     for(const node of output.querySelectorAll('.is-selected'))node.classList.remove('is-selected');
@@ -728,6 +749,7 @@
   });
   explorer=window.createDeityExplorer({
     faith,
+    onSphereChange:renderRitualSphere,
     resolvePlace:(kind,id)=>kind==='reference'?placeById.get(id):kind==='survey'?points.find(point=>point.id===id):null,
     beforeOpen(){if(saving||!mayLeaveEditor())return false;closeEditor();clearReference();cancelCamera();setUtility();setSearchExpanded(false);$('search-feedback').hidden=true;return true;},
     onClose:cancelCamera,

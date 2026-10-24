@@ -441,3 +441,11 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .journal-person-reading>a{font-size:14px;color:#536e5d}
 .journal-person-reading p{margin:8px 0 0}
 @media(max-width:800px){.people-picker{padding:24px 20px;max-height:90dvh}.people-picker input,.people-picker textarea,.people-picker select{font-size:16px}.people-picker button{min-height:44px}.people-picker input[type=checkbox]{font-size:14px}.journal-person-choice input{font-size:16px}.people-village-row{padding:18px 0}.people-village-heading .linkbutton{min-height:36px}}
+/* A temporary, coast-clipped distribution overlay, below roads and point labels. */
+.ritual-sphere-layer{opacity:0;pointer-events:none;transition:opacity 200ms ease}
+.ritual-sphere-layer.is-visible{opacity:1}
+.ritual-sphere-fill{fill:#9cb6a7;fill-opacity:.22;stroke:none;pointer-events:none}
+.ritual-sphere-boundary{fill:none;stroke:#628477;stroke-width:1.5;stroke-opacity:.8;stroke-dasharray:5 4;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke;pointer-events:none}
+.ritual-sphere-active .map-point.is-deity-linked::before{box-shadow:0 0 0 4px #52796a1f,0 0 0 5.5px #52796aa6}
+.ritual-sphere-active .map-point.is-deity-linked:is(.is-active,:hover,:focus-visible)::before{box-shadow:0 0 0 4px #52796a1f,0 0 0 6px #365f50d9}
+@media(prefers-reduced-motion:reduce){.ritual-sphere-layer{transition:none}}
