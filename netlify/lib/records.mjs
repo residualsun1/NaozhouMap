@@ -1,7 +1,7 @@
 import { getStore } from '@netlify/blobs';
 import pointsSeed from '../seed/points.json' with {type:'json'};
 import faithSeed from '../seed/faith.json' with {type:'json'};
-import { authorized, json, sameOrigin } from './auth.mjs';
+import { resolveEditorAuth, json, sameOrigin } from './auth.mjs';
 import { deitySeed, normalizeDeityCatalog, normalizeDeityLinks } from './deities.mjs';
 
 const revisionValid = value => Number.isInteger(value) && value >= 0 && value < 2147483647;
@@ -61,9 +61,11 @@ async function readState(store,kind) {
 export function recordsHandler(kind, storeFactory = () => getStore({name:'naozhou-field-atlas',consistency:'strong'})) {
   return async request => {
     if (!['GET','POST'].includes(request.method)) return json({error:'Method not allowed.'},405,{Allow:'GET, POST'});
-    if (request.method === 'POST' && (!sameOrigin(request) || !authorized(request))) return json({error:'请先登录编辑。'},401);
+    if (request.method === 'POST' && !sameOrigin(request)) return json({error:'请先登录编辑。'},401);
     try {
-      const store=storeFactory(), current=await readState(store,kind);
+      const store=storeFactory();
+      if(request.method==='POST'&&!(await resolveEditorAuth(store)).authorized(request))return json({error:'请先登录编辑。'},401);
+      const current=await readState(store,kind);
       if (request.method==='GET') return json(current.state);
       if (!(request.headers.get('content-type')||'').startsWith('application/json')) return json({error:'Use application/json.'},415);
       if (Number(request.headers.get('content-length')) > 5*1024*1024) return json({error:'资料过大，请分批导入。'},413);

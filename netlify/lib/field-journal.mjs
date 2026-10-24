@@ -1,5 +1,5 @@
 import { getStore } from '@netlify/blobs';
-import { authorized, json, sameOrigin } from './auth.mjs';
+import { resolveEditorAuth, json, sameOrigin } from './auth.mjs';
 import { normalizePeopleLinks, publicPerson } from './people.mjs';
 
 const empty = () => ({version:1, revision:0, records:[]});
@@ -52,11 +52,12 @@ function visibleState(state, request, editable, publicPeople=new Set()) {
 const respond = (value,status=200,headers={}) => json(value,status,{'Cache-Control':'private, no-store',Vary:'Cookie',...headers});
 export function fieldJournalHandler(storeFactory = () => getStore({name:'naozhou-field-atlas',consistency:'strong'})) {
   return async request => {
-    const editable = authorized(request);
     if (!['GET','POST'].includes(request.method)) return respond({error:'Method not allowed.'},405,{Allow:'GET, POST'});
-    if (request.method==='POST' && (!sameOrigin(request) || !editable)) return respond({error:'请先登录编辑。'},401);
+    if (request.method==='POST' && !sameOrigin(request)) return respond({error:'请先登录编辑。'},401);
     try {
       const store = storeFactory();
+      const editable=(await resolveEditorAuth(store)).authorized(request);
+      if(request.method==='POST'&&!editable)return respond({error:'请先登录编辑。'},401);
       async function read() {
         const entry = await store.getWithMetadata('field_entries',{type:'json'});
         const state = entry ? entry.data : empty();

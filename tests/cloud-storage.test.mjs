@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { randomBytes } from 'node:crypto';
-import auth from '../netlify/functions/auth.mjs';
+import { createAuthHandler } from '../netlify/functions/auth.mjs';
 import { issueSession, authorized } from '../netlify/lib/auth.mjs';
 import { recordsHandler } from '../netlify/lib/records.mjs';
 import { readFile } from 'node:fs/promises';
@@ -36,6 +36,7 @@ test('only a valid, unexpired editor session can write',async()=>{
   assert.equal((await handler(wrongOrigin)).status,401);
 });
 test('login uses an HTTP-only cookie and logout clears it',async()=>{
+  const auth=createAuthHandler(()=>memoryStore());
   assert.equal((await auth(request('auth',{password:'wrong'}))).status,401);
   const response=await auth(request('auth',{password:process.env.NAOZHOU_EDITOR_PASSWORD}));
   assert.equal(response.status,200);

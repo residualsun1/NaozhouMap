@@ -1,0 +1,11 @@
+/* A small extension of the existing editor access and login components. */
+.cloud-access-actions{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:6px}
+.cloud-access-actions #cloud-password-change{background:transparent;border-color:transparent;color:#747c6d}
+.cloud-access-actions #cloud-password-change:hover{background:#eff1e9;border-color:#e3e7db;color:#46553f}
+.cloud-password-dialog{width:min(420px,calc(100% - 32px));max-height:calc(100dvh - 40px);overflow-y:auto;overscroll-behavior:contain;background:#faf9f6}
+.cloud-password-dialog .note{margin:0 0 20px;font-size:11px;color:#8b9480}
+.cloud-password-dialog label{font-size:11px;font-weight:500;color:#727e67}
+.cloud-password-dialog input{min-height:42px;border-color:#dcddd7;background:#fff}
+.cloud-password-dialog .form-actions{justify-content:flex-end;gap:8px}
+.cloud-password-dialog .status{margin-top:16px;font-size:11px;line-height:1.8}
+@media(max-width:800px){.cloud-access-actions{gap:4px}.cloud-password-dialog{padding:24px;max-height:calc(100dvh - 28px)}.cloud-password-dialog input,.cloud-password-dialog .form-actions button{min-height:44px}.cloud-password-dialog input{font-size:16px}}

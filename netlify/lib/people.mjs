@@ -1,5 +1,5 @@
 import { getStore } from '@netlify/blobs';
-import { authorized, json, sameOrigin } from './auth.mjs';
+import { resolveEditorAuth, json, sameOrigin } from './auth.mjs';
 
 export const peopleSeed = () => ({version:1,revision:0,records:[]});
 const revisionValid = value => Number.isInteger(value) && value >= 0 && value < 2147483647;
@@ -80,11 +80,12 @@ function widerPublication(record,previous) {
 const respond=(value,status=200,headers={})=>json(value,status,{'Cache-Control':'private, no-store',Vary:'Cookie',...headers});
 export function peopleHandler(storeFactory=()=>getStore({name:'naozhou-field-atlas',consistency:'strong'})) {
   return async request=>{
-    const editable=authorized(request);
     if (!['GET','POST'].includes(request.method)) return respond({error:'Method not allowed.'},405,{Allow:'GET, POST'});
-    if (request.method==='POST'&&(!sameOrigin(request)||!editable)) return respond({error:'请先登录编辑。'},401);
+    if (request.method==='POST'&&!sameOrigin(request)) return respond({error:'请先登录编辑。'},401);
     try {
       const store=storeFactory();
+      const editable=(await resolveEditorAuth(store)).authorized(request);
+      if(request.method==='POST'&&!editable)return respond({error:'请先登录编辑。'},401);
       async function read() {
         const entry=await store.getWithMetadata('people',{type:'json'}),state=entry?entry.data:peopleSeed();
         if (state?.version!==1||!revisionValid(state.revision)||!Array.isArray(state.records)||new Set(state.records.map(record=>record.id)).size!==state.records.length) throw Error('Invalid people state.');
