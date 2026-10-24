@@ -1,6 +1,7 @@
 import { getStore } from '@netlify/blobs';
 import { resolveEditorAuth, json, sameOrigin } from './auth.mjs';
 import { normalizePeopleLinks, publicPerson } from './people.mjs';
+import { createArchiveStore } from './archive-store.mjs';
 
 const empty = () => ({version:1, revision:0, records:[]});
 const revisionValid = value => Number.isInteger(value) && value >= 0 && value < 2147483647;
@@ -55,7 +56,7 @@ export function fieldJournalHandler(storeFactory = () => getStore({name:'naozhou
     if (!['GET','POST'].includes(request.method)) return respond({error:'Method not allowed.'},405,{Allow:'GET, POST'});
     if (request.method==='POST' && !sameOrigin(request)) return respond({error:'请先登录编辑。'},401);
     try {
-      const store = storeFactory();
+      const store = createArchiveStore(storeFactory());
       const editable=(await resolveEditorAuth(store)).authorized(request);
       if(request.method==='POST'&&!editable)return respond({error:'请先登录编辑。'},401);
       async function read() {
@@ -96,6 +97,7 @@ export function fieldJournalHandler(storeFactory = () => getStore({name:'naozhou
         let record;
         try { record=normalizeFieldEntry(body.record,previous); }
         catch(error) { return respond({error:error.message},400); }
+        for(const link of record.peopleLinks){const id=await store.resolveId('people',link.personId);if(!id)return respond({error:'关联人物已删除，请重新选择。'},400);link.personId=id;}
         if(record.peopleLinks.length){
           const ids=new Set((await readPeople()).records.map(person=>person.id));
           const retained=new Set((previous?.peopleLinks||[]).map(link=>link.personId));
@@ -111,8 +113,9 @@ export function fieldJournalHandler(storeFactory = () => getStore({name:'naozhou
       const next = {version:1,revision:current.state.revision+1,records:nextRecords};
       const saved = await store.setJSON('field_entries',next,current.etag?{onlyIfMatch:current.etag}:{onlyIfNew:true});
       if (!saved.modified) return respond({...result((await read()).state),error:'其他页面已保存，填写内容仍保留，请重试。'},409);
-      return respond(result(next));
+      return respond(result((await read()).state));
     } catch(error) {
+      if(error.code==='ARCHIVE_CONFLICT')return respond({error:'关联档案已合并或删除，请刷新后重新保存。填写内容仍保留。'},409);
       console.error('Field journal storage failed:',error.name);
       return respond({error:'田野日志暂时无法读写。填写内容仍保留，请稍后重试。'},503);
     }

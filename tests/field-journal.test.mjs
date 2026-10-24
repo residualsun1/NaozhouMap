@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { randomBytes } from 'node:crypto';
 import { fieldJournalHandler, normalizeFieldEntry } from '../netlify/lib/field-journal.mjs';
 import { issueSession } from '../netlify/lib/auth.mjs';
+import { createArchiveStore } from '../netlify/lib/archive-store.mjs';
 
 process.env.NAOZHOU_EDITOR_PASSWORD=randomBytes(32).toString('base64url');
 const origin='https://journal-test.example';
@@ -27,6 +28,7 @@ async function save(handler,state,item,previous=null,extras={}) {
 }
 test('three independent entries survive edit, deletion and reload, including the same date',async()=>{
   const store=memoryJournalStore(),handler=fieldJournalHandler(()=>store);
+  await store.setJSON('deities',{version:1,revision:0,titles:[],records:[{id:'stable-deity',name:'隔离神明',aliases:[],titleIds:[]}]});
   let state=await(await handler(get())).json();
   for(const [id,date] of [['one','2026-10-01'],['two','2026-10-23'],['three','2026-10-23']])state=await save(handler,state,record(id,date));
   const second=state.records.find(item=>item.id==='two'),third=state.records.find(item=>item.id==='three');
@@ -107,7 +109,8 @@ test('journal people references remain independent, preserve old-client writes a
   state=await save(handler,state,{...oldClient,title:'只改标题'},state.records[0]);
   assert.deepEqual(state.records[0].peopleLinks,oldLinks);assert.equal(state.records[0].content,record('linked').content);
   const invalid=await handler(post({action:'save',revision:state.revision,record:{...record('bad-reference'),peopleLinks:[{personId:'nonexistent'}]}}));assert.equal(invalid.status,400);
-  people.records[1].visibility='editors';await store.setJSON('people',people);
+  const archiveStore=createArchiveStore(store),currentPeople=await archiveStore.getWithMetadata('people');
+  people.records[1].visibility='editors';people.revision=currentPeople.data.revision+1;await archiveStore.setJSON('people',people,{onlyIfMatch:currentPeople.etag});
   anonymous=await(await handler(get(false))).json();assert.deepEqual(anonymous.records[0].peopleLinks,[]);
   const editor=await(await handler(get())).json();assert.equal(editor.records[0].peopleLinks.length,3);
 });

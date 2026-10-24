@@ -47,7 +47,7 @@ test('summary exposes only permitted fields and public place links, including pl
   const response=await handler(get(false)),publicState=await response.json(),visible=publicState.records[0];
   assert.equal(publicState.revision,null);assert.equal(publicState.editable,false);
   assert.match(response.headers.get('cache-control'),/private.*no-store/);assert.equal(response.headers.get('vary'),'Cookie');
-  assert.deepEqual(Object.keys(visible).sort(),['id','displayName','roles','publicSummary','visibility','placeLinks'].sort());
+  assert.deepEqual(Object.keys(visible).sort(),['id','displayName','roles','publicSummary','visibility','archivedAt','placeLinks'].sort());
   assert.deepEqual(visible.roles,[]);
   assert.equal(visible.placeLinks.length,1);assert.equal(visible.placeLinks[0].placeId,'public-village');
   assert.equal((await(await handler(get(false,'?placeId=village-private'))).json()).records.length,0);

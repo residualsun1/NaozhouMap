@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>人物档案 · 硇洲岛田野图集</title>
-  <link rel="stylesheet" href="/map.css"><link rel="stylesheet" href="/deity-atlas.css"><link rel="stylesheet" href="/people.css"><link rel="stylesheet" href="/cloud-access.css">
+  <link rel="stylesheet" href="/map.css"><link rel="stylesheet" href="/deity-atlas.css"><link rel="stylesheet" href="/people.css"><link rel="stylesheet" href="/cloud-access.css"><link rel="stylesheet" href="/archive-management.css">
 </head>
 <body class="people-page">
   <header class="atlas-header">
@@ -11,12 +11,19 @@
     <div class="atlas-header-actions"><a class="people-return-map" href="/">返回地图</a><button id="person-new" class="primary" type="button" disabled>新增人物</button></div>
   </header>
   <main class="people-layout">
+    <nav class="people-navigation" aria-label="人物身份索引">
+      <div class="atlas-eyebrow">身份索引 · 多选</div>
+      <button id="person-all" class="category-button" type="button"><span>全部人物</span><span></span></button>
+      <div id="person-role-filters"></div>
+      <div class="people-navigation-divider"></div>
+      <button id="person-unclassified" class="category-button" type="button"><span>待整理 · 无身份标签</span><span></span></button>
+      <button id="person-archived" class="category-button" type="button"><span>已归档</span><span></span></button>
+      <div id="cloud-access" class="cloud-access" hidden><span id="cloud-access-status"></span><button id="cloud-access-button" type="button">登录编辑</button></div>
+    </nav>
     <aside class="people-browser" aria-label="人物总库">
       <label class="people-search" for="person-search"><span class="atlas-eyebrow">检索人物</span><input id="person-search" type="search" placeholder="姓名、法号或别名" autocomplete="off" maxlength="150"></label>
-      <label class="people-role-filter" for="person-role">身份标签<select id="person-role"><option value="">全部身份</option></select></label>
-      <div class="people-list-caption"><span>人物总库</span><span id="person-list-count"></span></div>
+      <div class="people-list-caption"><span id="person-filter-name">全部人物</span><span id="person-list-count"></span></div>
       <p id="person-status" class="status" role="status" aria-live="polite">正在读取…</p><button id="person-retry" type="button" hidden>重新读取</button><div id="person-list"></div>
-      <div id="cloud-access" class="cloud-access" hidden><span id="cloud-access-status"></span><button id="cloud-access-button" type="button">登录编辑</button></div>
     </aside>
     <section id="person-detail" class="people-detail" aria-label="人物档案">
       <div id="person-placeholder" class="people-placeholder"><span class="atlas-eyebrow">PEOPLE ARCHIVE</span><h2>人与岛屿的地方记忆</h2><p>选择一份人物档案，阅读关联的村庄与田野记录。</p></div>
@@ -25,6 +32,6 @@
     </section>
   </main>
   <dialog id="cloud-login" class="cloud-login" aria-labelledby="cloud-login-title"><form id="cloud-login-form"><h2 id="cloud-login-title">登录编辑</h2><label for="cloud-password">编辑口令</label><input id="cloud-password" type="password" autocomplete="current-password" required><p id="cloud-login-status" class="status" role="status"></p><div class="button-row form-actions"><button type="submit" class="primary">登录</button><button id="cloud-login-cancel" type="button">取消</button></div></form></dialog>
-  <script src="/map-data.js"></script><script src="/cloud-access.js"></script><script src="/people-catalog.js"></script><script src="/people-page.js"></script>
+  <script src="/map-data.js"></script><script src="/cloud-access.js"></script><script src="/archive-management.js"></script><script src="/people-catalog.js"></script><script src="/people-page.js"></script>
 </body>
 </html>

@@ -9,7 +9,7 @@
   function setURL(id,replace=false){history[replace?'replaceState':'pushState']({},'',id?A.profileURL(id,returnMap):'/deities'+(returnMap?'?mapReturn='+encodeURIComponent(returnMap):''));}
   function choose(id,replace=false){if(!mayLeave())return;selected=id;editing=null;dirty=false;setURL(id,replace);render();$('deity-detail').scrollTop=0;}
   function categoryName(){return filter==='all'?'全部神明':filter==='unclassified'?'待分类':filter==='archived'?'已归档':catalog.state?.titles.find(title=>title.id===filter)?.name||'全部神明';}
-  function matchesFilter(record,key){return key==='archived'?!!record.archivedAt:!record.archivedAt&&(key==='all'||(key==='unclassified'?!record.titleIds.length:record.titleIds.includes(key)));}
+  function matchesFilter(record,key){return !record.mergedInto&&(key==='archived'?!!record.archivedAt:!record.archivedAt&&(key==='all'||(key==='unclassified'?!record.titleIds.length:record.titleIds.includes(key))));}
   function renderNavigation(){
     const nav=$('deity-categories');nav.replaceChildren();
     const items=[{id:'all',name:'全部神明'},...(catalog.state?.titles||[]),{id:'unclassified',name:'待分类'},{id:'archived',name:'已归档'}];
@@ -41,19 +41,20 @@
       for(const {record:entry,links} of village.records){const body=el('div','relation-record');for(const relation of links){body.append(el('p','','当地称谓：'+(relation.localName||entry.deities[relation.nameIndex])));if(relation.localTitle)body.append(el('p','','当地神函：'+relation.localTitle));}if(entry.temple)body.append(el('p','','宫庙：'+entry.temple));if(entry.festival)body.append(el('p','','祭期：'+entry.festival));if(entry.source||entry.visitedOn)body.append(el('p','', [entry.source,entry.visitedOn].filter(Boolean).join(' · ')));const go=el('a','','地图中查看记录');go.href=A.mapURL(village.kind,village.id,entry.id);body.append(go,el('p','deity-identity','记录 ID · '+entry.id));article.append(body);}relations.append(article);}
     node.append(relations,section('资料来源',record.source,'暂无来源资料'));
     const meta=el('p','deity-identity','档案 ID · '+record.id+'\n创建 '+record.createdAt+'\n更新 '+record.updatedAt);meta.style.whiteSpace='pre-wrap';node.append(meta);
-    const actions=el('div','deity-footer-actions'),archive=el('button','linkbutton',record.archivedAt?'恢复档案':'归档');archive.type='button';archive.addEventListener('click',async()=>{if(!mayLeave()||!window.confirm(record.archivedAt?'恢复这份神明档案？':'归档后从默认列表隐藏，已有村庄关联仍保留。继续吗？'))return;archive.disabled=true;try{await catalog.saveRecord({...record,archivedAt:record.archivedAt?'':new Date().toISOString()});}catch(error){$('deity-status').textContent=error.message;archive.disabled=false;}});actions.append(archive);node.append(actions);
+    window.ArchiveManagement?.mount(node,{entity:'deities',record,catalog,beforeOpen:mayLeave,onChange:async result=>{selected=result.deleted?null:result.recordId||record.id;filter=selected&&catalog.get(selected)?.archivedAt?'archived':'all';faith=null;await loadFaith();setURL(selected,true);render();}});
   }
   function render(){
     renderNavigation();renderList();
     $('deity-form').hidden=!editing;$('deity-record').hidden=!!editing||!selected;$('deity-placeholder').hidden=!!editing||!!selected;document.querySelector('.deity-layout').classList.toggle('has-selection',!!editing||!!selected);
-    if(!editing&&selected){const record=catalog.get(selected);if(record)renderRecord(record);else{$('deity-record').replaceChildren(el('p','note','未找到这份神明档案。'));const back=el('button','linkbutton deity-mobile-back','返回神明列表');back.type='button';back.addEventListener('click',()=>choose(null));$('deity-record').prepend(back);}}
+    if(!editing&&selected){const record=catalog.get(selected);if(record){if(record.id!==selected){selected=record.id;setURL(selected,true);}renderRecord(record);}else{$('deity-record').replaceChildren(el('p','note','未找到这份神明档案。'));const back=el('button','linkbutton deity-mobile-back','返回神明列表');back.type='button';back.addEventListener('click',()=>choose(null));$('deity-record').prepend(back);}}
   }
-  function startEdit(record=null){if(!mayLeave()||!catalog.state)return;editing={record};dirty=false;$('deity-form-heading').textContent=record?'编辑神明档案':'新增神明';$('deity-form-status').textContent='';fields=A.createFields($('deity-fields'),catalog,record||{});render();$('deity-detail').scrollTop=0;fields.focus();}
+  function startEdit(record=null){if(!mayLeave()||!catalog.state)return;editing={record};dirty=false;$('deity-form-heading').textContent=record?'编辑神明档案':'新增神明';$('deity-form-status').textContent='';fields=A.createFields($('deity-fields'),catalog,record||{},'deity',{onExisting:existing=>choose(existing.id)});render();$('deity-detail').scrollTop=0;fields.focus();}
   $('deity-new').addEventListener('click',()=>startEdit());$('deity-search').addEventListener('input',renderList);
   $('deity-form').addEventListener('input',()=>{dirty=true;});
   $('deity-form').addEventListener('submit',async event=>{event.preventDefault();if(saving||!editing||!$('deity-form').reportValidity())return;saving=true;$('deity-form').inert=true;$('deity-form-status').textContent='保存中…';try{const record=await catalog.saveRecord({...editing.record,...fields.read()});selected=record.id;editing=null;dirty=false;filter=record.archivedAt?'archived':'all';$('deity-search').value='';setURL(selected);render();}catch(error){$('deity-form-status').textContent=error.message;}finally{saving=false;$('deity-form').inert=false;}});
   $('deity-cancel').addEventListener('click',()=>{if(!mayLeave())return;editing=null;dirty=false;render();});
   catalog.subscribe(render);
+  document.addEventListener('naozhou-access-change',()=>{if(!editing)render();});
   catalog.ready.then(()=>{for(const id of ['deity-new','deity-titles-edit','deity-export','deity-import'])$(id).disabled=false;$('deity-status').textContent='';render();}).catch(error=>{$('deity-status').textContent=error.message;});
   async function loadFaith(){try{const response=await fetch('/api/faith',{cache:'no-store'});if(!response.ok)throw Error();const result=await response.json();if(result.version!==1||!Array.isArray(result.records))throw Error();faith=result;}catch{faithError='关联资料暂未读取，请刷新重试。';}if(catalog.state)render();}
   loadFaith();

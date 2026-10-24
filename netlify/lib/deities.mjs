@@ -30,7 +30,8 @@ export function normalizeDeityCatalog(body,current=deitySeed) {
   const records=body.records.map(item=>{
     if (!required(item.name,100) || !Array.isArray(item.aliases) || item.aliases.length>100 || item.aliases.some(name=>!required(name,100))) throw Error('神明名称或别名无效。');
     if (!Array.isArray(item.titleIds) || item.titleIds.some(id=>!titleIds.has(id)) || new Set(item.titleIds).size!==item.titleIds.length) throw Error('神函引用无效。');
-    return {id:item.id,name:item.name.trim(),aliases:item.aliases.map(name=>name.trim()),titleIds:item.titleIds,description:text(item.description,20000),identityNote:text(item.identityNote,10000),source:text(item.source,2000),createdAt:text(item.createdAt,100)||new Date().toISOString(),updatedAt:text(item.updatedAt,100)||new Date().toISOString(),archivedAt:text(item.archivedAt,100)};
+    const previous=current.records.find(record=>record.id===item.id);
+    return {id:item.id,name:item.name.trim(),aliases:item.aliases.map(name=>name.trim()),titleIds:item.titleIds,description:text(item.description,20000),identityNote:text(item.identityNote,10000),source:text(item.source,2000),createdAt:text(item.createdAt,100)||new Date().toISOString(),updatedAt:text(item.updatedAt,100)||new Date().toISOString(),archivedAt:text(item.archivedAt??previous?.archivedAt,100),mergedFromIds:previous?.mergedFromIds||[]};
   });
   // A tombstone keeps cross-village references valid, including concurrent edits.
   for (const previous of current.records) if (!records.some(item=>item.id===previous.id)) throw Error('神明档案请使用归档，不可直接移除已有编号。');
@@ -40,9 +41,11 @@ export function normalizeDeityLinks(links,names,catalog) {
   uniqueRecords(links,100);
   const deities=new Set(catalog.records.map(item=>item.id)), slots=new Set();
   return links.map(link=>{
-    if (!deities.has(link.deityId)) throw Error('关联的神明档案不存在，请先导入神明总库或刷新重试。');
+    let deityId=link.deityId;const seen=new Set();
+    while(Object.hasOwn(catalog.redirects||{},deityId)){if(seen.has(deityId))throw Error('神明重定向无效。');seen.add(deityId);deityId=catalog.redirects[deityId];}
+    if (!deities.has(deityId)) throw Error('关联的神明档案不存在，请先导入神明总库或刷新重试。');
     if (!Number.isInteger(link.nameIndex) || link.nameIndex<0 || link.nameIndex>=names.length || slots.has(link.nameIndex)) throw Error('神明名称关联位置无效。');
     slots.add(link.nameIndex);
-    return {id:link.id,deityId:link.deityId,nameIndex:link.nameIndex,localName:text(link.localName,100),localTitle:text(link.localTitle,200)};
+    return {id:link.id,deityId,nameIndex:link.nameIndex,localName:text(link.localName,100),localTitle:text(link.localTitle,200)};
   });
 }

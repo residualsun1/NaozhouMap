@@ -3,6 +3,7 @@ import pointsSeed from '../seed/points.json' with {type:'json'};
 import faithSeed from '../seed/faith.json' with {type:'json'};
 import { resolveEditorAuth, json, sameOrigin } from './auth.mjs';
 import { deitySeed, normalizeDeityCatalog, normalizeDeityLinks } from './deities.mjs';
+import { createArchiveStore } from './archive-store.mjs';
 
 const revisionValid = value => Number.isInteger(value) && value >= 0 && value < 2147483647;
 const required = (value, limit) => typeof value === 'string' && value.trim().length > 0 && value.length <= limit;
@@ -56,17 +57,22 @@ const seeds = {points:pointsSeed,faith:faithSeed,archives:{version:1,revision:0,
 const normalizers = {points:normalizePoints,faith:normalizeFaith,archives:normalizeArchives};
 async function readState(store,kind) {
   const entry=await store.getWithMetadata(kind,{type:'json'});
-  return {state:entry?.data || structuredClone(seeds[kind]),etag:entry?.etag};
+  const state=entry?.data || structuredClone(seeds[kind]);
+  if(kind==='deities')state.redirects=await store.redirects('deities');
+  return {state,etag:entry?.etag};
 }
 export function recordsHandler(kind, storeFactory = () => getStore({name:'naozhou-field-atlas',consistency:'strong'})) {
   return async request => {
     if (!['GET','POST'].includes(request.method)) return json({error:'Method not allowed.'},405,{Allow:'GET, POST'});
     if (request.method === 'POST' && !sameOrigin(request)) return json({error:'请先登录编辑。'},401);
     try {
-      const store=storeFactory();
+      const rawStore=storeFactory(),store=['faith','deities'].includes(kind)?createArchiveStore(rawStore):rawStore;
       if(request.method==='POST'&&!(await resolveEditorAuth(store)).authorized(request))return json({error:'请先登录编辑。'},401);
       const current=await readState(store,kind);
-      if (request.method==='GET') return json(current.state);
+      if (request.method==='GET') {
+        if(kind==='deities'&&new URL(request.url).searchParams.has('id')){const id=await store.resolveId('deities',new URL(request.url).searchParams.get('id'));return json({...current.state,records:current.state.records.filter(record=>record.id===id)});}
+        return json(current.state);
+      }
       if (!(request.headers.get('content-type')||'').startsWith('application/json')) return json({error:'Use application/json.'},415);
       if (Number(request.headers.get('content-length')) > 5*1024*1024) return json({error:'资料过大，请分批导入。'},413);
       const raw=await request.text();
@@ -90,8 +96,9 @@ export function recordsHandler(kind, storeFactory = () => getStore({name:'naozho
       }
       const saved=await store.setJSON(kind,next,current.etag?{onlyIfMatch:current.etag}:{onlyIfNew:true});
       if (!saved.modified) return json((await readState(store,kind)).state,409);
-      return json(next);
+      return json(['faith','deities'].includes(kind)?(await readState(store,kind)).state:next);
     } catch(error) {
+      if(error.code==='ARCHIVE_CONFLICT')return json({error:'档案或关联已合并、删除，请刷新后重新保存。填写内容仍保留。'},409);
       console.error('Cloud storage operation failed:',error.name);
       return json({error:'云端暂时无法读写，填写内容仍保留，请稍后重试。'},503);
     }

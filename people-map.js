@@ -18,7 +18,7 @@ window.createVillagePeople = options => {
   }
   function results(){
     const host=$('people-search-results');host.replaceChildren();
-    for(const person of catalog.search($('people-search').value).slice(0,20)){
+    for(const person of catalog.search($('people-search').value).filter(person=>!person.archivedAt).slice(0,20)){
       const button=el('button','result-button');button.type='button';button.append(el('strong','',person.displayName),el('span','',[person.religiousName,...(person.roles||[]),person.id.slice(-6)].filter(Boolean).join(' · ')));button.addEventListener('click',()=>choose(person));host.append(button);
     }
     if(!host.childNodes.length)host.append(el('p','note','没有找到匹配人物，可以新建档案。'));
@@ -47,7 +47,7 @@ window.createVillagePeople = options => {
   }
   async function run(action){if(saving)return;saving=true;form.inert=createForm.inert=true;$('people-picker-status').textContent='保存中…';try{await action();close();$('people-status').textContent='已保存人物关联';}catch(err){$('people-picker-status').textContent=err.message;}finally{saving=false;form.inert=createForm.inert=false;render();}}
   $('people-add').addEventListener('click',()=>open());$('people-search').addEventListener('input',results);
-  $('people-create').addEventListener('click',()=>{form.hidden=true;createForm.hidden=false;fields=A.createFields($('people-create-fields'),{displayName:$('people-search').value.trim()},'village-person',{places:false});fields.focus();});
+  $('people-create').addEventListener('click',()=>{form.hidden=true;createForm.hidden=false;fields=A.createFields($('people-create-fields'),{displayName:$('people-search').value.trim()},'village-person',{places:false,catalog,onExisting:async person=>{if(dirty&&!await A.confirm('放弃当前新建内容，改为关联这份已有档案？','使用已有档案'))return;fields?.destroy?.();createForm.hidden=true;form.hidden=false;choose(person);}});fields.focus();});
   $('people-create-back').addEventListener('click',()=>{if(!mayLeave())return;dirty=false;createForm.hidden=true;form.hidden=false;});
   for(const f of [form,createForm])f.addEventListener('input',()=>{dirty=true;});
   form.addEventListener('submit',event=>{event.preventDefault();if(form.reportValidity())run(()=>saveLink());});

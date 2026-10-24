@@ -1,0 +1,32 @@
+/* People and deities share the same map sheet and card rhythm. */
+.map-toolbar #people-explorer-toggle[aria-expanded=true]{background:#e5ebe5;color:#536f63}
+#person-explore-sheet-toggle{display:grid;font-size:11px}
+#person-explore-controls{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-bottom:18px}
+#person-explore-search{font-size:12px;background:#fff;padding:10px 11px}
+#person-explore-role{max-width:130px;padding:9px 22px 9px 10px;border:1px solid #dcdcdb;border-radius:8px;background:#fff;color:#697466;font:inherit;font-size:11px}
+#person-explore-list{display:grid;gap:7px}
+#person-explore-status{margin:0;color:#777e77;font-size:11px}#person-explore-status:empty{display:none}
+.people-explorer-media svg{width:23px;height:23px}.people-card-alias{font-size:10px;color:#88917f}
+#person-explore-name{margin:0 0 10px;font-size:23px;font-weight:600;line-height:1.5;overflow-wrap:anywhere}
+.people-explore-count-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-top:1px solid #e5e5df;padding:18px 0 15px}
+.people-explore-count-row p{margin:0;color:#727e6b;font-size:11px}.people-explore-count-row button{font-size:10px;flex-shrink:0}
+@media(min-width:801px){
+  #person-explore-controls{grid-area:controls;align-self:center;justify-self:end;width:min(100%,470px);margin:0}
+  #person-explore-search{height:34px;padding:7px 10px;font-size:11px}#person-explore-role{height:34px;padding-top:6px;padding-bottom:6px;font-size:10px}
+  #person-explore-workbench{grid-area:workbench;align-self:center;margin:0;padding:0;border:0;font-size:11px;white-space:nowrap}
+  #person-explore-list{height:100%;display:grid;grid-auto-flow:column;grid-auto-columns:clamp(164px,14.5vw,208px);grid-template-rows:minmax(0,1fr);justify-content:start;gap:14px;overflow-x:auto;overflow-y:hidden;padding:1px 2px 6px;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:#c6cdc0 transparent;overscroll-behavior-x:contain}
+  #person-explore-list>.note{min-width:250px;align-self:center;font-size:12px}
+  .people-explorer-card .explorer-card-copy{height:72px}.people-explorer-card .people-card-alias{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:3px;font-size:9px}
+  #person-explore-previous{left:-10px}#person-explore-next{right:-10px}
+  #person-explore-selected{display:flex;align-items:center;flex-wrap:wrap;gap:7px 12px;flex-shrink:0;min-width:0;min-height:34px;padding-top:7px;border-top:1px solid #e5e5df}
+  #person-explore-selected>.section-title,.people-explore-count-row{display:contents}
+  #person-explore-selected .explorer-caption,#person-explore-summary{display:none}
+  #person-explore-name{max-width:180px;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;line-height:1.6}
+  #person-explore-count{margin:0;font-size:10px;line-height:1.6;white-space:nowrap}#person-explore-fit{padding:3px 0;font-size:10px;white-space:nowrap}
+  #person-explore-change{order:5;padding:3px 0;font-size:10px;white-space:nowrap}
+  #person-explore-villages{display:flex;align-items:center;gap:6px;flex:1;min-width:0;overflow:auto;scrollbar-width:thin;overscroll-behavior-x:contain}
+  #person-explore-villages .people-location-relation{display:inline;font-size:9px;margin:0 0 0 6px;color:#7c8b74;white-space:nowrap}
+  #person-explore-full-record{order:4;flex-shrink:0;padding:3px 0;font-size:11px;white-space:nowrap}
+  .explorer-collapsed #person-explore-controls,.explorer-collapsed #person-explore-workbench{display:none}
+}
+@media(max-width:800px){#person-explore-search{font-size:16px;min-height:44px}#person-explore-role{min-height:44px;font-size:12px}.people-explorer-card .people-card-alias{margin-top:6px}.people-explorer .explorer-actions button{min-height:44px}#person-explore-name{font-size:22px}#person-explore-full-record{min-height:44px}.map-area .map-toolbar{padding-right:3px}.map-area .map-toolbar button{flex:1 0 44px}}

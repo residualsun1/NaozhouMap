@@ -21,13 +21,14 @@ window.PeopleArchive = (() => {
     const ready=load();
     document.addEventListener('naozhou-access-change',()=>{sequence++;state=null;emit();load().catch(()=>{});});
     return {
-      ready,load,get state(){return state;},get saving(){return saving;},subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn);},get(id){return state?.records.find(p=>p.id===id);},
-      search(query=''){const term=query.trim().toLocaleLowerCase();return (state?.records||[]).filter(p=>!term||[p.displayName,p.religiousName,...(p.aliases||[])].some(x=>x?.toLocaleLowerCase().includes(term)));},
+      ready,load,get state(){return state;},get saving(){return saving;},subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn);},get(id){const seen=new Set();while(id&&!seen.has(id)){seen.add(id);const record=state?.records.find(p=>p.id===id),next=record?.mergedInto||state?.redirects?.[id];if(next){id=next;continue;}return record;}},
+      search(query=''){const term=query.trim().toLocaleLowerCase();return (state?.records||[]).filter(p=>!p.archivedAt&&!p.mergedInto&&(!term||[p.displayName,p.religiousName,...(p.aliases||[])].some(x=>x?.toLocaleLowerCase().includes(term))));},
       async saveRecord(values){
         await ready.catch(()=>{});if(saving)throw Error('正在保存，请稍候。');
         if(window.NaozhouCloud&&!await window.NaozhouCloud.requireEditor())throw Error('登录后可保存人物档案。');
         if(!state?.editable)await load();if(!state?.editable)throw Error('目前没有编辑权限。');
         const previous=values.id?this.get(values.id):null;
+        if(previous&&values.id&&previous.id!==values.id)throw Error('此人物档案已合并，请打开当前主档案编辑。');
         const record={...previous,...values,id:values.id||uid(),visibility:values.visibility||previous?.visibility||'editors'};
         const broaden=record.visibility!=='editors'&&(!previous||previous.visibility==='editors'||(record.visibility==='public'&&previous.visibility!=='public')||record.publishIdentity&&!previous.publishIdentity||record.publishOralHistory&&!previous.publishOralHistory||(record.placeLinks||[]).some(l=>l.public&&!(previous.placeLinks||[]).some(p=>p.id===l.id&&p.public)));
         if(broaden&&!await confirm('此档案中允许公开的内容将对访客可见。请确认已获得相关许可。真实姓名和内部研究备注始终仅供编辑者查看。','确认公开'))throw Error('尚未公开，填写内容已保留。');
@@ -43,13 +44,16 @@ window.PeopleArchive = (() => {
   function places(){
     if(!placesPromise)placesPromise=(async()=>{const rows=(window.NAOZHOU_DATA?.places||[]).map(p=>({...p,kind:'reference'}));try{const response=await (window.NaozhouCloud?.request||fetch)('/api/points',{cache:'no-store'});if(response.ok){const data=await response.json();for(const p of data.points||[])rows.push({...p,kind:'survey'});}}catch{}return rows.sort((a,b)=>a.name.localeCompare(b.name,'zh-CN'));})();return placesPromise;
   }
+  const fieldDisposers=new WeakMap();
   function createFields(host,record={},prefix='person',options={}){
-    host.replaceChildren();host.classList.add('people-fields');const inputs={},draftId=record.id||uid(),lifetime={active:true};
+    fieldDisposers.get(host)?.();
+    host.replaceChildren();host.classList.add('people-fields');const inputs={},draftId=record.id||uid(),lifetime={active:true,duplicate:null};
     function field(parent,key,label,kind='text',max=500,help=''){
       const wrap=el('div','people-field'),caption=el('label','',label),input=el(kind==='textarea'?'textarea':'input');input.id=prefix+'-'+key;caption.htmlFor=input.id;if(kind!=='textarea')input.type=kind;input.maxLength=max;input.value=Array.isArray(record[key])?record[key].join('、'):record[key]||'';if(kind==='textarea')input.rows=key==='biography'||key==='oralHistory'?5:3;if(key==='displayName')input.required=true;inputs[key]=input;wrap.append(caption,input);if(help)wrap.append(el('small','people-help',help));parent.append(wrap);return input;
     }
     function group(title,open=false){const d=el('details','people-form-group');d.open=open;d.append(el('summary','',title));host.append(d);return d;}
     field(host,'displayName','显示名称（可用化名）','text',200);field(host,'religiousName','法号 / 道号','text',200);field(host,'aliases','别名与地方称谓','text',10000,'以顿号或逗号分隔。');
+    if(options.catalog&&window.ArchiveManagement)lifetime.duplicate=window.ArchiveManagement.watchDuplicates(host,{catalog:options.catalog,entity:'people',recordId:record.id,readNames:()=>[inputs.displayName.value,inputs.religiousName.value,...split(inputs.aliases.value)],onChoose:options.onExisting,chooseLabel:options.onExisting?'查看已有档案':undefined});
     const role=field(host,'roles','身份标签','text',3000,'可输入多个身份，以顿号分隔；无需正式职衔。');const roleList=el('datalist');roleList.id=prefix+'-role-suggestions';for(const label of roles){const opt=el('option');opt.value=label;roleList.append(opt);}role.setAttribute('list',roleList.id);host.append(roleList);
     field(host,'biography','基本情况 / 人物简介','textarea',100000);
     const oral=group('人物经历与口述');field(oral,'oralHistory','原始口述 / 人物经历','textarea',100000);const narrative=el('div','people-field'),nlabel=el('label','','人物在叙述中的角色'),nselect=el('select');nselect.id=prefix+'-narratorRole';nlabel.htmlFor=nselect.id;for(const [id,label] of narratorRoles){const o=el('option','',label);o.value=id;nselect.append(o);}nselect.value=record.narratorRole||'unknown';inputs.narratorRole=nselect;narrative.append(nlabel,nselect);oral.append(narrative);field(oral,'narratedAt','讲述时间（按原始资料填写）','text',100);field(oral,'eventDateText','所述事件时间','text',300);field(oral,'narrativeSource','叙述来源','textarea',3000);field(oral,'ritualQualificationNote','仪式身份、资格与说明','textarea',20000);
@@ -67,7 +71,8 @@ window.PeopleArchive = (() => {
       }
       for(const link of retainedLinks)linkRow(link);add.addEventListener('click',()=>{linkRow();host.dispatchEvent(new Event('input',{bubbles:true}));});
     }
-    return {focus:()=>inputs.displayName.focus(),destroy:()=>{lifetime.active=false;},read:()=>{
+    const destroy=()=>{lifetime.active=false;lifetime.duplicate?.destroy();fieldDisposers.delete(host);};fieldDisposers.set(host,destroy);
+    return {focus:()=>inputs.displayName.focus(),destroy,read:()=>{
       const result={id:draftId,...(record.updatedAt?{updatedAt:record.updatedAt}:{})};for(const [key,input] of Object.entries(inputs))result[key]=input.type==='checkbox'?input.checked:input.value.trim();result.aliases=split(result.aliases);result.roles=split(result.roles);result.deityIds=[...deityIds];
       result.placeLinks=options.places===false?retainedLinks:linkRows.map(r=>{const splitAt=r.place.value.indexOf(':');return {id:r.id,placeKind:r.place.value.slice(0,splitAt),placeId:r.place.value.slice(splitAt+1),relationType:r.relation.value,notes:r.notes.value.trim(),source:r.source.value.trim(),public:r.publicCheck.checked};});return result;
     }};

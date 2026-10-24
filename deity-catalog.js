@@ -36,16 +36,18 @@ window.DeityAtlas = (() => {
     return {
       ready,load,get state(){return state;},get saving(){return saving;},
       subscribe(callback){listeners.add(callback);return()=>listeners.delete(callback);},
-      get(id){return state?.records.find(item=>item.id===id);},
-      search(query){const term=query.trim().toLocaleLowerCase();return (state?.records||[]).filter(item=>!item.archivedAt&&(!term||[item.name,...item.aliases].some(name=>name.toLocaleLowerCase().includes(term))));},
-      async saveRecord(values){await ready;const previous=values.id?this.get(values.id):null,now=new Date().toISOString();const record={...previous,...values,id:previous?.id||values.id||uid(),createdAt:previous?.createdAt||now,updatedAt:now};await save({titles:state.titles,records:state.records.filter(item=>item.id!==record.id).concat(record)});return this.get(record.id);},
+      get(id){const seen=new Set();while(id&&!seen.has(id)){seen.add(id);const record=state?.records.find(item=>item.id===id),next=record?.mergedInto||state?.redirects?.[id];if(next){id=next;continue;}return record;}},
+      search(query){const term=query.trim().toLocaleLowerCase();return (state?.records||[]).filter(item=>!item.archivedAt&&!item.mergedInto&&(!term||[item.name,...item.aliases].some(name=>name.toLocaleLowerCase().includes(term))));},
+      async saveRecord(values){await ready;const previous=values.id?this.get(values.id):null;if(previous&&values.id&&previous.id!==values.id)throw Error('此档案已合并，请打开当前主档案编辑。');const now=new Date().toISOString();const record={...previous,...values,id:previous?.id||values.id||uid(),createdAt:previous?.createdAt||now,updatedAt:now};await save({titles:state.titles,records:state.records.filter(item=>item.id!==record.id).concat(record)});return this.get(record.id);},
       async saveTitles(titles){await ready;return save({titles,records:state.records});},
       async importCatalog(incoming){validate(incoming);await ready;const titles=state.titles.slice();for(const title of incoming.titles){const old=titles.find(item=>item.id===title.id);if(old&&old.name!==title.name)throw Error('同编号神函名称不同，请人工核对。');if(!old)titles.push(title);}const ids=new Set(state.records.map(item=>item.id));return save({titles,records:state.records.concat(incoming.records.filter(item=>!ids.has(item.id)))});}
     };
   }
-  function createFields(host,catalog,record={},prefix='deity') {
+  const fieldDisposers=new WeakMap();
+  function createFields(host,catalog,record={},prefix='deity',options={}) {
+    fieldDisposers.get(host)?.();
     host.replaceChildren();
-    const inputs={};
+    const inputs={};let duplicate=null;
     for(const [field,label,limit,multiline] of [['name','主要名称',100,false],['aliases','别名与地方称谓',10000,true],['description','神明简介',20000,true],['identityNote','身份差异与争议说明',10000,true],['source','资料来源',2000,true]]){
       const caption=element('label','',label);caption.htmlFor=prefix+'-'+field;
       const input=element(multiline?'textarea':'input');input.id=caption.htmlFor;input.maxLength=limit;input.value=field==='aliases'?(record.aliases||[]).join('\n'):record[field]||'';
@@ -57,9 +59,11 @@ window.DeityAtlas = (() => {
         const group=element('fieldset','title-checks'),legend=element('legend','','神函（可多选）');group.append(legend);
         for(const title of catalog.state?.titles||[]){const label=element('label');const check=element('input');check.type='checkbox';check.value=title.id;check.checked=!!record.titleIds?.includes(title.id);label.append(check,document.createTextNode(title.name));group.append(label);}
         host.append(group);
+        if(window.ArchiveManagement)duplicate=window.ArchiveManagement.watchDuplicates(host,{catalog,entity:'deities',recordId:record.id,readNames:()=>[inputs.name.value,...inputs.aliases.value.split(/\n/)],onChoose:options.onExisting,chooseLabel:options.chooseLabel||(options.onExisting?'查看已有档案':undefined)});
       }
     }
-    return {focus:()=>inputs.name.focus(),read:()=>({name:inputs.name.value.trim(),aliases:inputs.aliases.value.split(/\n/).map(name=>name.trim()).filter(Boolean),titleIds:[...host.querySelectorAll('input[type=checkbox]:checked')].map(input=>input.value),description:inputs.description.value.trim(),identityNote:inputs.identityNote.value.trim(),source:inputs.source.value.trim()})};
+    const destroy=()=>{duplicate?.destroy();fieldDisposers.delete(host);};fieldDisposers.set(host,destroy);
+    return {focus:()=>inputs.name.focus(),destroy,read:()=>({name:inputs.name.value.trim(),aliases:inputs.aliases.value.split(/\n/).map(name=>name.trim()).filter(Boolean),titleIds:[...host.querySelectorAll('input[type=checkbox]:checked')].map(input=>input.value),description:inputs.description.value.trim(),identityNote:inputs.identityNote.value.trim(),source:inputs.source.value.trim()})};
   }
   function villagesFor(deityId,records) {
     const villages=new Map();

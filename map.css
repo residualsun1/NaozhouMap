@@ -449,3 +449,13 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .ritual-sphere-active .map-point.is-deity-linked::before{box-shadow:0 0 0 4px #52796a1f,0 0 0 5.5px #52796aa6}
 .ritual-sphere-active .map-point.is-deity-linked:is(.is-active,:hover,:focus-visible)::before{box-shadow:0 0 0 4px #52796a1f,0 0 0 6px #365f50d9}
 @media(prefers-reduced-motion:reduce){.ritual-sphere-layer{transition:none}}
+.data-group{border-top:1px solid #e5e5df;padding:17px 0;margin:0}
+.data-group>summary{font-size:12px;font-weight:550;color:#414b41}
+.data-group>summary>span{margin-left:9px;font-size:8px;letter-spacing:.1em;color:#9aa092;font-weight:400}
+.data-group[open]>summary{margin-bottom:15px}
+.data-group .section{margin-top:16px;padding-top:0;border-top:0}
+.archive-index-links{display:grid;gap:4px}.archive-index-links a,.archive-index-links button{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:42px;padding:9px 10px;border:0;border-radius:6px;background:#f0f2eb;color:#465742;font-size:12px;text-decoration:none;text-align:left}
+.archive-index-links small{font-size:10px;color:#85907c}
+.archive-overview-counts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:0 0 14px}
+.archive-overview-counts>div{padding:11px 5px;background:#f3f4ee;border-radius:6px;text-align:center}.archive-overview-counts dt{font-size:9px;color:#8b9482}.archive-overview-counts dd{margin:7px 0 0;font-size:19px;font-weight:500;color:#5a6c51}
+.archive-maintenance-links{display:flex;gap:18px;font-size:11px}.archive-maintenance-links a{color:#6d8061;text-decoration:none}

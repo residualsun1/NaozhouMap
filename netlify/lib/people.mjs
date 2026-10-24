@@ -1,5 +1,6 @@
 import { getStore } from '@netlify/blobs';
 import { resolveEditorAuth, json, sameOrigin } from './auth.mjs';
+import { createArchiveStore } from './archive-store.mjs';
 
 export const peopleSeed = () => ({version:1,revision:0,records:[]});
 const revisionValid = value => Number.isInteger(value) && value >= 0 && value < 2147483647;
@@ -23,7 +24,7 @@ export function normalizePeopleLinks(value=[]) {
   return value.map(item=>{
     if (!item || typeof item!=='object') throw Error('日志人物关联格式无效。');
     const personId=text(item.personId,120,true), roleInEntry=text(item.roleInEntry||'mentioned',100,true);
-    const key=JSON.stringify([personId,roleInEntry]);
+    const key=JSON.stringify([personId,roleInEntry,item.notes||'',item.narratedAt||'',item.eventDateText||'',item.narrativeSource||'']);
     if (seen.has(key)) throw Error('同一日志中的人物与角色关联重复。');
     seen.add(key);
     return {personId,roleInEntry,notes:text(item.notes,5000),narratedAt:text(item.narratedAt,100),eventDateText:text(item.eventDateText,300),narrativeSource:text(item.narrativeSource,3000),public:flag(item.public)};
@@ -54,6 +55,8 @@ export function normalizePerson(input,previous,now=new Date().toISOString()) {
   record.publishIdentity=flag(value('publishIdentity'));
   record.publishOralHistory=flag(value('publishOralHistory'));
   record.placeLinks=normalizePlaceLinks(value('placeLinks')??[]);
+  record.archivedAt=text(value('archivedAt'),100);
+  record.mergedFromIds=strings(previous?.mergedFromIds??[],2000,120);
   record.createdAt=previous?.createdAt||now;
   record.updatedAt=new Date(Math.max(Date.parse(now),previous?Date.parse(previous.updatedAt)+1:0)).toISOString();
   return record;
@@ -61,7 +64,7 @@ export function normalizePerson(input,previous,now=new Date().toISOString()) {
 // Server-side allowlists: a public response never includes realName or researchNotes.
 export function publicPerson(person) {
   if (!person || !['summary','public'].includes(person.visibility)) return null;
-  const record={id:person.id,displayName:person.displayName,roles:person.publishIdentity===true?(person.roles||[]):[],publicSummary:person.publicSummary||'',visibility:person.visibility,placeLinks:(person.placeLinks||[]).filter(link=>link.public===true)};
+  const record={id:person.id,displayName:person.displayName,roles:person.publishIdentity===true?(person.roles||[]):[],publicSummary:person.publicSummary||'',visibility:person.visibility,archivedAt:person.archivedAt||'',placeLinks:(person.placeLinks||[]).filter(link=>link.public===true)};
   if (person.visibility==='summary') return record;
   Object.assign(record,{biography:person.biography||'',ritualQualificationNote:person.ritualQualificationNote||'',source:person.source||'',deityIds:person.deityIds||[]});
   if (person.publishIdentity===true) Object.assign(record,{surname:person.surname||'',religiousName:person.religiousName||'',aliases:person.aliases||[]});
@@ -83,7 +86,7 @@ export function peopleHandler(storeFactory=()=>getStore({name:'naozhou-field-atl
     if (!['GET','POST'].includes(request.method)) return respond({error:'Method not allowed.'},405,{Allow:'GET, POST'});
     if (request.method==='POST'&&!sameOrigin(request)) return respond({error:'请先登录编辑。'},401);
     try {
-      const store=storeFactory();
+      const store=createArchiveStore(storeFactory());
       const editable=(await resolveEditorAuth(store)).authorized(request);
       if(request.method==='POST'&&!editable)return respond({error:'请先登录编辑。'},401);
       async function read() {
@@ -94,9 +97,11 @@ export function peopleHandler(storeFactory=()=>getStore({name:'naozhou-field-atl
       function result(state) {
         const query=new URL(request.url).searchParams;
         const records=editable?state.records:state.records.map(publicPerson).filter(Boolean);
-        return {version:1,revision:editable?state.revision:null,editable,records:records.filter(record=>(!query.has('id')||record.id===query.get('id'))&&(!query.has('placeId')||record.placeLinks?.some(link=>link.placeId===query.get('placeId')&&(!query.has('placeKind')||link.placeKind===query.get('placeKind')))))};
+        const visibleIds=new Set(records.map(record=>record.id));
+        return {version:1,revision:editable?state.revision:null,editable,redirects:Object.fromEntries(Object.entries(redirects).filter(([,id])=>id&&(editable||visibleIds.has(id)))),records:records.filter(record=>(!query.has('id')||record.id===requestedId)&&(!query.has('placeId')||record.placeLinks?.some(link=>link.placeId===query.get('placeId')&&(!query.has('placeKind')||link.placeKind===query.get('placeKind')))))};
       }
       const current=await read();
+      const redirects=await store.redirects('people'),requestedId=await store.resolveId('people',new URL(request.url).searchParams.get('id'));
       if (request.method==='GET') return respond(result(current.state));
       if (!(request.headers.get('content-type')||'').startsWith('application/json')) return respond({error:'Use application/json.'},415);
       if (Number(request.headers.get('content-length'))>512*1024) return respond({error:'人物档案过大。'},413);
@@ -116,8 +121,9 @@ export function peopleHandler(storeFactory=()=>getStore({name:'naozhou-field-atl
       const next={version:1,revision:current.state.revision+1,records};
       const saved=await store.setJSON('people',next,current.etag?{onlyIfMatch:current.etag}:{onlyIfNew:true});
       if (!saved.modified) return respond({...result((await read()).state),error:'其他页面已保存，填写内容仍保留，请重试。'},409);
-      return respond(result(next));
+      return respond(result((await read()).state));
     } catch(error) {
+      if(error.code==='ARCHIVE_CONFLICT')return respond({error:'档案或关联已合并、删除，请刷新后重新保存。填写内容仍保留。'},409);
       console.error('People storage failed:',error.name);
       return respond({error:'人物档案暂时无法读写。填写内容仍保留，请稍后重试。'},503);
     }

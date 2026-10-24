@@ -50,7 +50,7 @@ window.createDeityExplorer = options => {
     const list=$('explorer-list'),scroll=list.scrollLeft,focused=document.activeElement?.closest('.explorer-deity-row')?.dataset.deityId;
     list.replaceChildren();
     const category=$('explorer-category').value;
-    const matches=catalog.search($('explorer-search').value).filter(record=>category==='all'||(category==='unclassified'?!record.titleIds.length:record.titleIds.includes(category))).sort((a,b)=>a.name.localeCompare(b.name,'zh-CN')||a.id.localeCompare(b.id));
+    const matches=catalog.search($('explorer-search').value).filter(record=>!record.archivedAt&&(category==='all'||(category==='unclassified'?!record.titleIds.length:record.titleIds.includes(category)))).sort((a,b)=>a.name.localeCompare(b.name,'zh-CN')||a.id.localeCompare(b.id));
     if(!matches.length)empty('没有找到匹配的神明');
     for(const record of matches){
       const row=el('button','explorer-deity-row'+(record.id===selectedId?' is-selected':''));row.type='button';row.dataset.deityId=record.id;row.setAttribute('aria-pressed',String(record.id===selectedId));
@@ -71,6 +71,7 @@ window.createDeityExplorer = options => {
     requestAnimationFrame(syncScrollButtons);
   }
   function render(){
+    const canonical=catalog.get(selectedId);if(canonical&&canonical.id!==selectedId){selectedId=canonical.id;syncURL();}
     renderCategories();setCollapsed(collapsed);
     $('explorer-empty').hidden=true;$('explorer-retry').hidden=true;$('explorer-status').textContent='';
     const browsing=desktop.matches||!selectedId;

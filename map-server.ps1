@@ -217,11 +217,71 @@ function Handle-PointsRequest($Context) {
     Send-Json $Context 200 $next
 }
 
-. (Join-Path $PSScriptRoot 'deity-storage.ps1')
-. (Join-Path $PSScriptRoot 'faith-storage.ps1')
 . (Join-Path $PSScriptRoot 'archive-storage.ps1')
-. (Join-Path $PSScriptRoot 'journal-storage.ps1')
-. (Join-Path $PSScriptRoot 'people-storage.ps1')
+
+# Archive operations share the cloud transaction handlers, backed only by local files.
+# The bridge receives raw JSON text so PowerShell cannot coerce dates or nested record fields.
+function Handle-ArchiveBridgeRequest($Context) {
+    $request = $Context.Request
+    $origin = $request.Headers['Origin']
+    if ($origin -and $origin -ne $serverUrl.TrimEnd('/')) {
+        Send-Json $Context 403 @{ error = 'Only the loopback map can access local archives.' }
+        return
+    }
+    $bodyText = $null
+    if ($request.HttpMethod -notin @('GET','HEAD')) {
+        if ($request.ContentLength64 -gt $maxPointBytes) { Send-Json $Context 413 @{ error = 'Local archive request exceeds 10 MB.' }; return }
+        $stream = New-Object System.IO.MemoryStream
+        $buffer = New-Object byte[] 8192
+        try {
+            while (($length = $request.InputStream.Read($buffer,0,$buffer.Length)) -gt 0) {
+                if ($stream.Length + $length -gt $maxPointBytes) { throw 'Local archive request exceeds 10 MB.' }
+                $stream.Write($buffer,0,$length)
+            }
+            $bodyText = $utf8.GetString($stream.ToArray())
+        } finally { $stream.Dispose() }
+    }
+    $bridgeRequest = @{ method = $request.HttpMethod; url = $request.Url.AbsoluteUri; headers = @{}; body = $bodyText }
+    if ($request.ContentType) { $bridgeRequest.headers['Content-Type'] = $request.ContentType }
+    if ($origin) { $bridgeRequest.headers['Origin'] = $origin }
+    $node = Get-Command node -ErrorAction SilentlyContinue
+    if (-not $node) { Send-Json $Context 503 @{ error = 'Node.js 22 or newer is required for local archive operations.' }; return }
+    $process = New-Object System.Diagnostics.Process
+    $process.StartInfo.FileName = $node.Source
+    $bridgePath = Join-Path $PSScriptRoot 'local-archive-bridge.mjs'
+    $dataPath = Join-Path $PSScriptRoot 'data'
+    $process.StartInfo.Arguments = '"' + $bridgePath + '" --data-dir "' + $dataPath + '"'
+    $process.StartInfo.WorkingDirectory = $PSScriptRoot
+    $process.StartInfo.UseShellExecute = $false
+    $process.StartInfo.CreateNoWindow = $true
+    $process.StartInfo.RedirectStandardInput = $true
+    $process.StartInfo.RedirectStandardOutput = $true
+    $process.StartInfo.RedirectStandardError = $true
+    $process.StartInfo.StandardInputEncoding = $utf8
+    $process.StartInfo.StandardOutputEncoding = $utf8
+    $process.StartInfo.StandardErrorEncoding = $utf8
+    try {
+        $null = $process.Start()
+        $output = $process.StandardOutput.ReadToEndAsync()
+        $errors = $process.StandardError.ReadToEndAsync()
+        $process.StandardInput.Write((ConvertTo-Json -InputObject $bridgeRequest -Depth 5 -Compress))
+        $process.StandardInput.Close()
+        if (-not $process.WaitForExit(30000)) { $process.Kill(); throw 'Local archive adapter timed out.' }
+        $result = Parse-Json ($output.GetAwaiter().GetResult())
+        $null = $errors.GetAwaiter().GetResult()
+        if ($process.ExitCode -ne 0 -or -not (Test-JsonNumber $result.status) -or $result.status -lt 100 -or $result.status -gt 599 -or [Math]::Floor($result.status) -ne $result.status -or $result.body -isnot [string]) { throw 'Local archive adapter returned an invalid response.' }
+        $Context.Response.StatusCode = [int]$result.status
+        $Context.Response.ContentType = 'application/json; charset=utf-8'
+        foreach ($header in $result.headers.PSObject.Properties) {
+            if ($header.Name -in @('allow','vary','cache-control')) { $Context.Response.Headers[$header.Name] = [string]$header.Value }
+        }
+        $bytes = $utf8.GetBytes($result.body)
+        $Context.Response.ContentLength64 = $bytes.Length
+        $Context.Response.OutputStream.Write($bytes,0,$bytes.Length)
+    } catch {
+        Send-Json $Context 503 @{ error = 'Local archives could not be read or saved. Existing files are retained; keep the form open and retry.' }
+    } finally { $process.Dispose() }
+}
 
 $staticFiles = @{
     '/map.css' = @{ Path = 'map.css'; Type = 'text/css; charset=utf-8' }
@@ -235,6 +295,9 @@ $staticFiles = @{
     '/field-journal.css' = @{ Path = 'field-journal.css'; Type = 'text/css; charset=utf-8' }
     '/place-reader.js' = @{ Path = 'place-reader.js'; Type = 'text/javascript; charset=utf-8' }
     '/place-reader.css' = @{ Path = 'place-reader.css'; Type = 'text/css; charset=utf-8' }
+    '/archive-management.js' = @{ Path = 'archive-management.js'; Type = 'text/javascript; charset=utf-8' }
+    '/archive-management.css' = @{ Path = 'archive-management.css'; Type = 'text/css; charset=utf-8' }
+    '/archive-overview.js' = @{ Path = 'archive-overview.js'; Type = 'text/javascript; charset=utf-8' }
     '/deities' = @{ Path = 'deities.html'; Type = 'text/html; charset=utf-8' }
     '/deities/' = @{ Path = 'deities.html'; Type = 'text/html; charset=utf-8' }
     '/deities.html' = @{ Path = 'deities.html'; Type = 'text/html; charset=utf-8' }
@@ -245,6 +308,8 @@ $staticFiles = @{
     '/people-page.js' = @{ Path = 'people-page.js'; Type = 'text/javascript; charset=utf-8' }
     '/people-map.js' = @{ Path = 'people-map.js'; Type = 'text/javascript; charset=utf-8' }
     '/people.css' = @{ Path = 'people.css'; Type = 'text/css; charset=utf-8' }
+    '/people-explorer.js' = @{ Path = 'people-explorer.js'; Type = 'text/javascript; charset=utf-8' }
+    '/people-explorer.css' = @{ Path = 'people-explorer.css'; Type = 'text/css; charset=utf-8' }
     '/deity-catalog.js' = @{ Path = 'deity-catalog.js'; Type = 'text/javascript; charset=utf-8' }
     '/deity-atlas.js' = @{ Path = 'deity-atlas.js'; Type = 'text/javascript; charset=utf-8' }
     '/deity-atlas.css' = @{ Path = 'deity-atlas.css'; Type = 'text/css; charset=utf-8' }
@@ -286,16 +351,10 @@ try {
             $context.Response.Headers.Add('Referrer-Policy','strict-origin-when-cross-origin')
             if ($requestPath -eq '/api/points') {
                 Handle-PointsRequest $context
-            } elseif ($requestPath -eq '/api/faith') {
-                Handle-FaithRequest $context
+            } elseif ($requestPath -in @('/api/faith','/api/field-entries','/api/deities','/api/people','/api/archive-management')) {
+                Handle-ArchiveBridgeRequest $context
             } elseif ($requestPath -eq '/api/archives') {
                 Handle-ArchivesRequest $context
-            } elseif ($requestPath -eq '/api/field-entries') {
-                Handle-JournalRequest $context
-            } elseif ($requestPath -eq '/api/deities') {
-                Handle-DeitiesRequest $context
-            } elseif ($requestPath -eq '/api/people') {
-                Handle-PeopleRequest $context
             } elseif (($requestPath -eq '/' -or $requestPath -eq '/index.html' -or $staticFiles.ContainsKey($requestPath)) -and ($context.Request.HttpMethod -eq 'GET' -or $context.Request.HttpMethod -eq 'HEAD')) {
                 if ($requestPath -eq '/' -or $requestPath -eq '/index.html') {
                     $filePath = $mapFile
