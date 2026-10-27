@@ -77,6 +77,10 @@ settlement_additions_path = ROOT / 'assets/settlement-additions.json'
 supplemental_areas = []
 if settlement_additions_path.exists():
     supplemental_areas = json.loads(settlement_additions_path.read_text(encoding='utf-8'))
+    # An interpreted replacement explicitly retires only its named base areas.
+    # Keep the raw OSM source intact so this decision survives later rebuilds.
+    replacement_ids = {str(area_id) for area in supplemental_areas for area_id in area.get('replacesAreaIds', [])}
+    residential = [area for area in residential if str(area['id']) not in replacement_ids]
     known_area_ids = {str(area['id']) for area in residential}
     for area in supplemental_areas:
         coords = area.get('coordinates', [])
