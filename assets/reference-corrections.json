@@ -1097,6 +1097,27 @@
         },
         "previousSourceLocation": null,
         "previousCheckedAt": null
+      },
+      {
+        "replacedAt": "2026-10-28",
+        "previousLocation": {
+          "coordinateSystem": "WGS84",
+          "lng": 110.614619,
+          "lat": 20.936456,
+          "source": "高德地图（GCJ-02 转 WGS84，近似）",
+          "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXYS"
+        },
+        "previousSourceLocation": {
+          "provider": "高德地图",
+          "placeId": "B02F70NXYS",
+          "name": "烟楼",
+          "type": "村庄",
+          "coordinateSystem": "GCJ-02",
+          "lng": 110.618855,
+          "lat": 20.933738
+        },
+        "previousCheckedAt": "2026-10-11",
+        "reason": "按用户要求，对照高德地名与卫星影像，将烟楼标记移入北侧沿海聚落；原点位于其南侧绿地。"
       }
     ],
     "originalCoordinates": {
@@ -1108,28 +1129,28 @@
     },
     "id": "6834718",
     "name": "烟楼",
-    "lng": 110.614619,
-    "lat": 20.936456,
+    "lng": 110.614806,
+    "lat": 20.940331,
     "nameSource": "GeoNames 中文别名",
-    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
-    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXYS",
-    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXYS&name=%E7%83%9F%E6%A5%BC&lng=110.618855&lat=20.933738&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
-    "checkedAt": "2026-10-11",
+    "coordinateSource": "高德卫星影像确认的烟楼聚落内代表点（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://uri.amap.com/marker?position=110.619042%2C20.937613&name=%E7%83%9F%E6%A5%BC%E6%9D%91&coordinate=gaode&callnative=0",
+    "embedUrl": "https://uri.amap.com/marker?position=110.619042%2C20.937613&name=%E7%83%9F%E6%A5%BC%E6%9D%91&coordinate=gaode&callnative=0",
+    "checkedAt": "2026-10-28",
     "previousLocation": {
       "coordinateSystem": "WGS84",
-      "lng": 110.6147,
-      "lat": 20.93959,
-      "source": "GeoNames",
-      "sourceUrl": "https://www.geonames.org/6834718/"
+      "lng": 110.614619,
+      "lat": 20.936456,
+      "source": "高德地图（GCJ-02 转 WGS84，近似）",
+      "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXYS"
     },
     "sourceLocation": {
-      "provider": "高德地图",
-      "placeId": "B02F70NXYS",
+      "provider": "高德地图地名与卫星影像",
       "name": "烟楼",
-      "type": "村庄",
+      "type": "聚落内代表点",
       "coordinateSystem": "GCJ-02",
-      "lng": 110.618855,
-      "lat": 20.933738
+      "lng": 110.61904191970825,
+      "lat": 20.937612970969575,
+      "note": "人工选择北侧沿海密集建筑群内的位置，已核验处于项目既有聚落面内；不是重新取得的 POI 详情坐标。"
     },
     "coordinateTransform": {
       "method": "coordtransform WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
@@ -1138,7 +1159,21 @@
       "outputDecimals": 6,
       "note": "近似转换；小数位数不表示测绘精度。"
     },
-    "correctionNote": "依据高德地图同名村庄或地名详情及可见分享嵌入参数复核。保留现有村名和旧坐标历史；本点不是村庄边界或测绘控制点。"
+    "correctionNote": "依据高德地名与卫星影像确认北侧沿海建筑群对应烟楼，将原聚落南侧绿地点位移入已有建成区。保留原 ID、显示名称、谭北村委会归属及所有档案引用；不修改聚落边界。",
+    "aliases": [
+      "烟楼村"
+    ],
+    "locationReview": {
+      "status": "imagery_identified",
+      "checkedAt": "2026-10-28",
+      "evidencePath": "assets/place-references/yanlou-20261028.json",
+      "geometryId": 504587428,
+      "pointInsideGeometry": true
+    },
+    "manualPriority": true,
+    "manualPriorityScope": [
+      "coordinates"
+    ]
   },
   {
     "correctionHistory": [

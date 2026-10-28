@@ -1,0 +1,103 @@
+{
+  "id": "yanlou-location-20261028",
+  "placeId": "6834718",
+  "date": "2026-10-28",
+  "request": "对照高德地图，将烟楼点位标记在其聚落阴影处。",
+  "reference": {
+    "date": "2026-10-28",
+    "placeId": "6834718",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXYS",
+    "coordinateSystem": "GCJ-02 Web Mercator pixel grid",
+    "sourceLocation": [
+      110.618855,
+      20.933738
+    ],
+    "zoom": 16,
+    "worldPixels": 16777216,
+    "pixelOrigin": [
+      13543424,
+      7390208
+    ],
+    "size": [
+      768,
+      768
+    ],
+    "existingPlacePixel": [
+      396.28891022130847,
+      358.3513744454831
+    ],
+    "purpose": "Local comparison only; reference imagery is not published",
+    "satelliteReferences": [
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52904&y=28868&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52905&y=28868&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52906&y=28868&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52904&y=28869&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52905&y=28869&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52906&y=28869&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52904&y=28870&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52905&y=28870&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52906&y=28870&z=16"
+    ],
+    "vectorReferences": [
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52904&y=28868&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52905&y=28868&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52906&y=28868&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52904&y=28869&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52905&y=28869&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52906&y=28869&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52904&y=28870&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52905&y=28870&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52906&y=28870&z=16"
+    ]
+  },
+  "observation": "高德地名为烟楼；卫星影像显示北侧沿海密集建筑群，与项目既有住宅用地面504587428相对应。原详情点及栅格文字位于建筑群南侧道路附近，人工改选建筑群内代表点。",
+  "selectedPixel": [
+    405,
+    165
+  ],
+  "selectedImage": "satellite.jpg",
+  "before": {
+    "id": "6834718",
+    "name": "烟楼",
+    "lng": 110.614619,
+    "lat": 20.936456,
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NXYS",
+      "name": "烟楼",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.618855,
+      "lat": 20.933738
+    }
+  },
+  "after": {
+    "id": "6834718",
+    "name": "烟楼",
+    "coordinateSystem": "WGS84",
+    "lng": 110.614806,
+    "lat": 20.940331,
+    "sourceLocation": {
+      "provider": "高德地图地名与卫星影像",
+      "name": "烟楼",
+      "type": "聚落内代表点",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.61904191970825,
+      "lat": 20.937612970969575,
+      "note": "人工选择北侧沿海密集建筑群内的位置，已核验处于项目既有聚落面内；不是重新取得的 POI 详情坐标。"
+    }
+  },
+  "builtAreaId": 504587428,
+  "pointInsideBuiltArea": true,
+  "moveMeters": 431.3,
+  "coordinateMethod": "依据高德卫星参考影像的 GCJ-02 Web Mercator 网格反算所选建筑群内像素的经纬度，再使用项目现有五次迭代逆变换转为 WGS84。",
+  "meaning": "聚落内代表点，不是测量级村中心、法定村界或新取得的精确 POI 坐标。",
+  "preserved": [
+    "stable place ID",
+    "display name",
+    "Tanbei committee membership",
+    "all built-area geometries",
+    "all archive and faith/journal references"
+  ],
+  "imagesPublished": false
+}
