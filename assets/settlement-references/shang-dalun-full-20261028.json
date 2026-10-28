@@ -1,0 +1,426 @@
+{
+  "id": "shang-dalun-full-poi-20261028",
+  "placeId": "locality-dalun-shang",
+  "checkedAt": "2026-10-28",
+  "userDecision": "用户明确所指为高德完整名称“上大伦村”，位于马白新村北侧；仍为大伦村片内聚落。",
+  "sourceName": "上大伦村",
+  "providerPlaceId": "B0I04HQYW0",
+  "sourceUrl": "https://www.amap.com/ssr/place/B0I04HQYW0",
+  "reference": {
+    "date": "2026-10-28",
+    "sourceName": "上大伦村",
+    "placeId": "B0I04HQYW0",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HQYW0",
+    "shareUrl": "https://surl.amap.com/2xxtPgHES4LL",
+    "observedShareRedirect": "http://wb.amap.com/?p=B0I04HQYW0%2C20.920648%2C110.617629%2C%E4%B8%8A%E5%A4%A7%E4%BC%A6%E6%9D%91%2C%E9%BA%BB%E7%AB%A0%E5%8C%BA&src=pc_share",
+    "sourceLocation": {
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.617629,
+      "lat": 20.920648
+    },
+    "coordinateSystem": "GCJ-02 Web Mercator pixel grid",
+    "zoom": 18,
+    "worldPixels": 67108864,
+    "pixelOrigin": [
+      54174720,
+      29564416
+    ],
+    "size": [
+      768,
+      768
+    ],
+    "placePixel": [
+      332.61267626285553,
+      461.8908052407205
+    ],
+    "purpose": "Local interpretation only; satellite images are not published",
+    "satelliteReferences": [
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211620&y=115486&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211621&y=115486&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211622&y=115486&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211620&y=115487&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211621&y=115487&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211622&y=115487&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211620&y=115488&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211621&y=115488&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211622&y=115488&z=18"
+    ]
+  },
+  "coordinateSystem": "WGS84",
+  "geometryStatus": "interpreted",
+  "coordinateMethod": "从高德公开地点分享链接读取 GCJ-02 经纬度，按项目既有五次迭代逆变换转为 WGS84；建筑轮廓按同坐标网格影像人工判读转换。",
+  "previousLocation": {
+    "coordinateSystem": "WGS84",
+    "lng": 110.611978,
+    "lat": 20.920912,
+    "source": "高德地名对应建筑群内代表点（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://uri.amap.com/marker?position=110.616209507%2C20.918192154&name=%E4%B8%8A%E5%A4%A7%E4%BC%A6&coordinate=gaode&callnative=0"
+  },
+  "newLocation": {
+    "lng": 110.613396,
+    "lat": 20.923367
+  },
+  "movementMeters": 310.2,
+  "mabaiReference": {
+    "id": "osm-2065889086",
+    "name": "马白新村",
+    "lng": 110.61274,
+    "lat": 20.92117,
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0FFFRU84A",
+      "name": "马白新村",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.616972,
+      "lat": 20.91845
+    },
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0FFFRU84A"
+  },
+  "traces": [
+    {
+      "key": "north-detached",
+      "name": "上大伦村北侧房屋组",
+      "pixels": [
+        [
+          305,
+          310
+        ],
+        [
+          317,
+          304
+        ],
+        [
+          340,
+          303
+        ],
+        [
+          346,
+          315
+        ],
+        [
+          346,
+          341
+        ],
+        [
+          337,
+          346
+        ],
+        [
+          311,
+          343
+        ]
+      ]
+    },
+    {
+      "key": "northwest-roadside",
+      "name": "上大伦村西北侧沿路建筑群",
+      "pixels": [
+        [
+          202,
+          349
+        ],
+        [
+          224,
+          347
+        ],
+        [
+          241,
+          357
+        ],
+        [
+          243,
+          370
+        ],
+        [
+          264,
+          365
+        ],
+        [
+          275,
+          377
+        ],
+        [
+          272,
+          403
+        ],
+        [
+          254,
+          406
+        ],
+        [
+          249,
+          393
+        ],
+        [
+          214,
+          389
+        ],
+        [
+          205,
+          380
+        ]
+      ]
+    },
+    {
+      "key": "northeast-roadside",
+      "name": "上大伦村东北侧沿路建筑群",
+      "pixels": [
+        [
+          291,
+          346
+        ],
+        [
+          314,
+          348
+        ],
+        [
+          319,
+          357
+        ],
+        [
+          335,
+          354
+        ],
+        [
+          348,
+          351
+        ],
+        [
+          365,
+          354
+        ],
+        [
+          372,
+          365
+        ],
+        [
+          380,
+          350
+        ],
+        [
+          403,
+          349
+        ],
+        [
+          413,
+          359
+        ],
+        [
+          420,
+          373
+        ],
+        [
+          422,
+          395
+        ],
+        [
+          390,
+          398
+        ],
+        [
+          376,
+          390
+        ],
+        [
+          360,
+          397
+        ],
+        [
+          341,
+          403
+        ],
+        [
+          328,
+          394
+        ],
+        [
+          308,
+          400
+        ],
+        [
+          289,
+          389
+        ],
+        [
+          283,
+          372
+        ]
+      ]
+    },
+    {
+      "key": "middle",
+      "name": "上大伦村中部建筑群",
+      "pixels": [
+        [
+          276,
+          439
+        ],
+        [
+          294,
+          436
+        ],
+        [
+          301,
+          424
+        ],
+        [
+          326,
+          421
+        ],
+        [
+          337,
+          430
+        ],
+        [
+          358,
+          432
+        ],
+        [
+          366,
+          448
+        ],
+        [
+          359,
+          469
+        ],
+        [
+          334,
+          470
+        ],
+        [
+          321,
+          465
+        ],
+        [
+          315,
+          479
+        ],
+        [
+          294,
+          475
+        ],
+        [
+          272,
+          469
+        ],
+        [
+          272,
+          451
+        ]
+      ]
+    },
+    {
+      "key": "south",
+      "name": "上大伦村南侧建筑群",
+      "pixels": [
+        [
+          301,
+          493
+        ],
+        [
+          330,
+          491
+        ],
+        [
+          341,
+          497
+        ],
+        [
+          352,
+          495
+        ],
+        [
+          357,
+          511
+        ],
+        [
+          351,
+          520
+        ],
+        [
+          370,
+          527
+        ],
+        [
+          382,
+          545
+        ],
+        [
+          374,
+          570
+        ],
+        [
+          355,
+          575
+        ],
+        [
+          336,
+          565
+        ],
+        [
+          332,
+          543
+        ],
+        [
+          314,
+          539
+        ],
+        [
+          300,
+          532
+        ],
+        [
+          293,
+          517
+        ]
+      ]
+    }
+  ],
+  "reattributedSouthernAreaIds": [
+    "manual-dalun-builtup-20261028-2",
+    "manual-dalun-builtup-20261028-3",
+    "manual-dalun-builtup-20261028-4",
+    "manual-dalun-builtup-20261028-5",
+    "manual-dalun-builtup-20261028-7",
+    "manual-dalun-builtup-20261028-8",
+    "manual-dalun-builtup-20261028-10",
+    "manual-dalun-builtup-20261028-11",
+    "manual-dalun-builtup-20261028-13",
+    "manual-dalun-builtup-20261028-15",
+    "manual-dalun-builtup-20261028-16",
+    "manual-dalun-builtup-20261028-17"
+  ],
+  "southernAreaHandling": "此前南侧轮廓确为可见建筑，几何原样保留；改注为马白新村附近建成区，不再错关联为上大伦聚居点。",
+  "naturalVillageHandling": "保留 locality-dalun-shang 稳定 ID 及 parentVillageId，不新增自然村、不迁移或修改田野档案。",
+  "addedSquareMeters": 5565.7,
+  "result": [
+    {
+      "id": "manual-shang-dalun-full-builtup-20261028-1",
+      "name": "上大伦村东北侧沿路建筑群",
+      "vertices": 21
+    },
+    {
+      "id": "manual-shang-dalun-full-builtup-20261028-2",
+      "name": "上大伦村南侧建筑群",
+      "vertices": 16
+    },
+    {
+      "id": "manual-shang-dalun-full-builtup-20261028-3",
+      "name": "上大伦村中部建筑群",
+      "vertices": 15
+    },
+    {
+      "id": "manual-shang-dalun-full-builtup-20261028-4",
+      "name": "上大伦村西北侧沿路建筑群",
+      "vertices": 12
+    },
+    {
+      "id": "manual-shang-dalun-full-builtup-20261028-5",
+      "name": "上大伦村北侧房屋组",
+      "vertices": 8
+    }
+  ],
+  "limitations": "影像判读与近似坐标转换，不是测绘级结果；不表示法定边界或逐栋归属。",
+  "imagesPublished": false
+}

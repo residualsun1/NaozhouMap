@@ -2412,21 +2412,22 @@
   {
     "id": "locality-dalun-shang",
     "name": "上大伦",
-    "lat": 20.920912,
-    "lng": 110.611978,
-    "nameSource": "高德地图地名；用户确认聚落层级",
-    "coordinateSource": "高德地名对应建筑群内代表点（GCJ-02 转 WGS84，近似）",
-    "sourceUrl": "https://uri.amap.com/marker?position=110.616209507%2C20.918192154&name=%E4%B8%8A%E5%A4%A7%E4%BC%A6&coordinate=gaode&callnative=0",
-    "embedUrl": "https://uri.amap.com/marker?position=110.616209507%2C20.918192154&name=%E4%B8%8A%E5%A4%A7%E4%BC%A6&coordinate=gaode&callnative=0",
+    "lat": 20.923367,
+    "lng": 110.613396,
+    "nameSource": "用户指定高德“上大伦村”，项目简称“上大伦”",
+    "coordinateSource": "高德地图“上大伦村”地点分享坐标（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://www.amap.com/ssr/place/B0I04HQYW0",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HQYW0&name=%E4%B8%8A%E5%A4%A7%E4%BC%A6%E6%9D%91&lng=110.617629&lat=20.920648&zoom=18&source=poi_detail&platform=pc",
     "checkedAt": "2026-10-28",
     "sourceLocation": {
-      "provider": "高德地图地名与卫星影像",
-      "name": "上大伦",
-      "type": "片内聚落代表点",
+      "provider": "高德地图",
+      "placeId": "B0I04HQYW0",
+      "name": "上大伦村",
+      "type": "村庄",
       "coordinateSystem": "GCJ-02",
-      "lng": 110.61620950698853,
-      "lat": 20.918192153788194,
-      "note": "根据同一网格内可见地名和建筑群定位，非另一个 POI 详情页坐标；不虚构外部 POI ID。"
+      "lng": 110.617629,
+      "lat": 20.920648,
+      "note": "来自地点详情的公开分享链接重定向定位参数；地点层级采用用户确认的大伦村片内聚落。"
     },
     "coordinateTransform": {
       "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
@@ -2437,15 +2438,59 @@
     "placeKind": "locality",
     "parentVillageId": "amap-B02F70NXY1",
     "locationReview": {
-      "status": "imagery_identified",
+      "status": "poi_and_imagery_verified",
       "checkedAt": "2026-10-28",
-      "evidencePath": "assets/settlement-references/dalun-20261028.json",
+      "evidencePath": "assets/settlement-references/shang-dalun-full-20261028.json",
       "geometryIds": [
-        504586831
+        "manual-shang-dalun-full-builtup-20261028-3"
       ],
-      "pointInsideGeometry": true
+      "pointInsideGeometry": true,
+      "northOfReferencePlaceId": "osm-2065889086"
     },
-    "correctionNote": "作为大伦村片内聚居点标示位置，不另立自然村、不合并或迁移既有田野档案。"
+    "correctionNote": "用户明确指高德完整名称“上大伦村”，依据其 B0I04HQYW0 分享定位校准到马白新村北侧建筑群。保留项目稳定 ID、简称及大伦村片内聚落层级，不新增自然村。",
+    "aliases": [
+      "上大伦村"
+    ],
+    "previousLocation": {
+      "coordinateSystem": "WGS84",
+      "lng": 110.611978,
+      "lat": 20.920912,
+      "source": "高德地名对应建筑群内代表点（GCJ-02 转 WGS84，近似）",
+      "sourceUrl": "https://uri.amap.com/marker?position=110.616209507%2C20.918192154&name=%E4%B8%8A%E5%A4%A7%E4%BC%A6&coordinate=gaode&callnative=0"
+    },
+    "originalCoordinates": {
+      "coordinateSystem": "WGS84",
+      "lng": 110.611978,
+      "lat": 20.920912,
+      "source": "高德地名对应建筑群内代表点（GCJ-02 转 WGS84，近似）",
+      "sourceUrl": "https://uri.amap.com/marker?position=110.616209507%2C20.918192154&name=%E4%B8%8A%E5%A4%A7%E4%BC%A6&coordinate=gaode&callnative=0"
+    },
+    "correctionHistory": [
+      {
+        "replacedAt": "2026-10-28",
+        "previousLocation": {
+          "coordinateSystem": "WGS84",
+          "lng": 110.611978,
+          "lat": 20.920912,
+          "source": "高德地名对应建筑群内代表点（GCJ-02 转 WGS84，近似）",
+          "sourceUrl": "https://uri.amap.com/marker?position=110.616209507%2C20.918192154&name=%E4%B8%8A%E5%A4%A7%E4%BC%A6&coordinate=gaode&callnative=0"
+        },
+        "previousSourceLocation": {
+          "provider": "高德地图地名与卫星影像",
+          "name": "上大伦",
+          "type": "片内聚落代表点",
+          "coordinateSystem": "GCJ-02",
+          "lng": 110.61620950698853,
+          "lat": 20.918192153788194,
+          "note": "根据同一网格内可见地名和建筑群定位，非另一个 POI 详情页坐标；不虚构外部 POI ID。"
+        },
+        "reason": "用户明确指定高德完整名称“上大伦村”；改用 B0I04HQYW0 分享链接定位，取代底图“上大伦”文字中心。"
+      }
+    ],
+    "manualPriority": true,
+    "manualPriorityScope": [
+      "coordinates"
+    ]
   },
   {
     "id": "locality-dalun-xia",

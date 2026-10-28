@@ -1205,5 +1205,10 @@
     }
   ],
   "limitations": "人工影像判读与近似坐标转换；不是法定边界或测绘级结果。影像拍摄日期未显示；原有阴影保留。",
-  "imagesPublished": false
+  "imagesPublished": false,
+  "laterReview": {
+    "checkedAt": "2026-10-28",
+    "evidencePath": "assets/settlement-references/shang-dalun-full-20261028.json",
+    "note": "上大伦定位已按用户明确的完整名称“上大伦村”B0I04HQYW0更正。原 shang 图组与点候选为被替代的历史判读，南侧真实建筑轮廓保留并修正为马白新村附近；下大伦及大伦村父级记录不变。"
+  }
 }
