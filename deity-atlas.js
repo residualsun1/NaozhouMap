@@ -41,7 +41,7 @@
     let search=null;
     if(villages.length){const label=el('label','deity-relations-search','检索已关联村庄');search=el('input');search.type='search';search.placeholder='村庄名称或行政归属';search.maxLength=100;label.append(search);relations.append(label);}
     if(!faith&&!faithError)relations.append(el('p','note','正在读取关联记录…'));
-    else if(!villages.length)relations.append(el('p','archive-prose is-empty','暂无关联的村庄记录。'));
+    else if(faith&&!villages.length)relations.append(el('p','archive-prose is-empty','暂无关联的村庄记录。'));
     if(faithError){const retry=el('button','linkbutton','重新读取关联村庄');retry.type='button';retry.addEventListener('click',loadFaith);relations.append(el('p','note',faithError),retry);}
     for(const village of villages){const article=el('article','village-relation'),heading=el('div','village-relation-heading'),link=el('a','',village.name);link.href=A.mapURL(village.kind,village.id);heading.append(link,el('span','','已关联 · '+village.records.length+' 条记录'));article.append(heading);
       const place=village.kind==='reference'?villageLinks.place(village.id):null,area=place&&villageLinks.area(place.administrativeAreaId);
