@@ -1,0 +1,662 @@
+{
+  "id": "settlement-nancun-20261028",
+  "placeId": "osm-2065803493",
+  "checkedAt": "2026-10-28",
+  "source": "高德地图南村及周边卫星影像",
+  "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HSTAA",
+  "geometryStatus": "interpreted",
+  "coordinateSystem": "WGS84",
+  "pointReference": {
+    "id": "osm-2065803493",
+    "name": "南村",
+    "lng": 110.588805,
+    "lat": 20.877,
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B0I04HSTAA",
+      "name": "南村",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.593018,
+      "lat": 20.874278
+    }
+  },
+  "reference": {
+    "checkedAt": "2026-10-28",
+    "placeId": "osm-2065803493",
+    "amapPlaceId": "B0I04HSTAA",
+    "placeSourceUrl": "https://ditu.amap.com/ssr/place/B0I04HSTAA",
+    "coordinateSystem": "GCJ-02 / Web Mercator pixel grid",
+    "sourceLocation": [
+      110.593018,
+      20.874278
+    ],
+    "zoom": 18,
+    "pixelOrigin": [
+      54170112,
+      29573632
+    ],
+    "worldPixels": 67108864,
+    "size": [
+      768,
+      768
+    ],
+    "placePixel": [
+      352.78975431621075,
+      498.52115159481764
+    ],
+    "purpose": "Private bounded reference for built-up area interpretation; not published",
+    "satelliteReferences": [
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211602&y=115522&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211603&y=115522&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211604&y=115522&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211602&y=115523&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211603&y=115523&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211604&y=115523&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211602&y=115524&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211603&y=115524&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211604&y=115524&z=18"
+    ],
+    "vectorReferences": [
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=211602&y=115522&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=211603&y=115522&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=211604&y=115522&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=211602&y=115523&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=211603&y=115523&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=211604&y=115523&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=211602&y=115524&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=211603&y=115524&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=211604&y=115524&z=18"
+    ]
+  },
+  "traces": [
+    {
+      "key": "main",
+      "name": "南村主体建筑群",
+      "pixels": [
+        [
+          308,
+          456
+        ],
+        [
+          343,
+          440
+        ],
+        [
+          354,
+          444
+        ],
+        [
+          360,
+          456
+        ],
+        [
+          363,
+          463
+        ],
+        [
+          374,
+          471
+        ],
+        [
+          374,
+          479
+        ],
+        [
+          369,
+          481
+        ],
+        [
+          381,
+          491
+        ],
+        [
+          378,
+          511
+        ],
+        [
+          381,
+          521
+        ],
+        [
+          388,
+          527
+        ],
+        [
+          385,
+          540
+        ],
+        [
+          396,
+          554
+        ],
+        [
+          398,
+          589
+        ],
+        [
+          388,
+          607
+        ],
+        [
+          364,
+          613
+        ],
+        [
+          346,
+          611
+        ],
+        [
+          337,
+          594
+        ],
+        [
+          331,
+          576
+        ],
+        [
+          316,
+          562
+        ],
+        [
+          303,
+          559
+        ],
+        [
+          294,
+          549
+        ],
+        [
+          277,
+          551
+        ],
+        [
+          269,
+          532
+        ],
+        [
+          284,
+          522
+        ],
+        [
+          304,
+          519
+        ],
+        [
+          312,
+          507
+        ],
+        [
+          305,
+          492
+        ],
+        [
+          302,
+          480
+        ],
+        [
+          308,
+          456
+        ]
+      ]
+    },
+    {
+      "key": "southwest",
+      "name": "南村西南建筑组",
+      "pixels": [
+        [
+          238,
+          554
+        ],
+        [
+          252,
+          550
+        ],
+        [
+          262,
+          555
+        ],
+        [
+          270,
+          549
+        ],
+        [
+          285,
+          553
+        ],
+        [
+          291,
+          567
+        ],
+        [
+          299,
+          580
+        ],
+        [
+          302,
+          602
+        ],
+        [
+          287,
+          612
+        ],
+        [
+          259,
+          618
+        ],
+        [
+          246,
+          611
+        ],
+        [
+          240,
+          592
+        ],
+        [
+          236,
+          580
+        ],
+        [
+          230,
+          569
+        ],
+        [
+          238,
+          554
+        ]
+      ]
+    },
+    {
+      "key": "east",
+      "name": "南村东侧建筑组",
+      "pixels": [
+        [
+          468,
+          451
+        ],
+        [
+          483,
+          455
+        ],
+        [
+          487,
+          472
+        ],
+        [
+          482,
+          486
+        ],
+        [
+          481,
+          506
+        ],
+        [
+          490,
+          525
+        ],
+        [
+          495,
+          550
+        ],
+        [
+          486,
+          571
+        ],
+        [
+          468,
+          576
+        ],
+        [
+          453,
+          564
+        ],
+        [
+          440,
+          562
+        ],
+        [
+          432,
+          553
+        ],
+        [
+          414,
+          559
+        ],
+        [
+          398,
+          559
+        ],
+        [
+          390,
+          551
+        ],
+        [
+          390,
+          541
+        ],
+        [
+          405,
+          539
+        ],
+        [
+          429,
+          532
+        ],
+        [
+          440,
+          522
+        ],
+        [
+          454,
+          516
+        ],
+        [
+          456,
+          499
+        ],
+        [
+          463,
+          491
+        ],
+        [
+          462,
+          473
+        ],
+        [
+          466,
+          465
+        ],
+        [
+          468,
+          451
+        ]
+      ]
+    },
+    {
+      "key": "northeast",
+      "name": "南村东北沿路建筑组",
+      "pixels": [
+        [
+          511,
+          416
+        ],
+        [
+          530,
+          420
+        ],
+        [
+          540,
+          420
+        ],
+        [
+          557,
+          424
+        ],
+        [
+          562,
+          440
+        ],
+        [
+          552,
+          453
+        ],
+        [
+          545,
+          461
+        ],
+        [
+          545,
+          479
+        ],
+        [
+          536,
+          497
+        ],
+        [
+          514,
+          505
+        ],
+        [
+          506,
+          496
+        ],
+        [
+          505,
+          480
+        ],
+        [
+          509,
+          462
+        ],
+        [
+          501,
+          453
+        ],
+        [
+          497,
+          442
+        ],
+        [
+          501,
+          423
+        ],
+        [
+          511,
+          416
+        ]
+      ]
+    },
+    {
+      "key": "northwest",
+      "name": "南村西北建筑组",
+      "pixels": [
+        [
+          202,
+          405
+        ],
+        [
+          216,
+          405
+        ],
+        [
+          224,
+          421
+        ],
+        [
+          229,
+          428
+        ],
+        [
+          244,
+          433
+        ],
+        [
+          259,
+          426
+        ],
+        [
+          273,
+          423
+        ],
+        [
+          280,
+          444
+        ],
+        [
+          278,
+          459
+        ],
+        [
+          264,
+          464
+        ],
+        [
+          254,
+          477
+        ],
+        [
+          238,
+          479
+        ],
+        [
+          231,
+          465
+        ],
+        [
+          221,
+          460
+        ],
+        [
+          215,
+          438
+        ],
+        [
+          207,
+          439
+        ],
+        [
+          196,
+          419
+        ],
+        [
+          202,
+          405
+        ]
+      ]
+    },
+    {
+      "key": "west-inner",
+      "name": "南村西侧内侧独立建筑",
+      "pixels": [
+        [
+          193,
+          483
+        ],
+        [
+          210,
+          480
+        ],
+        [
+          222,
+          490
+        ],
+        [
+          232,
+          515
+        ],
+        [
+          219,
+          527
+        ],
+        [
+          203,
+          528
+        ],
+        [
+          195,
+          513
+        ],
+        [
+          193,
+          483
+        ]
+      ]
+    },
+    {
+      "key": "west-outer",
+      "name": "南村西侧外侧独立建筑",
+      "pixels": [
+        [
+          160,
+          526
+        ],
+        [
+          174,
+          523
+        ],
+        [
+          184,
+          535
+        ],
+        [
+          194,
+          548
+        ],
+        [
+          187,
+          563
+        ],
+        [
+          168,
+          565
+        ],
+        [
+          157,
+          552
+        ],
+        [
+          153,
+          538
+        ],
+        [
+          160,
+          526
+        ]
+      ]
+    }
+  ],
+  "coordinateMethod": "按高德 GCJ-02 Web Mercator 参考影像的已知瓦片网格反算经纬度，再复用项目五次迭代逆变换转为 WGS84；不以单个 POI 中心估计建筑范围。",
+  "inverseAlgorithm": "work/prepare-amap-calibration.py: gcj02_to_wgs84",
+  "interpretation": "保留可见建筑、毗连院落与窄巷；不将农田、成片树林及建筑间大块空地连成聚落面。北侧那林的已有住宅用地面保持原样。",
+  "limitations": "影像拍摄时间未显示，近似判读，待实地核对；小数位数不代表测绘精度，不表示村界或逐栋建筑归属。",
+  "result": [
+    {
+      "id": "manual-nancun-builtup-20261028-1",
+      "name": "南村主体及东侧建筑群",
+      "traceParts": [
+        "main",
+        "southwest",
+        "east"
+      ],
+      "vertices": 70,
+      "approximateSquareMeters": 6558.8
+    },
+    {
+      "id": "manual-nancun-builtup-20261028-2",
+      "name": "南村东北沿路建筑组",
+      "traceParts": [
+        "northeast"
+      ],
+      "vertices": 17,
+      "approximateSquareMeters": 1162.4
+    },
+    {
+      "id": "manual-nancun-builtup-20261028-3",
+      "name": "南村西北建筑组",
+      "traceParts": [
+        "northwest"
+      ],
+      "vertices": 18,
+      "approximateSquareMeters": 974.5
+    },
+    {
+      "id": "manual-nancun-builtup-20261028-4",
+      "name": "南村西侧内侧独立建筑",
+      "traceParts": [
+        "west-inner"
+      ],
+      "vertices": 8,
+      "approximateSquareMeters": 420.1
+    },
+    {
+      "id": "manual-nancun-builtup-20261028-5",
+      "name": "南村西侧外侧独立建筑",
+      "traceParts": [
+        "west-outer"
+      ],
+      "vertices": 9,
+      "approximateSquareMeters": 359.5
+    }
+  ],
+  "imagesPublished": false
+}
