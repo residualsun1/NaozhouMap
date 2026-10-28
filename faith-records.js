@@ -304,7 +304,7 @@ window.createFaithRecords = options => {
     }
     const cell = value => { let text = String(value ?? ''); if (/^[=+\-@\t\r]/.test(text)) text = "'" + text; return '"' + text.replaceAll('"','""') + '"'; };
     const rows = [['记录编号','村庄编号','村庄类型','村庄','神明','宫庙／供奉场所','祭期与活动','资料来源','走访日期','访谈笔记','创建时间','修改时间','关联编号','神明档案 ID','当地称谓','当地神函']];
-    for (const record of state.records) record.deities.forEach((name,index)=>{const link=record.deityLinks?.find(link=>link.nameIndex===index);rows.push([record.id,record.villageId,record.villageKind,record.villageName,name,record.temple,record.festival,record.source,record.visitedOn,record.note,record.createdAt,record.updatedAt,link?.id,link?.deityId,link?.localName,link?.localTitle]);});
+    for (const record of state.records) record.deities.forEach((name,index)=>{const link=record.deityLinks?.find(link=>link.nameIndex===index),villageName=window.PlaceNames?.name(record.villageKind,record.villageId,record.villageName)||record.villageName;rows.push([record.id,record.villageId,record.villageKind,villageName,name,record.temple,record.festival,record.source,record.visitedOn,record.note,record.createdAt,record.updatedAt,link?.id,link?.deityId,link?.localName,link?.localTitle]);});
     download('硇洲岛信仰记录-' + dateStamp() + '.csv','text/csv;charset=utf-8','\uFEFF' + rows.map(row=>row.map(cell).join(',')).join('\r\n'));
   }
   $('faith-export-csv').addEventListener('click',()=>exportData('csv'));

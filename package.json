@@ -5,7 +5,7 @@
   "description": "硇洲岛田野调查地图",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "node --test tests/cloud-storage.test.mjs tests/field-journal.test.mjs tests/people.test.mjs tests/auth-password.test.mjs tests/ritual-sphere.test.mjs tests/archive-management.test.mjs tests/local-archive-bridge.test.mjs tests/faith-associations.test.mjs"
+    "test": "node --test tests/cloud-storage.test.mjs tests/field-journal.test.mjs tests/people.test.mjs tests/auth-password.test.mjs tests/ritual-sphere.test.mjs tests/archive-management.test.mjs tests/local-archive-bridge.test.mjs tests/faith-associations.test.mjs tests/place-names.test.mjs"
   },
   "engines": { "node": ">=22.12.0" },
   "dependencies": { "@netlify/blobs": "11.1.5" }

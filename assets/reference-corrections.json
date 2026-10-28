@@ -48,7 +48,7 @@
       "sourceUrl": "https://www.geonames.org/6834723/"
     },
     "id": "6834723",
-    "name": "加律",
+    "name": "加律村",
     "lng": 110.596606,
     "lat": 20.875753,
     "nameSource": "GeoNames 中文别名",
@@ -104,7 +104,7 @@
       "sourceUrl": "https://www.geonames.org/1814665/"
     },
     "id": "1814665",
-    "name": "存亮",
+    "name": "存亮村",
     "lng": 110.603812,
     "lat": 20.872342,
     "nameSource": "中国海事局名称",
@@ -547,7 +547,7 @@
       "sourceUrl": "https://www.geonames.org/1807156/"
     },
     "id": "1807156",
-    "name": "黄屋",
+    "name": "黄屋村",
     "lng": 110.588242,
     "lat": 20.939179,
     "nameSource": "GeoNames 中文别名",
@@ -603,7 +603,7 @@
       "sourceUrl": "https://www.geonames.org/1810728/"
     },
     "id": "1810728",
-    "name": "港头",
+    "name": "港头村",
     "lng": 110.582237,
     "lat": 20.932842,
     "nameSource": "GeoNames 中文别名",
@@ -659,7 +659,7 @@
       "sourceUrl": "https://www.geonames.org/1940786/"
     },
     "id": "1940786",
-    "name": "北金",
+    "name": "北金村",
     "lng": 110.582834,
     "lat": 20.922904,
     "nameSource": "GeoNames 中文别名",
@@ -715,7 +715,7 @@
       "sourceUrl": "https://www.geonames.org/6834711/"
     },
     "id": "6834711",
-    "name": "六竹",
+    "name": "六竹村",
     "lng": 110.567322,
     "lat": 20.913621,
     "nameSource": "GeoNames 中文别名",
@@ -771,7 +771,7 @@
       "sourceUrl": "https://www.geonames.org/6834713/"
     },
     "id": "6834713",
-    "name": "周屋",
+    "name": "周屋村",
     "lng": 110.571458,
     "lat": 20.889684,
     "nameSource": "GeoNames 中文别名",
@@ -827,7 +827,7 @@
       "sourceUrl": "https://www.geonames.org/6834715/"
     },
     "id": "6834715",
-    "name": "深路河",
+    "name": "深路河村",
     "lng": 110.604179,
     "lat": 20.909077,
     "nameSource": "GeoNames 中文别名",
@@ -939,7 +939,7 @@
       "sourceUrl": "https://www.geonames.org/1803951/"
     },
     "id": "1803951",
-    "name": "梁屋",
+    "name": "梁屋村",
     "lng": 110.588115,
     "lat": 20.94437,
     "nameSource": "GeoNames 中文别名",
@@ -995,7 +995,7 @@
       "sourceUrl": "https://www.geonames.org/6834717/"
     },
     "id": "6834717",
-    "name": "大浪",
+    "name": "大浪村",
     "lng": 110.603711,
     "lat": 20.942784,
     "nameSource": "GeoNames 中文别名",
@@ -1051,7 +1051,7 @@
       "sourceUrl": "https://www.geonames.org/6834716/"
     },
     "id": "6834716",
-    "name": "那光",
+    "name": "那光村",
     "lng": 110.595199,
     "lat": 20.922461,
     "nameSource": "GeoNames 中文别名",
@@ -1128,7 +1128,7 @@
       "sourceUrl": "https://www.geonames.org/6834718/"
     },
     "id": "6834718",
-    "name": "烟楼",
+    "name": "烟楼村",
     "lng": 110.614806,
     "lat": 20.940331,
     "nameSource": "GeoNames 中文别名",
@@ -1198,7 +1198,7 @@
       "sourceUrl": "https://www.geonames.org/6834720/"
     },
     "id": "6834720",
-    "name": "南角尾",
+    "name": "南角尾村",
     "lng": 110.564282,
     "lat": 20.870836,
     "nameSource": "GeoNames 中文别名",
@@ -1644,7 +1644,7 @@
       "sourceUrl": "https://www.geonames.org/6834722/"
     },
     "id": "6834722",
-    "name": "西埠",
+    "name": "西埠村",
     "lng": 110.58729025,
     "lat": 20.86719282,
     "nameSource": "GeoNames 中文别名",
@@ -1791,7 +1791,7 @@
       "sourceUrl": "https://www.openstreetmap.org/node/2065803493"
     },
     "id": "osm-2065803493",
-    "name": "南村",
+    "name": "南村村",
     "lng": 110.588805,
     "lat": 20.877,
     "nameSource": "OpenStreetMap",

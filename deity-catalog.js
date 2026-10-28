@@ -67,14 +67,14 @@ window.DeityAtlas = (() => {
   }
   function villagesFor(deityId,records) {
     const villages=new Map();
-    for(const record of records){const links=(record.deityLinks||[]).filter(link=>link.deityId===deityId);if(!links.length)continue;const key=record.villageKind+':'+record.villageId;if(!villages.has(key))villages.set(key,{key,id:record.villageId,kind:record.villageKind,name:record.villageName,records:[]});villages.get(key).records.push({record,links});}
+    for(const record of records){const links=(record.deityLinks||[]).filter(link=>link.deityId===deityId);if(!links.length)continue;const key=record.villageKind+':'+record.villageId;if(!villages.has(key))villages.set(key,{key,id:record.villageId,kind:record.villageKind,name:window.PlaceNames?.name(record.villageKind,record.villageId,record.villageName)||record.villageName,records:[]});villages.get(key).records.push({record,links});}
     return [...villages.values()].sort((a,b)=>a.name.localeCompare(b.name,'zh-CN'));
   }
   function locatedVillagesFor(deityId,records,resolvePlace){
     return villagesFor(deityId,records).map(village=>{
       const place=resolvePlace(village.kind,village.id);
       const usable=place&&Number.isFinite(place.lat)&&Math.abs(place.lat)<=90&&Number.isFinite(place.lng)&&Math.abs(place.lng)<=180;
-      return {...village,point:usable?place:null};
+      return {...village,name:place?.name||village.name,point:usable?place:null};
     });
   }
   const faithDetailsPending=record=>!['temple','festival','source','visitedOn','note'].some(field=>record[field]?.trim());

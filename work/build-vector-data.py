@@ -214,6 +214,11 @@ if administrative_path.exists():
             'labelAnchor': [sum(p['lng'] for p in coverage_places)/len(coverage_places), latitude],
             'clipToIsland': True})
 
+# A warning, not an automatic rename: full names are confirmed by the researcher.
+for place in places:
+    if place.get('placeKind') == 'natural_village' and not place['name'].endswith('村'):
+        print('自然村完整名称待确认:', place['id'], place['name'])
+
 data = {'coastline': island, 'roads': roads, 'waters': waters, 'buildings': buildings, 'residential': residential, 'places': places, 'administrativeAreas': administrative_areas,
         'meta': {'generatedAt': datetime.now(timezone.utc).isoformat(), 'coordinateSystem': 'WGS84', 'coastlineSource': 'https://www.openstreetmap.org/relation/11276723', 'osmTimestamp': raw.get('osm3s', {}).get('timestamp_osm_base'), 'completeVillageList': False,
                  'scope': '硇洲岛主岛：参考点限于岛内，跨岸线几何由 SVG 裁剪',

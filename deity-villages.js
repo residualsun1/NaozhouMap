@@ -18,7 +18,7 @@ window.DeityVillageLinks = (() => {
     function rows(area = '', term = '') {
       term = term.trim().toLocaleLowerCase();
       return villages.filter(place => (!area || areaId(place) === area) && (!term ||
-        [place.name, ...(place.aliases || []), areaName(place)].some(value => value.toLocaleLowerCase().includes(term))))
+        (window.PlaceNames?.matches(place,term)||[place.name, ...(place.aliases || []), areaName(place)].some(value => value.toLocaleLowerCase().includes(term)))))
         .sort((a, b) => a.name.localeCompare(b.name, 'zh-CN') || a.id.localeCompare(b.id));
     }
     function toggle(id, checked) {
@@ -50,7 +50,7 @@ window.DeityVillageLinks = (() => {
       if (index) return Promise.resolve(index);
       if (!loadingIndex) loadingIndex = request(null, '?view=places').then(data => {
         if (data.version !== 1 || !Array.isArray(data.places) || !Array.isArray(data.administrativeAreas)) throw Error('地点索引未能读取。');
-        index = data; return data;
+        index = data; window.PlaceNames?.register(data.places); return data;
       }).finally(() => { loadingIndex = null; });
       return loadingIndex;
     }

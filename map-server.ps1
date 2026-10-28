@@ -313,6 +313,7 @@ $staticFiles = @{
     '/deity-catalog.js' = @{ Path = 'deity-catalog.js'; Type = 'text/javascript; charset=utf-8' }
     '/deity-atlas.js' = @{ Path = 'deity-atlas.js'; Type = 'text/javascript; charset=utf-8' }
     '/deity-villages.js' = @{ Path = 'deity-villages.js'; Type = 'text/javascript; charset=utf-8' }
+    '/place-names.js' = @{ Path = 'place-names.js'; Type = 'text/javascript; charset=utf-8' }
     '/deity-villages.css' = @{ Path = 'deity-villages.css'; Type = 'text/css; charset=utf-8' }
     '/deity-atlas.css' = @{ Path = 'deity-atlas.css'; Type = 'text/css; charset=utf-8' }
     '/deity-explorer.js' = @{ Path = 'deity-explorer.js'; Type = 'text/javascript; charset=utf-8' }

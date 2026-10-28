@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const data = window.NAOZHOU_DATA;
+  const data = window.NAOZHOU_DATA, names = window.PlaceNames;
   const $ = id => document.getElementById(id);
   const STORE = 'naozhou-field-map-v1';
   const NS = 'http://www.w3.org/2000/svg';
@@ -198,9 +198,9 @@
     $('administration-members-summary').textContent=(area.officePlaceId?'已确认 ':'范围参考：')+[villages?villages+' 个自然村':'',settlements?settlements+' 个片内聚落':'',localities?localities+' 个地点':''].filter(Boolean).join(' · ');
     $('administration-member-list').replaceChildren();
     const memberButton=member=>{
-      const button=document.createElement('button');button.type='button';button.textContent=member.name;
+      const button=document.createElement('button');button.type='button';button.textContent=member.point?.name||member.name;
       button.disabled=!member.point;
-      if(member.point){button.setAttribute('aria-label',member.name+'，'+placeDescription(member.point));button.addEventListener('click',()=>selectReference(member.point));}
+      if(member.point){button.setAttribute('aria-label',member.point.name+'，'+placeDescription(member.point));button.addEventListener('click',()=>selectReference(member.point));}
       if(parentId(member)||member.point?.settlementNames?.length){const caption=document.createElement('small');caption.textContent=parentId(member)?'片内聚落':'村庄片区';button.append(caption);}
       return button;
     };
@@ -412,7 +412,7 @@
       const administrative=p.placeKind==='administrative_seat',member=isAdministrativeMember(p);
       item.button.setAttribute('aria-label',p.name+(administrative||member?'，'+placeDescription(p):p.saved?'，调查点位':'，参考地名')+(item.hasFaith?'，有信仰记录':''));
       if(item.hasFaith)item.button.removeAttribute('title');else item.button.title=administrative||member?p.name+' · '+placeDescription(p):p.name;
-      item.label.replaceChildren(document.createTextNode(p.name));
+      item.nameNode=document.createTextNode(p.name);item.label.replaceChildren(item.nameNode);
       if(administrative){const caption=document.createElement('small');caption.textContent=p.administrativeCaption||p.committeeName;item.label.append(caption);}
       if(administrative&&!item.leader){item.leader=document.createElementNS(NS,'line');item.leader.style.display='none';labelLeaders.append(item.leader);}
     }
@@ -463,6 +463,8 @@
     const fragment=document.createDocumentFragment(),pending=[];
     for(const entry of positioned){
       const {item,active,emphasized,administrative}=entry,p=item.point,member=isAdministrativeMember(p);
+      const labelName=names.mapLabel(p,labelTier<2,active||emphasized);
+      if(item.nameNode.nodeValue!==labelName)item.nameNode.nodeValue=labelName;
       const classes='place-label'+(p.saved?' is-saved':'')+(active?' is-active':'')+(emphasized?' is-emphasized':'')+(item.hasFaith?' has-faith':'')+(administrative?' is-administrative':'')+(member?' is-member':'')+(member&&administrativeEnabled(p.administrativeAreaId)?' is-member-visible':'')+deityPinClass(p);
       item.label.className=classes+(item.label.classList.contains('is-visible')?' is-visible':'');item.label.hidden=false;
       const maxWidth=Math.min(administrative?180:active?260:220,Math.max(60,w-20));item.label.style.setProperty('--label-max-width',maxWidth+'px');
@@ -646,7 +648,7 @@
     e.preventDefault();
     if(mobileSearch.matches&&!searchPanel.classList.contains('is-expanded')){setSearchExpanded(true,true);return;}
     const term=$('search-input').value.trim().toLocaleLowerCase();$('search-results').replaceChildren();$('search-feedback').hidden=false;if(!term){status('请输入村名、神明或道路。');return;}
-    const nameMatches=p=>[p.name,p.pinyin,...(p.aliases||[])].some(name=>name?.toLocaleLowerCase().includes(term)||(term.endsWith('村')&&term.length>1&&name?.toLocaleLowerCase().replace(/村$/,'').includes(term.slice(0,-1))));
+    const nameMatches=p=>names.matches(p,term);
     const local=points.filter(p=>nameMatches(p)||faith.matches(p.id,'survey',term)),refs=data.places.filter(p=>nameMatches(p)||faith.matches(p.id,'reference',term)),matchedRoads=[...roadGroups.values()].filter(group=>[group.label,group.ref,...group.roads.flatMap(p=>[p.name,p.ref])].some(name=>name?.toLocaleLowerCase().includes(term)));
     const matchedAreas=administrativeAreas.filter(area=>!area.officePlaceId&&[area.name,area.committeeName,...(area.aliases||[])].some(name=>name.toLocaleLowerCase().includes(term)));
     for(const p of local)$('search-results').append(resultButton(p.name,faith.matches(p.id,'survey',term)?'信仰记录':'我的调查点位',()=>selectPoint(p)));

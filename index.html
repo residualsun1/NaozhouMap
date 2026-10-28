@@ -237,7 +237,7 @@
         <section id="editor-section" class="section" hidden>
           <div class="section-title"><h2 id="editor-heading">新增调查点位</h2><button id="close-editor" type="button">取消</button></div>
           <form id="point-form">
-            <label for="point-name">村庄或地点名称</label><input id="point-name" required maxlength="100" placeholder="填写本地名称">
+            <label for="point-name">村庄或地点名称</label><input id="point-name" required maxlength="100" placeholder="填写本地名称" aria-describedby="place-name-help"><p id="place-name-help" class="note">自然村请填写完整村名，如“西埠村”；名称本身含“村”字时，请按实际完整名称填写。</p>
             <div class="coordinates"><div><label for="point-lat">纬度</label><input id="point-lat" type="number" step="any" min="-90" max="90" required></div><div><label for="point-lng">经度</label><input id="point-lng" type="number" step="any" min="-180" max="180" required></div></div>
             <p id="point-location-status" class="status"></p><button id="pick-location" class="linkbutton" type="button">在地图上重新选点</button>
             <label for="point-source">资料来源</label><input id="point-source" maxlength="200" placeholder="如：现场定位、村民指认"><label for="point-note">调查笔记</label><textarea id="point-note" maxlength="5000" placeholder="别名、古树、宫庙、访谈线索……"></textarea>
@@ -301,6 +301,6 @@
     <form id="people-create-form" hidden><div id="people-create-fields"></div><div class="button-row form-actions"><button type="submit" class="primary">保存并关联本村</button><button id="people-create-back" type="button">返回选择</button></div></form>
     <p id="people-picker-status" class="status" role="status" aria-live="polite"></p>
   </dialog>
-  <script src="./map-data.js"></script><script src="./cloud-access.js"></script><script src="./deity-catalog.js"></script><script src="./archive-management.js"></script><script src="./people-catalog.js"></script><script src="./people-map.js"></script><script src="./people-explorer.js"></script><script src="./archive-overview.js"></script><script src="./place-archives.js"></script><script src="./faith-records.js"></script><script src="./field-journal.js"></script><script src="./ritual-sphere.js"></script><script src="./deity-explorer.js"></script><script src="./place-reader.js"></script><script src="./map-app.js"></script>
+  <script src="./map-data.js"></script><script src="./place-names.js"></script><script src="./cloud-access.js"></script><script src="./deity-catalog.js"></script><script src="./archive-management.js"></script><script src="./people-catalog.js"></script><script src="./people-map.js"></script><script src="./people-explorer.js"></script><script src="./archive-overview.js"></script><script src="./place-archives.js"></script><script src="./faith-records.js"></script><script src="./field-journal.js"></script><script src="./ritual-sphere.js"></script><script src="./deity-explorer.js"></script><script src="./place-reader.js"></script><script src="./map-app.js"></script>
 </body>
 </html>
