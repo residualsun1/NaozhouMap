@@ -1,0 +1,1209 @@
+{
+  "id": "dalun-settlement-parts-20261028",
+  "placeId": "amap-B02F70NXY1",
+  "checkedAt": "2026-10-28",
+  "source": "高德地图地名及卫星影像",
+  "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
+  "userDecision": "用户确认上大伦、下大伦是大伦村下面的两个聚居点，不作为两个独立自然村；大伦村保留原有稳定 ID，仍隶属于谭北村委会。",
+  "coordinateSystem": "WGS84",
+  "geometryStatus": "interpreted",
+  "referenceOverview": {
+    "date": "2026-10-28",
+    "placeId": "amap-B02F70NXY1",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
+    "coordinateSystem": "GCJ-02 Web Mercator pixel grid",
+    "sourceLocation": [
+      110.616215,
+      20.925235
+    ],
+    "zoom": 16,
+    "worldPixels": 16777216,
+    "pixelOrigin": [
+      13543424,
+      7390720
+    ],
+    "size": [
+      768,
+      1024
+    ],
+    "existingPlacePixel": [
+      273.2559928894043,
+      270.61231016833335
+    ],
+    "purpose": "Local geographic review only; reference imagery is not published",
+    "satelliteReferences": [
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52904&y=28870&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52905&y=28870&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52906&y=28870&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52904&y=28871&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52905&y=28871&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52906&y=28871&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52904&y=28872&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52905&y=28872&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52906&y=28872&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52904&y=28873&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52905&y=28873&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52906&y=28873&z=16"
+    ],
+    "vectorReferences": [
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52904&y=28870&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52905&y=28870&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52906&y=28870&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52904&y=28871&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52905&y=28871&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52906&y=28871&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52904&y=28872&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52905&y=28872&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52906&y=28872&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52904&y=28873&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52905&y=28873&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52906&y=28873&z=16"
+    ]
+  },
+  "referenceDetails": {
+    "shang": {
+      "key": "shang",
+      "date": "2026-10-28",
+      "source": "高德地图卫星影像",
+      "coordinateSystem": "GCJ-02 Web Mercator pixel grid",
+      "zoom": 18,
+      "worldPixels": 67108864,
+      "pixelOrigin": [
+        54174464,
+        29564928
+      ],
+      "size": [
+        768,
+        1024
+      ],
+      "placePixel": [
+        324.0,
+        440.0
+      ],
+      "sourceLocation": [
+        110.61620950698853,
+        20.918192153788194
+      ],
+      "purpose": "Local tracing only; imagery is not published",
+      "satelliteReferences": [
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211619&y=115488&z=18",
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211620&y=115488&z=18",
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211621&y=115488&z=18",
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211619&y=115489&z=18",
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211620&y=115489&z=18",
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211621&y=115489&z=18",
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211619&y=115490&z=18",
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211620&y=115490&z=18",
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211621&y=115490&z=18",
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211619&y=115491&z=18",
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211620&y=115491&z=18",
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211621&y=115491&z=18"
+      ]
+    },
+    "xia": {
+      "key": "xia",
+      "date": "2026-10-28",
+      "source": "高德地图卫星影像",
+      "coordinateSystem": "GCJ-02 Web Mercator pixel grid",
+      "zoom": 18,
+      "worldPixels": 67108864,
+      "pixelOrigin": [
+        54174464,
+        29563136
+      ],
+      "size": [
+        768,
+        768
+      ],
+      "placePixel": [
+        372.0,
+        448.0
+      ],
+      "sourceLocation": [
+        110.61646699905396,
+        20.92713125332981
+      ],
+      "purpose": "Local tracing only; imagery is not published",
+      "satelliteReferences": [
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211619&y=115481&z=18",
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211620&y=115481&z=18",
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211621&y=115481&z=18",
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211619&y=115482&z=18",
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211620&y=115482&z=18",
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211621&y=115482&z=18",
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211619&y=115483&z=18",
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211620&y=115483&z=18",
+        "https://webst01.is.autonavi.com/appmaptile?style=6&x=211621&y=115483&z=18"
+      ]
+    }
+  },
+  "pointCandidates": [
+    {
+      "key": "shang",
+      "labelPixel": [
+        273,
+        622
+      ],
+      "gcj02": [
+        110.61620950698853,
+        20.918192153788194
+      ],
+      "wgs84": [
+        110.611978,
+        20.920912
+      ],
+      "insideBuiltAreas": [
+        504586831
+      ]
+    },
+    {
+      "key": "xia",
+      "labelPixel": [
+        285,
+        176
+      ],
+      "gcj02": [
+        110.61646699905396,
+        20.92713125332981
+      ],
+      "wgs84": [
+        110.612235,
+        20.929851
+      ],
+      "insideBuiltAreas": [
+        504591753
+      ]
+    }
+  ],
+  "pointResults": [
+    {
+      "id": "locality-dalun-shang",
+      "name": "上大伦",
+      "lat": 20.920912,
+      "lng": 110.611978,
+      "nameSource": "高德地图地名；用户确认聚落层级",
+      "coordinateSource": "高德地名对应建筑群内代表点（GCJ-02 转 WGS84，近似）",
+      "sourceUrl": "https://uri.amap.com/marker?position=110.616209507%2C20.918192154&name=%E4%B8%8A%E5%A4%A7%E4%BC%A6&coordinate=gaode&callnative=0",
+      "embedUrl": "https://uri.amap.com/marker?position=110.616209507%2C20.918192154&name=%E4%B8%8A%E5%A4%A7%E4%BC%A6&coordinate=gaode&callnative=0",
+      "checkedAt": "2026-10-28",
+      "sourceLocation": {
+        "provider": "高德地图地名与卫星影像",
+        "name": "上大伦",
+        "type": "片内聚落代表点",
+        "coordinateSystem": "GCJ-02",
+        "lng": 110.61620950698853,
+        "lat": 20.918192153788194,
+        "note": "根据同一网格内可见地名和建筑群定位，非另一个 POI 详情页坐标；不虚构外部 POI ID。"
+      },
+      "coordinateTransform": {
+        "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+        "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+        "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+        "approximate": true
+      },
+      "placeKind": "locality",
+      "parentVillageId": "amap-B02F70NXY1",
+      "locationReview": {
+        "status": "imagery_identified",
+        "checkedAt": "2026-10-28",
+        "evidencePath": "assets/settlement-references/dalun-20261028.json",
+        "geometryIds": [
+          504586831
+        ],
+        "pointInsideGeometry": true
+      },
+      "correctionNote": "作为大伦村片内聚居点标示位置，不另立自然村、不合并或迁移既有田野档案。"
+    },
+    {
+      "id": "locality-dalun-xia",
+      "name": "下大伦",
+      "lat": 20.929851,
+      "lng": 110.612235,
+      "nameSource": "高德地图地名；用户确认聚落层级",
+      "coordinateSource": "高德地名对应建筑群内代表点（GCJ-02 转 WGS84，近似）",
+      "sourceUrl": "https://uri.amap.com/marker?position=110.616466999%2C20.927131253&name=%E4%B8%8B%E5%A4%A7%E4%BC%A6&coordinate=gaode&callnative=0",
+      "embedUrl": "https://uri.amap.com/marker?position=110.616466999%2C20.927131253&name=%E4%B8%8B%E5%A4%A7%E4%BC%A6&coordinate=gaode&callnative=0",
+      "checkedAt": "2026-10-28",
+      "sourceLocation": {
+        "provider": "高德地图地名与卫星影像",
+        "name": "下大伦",
+        "type": "片内聚落代表点",
+        "coordinateSystem": "GCJ-02",
+        "lng": 110.61646699905396,
+        "lat": 20.92713125332981,
+        "note": "根据同一网格内可见地名和建筑群定位，非另一个 POI 详情页坐标；不虚构外部 POI ID。"
+      },
+      "coordinateTransform": {
+        "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+        "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+        "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+        "approximate": true
+      },
+      "placeKind": "locality",
+      "parentVillageId": "amap-B02F70NXY1",
+      "locationReview": {
+        "status": "imagery_identified",
+        "checkedAt": "2026-10-28",
+        "evidencePath": "assets/settlement-references/dalun-20261028.json",
+        "geometryIds": [
+          504591753
+        ],
+        "pointInsideGeometry": true
+      },
+      "correctionNote": "作为大伦村片内聚居点标示位置，不另立自然村、不合并或迁移既有田野档案。"
+    }
+  ],
+  "retainedNaturalVillage": {
+    "id": "amap-B02F70NXY1",
+    "name": "大伦村",
+    "lng": 110.611983,
+    "lat": 20.927955,
+    "coordinatesChanged": false
+  },
+  "coordinateMethod": "从高德参考影像的 GCJ-02 Web Mercator 网格反算经纬度，再按项目现有五次迭代逆变换转为 WGS84。",
+  "interpretation": "大伦总标注在两处建筑群之间，不据此在农地新增第三块阴影；分别核对上大伦、下大伦建成区及紧邻房屋。仅补当前阴影外可辨认的房屋与毗连院落，不连接两片建筑群。",
+  "traces": [
+    {
+      "key": "shang-west",
+      "name": "上大伦西侧建筑群",
+      "reference": "shang",
+      "pixels": [
+        [
+          216,
+          374
+        ],
+        [
+          244,
+          374
+        ],
+        [
+          256,
+          391
+        ],
+        [
+          278,
+          391
+        ],
+        [
+          278,
+          459
+        ],
+        [
+          250,
+          475
+        ],
+        [
+          245,
+          535
+        ],
+        [
+          251,
+          566
+        ],
+        [
+          263,
+          584
+        ],
+        [
+          243,
+          588
+        ],
+        [
+          221,
+          574
+        ],
+        [
+          220,
+          551
+        ],
+        [
+          212,
+          545
+        ],
+        [
+          212,
+          530
+        ],
+        [
+          227,
+          518
+        ],
+        [
+          230,
+          482
+        ],
+        [
+          220,
+          465
+        ],
+        [
+          211,
+          443
+        ]
+      ]
+    },
+    {
+      "key": "shang-north",
+      "name": "上大伦北缘房屋及院落",
+      "reference": "shang",
+      "pixels": [
+        [
+          446,
+          276
+        ],
+        [
+          455,
+          269
+        ],
+        [
+          455,
+          251
+        ],
+        [
+          487,
+          245
+        ],
+        [
+          485,
+          221
+        ],
+        [
+          538,
+          213
+        ],
+        [
+          550,
+          224
+        ],
+        [
+          547,
+          238
+        ],
+        [
+          556,
+          248
+        ],
+        [
+          552,
+          282
+        ],
+        [
+          512,
+          286
+        ],
+        [
+          504,
+          309
+        ],
+        [
+          494,
+          333
+        ],
+        [
+          456,
+          332
+        ],
+        [
+          449,
+          316
+        ]
+      ]
+    },
+    {
+      "key": "shang-northeast-detached",
+      "name": "上大伦东北侧房屋组",
+      "reference": "shang",
+      "pixels": [
+        [
+          578,
+          250
+        ],
+        [
+          606,
+          246
+        ],
+        [
+          616,
+          267
+        ],
+        [
+          609,
+          276
+        ],
+        [
+          581,
+          279
+        ]
+      ]
+    },
+    {
+      "key": "shang-east-frontage",
+      "name": "上大伦东缘房屋组",
+      "reference": "shang",
+      "pixels": [
+        [
+          574,
+          447
+        ],
+        [
+          615,
+          450
+        ],
+        [
+          620,
+          439
+        ],
+        [
+          648,
+          441
+        ],
+        [
+          661,
+          454
+        ],
+        [
+          656,
+          481
+        ],
+        [
+          625,
+          480
+        ],
+        [
+          625,
+          470
+        ],
+        [
+          597,
+          468
+        ],
+        [
+          594,
+          476
+        ],
+        [
+          576,
+          472
+        ]
+      ]
+    },
+    {
+      "key": "shang-east-detached",
+      "name": "上大伦东侧独立房屋组",
+      "reference": "shang",
+      "pixels": [
+        [
+          687,
+          475
+        ],
+        [
+          707,
+          475
+        ],
+        [
+          707,
+          480
+        ],
+        [
+          726,
+          482
+        ],
+        [
+          734,
+          507
+        ],
+        [
+          722,
+          517
+        ],
+        [
+          696,
+          509
+        ],
+        [
+          694,
+          498
+        ],
+        [
+          685,
+          496
+        ]
+      ]
+    },
+    {
+      "key": "shang-east-middle",
+      "name": "上大伦东侧中段建筑群",
+      "reference": "shang",
+      "pixels": [
+        [
+          573,
+          500
+        ],
+        [
+          592,
+          498
+        ],
+        [
+          599,
+          513
+        ],
+        [
+          614,
+          511
+        ],
+        [
+          625,
+          525
+        ],
+        [
+          627,
+          547
+        ],
+        [
+          606,
+          558
+        ],
+        [
+          584,
+          549
+        ],
+        [
+          578,
+          531
+        ]
+      ]
+    },
+    {
+      "key": "shang-southeast-detached",
+      "name": "上大伦东南侧房屋",
+      "reference": "shang",
+      "pixels": [
+        [
+          631,
+          597
+        ],
+        [
+          654,
+          599
+        ],
+        [
+          669,
+          615
+        ],
+        [
+          660,
+          635
+        ],
+        [
+          636,
+          628
+        ],
+        [
+          633,
+          616
+        ]
+      ]
+    },
+    {
+      "key": "shang-south-row",
+      "name": "上大伦南缘沿路房屋组",
+      "reference": "shang",
+      "pixels": [
+        [
+          566,
+          665
+        ],
+        [
+          587,
+          668
+        ],
+        [
+          596,
+          680
+        ],
+        [
+          609,
+          677
+        ],
+        [
+          615,
+          689
+        ],
+        [
+          632,
+          685
+        ],
+        [
+          636,
+          695
+        ],
+        [
+          651,
+          693
+        ],
+        [
+          659,
+          703
+        ],
+        [
+          678,
+          698
+        ],
+        [
+          684,
+          707
+        ],
+        [
+          710,
+          704
+        ],
+        [
+          716,
+          713
+        ],
+        [
+          746,
+          711
+        ],
+        [
+          752,
+          719
+        ],
+        [
+          754,
+          736
+        ],
+        [
+          725,
+          736
+        ],
+        [
+          714,
+          731
+        ],
+        [
+          692,
+          732
+        ],
+        [
+          680,
+          727
+        ],
+        [
+          658,
+          726
+        ],
+        [
+          643,
+          719
+        ],
+        [
+          619,
+          718
+        ],
+        [
+          607,
+          712
+        ],
+        [
+          582,
+          709
+        ],
+        [
+          568,
+          695
+        ]
+      ]
+    },
+    {
+      "key": "shang-southwest-west-building",
+      "name": "上大伦西南侧建筑组西部",
+      "reference": "shang",
+      "pixels": [
+        [
+          198,
+          757
+        ],
+        [
+          230,
+          754
+        ],
+        [
+          235,
+          786
+        ],
+        [
+          226,
+          799
+        ],
+        [
+          200,
+          795
+        ]
+      ]
+    },
+    {
+      "key": "shang-southwest-east-building",
+      "name": "上大伦西南侧建筑组东部",
+      "reference": "shang",
+      "pixels": [
+        [
+          287,
+          754
+        ],
+        [
+          331,
+          755
+        ],
+        [
+          339,
+          767
+        ],
+        [
+          338,
+          793
+        ],
+        [
+          324,
+          803
+        ],
+        [
+          289,
+          794
+        ]
+      ]
+    },
+    {
+      "key": "xia-north",
+      "name": "下大伦北缘建筑群",
+      "reference": "xia",
+      "pixels": [
+        [
+          322,
+          271
+        ],
+        [
+          345,
+          269
+        ],
+        [
+          350,
+          262
+        ],
+        [
+          377,
+          267
+        ],
+        [
+          392,
+          275
+        ],
+        [
+          423,
+          278
+        ],
+        [
+          430,
+          289
+        ],
+        [
+          446,
+          286
+        ],
+        [
+          455,
+          296
+        ],
+        [
+          474,
+          296
+        ],
+        [
+          479,
+          320
+        ],
+        [
+          458,
+          327
+        ],
+        [
+          437,
+          322
+        ],
+        [
+          420,
+          334
+        ],
+        [
+          322,
+          332
+        ],
+        [
+          314,
+          310
+        ]
+      ]
+    },
+    {
+      "key": "xia-east",
+      "name": "下大伦东缘房屋",
+      "reference": "xia",
+      "pixels": [
+        [
+          506,
+          438
+        ],
+        [
+          524,
+          437
+        ],
+        [
+          532,
+          448
+        ],
+        [
+          529,
+          464
+        ],
+        [
+          510,
+          467
+        ],
+        [
+          501,
+          456
+        ]
+      ]
+    },
+    {
+      "key": "xia-southeast",
+      "name": "下大伦东南侧房屋组",
+      "reference": "xia",
+      "pixels": [
+        [
+          408,
+          525
+        ],
+        [
+          430,
+          528
+        ],
+        [
+          437,
+          539
+        ],
+        [
+          432,
+          566
+        ],
+        [
+          408,
+          563
+        ],
+        [
+          402,
+          551
+        ]
+      ]
+    },
+    {
+      "key": "xia-west",
+      "name": "下大伦西侧沿路建筑群",
+      "reference": "xia",
+      "pixels": [
+        [
+          109,
+          519
+        ],
+        [
+          134,
+          515
+        ],
+        [
+          151,
+          524
+        ],
+        [
+          165,
+          513
+        ],
+        [
+          180,
+          508
+        ],
+        [
+          198,
+          493
+        ],
+        [
+          217,
+          486
+        ],
+        [
+          234,
+          497
+        ],
+        [
+          245,
+          525
+        ],
+        [
+          253,
+          530
+        ],
+        [
+          260,
+          557
+        ],
+        [
+          274,
+          562
+        ],
+        [
+          277,
+          602
+        ],
+        [
+          268,
+          631
+        ],
+        [
+          273,
+          652
+        ],
+        [
+          248,
+          657
+        ],
+        [
+          221,
+          657
+        ],
+        [
+          202,
+          649
+        ],
+        [
+          196,
+          632
+        ],
+        [
+          174,
+          625
+        ],
+        [
+          148,
+          618
+        ],
+        [
+          140,
+          590
+        ],
+        [
+          130,
+          571
+        ],
+        [
+          114,
+          557
+        ]
+      ]
+    },
+    {
+      "key": "xia-south",
+      "name": "下大伦南侧沿路房屋",
+      "reference": "xia",
+      "pixels": [
+        [
+          266,
+          687
+        ],
+        [
+          288,
+          682
+        ],
+        [
+          299,
+          701
+        ],
+        [
+          291,
+          720
+        ],
+        [
+          275,
+          726
+        ],
+        [
+          264,
+          710
+        ]
+      ]
+    }
+  ],
+  "overlapHandling": "合并人工判读轮廓后减去所有既有聚落面，仅保留缺失部分，防止重复填充。",
+  "existingAreasUsedForDifference": [
+    504586831,
+    504591753,
+    "manual-sixteen-dalun-south-extension-1-20261020"
+  ],
+  "ignoredEdgeFragmentsBelowSquareMeters": 5,
+  "addedSquareMeters": 8935.0,
+  "result": [
+    {
+      "id": "manual-dalun-builtup-20261028-1",
+      "name": "下大伦北缘建筑群补缺",
+      "traceParts": [
+        "xia-north"
+      ],
+      "vertices": 18,
+      "approximateSquareMeters": 2002.5
+    },
+    {
+      "id": "manual-dalun-builtup-20261028-2",
+      "name": "上大伦西侧建筑群补缺",
+      "traceParts": [
+        "shang-west"
+      ],
+      "vertices": 19,
+      "approximateSquareMeters": 1825.2
+    },
+    {
+      "id": "manual-dalun-builtup-20261028-3",
+      "name": "上大伦西南侧建筑组东部补缺",
+      "traceParts": [
+        "shang-southwest-east-building"
+      ],
+      "vertices": 7,
+      "approximateSquareMeters": 672.1
+    },
+    {
+      "id": "manual-dalun-builtup-20261028-4",
+      "name": "上大伦东侧中段建筑群补缺",
+      "traceParts": [
+        "shang-east-middle"
+      ],
+      "vertices": 10,
+      "approximateSquareMeters": 610.5
+    },
+    {
+      "id": "manual-dalun-builtup-20261028-5",
+      "name": "上大伦北缘房屋及院落补缺",
+      "traceParts": [
+        "shang-north"
+      ],
+      "vertices": 8,
+      "approximateSquareMeters": 551.8
+    },
+    {
+      "id": "manual-dalun-builtup-20261028-6",
+      "name": "下大伦西侧沿路建筑群补缺",
+      "traceParts": [
+        "xia-west"
+      ],
+      "vertices": 9,
+      "approximateSquareMeters": 484.6
+    },
+    {
+      "id": "manual-dalun-builtup-20261028-7",
+      "name": "上大伦东侧独立房屋组补缺",
+      "traceParts": [
+        "shang-east-detached"
+      ],
+      "vertices": 12,
+      "approximateSquareMeters": 434.4
+    },
+    {
+      "id": "manual-dalun-builtup-20261028-8",
+      "name": "上大伦西南侧建筑组西部补缺",
+      "traceParts": [
+        "shang-southwest-west-building"
+      ],
+      "vertices": 6,
+      "approximateSquareMeters": 427.0
+    },
+    {
+      "id": "manual-dalun-builtup-20261028-9",
+      "name": "下大伦东南侧房屋组补缺",
+      "traceParts": [
+        "xia-southeast"
+      ],
+      "vertices": 7,
+      "approximateSquareMeters": 343.0
+    },
+    {
+      "id": "manual-dalun-builtup-20261028-10",
+      "name": "上大伦东南侧房屋补缺",
+      "traceParts": [
+        "shang-southeast-detached"
+      ],
+      "vertices": 7,
+      "approximateSquareMeters": 309.1
+    },
+    {
+      "id": "manual-dalun-builtup-20261028-11",
+      "name": "上大伦东北侧房屋组补缺",
+      "traceParts": [
+        "shang-northeast-detached"
+      ],
+      "vertices": 7,
+      "approximateSquareMeters": 285.4
+    },
+    {
+      "id": "manual-dalun-builtup-20261028-12",
+      "name": "下大伦南侧沿路房屋补缺",
+      "traceParts": [
+        "xia-south"
+      ],
+      "vertices": 9,
+      "approximateSquareMeters": 274.0
+    },
+    {
+      "id": "manual-dalun-builtup-20261028-13",
+      "name": "上大伦东缘房屋组补缺",
+      "traceParts": [
+        "shang-east-frontage"
+      ],
+      "vertices": 9,
+      "approximateSquareMeters": 259.0
+    },
+    {
+      "id": "manual-dalun-builtup-20261028-14",
+      "name": "下大伦东缘房屋补缺",
+      "traceParts": [
+        "xia-east"
+      ],
+      "vertices": 7,
+      "approximateSquareMeters": 213.2
+    },
+    {
+      "id": "manual-dalun-builtup-20261028-15",
+      "name": "上大伦南缘沿路房屋组补缺",
+      "traceParts": [
+        "shang-south-row"
+      ],
+      "vertices": 8,
+      "approximateSquareMeters": 185.2
+    },
+    {
+      "id": "manual-dalun-builtup-20261028-16",
+      "name": "上大伦南缘沿路房屋组补缺",
+      "traceParts": [
+        "shang-south-row"
+      ],
+      "vertices": 6,
+      "approximateSquareMeters": 43.7
+    },
+    {
+      "id": "manual-dalun-builtup-20261028-17",
+      "name": "上大伦南缘沿路房屋组补缺",
+      "traceParts": [
+        "shang-south-row"
+      ],
+      "vertices": 4,
+      "approximateSquareMeters": 13.9
+    }
+  ],
+  "limitations": "人工影像判读与近似坐标转换；不是法定边界或测绘级结果。影像拍摄日期未显示；原有阴影保留。",
+  "imagesPublished": false
+}

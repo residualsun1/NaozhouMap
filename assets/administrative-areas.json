@@ -459,7 +459,34 @@
       },
       {
         "placeId": "amap-B02F70NXY1",
-        "name": "大伦村"
+        "name": "大伦村",
+        "classificationSource": {
+          "type": "user_confirmed",
+          "checkedAt": "2026-10-28",
+          "note": "用户确认上大伦、下大伦是大伦村下面的两个聚居点，不作为两个独立自然村；大伦村保留原有稳定 ID，仍隶属于谭北村委会。"
+        }
+      },
+      {
+        "placeId": "locality-dalun-shang",
+        "name": "上大伦",
+        "placeKind": "locality",
+        "parentVillageId": "amap-B02F70NXY1",
+        "classificationSource": {
+          "type": "user_confirmed",
+          "checkedAt": "2026-10-28",
+          "note": "用户确认上大伦、下大伦是大伦村下面的两个聚居点，不作为两个独立自然村；大伦村保留原有稳定 ID，仍隶属于谭北村委会。"
+        }
+      },
+      {
+        "placeId": "locality-dalun-xia",
+        "name": "下大伦",
+        "placeKind": "locality",
+        "parentVillageId": "amap-B02F70NXY1",
+        "classificationSource": {
+          "type": "user_confirmed",
+          "checkedAt": "2026-10-28",
+          "note": "用户确认上大伦、下大伦是大伦村下面的两个聚居点，不作为两个独立自然村；大伦村保留原有稳定 ID，仍隶属于谭北村委会。"
+        }
       },
       {
         "placeId": "amap-B0I04HU2C6",

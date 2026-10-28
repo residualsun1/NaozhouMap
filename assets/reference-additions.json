@@ -1763,13 +1763,13 @@
   },
   {
     "id": "amap-B02F70NXY1",
-    "name": "大伦",
+    "name": "大伦村",
     "lat": 20.927955,
     "lng": 110.611983,
-    "nameSource": "高德地图",
+    "nameSource": "用户确认自然村名称；高德地图地名",
     "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
     "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
-    "checkedAt": "2026-10-20",
+    "checkedAt": "2026-10-28",
     "sourceLocation": {
       "provider": "高德地图",
       "placeId": "B02F70NXY1",
@@ -1788,8 +1788,13 @@
     "correctionNote": "依据高德地图地点详情及可见分享嵌入参数核对。本点表示地图地点定位，不表示村庄边界或测绘控制点。",
     "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXY1&name=%E5%A4%A7%E4%BC%A6&lng=110.616215&lat=20.925235&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
     "aliases": [
-      "大伦村"
-    ]
+      "大伦"
+    ],
+    "settlementNames": [
+      "上大伦",
+      "下大伦"
+    ],
+    "settlementNote": "上大伦、下大伦为大伦村下属的两个聚居点，村级资料按大伦村整理。"
   },
   {
     "id": "amap-B02F70NXY3",
@@ -2403,5 +2408,81 @@
       "大林后"
     ],
     "settlementNote": "大林与大林后为同一片区内的紧邻聚落，不作为两处平级自然村。"
+  },
+  {
+    "id": "locality-dalun-shang",
+    "name": "上大伦",
+    "lat": 20.920912,
+    "lng": 110.611978,
+    "nameSource": "高德地图地名；用户确认聚落层级",
+    "coordinateSource": "高德地名对应建筑群内代表点（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://uri.amap.com/marker?position=110.616209507%2C20.918192154&name=%E4%B8%8A%E5%A4%A7%E4%BC%A6&coordinate=gaode&callnative=0",
+    "embedUrl": "https://uri.amap.com/marker?position=110.616209507%2C20.918192154&name=%E4%B8%8A%E5%A4%A7%E4%BC%A6&coordinate=gaode&callnative=0",
+    "checkedAt": "2026-10-28",
+    "sourceLocation": {
+      "provider": "高德地图地名与卫星影像",
+      "name": "上大伦",
+      "type": "片内聚落代表点",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.61620950698853,
+      "lat": 20.918192153788194,
+      "note": "根据同一网格内可见地名和建筑群定位，非另一个 POI 详情页坐标；不虚构外部 POI ID。"
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "placeKind": "locality",
+    "parentVillageId": "amap-B02F70NXY1",
+    "locationReview": {
+      "status": "imagery_identified",
+      "checkedAt": "2026-10-28",
+      "evidencePath": "assets/settlement-references/dalun-20261028.json",
+      "geometryIds": [
+        504586831
+      ],
+      "pointInsideGeometry": true
+    },
+    "correctionNote": "作为大伦村片内聚居点标示位置，不另立自然村、不合并或迁移既有田野档案。"
+  },
+  {
+    "id": "locality-dalun-xia",
+    "name": "下大伦",
+    "lat": 20.929851,
+    "lng": 110.612235,
+    "nameSource": "高德地图地名；用户确认聚落层级",
+    "coordinateSource": "高德地名对应建筑群内代表点（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://uri.amap.com/marker?position=110.616466999%2C20.927131253&name=%E4%B8%8B%E5%A4%A7%E4%BC%A6&coordinate=gaode&callnative=0",
+    "embedUrl": "https://uri.amap.com/marker?position=110.616466999%2C20.927131253&name=%E4%B8%8B%E5%A4%A7%E4%BC%A6&coordinate=gaode&callnative=0",
+    "checkedAt": "2026-10-28",
+    "sourceLocation": {
+      "provider": "高德地图地名与卫星影像",
+      "name": "下大伦",
+      "type": "片内聚落代表点",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.61646699905396,
+      "lat": 20.92713125332981,
+      "note": "根据同一网格内可见地名和建筑群定位，非另一个 POI 详情页坐标；不虚构外部 POI ID。"
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "placeKind": "locality",
+    "parentVillageId": "amap-B02F70NXY1",
+    "locationReview": {
+      "status": "imagery_identified",
+      "checkedAt": "2026-10-28",
+      "evidencePath": "assets/settlement-references/dalun-20261028.json",
+      "geometryIds": [
+        504591753
+      ],
+      "pointInsideGeometry": true
+    },
+    "correctionNote": "作为大伦村片内聚居点标示位置，不另立自然村、不合并或迁移既有田野档案。"
   }
 ]

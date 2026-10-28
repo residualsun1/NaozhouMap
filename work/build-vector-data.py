@@ -187,7 +187,7 @@ if administrative_path.exists():
             else:
                 p['administrativeVillageName'] = area['name']
             p['placeKind'] = 'administrative_seat' if p is office else member_kinds[p['id']]
-            p['classificationSource'] = area['classificationSource']
+            p['classificationSource'] = member_specs_by_id.get(p['id'], {}).get('classificationSource', area['classificationSource'])
             parent_id = member_specs_by_id.get(p['id'], {}).get('parentVillageId')
             if parent_id is not None:
                 p.update(parentVillageId=parent_id, parentVillageName=by_id[parent_id]['name'])

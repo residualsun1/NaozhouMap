@@ -4961,5 +4961,991 @@
     "sourceTraceParts": [
       "east-road-north"
     ]
+  },
+  {
+    "id": "manual-dalun-builtup-20261028-1",
+    "name": "下大伦北缘建筑群补缺",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.612508,
+        20.930703
+      ],
+      [
+        110.612342,
+        20.930718
+      ],
+      [
+        110.612261,
+        20.930758
+      ],
+      [
+        110.612117,
+        20.930783
+      ],
+      [
+        110.61209,
+        20.930748
+      ],
+      [
+        110.611967,
+        20.930738
+      ],
+      [
+        110.611924,
+        20.930543
+      ],
+      [
+        110.61194273118493,
+        20.93049464740637
+      ],
+      [
+        110.611993,
+        20.9305742
+      ],
+      [
+        110.61254222271465,
+        20.93045511387779
+      ],
+      [
+        110.612583,
+        20.930482
+      ],
+      [
+        110.612695,
+        20.930457
+      ],
+      [
+        110.612808,
+        20.930492
+      ],
+      [
+        110.612781,
+        20.930612
+      ],
+      [
+        110.612679,
+        20.930612
+      ],
+      [
+        110.612631,
+        20.930663
+      ],
+      [
+        110.612545,
+        20.930648
+      ],
+      [
+        110.612508,
+        20.930703
+      ]
+    ],
+    "villageId": "amap-B02F70NXY1",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "按上大伦、下大伦建筑群及邻近房屋外缘补绘；减去既有聚落阴影，仅补缺失建成区。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
+    "registrationEvidence": "assets/settlement-references/dalun-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围、自然村村界或逐栋归属认定",
+    "note": "两处聚居点同属大伦村；不把两者之间农田连接为聚落。影像拍摄时间未显示，待必要的实地核对。",
+    "sourceTraceParts": [
+      "xia-north"
+    ]
+  },
+  {
+    "id": "manual-dalun-builtup-20261028-2",
+    "name": "上大伦西侧建筑群补缺",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.611555,
+        20.920436
+      ],
+      [
+        110.61155767830284,
+        20.920465858116998
+      ],
+      [
+        110.61156429118932,
+        20.92122300382935
+      ],
+      [
+        110.611549,
+        20.921243
+      ],
+      [
+        110.611399,
+        20.921243
+      ],
+      [
+        110.611373,
+        20.920898
+      ],
+      [
+        110.611421,
+        20.920787
+      ],
+      [
+        110.611474,
+        20.920702
+      ],
+      [
+        110.611458,
+        20.920522
+      ],
+      [
+        110.611378,
+        20.920462
+      ],
+      [
+        110.611378,
+        20.920386
+      ],
+      [
+        110.611421,
+        20.920356
+      ],
+      [
+        110.611426,
+        20.920241
+      ],
+      [
+        110.611544,
+        20.920171
+      ],
+      [
+        110.611651,
+        20.920191
+      ],
+      [
+        110.61162769582286,
+        20.92022377149909
+      ],
+      [
+        110.611556,
+        20.9202737
+      ],
+      [
+        110.6115573194004,
+        20.92042476540425
+      ],
+      [
+        110.611555,
+        20.920436
+      ]
+    ],
+    "villageId": "amap-B02F70NXY1",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "按上大伦、下大伦建筑群及邻近房屋外缘补绘；减去既有聚落阴影，仅补缺失建成区。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
+    "registrationEvidence": "assets/settlement-references/dalun-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围、自然村村界或逐栋归属认定",
+    "note": "两处聚居点同属大伦村；不把两者之间农田连接为聚落。影像拍摄时间未显示，待必要的实地核对。",
+    "sourceTraceParts": [
+      "shang-west"
+    ]
+  },
+  {
+    "id": "manual-dalun-builtup-20261028-3",
+    "name": "上大伦西南侧建筑组东部补缺",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.611978,
+        20.919093
+      ],
+      [
+        110.612053,
+        20.919143
+      ],
+      [
+        110.612058,
+        20.919274
+      ],
+      [
+        110.612016,
+        20.919334
+      ],
+      [
+        110.61178,
+        20.919339
+      ],
+      [
+        110.611791,
+        20.919138
+      ],
+      [
+        110.611978,
+        20.919093
+      ]
+    ],
+    "villageId": "amap-B02F70NXY1",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "按上大伦、下大伦建筑群及邻近房屋外缘补绘；减去既有聚落阴影，仅补缺失建成区。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
+    "registrationEvidence": "assets/settlement-references/dalun-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围、自然村村界或逐栋归属认定",
+    "note": "两处聚居点同属大伦村；不把两者之间农田连接为聚落。影像拍摄时间未显示，待必要的实地核对。",
+    "sourceTraceParts": [
+      "shang-southwest-east-building"
+    ]
+  },
+  {
+    "id": "manual-dalun-builtup-20261028-4",
+    "name": "上大伦东侧中段建筑群补缺",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.613601,
+        20.920375
+      ],
+      [
+        110.613591,
+        20.920485
+      ],
+      [
+        110.613532,
+        20.920555
+      ],
+      [
+        110.613451,
+        20.920545
+      ],
+      [
+        110.613414,
+        20.920621
+      ],
+      [
+        110.61333530231934,
+        20.920613284541112
+      ],
+      [
+        110.6133565,
+        20.9204262
+      ],
+      [
+        110.61340098991037,
+        20.920353563169776
+      ],
+      [
+        110.613489,
+        20.92032
+      ],
+      [
+        110.613601,
+        20.920375
+      ]
+    ],
+    "villageId": "amap-B02F70NXY1",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "按上大伦、下大伦建筑群及邻近房屋外缘补绘；减去既有聚落阴影，仅补缺失建成区。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
+    "registrationEvidence": "assets/settlement-references/dalun-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围、自然村村界或逐栋归属认定",
+    "note": "两处聚居点同属大伦村；不把两者之间农田连接为聚落。影像拍摄时间未显示，待必要的实地核对。",
+    "sourceTraceParts": [
+      "shang-east-middle"
+    ]
+  },
+  {
+    "id": "manual-dalun-builtup-20261028-5",
+    "name": "上大伦北缘房屋及院落补缺",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.61305129991915,
+        20.922038724370196
+      ],
+      [
+        110.612841,
+        20.922009
+      ],
+      [
+        110.612851,
+        20.921889
+      ],
+      [
+        110.61268,
+        20.921859
+      ],
+      [
+        110.61268,
+        20.921769
+      ],
+      [
+        110.612632,
+        20.921734
+      ],
+      [
+        110.61264203794263,
+        20.921607898345577
+      ],
+      [
+        110.61305129991915,
+        20.922038724370196
+      ]
+    ],
+    "villageId": "amap-B02F70NXY1",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "按上大伦、下大伦建筑群及邻近房屋外缘补绘；减去既有聚落阴影，仅补缺失建成区。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
+    "registrationEvidence": "assets/settlement-references/dalun-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围、自然村村界或逐栋归属认定",
+    "note": "两处聚居点同属大伦村；不把两者之间农田连接为聚落。影像拍摄时间未显示，待必要的实地核对。",
+    "sourceTraceParts": [
+      "shang-north"
+    ]
+  },
+  {
+    "id": "manual-dalun-builtup-20261028-6",
+    "name": "下大伦西侧沿路建筑群补缺",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.611035,
+        20.929
+      ],
+      [
+        110.61109775806256,
+        20.92898419761015
+      ],
+      [
+        110.6110697,
+        20.9289947
+      ],
+      [
+        110.61093302760658,
+        20.929511974269637
+      ],
+      [
+        110.610826,
+        20.929496
+      ],
+      [
+        110.610852,
+        20.929306
+      ],
+      [
+        110.610938,
+        20.929236
+      ],
+      [
+        110.610992,
+        20.92914
+      ],
+      [
+        110.611035,
+        20.929
+      ]
+    ],
+    "villageId": "amap-B02F70NXY1",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "按上大伦、下大伦建筑群及邻近房屋外缘补绘；减去既有聚落阴影，仅补缺失建成区。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
+    "registrationEvidence": "assets/settlement-references/dalun-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围、自然村村界或逐栋归属认定",
+    "note": "两处聚居点同属大伦村；不把两者之间农田连接为聚落。影像拍摄时间未显示，待必要的实地核对。",
+    "sourceTraceParts": [
+      "xia-west"
+    ]
+  },
+  {
+    "id": "manual-dalun-builtup-20261028-7",
+    "name": "上大伦东侧独立房屋组补缺",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.61411,
+        20.920525
+      ],
+      [
+        110.614175,
+        20.920575
+      ],
+      [
+        110.614132,
+        20.9207
+      ],
+      [
+        110.61403,
+        20.92071
+      ],
+      [
+        110.61403,
+        20.920736
+      ],
+      [
+        110.61392373605307,
+        20.920736
+      ],
+      [
+        110.6139246,
+        20.9207184
+      ],
+      [
+        110.61392123774182,
+        20.92071901823933
+      ],
+      [
+        110.613912,
+        20.92063
+      ],
+      [
+        110.61396,
+        20.92062
+      ],
+      [
+        110.613971,
+        20.920565
+      ],
+      [
+        110.61411,
+        20.920525
+      ]
+    ],
+    "villageId": "amap-B02F70NXY1",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "按上大伦、下大伦建筑群及邻近房屋外缘补绘；减去既有聚落阴影，仅补缺失建成区。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
+    "registrationEvidence": "assets/settlement-references/dalun-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围、自然村村界或逐栋归属认定",
+    "note": "两处聚居点同属大伦村；不把两者之间农田连接为聚落。影像拍摄时间未显示，待必要的实地核对。",
+    "sourceTraceParts": [
+      "shang-east-detached"
+    ]
+  },
+  {
+    "id": "manual-dalun-builtup-20261028-8",
+    "name": "上大伦西南侧建筑组西部补缺",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.611303,
+        20.919324
+      ],
+      [
+        110.611314,
+        20.919134
+      ],
+      [
+        110.611453,
+        20.919114
+      ],
+      [
+        110.611501,
+        20.919179
+      ],
+      [
+        110.611474,
+        20.919339
+      ],
+      [
+        110.611303,
+        20.919324
+      ]
+    ],
+    "villageId": "amap-B02F70NXY1",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "按上大伦、下大伦建筑群及邻近房屋外缘补绘；减去既有聚落阴影，仅补缺失建成区。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
+    "registrationEvidence": "assets/settlement-references/dalun-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围、自然村村界或逐栋归属认定",
+    "note": "两处聚居点同属大伦村；不把两者之间农田连接为聚落。影像拍摄时间未显示，待必要的实地核对。",
+    "sourceTraceParts": [
+      "shang-southwest-west-building"
+    ]
+  },
+  {
+    "id": "manual-dalun-builtup-20261028-9",
+    "name": "下大伦东南侧房屋组补缺",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.612395,
+        20.929335
+      ],
+      [
+        110.612428,
+        20.929275
+      ],
+      [
+        110.612556,
+        20.92926
+      ],
+      [
+        110.612583,
+        20.929395
+      ],
+      [
+        110.612545,
+        20.92945
+      ],
+      [
+        110.612428,
+        20.929465
+      ],
+      [
+        110.612395,
+        20.929335
+      ]
+    ],
+    "villageId": "amap-B02F70NXY1",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "按上大伦、下大伦建筑群及邻近房屋外缘补绘；减去既有聚落阴影，仅补缺失建成区。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
+    "registrationEvidence": "assets/settlement-references/dalun-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围、自然村村界或逐栋归属认定",
+    "note": "两处聚居点同属大伦村；不把两者之间农田连接为聚落。影像拍摄时间未显示，待必要的实地核对。",
+    "sourceTraceParts": [
+      "xia-southeast"
+    ]
+  },
+  {
+    "id": "manual-dalun-builtup-20261028-10",
+    "name": "上大伦东南侧房屋补缺",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.613634,
+        20.920029
+      ],
+      [
+        110.61365,
+        20.919969
+      ],
+      [
+        110.613778,
+        20.919934
+      ],
+      [
+        110.613826,
+        20.920034
+      ],
+      [
+        110.613746,
+        20.920114
+      ],
+      [
+        110.613623,
+        20.920124
+      ],
+      [
+        110.613634,
+        20.920029
+      ]
+    ],
+    "villageId": "amap-B02F70NXY1",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "按上大伦、下大伦建筑群及邻近房屋外缘补绘；减去既有聚落阴影，仅补缺失建成区。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
+    "registrationEvidence": "assets/settlement-references/dalun-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围、自然村村界或逐栋归属认定",
+    "note": "两处聚居点同属大伦村；不把两者之间农田连接为聚落。影像拍摄时间未显示，待必要的实地核对。",
+    "sourceTraceParts": [
+      "shang-southeast-detached"
+    ]
+  },
+  {
+    "id": "manual-dalun-builtup-20261028-11",
+    "name": "上大伦东北侧房屋组补缺",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.6133433802216,
+        20.921823304241727
+      ],
+      [
+        110.613355,
+        20.921718
+      ],
+      [
+        110.613505,
+        20.921733
+      ],
+      [
+        110.613542,
+        20.921778
+      ],
+      [
+        110.613489,
+        20.921883
+      ],
+      [
+        110.6133827477619,
+        20.921868833034917
+      ],
+      [
+        110.6133433802216,
+        20.921823304241727
+      ]
+    ],
+    "villageId": "amap-B02F70NXY1",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "按上大伦、下大伦建筑群及邻近房屋外缘补绘；减去既有聚落阴影，仅补缺失建成区。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
+    "registrationEvidence": "assets/settlement-references/dalun-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围、自然村村界或逐栋归属认定",
+    "note": "两处聚居点同属大伦村；不把两者之间农田连接为聚落。影像拍摄时间未显示，待必要的实地核对。",
+    "sourceTraceParts": [
+      "shang-northeast-detached"
+    ]
+  },
+  {
+    "id": "manual-dalun-builtup-20261028-12",
+    "name": "下大伦南侧沿路房屋补缺",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.611656,
+        20.928539
+      ],
+      [
+        110.611715,
+        20.928458
+      ],
+      [
+        110.611801,
+        20.928488
+      ],
+      [
+        110.611844,
+        20.928584
+      ],
+      [
+        110.611785,
+        20.928679
+      ],
+      [
+        110.61177412935561,
+        20.928676696897373
+      ],
+      [
+        110.611769,
+        20.928652
+      ],
+      [
+        110.61165878537638,
+        20.92856811984397
+      ],
+      [
+        110.611656,
+        20.928539
+      ]
+    ],
+    "villageId": "amap-B02F70NXY1",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "按上大伦、下大伦建筑群及邻近房屋外缘补绘；减去既有聚落阴影，仅补缺失建成区。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
+    "registrationEvidence": "assets/settlement-references/dalun-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围、自然村村界或逐栋归属认定",
+    "note": "两处聚居点同属大伦村；不把两者之间农田连接为聚落。影像拍摄时间未显示，待必要的实地核对。",
+    "sourceTraceParts": [
+      "xia-south"
+    ]
+  },
+  {
+    "id": "manual-dalun-builtup-20261028-13",
+    "name": "上大伦东缘房屋组补缺",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.613757,
+        20.920706
+      ],
+      [
+        110.61376533693802,
+        20.92074768469006
+      ],
+      [
+        110.61332110355922,
+        20.92082936864522
+      ],
+      [
+        110.613328,
+        20.920751
+      ],
+      [
+        110.613425,
+        20.920731
+      ],
+      [
+        110.613441,
+        20.920771
+      ],
+      [
+        110.613591,
+        20.920761
+      ],
+      [
+        110.613591,
+        20.920711
+      ],
+      [
+        110.613757,
+        20.920706
+      ]
+    ],
+    "villageId": "amap-B02F70NXY1",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "按上大伦、下大伦建筑群及邻近房屋外缘补绘；减去既有聚落阴影，仅补缺失建成区。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
+    "registrationEvidence": "assets/settlement-references/dalun-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围、自然村村界或逐栋归属认定",
+    "note": "两处聚居点同属大伦村；不把两者之间农田连接为聚落。影像拍摄时间未显示，待必要的实地核对。",
+    "sourceTraceParts": [
+      "shang-east-frontage"
+    ]
+  },
+  {
+    "id": "manual-dalun-builtup-20261028-14",
+    "name": "下大伦东缘房屋补缺",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.6129359611631,
+        20.929799378643047
+      ],
+      [
+        110.612974,
+        20.929755
+      ],
+      [
+        110.613076,
+        20.92977
+      ],
+      [
+        110.613092,
+        20.929851
+      ],
+      [
+        110.613049,
+        20.929906
+      ],
+      [
+        110.61295835415625,
+        20.929901278862307
+      ],
+      [
+        110.6129359611631,
+        20.929799378643047
+      ]
+    ],
+    "villageId": "amap-B02F70NXY1",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "按上大伦、下大伦建筑群及邻近房屋外缘补绘；减去既有聚落阴影，仅补缺失建成区。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
+    "registrationEvidence": "assets/settlement-references/dalun-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围、自然村村界或逐栋归属认定",
+    "note": "两处聚居点同属大伦村；不把两者之间农田连接为聚落。影像拍摄时间未显示，待必要的实地核对。",
+    "sourceTraceParts": [
+      "xia-east"
+    ]
+  },
+  {
+    "id": "manual-dalun-builtup-20261028-15",
+    "name": "上大伦南缘沿路房屋组补缺",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.614239,
+        20.919553
+      ],
+      [
+        110.61411673386435,
+        20.919545405830085
+      ],
+      [
+        110.6141678,
+        20.9194303
+      ],
+      [
+        110.61409050506361,
+        20.919443299541545
+      ],
+      [
+        110.614126,
+        20.919428
+      ],
+      [
+        110.614282,
+        20.919428
+      ],
+      [
+        110.614271,
+        20.919513
+      ],
+      [
+        110.614239,
+        20.919553
+      ]
+    ],
+    "villageId": "amap-B02F70NXY1",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "按上大伦、下大伦建筑群及邻近房屋外缘补绘；减去既有聚落阴影，仅补缺失建成区。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
+    "registrationEvidence": "assets/settlement-references/dalun-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围、自然村村界或逐栋归属认定",
+    "note": "两处聚居点同属大伦村；不把两者之间农田连接为聚落。影像拍摄时间未显示，待必要的实地核对。",
+    "sourceTraceParts": [
+      "shang-south-row"
+    ]
+  },
+  {
+    "id": "manual-dalun-builtup-20261028-16",
+    "name": "上大伦南缘沿路房屋组补缺",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.61395,
+        20.919448
+      ],
+      [
+        110.61403990489626,
+        20.9194518095295
+      ],
+      [
+        110.61369396642704,
+        20.919509989815477
+      ],
+      [
+        110.613768,
+        20.919478
+      ],
+      [
+        110.613885,
+        20.919473
+      ],
+      [
+        110.61395,
+        20.919448
+      ]
+    ],
+    "villageId": "amap-B02F70NXY1",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "按上大伦、下大伦建筑群及邻近房屋外缘补绘；减去既有聚落阴影，仅补缺失建成区。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
+    "registrationEvidence": "assets/settlement-references/dalun-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围、自然村村界或逐栋归属认定",
+    "note": "两处聚居点同属大伦村；不把两者之间农田连接为聚落。影像拍摄时间未显示，待必要的实地核对。",
+    "sourceTraceParts": [
+      "shang-south-row"
+    ]
+  },
+  {
+    "id": "manual-dalun-builtup-20261028-17",
+    "name": "上大伦南缘沿路房屋组补缺",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.613559,
+        20.919518
+      ],
+      [
+        110.61367276065127,
+        20.919513556224558
+      ],
+      [
+        110.61350892931662,
+        20.919541109546174
+      ],
+      [
+        110.613559,
+        20.919518
+      ]
+    ],
+    "villageId": "amap-B02F70NXY1",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "按上大伦、下大伦建筑群及邻近房屋外缘补绘；减去既有聚落阴影，仅补缺失建成区。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY1",
+    "registrationEvidence": "assets/settlement-references/dalun-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围、自然村村界或逐栋归属认定",
+    "note": "两处聚居点同属大伦村；不把两者之间农田连接为聚落。影像拍摄时间未显示，待必要的实地核对。",
+    "sourceTraceParts": [
+      "shang-south-row"
+    ]
   }
 ]
