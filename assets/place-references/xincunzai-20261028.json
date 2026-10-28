@@ -1,0 +1,120 @@
+{
+  "id": "xincunzai-location-20261028",
+  "placeId": "amap-B02F70NY0E",
+  "date": "2026-10-28",
+  "userDecision": "新村仔和新村仔村为同一村，以有聚落的高德“新村仔”位置为准，地图统一显示“新村仔村”。",
+  "existingProjectState": "原项目只有一个“新村仔村”记录，“新村仔”已是别名；仅需改坐标，不新增或删除地点 ID。",
+  "reference": {
+    "date": "2026-10-28",
+    "coordinateSystem": "GCJ-02 Web Mercator pixel grid",
+    "zoom": 16,
+    "worldPixels": 16777216,
+    "pixelOrigin": [
+      13541888,
+      7391744
+    ],
+    "size": [
+      768,
+      768
+    ],
+    "existingPlacePixel": [
+      347.07501511089504,
+      320.9031939106062
+    ],
+    "sourceLocation": [
+      110.58484,
+      20.903702
+    ],
+    "placeId": "amap-B02F70NY0E",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY0E",
+    "purpose": "Local inspection only; imagery is not published",
+    "satelliteUrls": [
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52898&y=28874&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52899&y=28874&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52900&y=28874&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52898&y=28875&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52899&y=28875&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52900&y=28875&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52898&y=28876&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52899&y=28876&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=52900&y=28876&z=16"
+    ],
+    "vectorUrls": [
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52898&y=28874&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52899&y=28874&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52900&y=28874&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52898&y=28875&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52899&y=28875&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52900&y=28875&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52898&y=28876&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52899&y=28876&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=7&x=52900&y=28876&z=16"
+    ],
+    "vector-standardUrls": [
+      "https://webst01.is.autonavi.com/appmaptile?style=8&x=52898&y=28874&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=8&x=52899&y=28874&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=8&x=52900&y=28874&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=8&x=52898&y=28875&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=8&x=52899&y=28875&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=8&x=52900&y=28875&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=8&x=52898&y=28876&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=8&x=52899&y=28876&z=16",
+      "https://webst01.is.autonavi.com/appmaptile?style=8&x=52900&y=28876&z=16"
+    ]
+  },
+  "labelObservation": {
+    "image": "vector-16.jpg",
+    "text": "新村仔",
+    "textCenterPixel": [
+      342,
+      546
+    ],
+    "correspondingImage": "satellite-16.jpg",
+    "description": "地名文字中心落在既有聚落面与可见密集建筑内；旧点在其北侧约502米农地。"
+  },
+  "before": {
+    "id": "amap-B02F70NY0E",
+    "name": "新村仔村",
+    "lng": 110.580624,
+    "lat": 20.90642,
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NY0E",
+      "name": "新村仔村",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.58484,
+      "lat": 20.903702
+    }
+  },
+  "after": {
+    "id": "amap-B02F70NY0E",
+    "name": "新村仔村",
+    "coordinateSystem": "WGS84",
+    "lng": 110.580516,
+    "lat": 20.901907,
+    "sourceLocation": {
+      "provider": "高德地图地名与卫星影像",
+      "name": "新村仔",
+      "type": "地名对应建筑群内代表点",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.58473110198975,
+      "lat": 20.899189785931803,
+      "note": "从公开地名栅格与卫星影像对应位置定位，非另一个 POI 详情页坐标；并核验位于既有聚落面内。"
+    }
+  },
+  "builtAreaId": 504591743,
+  "pointInsideBuiltArea": true,
+  "moveMeters": 501.9,
+  "coordinateMethod": "高德地名栅格像素网格反算 GCJ-02，经项目现有五次迭代逆变换转为 WGS84，并通过卫星图与既有聚落面核验。",
+  "meaning": "聚落内代表点，不是测绘控制点、法定村界或新取得的精确 POI 坐标。",
+  "preserved": [
+    "stable place ID",
+    "village display name",
+    "search alias",
+    "Songhuang committee membership",
+    "all existing built-area geometries",
+    "all field archive and faith/journal references"
+  ],
+  "imagesPublished": false
+}

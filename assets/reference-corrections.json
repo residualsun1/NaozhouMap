@@ -1900,5 +1900,84 @@
       "note": "近似转换；小数位数不表示测绘精度。"
     },
     "correctionNote": "依据高德地图同名村庄或地名详情及可见分享嵌入参数复核。保留现有村名和旧坐标历史；本点不是村庄边界或测绘控制点。"
+  },
+  {
+    "id": "amap-B02F70NY0E",
+    "name": "新村仔村",
+    "lng": 110.580516,
+    "lat": 20.901907,
+    "aliases": [
+      "新村仔"
+    ],
+    "nameSource": "用户确认统一名称；高德地图地名",
+    "coordinateSource": "高德“新村仔”标注对应建成区内代表点（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://uri.amap.com/marker?position=110.584731%2C20.899190&name=%E6%96%B0%E6%9D%91%E4%BB%94&coordinate=gaode&callnative=0",
+    "embedUrl": "https://uri.amap.com/marker?position=110.584731%2C20.899190&name=%E6%96%B0%E6%9D%91%E4%BB%94&coordinate=gaode&callnative=0",
+    "checkedAt": "2026-10-28",
+    "previousLocation": {
+      "coordinateSystem": "WGS84",
+      "lng": 110.580624,
+      "lat": 20.90642,
+      "source": "高德地图（GCJ-02 转 WGS84，近似）",
+      "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY0E"
+    },
+    "originalCoordinates": {
+      "coordinateSystem": "WGS84",
+      "lng": 110.580624,
+      "lat": 20.90642,
+      "source": "高德地图（GCJ-02 转 WGS84，近似）",
+      "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY0E"
+    },
+    "sourceLocation": {
+      "provider": "高德地图地名与卫星影像",
+      "name": "新村仔",
+      "type": "地名对应建筑群内代表点",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.58473110198975,
+      "lat": 20.899189785931803,
+      "note": "从公开地名栅格与卫星影像对应位置定位，非另一个 POI 详情页坐标；并核验位于既有聚落面内。"
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, iterative inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true
+    },
+    "correctionNote": "用户确认“新村仔”与“新村仔村”为同村，统一标为“新村仔村”。按高德“新村仔”地名对应建筑群，将原农地点移入聚落；保留原 ID、别名和宋皇村委会归属。",
+    "locationReview": {
+      "status": "imagery_identified",
+      "checkedAt": "2026-10-28",
+      "evidencePath": "assets/place-references/xincunzai-20261028.json",
+      "geometryId": 504591743,
+      "pointInsideGeometry": true,
+      "manualPriorityReason": "用户指定以有实际聚落的“新村仔”位置为准。"
+    },
+    "manualPriority": true,
+    "manualPriorityScope": [
+      "coordinates",
+      "name"
+    ],
+    "correctionHistory": [
+      {
+        "replacedAt": "2026-10-28",
+        "previousLocation": {
+          "coordinateSystem": "WGS84",
+          "lng": 110.580624,
+          "lat": 20.90642,
+          "source": "高德地图（GCJ-02 转 WGS84，近似）",
+          "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY0E"
+        },
+        "previousSourceLocation": {
+          "provider": "高德地图",
+          "placeId": "B02F70NY0E",
+          "name": "新村仔村",
+          "type": "村庄",
+          "coordinateSystem": "GCJ-02",
+          "lng": 110.58484,
+          "lat": 20.903702
+        },
+        "reason": "用户确认同村异名，按可见聚落位置修正，原稳定 ID 继续使用。"
+      }
+    ]
   }
 ]
