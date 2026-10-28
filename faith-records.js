@@ -195,6 +195,7 @@ window.createFaithRecords = options => {
         title.textContent = record.temple;
         row.append(title);
       }
+      if(A.faithDetailsPending(record))row.append(A.element('span','faith-details-pending','已关联 · 资料待补充'));
       const edit = document.createElement('button');
       edit.type = 'button';
       edit.className = 'linkbutton';
@@ -267,6 +268,7 @@ window.createFaithRecords = options => {
       state = validate(result);
       loadError='';
       changed();
+      try{localStorage.setItem('naozhou-faith-changed',JSON.stringify({revision:state.revision,at:Date.now()}));}catch{}
       status('已保存');
       return true;
     } catch (error) { status(error.message); return false; }
@@ -335,6 +337,11 @@ window.createFaithRecords = options => {
     changed();return state;
   }
   const ready=load();
+  let refreshing=false;
+  async function refreshAssociations(){await ready;if(refreshing||dirty||quickDirty||saving||quickSaving||catalog.saving)return;refreshing=true;try{await load();}finally{refreshing=false;}}
+  window.addEventListener('focus',refreshAssociations);
+  window.addEventListener('storage',event=>{if(event.key==='naozhou-faith-changed')refreshAssociations();});
+  document.addEventListener('naozhou-faith-change',refreshAssociations);
   return {
     ready,get catalog(){return catalog;},get records(){return state?.records||null;},get error(){return loadError;},reload:load,
     subscribe(listener){listeners.add(listener);return()=>listeners.delete(listener);},

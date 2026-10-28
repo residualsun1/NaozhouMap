@@ -77,5 +77,6 @@ window.DeityAtlas = (() => {
       return {...village,point:usable?place:null};
     });
   }
-  return {uid,element,profileURL,mapURL,exploreURL,validate,createCatalog,createFields,villagesFor,locatedVillagesFor};
+  const faithDetailsPending=record=>!['temple','festival','source','visitedOn','note'].some(field=>record[field]?.trim());
+  return {uid,element,profileURL,mapURL,exploreURL,validate,createCatalog,createFields,villagesFor,locatedVillagesFor,faithDetailsPending};
 })();

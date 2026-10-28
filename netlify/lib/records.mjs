@@ -4,6 +4,7 @@ import faithSeed from '../seed/faith.json' with {type:'json'};
 import { resolveEditorAuth, json, sameOrigin } from './auth.mjs';
 import { deitySeed, normalizeDeityCatalog, normalizeDeityLinks } from './deities.mjs';
 import { createArchiveStore } from './archive-store.mjs';
+import { faithPlaceIndex, faithAssociationAction } from './faith-associations.mjs';
 
 const revisionValid = value => Number.isInteger(value) && value >= 0 && value < 2147483647;
 const required = (value, limit) => typeof value === 'string' && value.trim().length > 0 && value.length <= limit;
@@ -65,6 +66,7 @@ export function recordsHandler(kind, storeFactory = () => getStore({name:'naozho
   return async request => {
     if (!['GET','POST'].includes(request.method)) return json({error:'Method not allowed.'},405,{Allow:'GET, POST'});
     if (request.method === 'POST' && !sameOrigin(request)) return json({error:'请先登录编辑。'},401);
+    if (kind==='faith' && request.method==='GET' && new URL(request.url).searchParams.get('view')==='places') return json(faithPlaceIndex);
     try {
       const rawStore=storeFactory(),store=['faith','deities'].includes(kind)?createArchiveStore(rawStore):rawStore;
       if(request.method==='POST'&&!(await resolveEditorAuth(store)).authorized(request))return json({error:'请先登录编辑。'},401);
@@ -78,8 +80,12 @@ export function recordsHandler(kind, storeFactory = () => getStore({name:'naozho
       const raw=await request.text();
       if (Buffer.byteLength(raw)>5*1024*1024) return json({error:'资料过大，请分批导入。'},413);
       let body,items,deityCatalog;
+      try { body=JSON.parse(raw); } catch { return json({error:'资料不是有效的 JSON。'},400); }
+      if (kind==='faith' && body?.action) {
+        if (!['preview-villages','link-villages'].includes(body.action)) return json({error:'未知的关联操作。'},400);
+        return await faithAssociationAction(store,body);
+      }
       try {
-        body=JSON.parse(raw);
         if (!revisionValid(body.revision) || (kind!=='points' && body.version!==1)) throw Error('记录版本无效。');
         if (kind==='deities') { deityCatalog=normalizeDeityCatalog(body,current.state); items=deityCatalog.records; }
         else if (kind==='faith') items=normalizeFaith(body.records,current.state.records,(await readState(store,'deities')).state);
