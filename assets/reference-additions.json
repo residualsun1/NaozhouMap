@@ -2529,5 +2529,52 @@
       "pointInsideGeometry": true
     },
     "correctionNote": "作为大伦村片内聚居点标示位置，不另立自然村、不合并或迁移既有田野档案。"
+  },
+  {
+    "id": "local-village-tangwei",
+    "name": "塘尾村",
+    "aliases": [
+      "塘尾"
+    ],
+    "lng": 110.558166,
+    "lat": 20.900489,
+    "nameSource": "调查者确认；高德塘尾加油站地名参照",
+    "coordinateSource": "调查者提供村中心（GCJ-02 转 WGS84，近似）；高德附属地点参照核对",
+    "sourceUrl": "https://uri.amap.com/marker?position=110.5624%2C20.8978&name=%E5%A1%98%E5%B0%BE%E6%9D%91&coordinate=gaode&callnative=0",
+    "embedUrl": "https://uri.amap.com/marker?position=110.5624%2C20.8978&name=%E5%A1%98%E5%B0%BE%E6%9D%91&coordinate=gaode&callnative=0",
+    "checkedAt": "2026-10-28",
+    "sourceLocation": {
+      "provider": "调查者提供（高德坐标系）",
+      "name": "塘尾村",
+      "type": "自然村代表点",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.5624,
+      "lat": 20.8978,
+      "note": "无独立高德村庄 POI。采用调查者指定的村中心；高德核对对象为塘尾加油站，不将加油站当作村中心或虚构村庄 POI ID。"
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "coordinateSystemReference": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/basetype",
+      "approximate": true,
+      "outputDecimals": 6,
+      "note": "近似转换；小数位数不表示测绘精度。"
+    },
+    "placeKind": "natural_village",
+    "manualPriority": true,
+    "manualPriorityScope": [
+      "coordinates"
+    ],
+    "locationReview": {
+      "status": "user_located_landmark_checked",
+      "checkedAt": "2026-10-28",
+      "evidencePath": "assets/place-references/tangwei-20261028.json",
+      "geometryIds": [
+        504586838
+      ],
+      "pointInsideGeometry": true,
+      "referenceProviderPlaceId": "B02F701QJW"
+    },
+    "correctionNote": "按调查者推荐的村中心补录，独立核对的塘尾加油站坐标与其提供值一致。作为宋皇村委会下的单一自然村，不新增上、下塘尾或下分聚落；已有聚落阴影保留，不将其视为塘尾法定边界。"
   }
 ]

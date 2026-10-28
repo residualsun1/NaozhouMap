@@ -345,13 +345,22 @@
       {
         "placeId": "amap-B02F70NY0I",
         "name": "招屋村"
+      },
+      {
+        "placeId": "local-village-tangwei",
+        "name": "塘尾村",
+        "classificationSource": {
+          "type": "user_confirmed",
+          "checkedAt": "2026-10-28",
+          "note": "调查者确认塘尾村为宋皇村委会辖区内的一个自然村，无上塘尾、下塘尾之分。按调查者提供的村中心定位，已核对高德塘尾加油站的公开分享坐标。"
+        }
       }
     ],
     "membershipComplete": false,
     "classificationSource": {
       "type": "user_confirmed",
       "checkedAt": "2026-10-23",
-      "note": "用户确认宋皇村标注为宋皇村委会行政驻地，不作为独立自然村。将16个已定位自然村及赤马村片内的上马、中下马两处小聚落关联至宋皇村委会，小聚落不与赤马村平级。赤马村包含赤马（主村）、上马、下马；中下马保留原称谓，不与下马合并，下马独立点位待核。上岭采用咸田、扫屯附近B02F70NY01，不包含陈屋附近同名村。塘尾仅找到加油站，用户明确暂不处理。"
+      "note": "用户确认宋皇村标注为宋皇村委会行政驻地，不作为独立自然村。将已定位自然村及赤马村片内的上马、中下马两处小聚落关联至宋皇村委会，小聚落不与赤马村平级。赤马村包含赤马（主村）、上马、下马；中下马保留原称谓，不与下马合并，下马独立点位待核。上岭采用咸田、扫屯附近B02F70NY01，不包含陈屋附近同名村。"
     },
     "coverage": {
       "status": "illustrative",
@@ -360,9 +369,9 @@
       "landOnly": true,
       "officialBoundaryAvailable": false,
       "marineBoundaryAvailable": false,
-      "note": "根据已确认自然村及片内小聚落位置周边250米分布包络制作陆地范围示意，并以主岛海岸线裁剪；不表示法定村界，海域暂不划定。塘尾按用户要求暂不处理。",
+      "note": "根据已确认自然村及片内小聚落位置周边250米分布包络制作陆地范围示意，并以主岛海岸线裁剪；不表示法定村界，海域暂不划定。",
       "approvedByUser": true,
-      "checkedAt": "2026-10-23"
+      "checkedAt": "2026-10-28"
     }
   },
   {

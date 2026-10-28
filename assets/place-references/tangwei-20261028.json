@@ -1,0 +1,70 @@
+{
+  "id": "tangwei-village-20261028",
+  "placeId": "local-village-tangwei",
+  "checkedAt": "2026-10-28",
+  "userDecision": "调查者确认塘尾村为宋皇村委会辖区内的一个自然村，无上塘尾、下塘尾之分。按调查者提供的村中心定位，已核对高德塘尾加油站的公开分享坐标。",
+  "coordinateSystem": "WGS84",
+  "villageCenter": {
+    "origin": "user_provided",
+    "sourceLocation": {
+      "provider": "调查者提供（高德坐标系）",
+      "name": "塘尾村",
+      "type": "自然村代表点",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.5624,
+      "lat": 20.8978,
+      "note": "无独立高德村庄 POI。采用调查者指定的村中心；高德核对对象为塘尾加油站，不将加油站当作村中心或虚构村庄 POI ID。"
+    },
+    "projectLocation": {
+      "lng": 110.558166,
+      "lat": 20.900489
+    },
+    "sourceUrl": "https://uri.amap.com/marker?position=110.5624%2C20.8978&name=%E5%A1%98%E5%B0%BE%E6%9D%91&coordinate=gaode&callnative=0",
+    "providerVillagePoiAvailable": false
+  },
+  "verifiedLandmark": {
+    "shareUrl": "https://surl.amap.com/2ANsht2yKefS",
+    "observedRedirect": "http://wb.amap.com/?p=B02F701QJW%2C20.898031%2C110.563912%2C%E5%A1%98%E5%B0%BE%E5%8A%A0%E6%B2%B9%E7%AB%99%2C288%E7%9C%81%E9%81%93&src=pc_share",
+    "providerPlaceId": "B02F701QJW",
+    "sourceName": "塘尾加油站",
+    "sourceLocation": {
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.563912,
+      "lat": 20.898031
+    },
+    "userSuppliedStationLocation": {
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.563912,
+      "lat": 20.898031
+    },
+    "stationDifferenceMeters": 0.0,
+    "distanceFromUserVillageCenterMeters": 159.2,
+    "checkedAt": "2026-10-28"
+  },
+  "otherUserReference": {
+    "name": "塘尾村卫生站",
+    "coordinateSystem": "GCJ-02",
+    "lng": 110.560299,
+    "lat": 20.896438,
+    "status": "user_provided_not_independently_verified",
+    "note": "仅保留为调查者提供的辅助参照，不新增地点或据此推断村界。"
+  },
+  "classification": {
+    "type": "user_confirmed",
+    "checkedAt": "2026-10-28",
+    "note": "调查者确认塘尾村为宋皇村委会辖区内的一个自然村，无上塘尾、下塘尾之分。按调查者提供的村中心定位，已核对高德塘尾加油站的公开分享坐标。"
+  },
+  "geographicCheck": {
+    "insideIsland": true,
+    "existingBuiltAreaIds": [
+      504586838
+    ],
+    "pointInsideExistingBuiltArea": true,
+    "settlementGeometryChanged": false,
+    "note": "中心落在现有建成区内；只补一个村名点，不把整个既有建成区认定为塘尾村范围。"
+  },
+  "coordinateMethod": "沿用项目现有五次迭代逆变换，将调查者明确标注为 GCJ-02 的中心坐标转换为 WGS84；没有再次转换既有地图坐标。",
+  "limitations": "代表点由调查者提供，非独立高德村庄 POI、测绘控制点或法定村界。行政归属采用调查者确认。",
+  "villageIdIsLocal": true,
+  "imagesPublished": false
+}
