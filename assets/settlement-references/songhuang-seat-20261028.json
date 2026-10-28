@@ -1,0 +1,794 @@
+{
+  "id": "songhuang-seat-builtup-20261028",
+  "placeId": "osm-2065811659",
+  "checkedAt": "2026-10-28",
+  "source": "高德地图卫星影像",
+  "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY04",
+  "geometryStatus": "interpreted",
+  "coordinateSystem": "WGS84",
+  "reference": {
+    "checkedAt": "2026-10-28",
+    "placeId": "osm-2065811659",
+    "amapPlaceId": "B02F70NY04",
+    "placeSourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY04",
+    "coordinateSystem": "GCJ-02 / Web Mercator pixel grid",
+    "sourceLocation": [
+      110.573797,
+      20.895429
+    ],
+    "zoom": 18,
+    "pixelOrigin": [
+      54166272,
+      29569536
+    ],
+    "worldPixels": 67108864,
+    "size": [
+      1536,
+      768
+    ],
+    "placePixel": [
+      609.7356572449207,
+      374.4232305660844
+    ],
+    "purpose": "Local built-up area review only; imagery is not published",
+    "satelliteReferences": [
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211587&y=115506&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211588&y=115506&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211589&y=115506&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211590&y=115506&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211591&y=115506&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211592&y=115506&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211587&y=115507&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211588&y=115507&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211589&y=115507&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211590&y=115507&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211591&y=115507&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211592&y=115507&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211587&y=115508&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211588&y=115508&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211589&y=115508&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211590&y=115508&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211591&y=115508&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211592&y=115508&z=18"
+    ]
+  },
+  "traces": [
+    {
+      "key": "seat-roadside",
+      "name": "宋皇驻地点旁沿路建筑",
+      "pixels": [
+        [
+          566,
+          359
+        ],
+        [
+          586,
+          358
+        ],
+        [
+          609,
+          356
+        ],
+        [
+          641,
+          354
+        ],
+        [
+          658,
+          365
+        ],
+        [
+          662,
+          398
+        ],
+        [
+          649,
+          421
+        ],
+        [
+          617,
+          424
+        ],
+        [
+          600,
+          414
+        ],
+        [
+          580,
+          419
+        ],
+        [
+          567,
+          402
+        ],
+        [
+          566,
+          359
+        ]
+      ]
+    },
+    {
+      "key": "seat-south",
+      "name": "宋皇驻地南侧建筑群",
+      "pixels": [
+        [
+          476,
+          441
+        ],
+        [
+          495,
+          431
+        ],
+        [
+          533,
+          428
+        ],
+        [
+          548,
+          438
+        ],
+        [
+          556,
+          437
+        ],
+        [
+          562,
+          474
+        ],
+        [
+          574,
+          481
+        ],
+        [
+          585,
+          514
+        ],
+        [
+          600,
+          523
+        ],
+        [
+          599,
+          579
+        ],
+        [
+          583,
+          592
+        ],
+        [
+          568,
+          594
+        ],
+        [
+          561,
+          582
+        ],
+        [
+          532,
+          592
+        ],
+        [
+          516,
+          595
+        ],
+        [
+          506,
+          579
+        ],
+        [
+          507,
+          560
+        ],
+        [
+          502,
+          547
+        ],
+        [
+          488,
+          542
+        ],
+        [
+          485,
+          512
+        ],
+        [
+          480,
+          493
+        ],
+        [
+          481,
+          465
+        ],
+        [
+          476,
+          441
+        ]
+      ]
+    },
+    {
+      "key": "west-roadside",
+      "name": "宋皇驻地西侧沿路建筑",
+      "pixels": [
+        [
+          108,
+          241
+        ],
+        [
+          137,
+          254
+        ],
+        [
+          170,
+          270
+        ],
+        [
+          204,
+          282
+        ],
+        [
+          238,
+          287
+        ],
+        [
+          239,
+          307
+        ],
+        [
+          228,
+          331
+        ],
+        [
+          219,
+          347
+        ],
+        [
+          190,
+          337
+        ],
+        [
+          162,
+          327
+        ],
+        [
+          133,
+          318
+        ],
+        [
+          111,
+          302
+        ],
+        [
+          100,
+          285
+        ],
+        [
+          108,
+          241
+        ]
+      ]
+    },
+    {
+      "key": "east-road-north",
+      "name": "宋皇驻地东侧路北建筑群补缺",
+      "pixels": [
+        [
+          1074,
+          151
+        ],
+        [
+          1157,
+          143
+        ],
+        [
+          1172,
+          148
+        ],
+        [
+          1218,
+          141
+        ],
+        [
+          1230,
+          158
+        ],
+        [
+          1232,
+          198
+        ],
+        [
+          1247,
+          204
+        ],
+        [
+          1255,
+          238
+        ],
+        [
+          1268,
+          253
+        ],
+        [
+          1267,
+          275
+        ],
+        [
+          1234,
+          285
+        ],
+        [
+          1194,
+          285
+        ],
+        [
+          1171,
+          291
+        ],
+        [
+          1138,
+          294
+        ],
+        [
+          1102,
+          291
+        ],
+        [
+          1078,
+          292
+        ],
+        [
+          1072,
+          286
+        ],
+        [
+          1038,
+          283
+        ],
+        [
+          1033,
+          266
+        ],
+        [
+          1043,
+          251
+        ],
+        [
+          1073,
+          253
+        ],
+        [
+          1074,
+          151
+        ]
+      ]
+    },
+    {
+      "key": "east-road-south",
+      "name": "宋皇驻地东侧路南建筑群",
+      "pixels": [
+        [
+          961,
+          412
+        ],
+        [
+          991,
+          402
+        ],
+        [
+          1005,
+          415
+        ],
+        [
+          1019,
+          406
+        ],
+        [
+          1067,
+          404
+        ],
+        [
+          1078,
+          397
+        ],
+        [
+          1112,
+          399
+        ],
+        [
+          1126,
+          407
+        ],
+        [
+          1147,
+          399
+        ],
+        [
+          1159,
+          412
+        ],
+        [
+          1172,
+          427
+        ],
+        [
+          1168,
+          442
+        ],
+        [
+          1181,
+          448
+        ],
+        [
+          1179,
+          468
+        ],
+        [
+          1164,
+          479
+        ],
+        [
+          1141,
+          489
+        ],
+        [
+          1130,
+          500
+        ],
+        [
+          1123,
+          501
+        ],
+        [
+          1107,
+          503
+        ],
+        [
+          1090,
+          509
+        ],
+        [
+          1032,
+          516
+        ],
+        [
+          1015,
+          503
+        ],
+        [
+          1017,
+          483
+        ],
+        [
+          1006,
+          474
+        ],
+        [
+          990,
+          474
+        ],
+        [
+          981,
+          460
+        ],
+        [
+          963,
+          454
+        ],
+        [
+          961,
+          412
+        ]
+      ]
+    },
+    {
+      "key": "east-junction",
+      "name": "宋皇驻地东侧支路建筑",
+      "pixels": [
+        [
+          899,
+          396
+        ],
+        [
+          917,
+          395
+        ],
+        [
+          928,
+          400
+        ],
+        [
+          936,
+          407
+        ],
+        [
+          936,
+          434
+        ],
+        [
+          952,
+          449
+        ],
+        [
+          969,
+          454
+        ],
+        [
+          977,
+          470
+        ],
+        [
+          966,
+          480
+        ],
+        [
+          952,
+          478
+        ],
+        [
+          934,
+          471
+        ],
+        [
+          925,
+          460
+        ],
+        [
+          911,
+          457
+        ],
+        [
+          902,
+          440
+        ],
+        [
+          899,
+          419
+        ],
+        [
+          899,
+          396
+        ]
+      ]
+    },
+    {
+      "key": "east-frontage",
+      "name": "宋皇驻地东侧沿路房屋组",
+      "pixels": [
+        [
+          1194,
+          321
+        ],
+        [
+          1233,
+          317
+        ],
+        [
+          1248,
+          309
+        ],
+        [
+          1285,
+          310
+        ],
+        [
+          1294,
+          307
+        ],
+        [
+          1334,
+          310
+        ],
+        [
+          1340,
+          339
+        ],
+        [
+          1327,
+          349
+        ],
+        [
+          1294,
+          347
+        ],
+        [
+          1282,
+          338
+        ],
+        [
+          1250,
+          335
+        ],
+        [
+          1236,
+          345
+        ],
+        [
+          1214,
+          345
+        ],
+        [
+          1207,
+          337
+        ],
+        [
+          1192,
+          338
+        ],
+        [
+          1194,
+          321
+        ]
+      ]
+    },
+    {
+      "key": "east-detached",
+      "name": "宋皇驻地东侧独立建筑组",
+      "pixels": [
+        [
+          1375,
+          225
+        ],
+        [
+          1393,
+          220
+        ],
+        [
+          1391,
+          207
+        ],
+        [
+          1414,
+          198
+        ],
+        [
+          1441,
+          197
+        ],
+        [
+          1449,
+          221
+        ],
+        [
+          1464,
+          228
+        ],
+        [
+          1473,
+          240
+        ],
+        [
+          1478,
+          259
+        ],
+        [
+          1459,
+          264
+        ],
+        [
+          1448,
+          253
+        ],
+        [
+          1425,
+          259
+        ],
+        [
+          1391,
+          261
+        ],
+        [
+          1375,
+          253
+        ],
+        [
+          1375,
+          225
+        ]
+      ]
+    }
+  ],
+  "pointReference": {
+    "id": "osm-2065811659",
+    "name": "宋皇村",
+    "lng": 110.569576,
+    "lat": 20.898136,
+    "placeKind": "administrative_seat",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NY04",
+      "name": "宋皇村",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.573797,
+      "lat": 20.895429,
+      "shareUrl": "https://surl.amap.com/1FNc02UeJgLL"
+    }
+  },
+  "coordinateMethod": "依据高德参考影像的 GCJ-02 Web Mercator 网格反算经纬度，再复用项目现有五次迭代逆变换转为 WGS84。",
+  "interpretation": "补绘驻地点旁、南侧及附近道路两侧可见建筑与毗连院落；保留各建筑组间的农田、树林与水面，不使用凸包连接成行政范围。",
+  "overlapHandling": "先合并相接判读轮廓，再减去所有已有聚落面，仅新增缺失部分，避免阴影叠深。",
+  "existingAreasUsedForDifference": [
+    504591758
+  ],
+  "ignoredEdgeFragmentsBelowSquareMeters": 5,
+  "ignoredEdgeAreaSquareMeters": 2.779,
+  "interpretedSquareMeters": 26537.6,
+  "alreadyCoveredSquareMeters": 7521.1,
+  "addedSquareMeters": 19013.7,
+  "result": [
+    {
+      "id": "manual-songhuang-seat-builtup-20261028-1",
+      "name": "宋皇驻地东侧路南及支路建筑群",
+      "traceParts": [
+        "east-road-south",
+        "east-junction"
+      ],
+      "vertices": 43,
+      "approximateSquareMeters": 6843.5
+    },
+    {
+      "id": "manual-songhuang-seat-builtup-20261028-2",
+      "name": "宋皇驻地南侧建筑群",
+      "traceParts": [
+        "seat-south"
+      ],
+      "vertices": 23,
+      "approximateSquareMeters": 4576.8
+    },
+    {
+      "id": "manual-songhuang-seat-builtup-20261028-3",
+      "name": "宋皇驻地西侧沿路建筑",
+      "traceParts": [
+        "west-roadside"
+      ],
+      "vertices": 14,
+      "approximateSquareMeters": 2460.2
+    },
+    {
+      "id": "manual-songhuang-seat-builtup-20261028-4",
+      "name": "宋皇驻地点旁沿路建筑",
+      "traceParts": [
+        "seat-roadside"
+      ],
+      "vertices": 12,
+      "approximateSquareMeters": 1756.5
+    },
+    {
+      "id": "manual-songhuang-seat-builtup-20261028-5",
+      "name": "宋皇驻地东侧路北建筑群补缺",
+      "traceParts": [
+        "east-road-north"
+      ],
+      "vertices": 13,
+      "approximateSquareMeters": 1711.8
+    },
+    {
+      "id": "manual-songhuang-seat-builtup-20261028-6",
+      "name": "宋皇驻地东侧独立建筑组",
+      "traceParts": [
+        "east-detached"
+      ],
+      "vertices": 15,
+      "approximateSquareMeters": 1462.1
+    },
+    {
+      "id": "manual-songhuang-seat-builtup-20261028-7",
+      "name": "宋皇驻地东侧沿路房屋组",
+      "traceParts": [
+        "east-frontage"
+      ],
+      "vertices": 7,
+      "approximateSquareMeters": 192.5
+    },
+    {
+      "id": "manual-songhuang-seat-builtup-20261028-8",
+      "name": "宋皇驻地东侧路北建筑群补缺",
+      "traceParts": [
+        "east-road-north"
+      ],
+      "vertices": 4,
+      "approximateSquareMeters": 10.1
+    }
+  ],
+  "limitations": "影像判读，非测绘级成果；不表示村界、行政范围、逐栋归属或自然村建制。",
+  "imagesPublished": false
+}

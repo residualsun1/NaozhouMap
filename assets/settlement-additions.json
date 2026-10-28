@@ -4260,5 +4260,706 @@
     "sourceTraceParts": [
       "west-outer"
     ]
+  },
+  {
+    "id": "manual-songhuang-seat-builtup-20261028-1",
+    "name": "宋皇驻地东侧路南及支路建筑群",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.572031,
+        20.89799
+      ],
+      [
+        110.571773,
+        20.89798
+      ],
+      [
+        110.571698,
+        20.897935
+      ],
+      [
+        110.571623,
+        20.898
+      ],
+      [
+        110.571461,
+        20.897949
+      ],
+      [
+        110.57147153278471,
+        20.897747919564644
+      ],
+      [
+        110.571413,
+        20.897764
+      ],
+      [
+        110.571327,
+        20.897839
+      ],
+      [
+        110.571327,
+        20.897974
+      ],
+      [
+        110.571284,
+        20.898009
+      ],
+      [
+        110.571225,
+        20.898034
+      ],
+      [
+        110.571129,
+        20.898029
+      ],
+      [
+        110.571129,
+        20.897914
+      ],
+      [
+        110.571145,
+        20.897809
+      ],
+      [
+        110.571193,
+        20.897724
+      ],
+      [
+        110.571268,
+        20.897709
+      ],
+      [
+        110.571317,
+        20.897654
+      ],
+      [
+        110.571413,
+        20.897619
+      ],
+      [
+        110.571488,
+        20.897609
+      ],
+      [
+        110.571547,
+        20.897659
+      ],
+      [
+        110.57151038021638,
+        20.897727129829985
+      ],
+      [
+        110.571569,
+        20.897709
+      ],
+      [
+        110.571617,
+        20.897639
+      ],
+      [
+        110.571703,
+        20.897639
+      ],
+      [
+        110.571762,
+        20.897594
+      ],
+      [
+        110.571751,
+        20.897494
+      ],
+      [
+        110.571843,
+        20.897429
+      ],
+      [
+        110.572154,
+        20.897464
+      ],
+      [
+        110.572245,
+        20.897494
+      ],
+      [
+        110.572331,
+        20.897504
+      ],
+      [
+        110.572369,
+        20.89751
+      ],
+      [
+        110.572428,
+        20.897565
+      ],
+      [
+        110.572551,
+        20.897615
+      ],
+      [
+        110.572632,
+        20.89767
+      ],
+      [
+        110.572642,
+        20.89777
+      ],
+      [
+        110.572573,
+        20.8978
+      ],
+      [
+        110.572594,
+        20.897876
+      ],
+      [
+        110.572524,
+        20.897951
+      ],
+      [
+        110.57246,
+        20.898016
+      ],
+      [
+        110.572347,
+        20.897976
+      ],
+      [
+        110.572272,
+        20.898016
+      ],
+      [
+        110.57209,
+        20.898025
+      ],
+      [
+        110.572031,
+        20.89799
+      ]
+    ],
+    "villageId": "osm-2065811659",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "宋皇村委会驻地点旁及附近道路两侧可见建成区人工补绘；剔除已有阴影覆盖部分，仅增加缺失区域。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY04",
+    "registrationEvidence": "assets/settlement-references/songhuang-seat-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "仅关联驻地附近地物，不认定存在独立“宋皇”自然村或推断逐栋归属；影像拍摄时间未显示，待实地复核。",
+    "sourceTraceParts": [
+      "east-road-south",
+      "east-junction"
+    ]
+  },
+  {
+    "id": "manual-songhuang-seat-builtup-20261028-2",
+    "name": "宋皇驻地南侧建筑群",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.569287,
+        20.897822
+      ],
+      [
+        110.569244,
+        20.897816
+      ],
+      [
+        110.569164,
+        20.897866
+      ],
+      [
+        110.56896,
+        20.897851
+      ],
+      [
+        110.568858,
+        20.897801
+      ],
+      [
+        110.568885,
+        20.897681
+      ],
+      [
+        110.568879,
+        20.89754
+      ],
+      [
+        110.568906,
+        20.897445
+      ],
+      [
+        110.568922,
+        20.897295
+      ],
+      [
+        110.568997,
+        20.89727
+      ],
+      [
+        110.569024,
+        20.897205
+      ],
+      [
+        110.569019,
+        20.89711
+      ],
+      [
+        110.569072,
+        20.897029
+      ],
+      [
+        110.569158,
+        20.897045
+      ],
+      [
+        110.569314,
+        20.897095
+      ],
+      [
+        110.569352,
+        20.897035
+      ],
+      [
+        110.569432,
+        20.897045
+      ],
+      [
+        110.569518,
+        20.89711
+      ],
+      [
+        110.569523,
+        20.897391
+      ],
+      [
+        110.569443,
+        20.897436
+      ],
+      [
+        110.569384,
+        20.897601
+      ],
+      [
+        110.569319,
+        20.897636
+      ],
+      [
+        110.569287,
+        20.897822
+      ]
+    ],
+    "villageId": "osm-2065811659",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "宋皇村委会驻地点旁及附近道路两侧可见建成区人工补绘；剔除已有阴影覆盖部分，仅增加缺失区域。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY04",
+    "registrationEvidence": "assets/settlement-references/songhuang-seat-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "仅关联驻地附近地物，不认定存在独立“宋皇”自然村或推断逐栋归属；影像拍摄时间未显示，待实地复核。",
+    "sourceTraceParts": [
+      "seat-south"
+    ]
+  },
+  {
+    "id": "manual-songhuang-seat-builtup-20261028-3",
+    "name": "宋皇驻地西侧沿路建筑",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.56758,
+        20.898571
+      ],
+      [
+        110.567397,
+        20.898596
+      ],
+      [
+        110.567215,
+        20.898656
+      ],
+      [
+        110.567037,
+        20.898736
+      ],
+      [
+        110.566882,
+        20.898801
+      ],
+      [
+        110.566839,
+        20.89858
+      ],
+      [
+        110.566898,
+        20.898495
+      ],
+      [
+        110.567016,
+        20.898415
+      ],
+      [
+        110.567172,
+        20.89837
+      ],
+      [
+        110.567322,
+        20.89832
+      ],
+      [
+        110.567478,
+        20.89827
+      ],
+      [
+        110.567526,
+        20.89835
+      ],
+      [
+        110.567585,
+        20.898471
+      ],
+      [
+        110.56758,
+        20.898571
+      ]
+    ],
+    "villageId": "osm-2065811659",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "宋皇村委会驻地点旁及附近道路两侧可见建成区人工补绘；剔除已有阴影覆盖部分，仅增加缺失区域。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY04",
+    "registrationEvidence": "assets/settlement-references/songhuang-seat-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "仅关联驻地附近地物，不认定存在独立“宋皇”自然村或推断逐栋归属；影像拍摄时间未显示，待实地复核。",
+    "sourceTraceParts": [
+      "west-roadside"
+    ]
+  },
+  {
+    "id": "manual-songhuang-seat-builtup-20261028-4",
+    "name": "宋皇驻地点旁沿路建筑",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.569835,
+        20.898183
+      ],
+      [
+        110.569744,
+        20.898238
+      ],
+      [
+        110.569572,
+        20.898228
+      ],
+      [
+        110.569448,
+        20.898218
+      ],
+      [
+        110.569341,
+        20.898213
+      ],
+      [
+        110.569346,
+        20.897997
+      ],
+      [
+        110.569416,
+        20.897912
+      ],
+      [
+        110.569523,
+        20.897937
+      ],
+      [
+        110.569615,
+        20.897887
+      ],
+      [
+        110.569786,
+        20.897902
+      ],
+      [
+        110.569856,
+        20.898018
+      ],
+      [
+        110.569835,
+        20.898183
+      ]
+    ],
+    "villageId": "osm-2065811659",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "宋皇村委会驻地点旁及附近道路两侧可见建成区人工补绘；剔除已有阴影覆盖部分，仅增加缺失区域。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY04",
+    "registrationEvidence": "assets/settlement-references/songhuang-seat-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "仅关联驻地附近地物，不认定存在独立“宋皇”自然村或推断逐栋归属；影像拍摄时间未显示，待实地复核。",
+    "sourceTraceParts": [
+      "seat-roadside"
+    ]
+  },
+  {
+    "id": "manual-songhuang-seat-builtup-20261028-5",
+    "name": "宋皇驻地东侧路北建筑群补缺",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.57209,
+        20.898552
+      ],
+      [
+        110.57216884772177,
+        20.89855507998913
+      ],
+      [
+        110.5720945,
+        20.8986475
+      ],
+      [
+        110.5723906,
+        20.8992869
+      ],
+      [
+        110.57254399703875,
+        20.899289625925388
+      ],
+      [
+        110.572514,
+        20.899299
+      ],
+      [
+        110.572068,
+        20.899258
+      ],
+      [
+        110.572063,
+        20.898747
+      ],
+      [
+        110.571902,
+        20.898757
+      ],
+      [
+        110.571848,
+        20.898682
+      ],
+      [
+        110.571875,
+        20.898596
+      ],
+      [
+        110.572057,
+        20.898582
+      ],
+      [
+        110.57209,
+        20.898552
+      ]
+    ],
+    "villageId": "osm-2065811659",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "宋皇村委会驻地点旁及附近道路两侧可见建成区人工补绘；剔除已有阴影覆盖部分，仅增加缺失区域。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY04",
+    "registrationEvidence": "assets/settlement-references/songhuang-seat-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "仅关联驻地附近地物，不认定存在独立“宋皇”自然村或推断逐栋归属；影像拍摄时间未显示，待实地复核。",
+    "sourceTraceParts": [
+      "east-road-north"
+    ]
+  },
+  {
+    "id": "manual-songhuang-seat-builtup-20261028-6",
+    "name": "宋皇驻地东侧独立建筑组",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.574038,
+        20.89903
+      ],
+      [
+        110.573893,
+        20.899025
+      ],
+      [
+        110.57377,
+        20.898979
+      ],
+      [
+        110.57378,
+        20.898914
+      ],
+      [
+        110.573684,
+        20.898889
+      ],
+      [
+        110.573684,
+        20.898749
+      ],
+      [
+        110.57377,
+        20.898709
+      ],
+      [
+        110.573952,
+        20.898719
+      ],
+      [
+        110.574076,
+        20.898749
+      ],
+      [
+        110.574135,
+        20.898694
+      ],
+      [
+        110.574237,
+        20.898719
+      ],
+      [
+        110.57421,
+        20.898815
+      ],
+      [
+        110.574162,
+        20.898875
+      ],
+      [
+        110.574081,
+        20.89891
+      ],
+      [
+        110.574038,
+        20.89903
+      ]
+    ],
+    "villageId": "osm-2065811659",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "宋皇村委会驻地点旁及附近道路两侧可见建成区人工补绘；剔除已有阴影覆盖部分，仅增加缺失区域。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY04",
+    "registrationEvidence": "assets/settlement-references/songhuang-seat-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "仅关联驻地附近地物，不认定存在独立“宋皇”自然村或推断逐栋归属；影像拍摄时间未显示，待实地复核。",
+    "sourceTraceParts": [
+      "east-detached"
+    ]
+  },
+  {
+    "id": "manual-songhuang-seat-builtup-20261028-7",
+    "name": "宋皇驻地东侧沿路房屋组",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.573496,
+        20.898318
+      ],
+      [
+        110.57348107654732,
+        20.89838562189498
+      ],
+      [
+        110.5732944,
+        20.8983125
+      ],
+      [
+        110.57320575534744,
+        20.898307406396327
+      ],
+      [
+        110.573249,
+        20.898277
+      ],
+      [
+        110.573426,
+        20.898267
+      ],
+      [
+        110.573496,
+        20.898318
+      ]
+    ],
+    "villageId": "osm-2065811659",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "宋皇村委会驻地点旁及附近道路两侧可见建成区人工补绘；剔除已有阴影覆盖部分，仅增加缺失区域。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY04",
+    "registrationEvidence": "assets/settlement-references/songhuang-seat-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "仅关联驻地附近地物，不认定存在独立“宋皇”自然村或推断逐栋归属；影像拍摄时间未显示，待实地复核。",
+    "sourceTraceParts": [
+      "east-frontage"
+    ]
+  },
+  {
+    "id": "manual-songhuang-seat-builtup-20261028-8",
+    "name": "宋皇驻地东侧路北建筑群补缺",
+    "type": "residential",
+    "coordinates": [
+      [
+        110.57285147348546,
+        20.899295089902132
+      ],
+      [
+        110.572841,
+        20.899309
+      ],
+      [
+        110.57272725664288,
+        20.899292882520246
+      ],
+      [
+        110.57285147348546,
+        20.899295089902132
+      ]
+    ],
+    "villageId": "osm-2065811659",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "宋皇村委会驻地点旁及附近道路两侧可见建成区人工补绘；剔除已有阴影覆盖部分，仅增加缺失区域。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY04",
+    "registrationEvidence": "assets/settlement-references/songhuang-seat-20261028.json",
+    "checkedAt": "2026-10-28",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "仅关联驻地附近地物，不认定存在独立“宋皇”自然村或推断逐栋归属；影像拍摄时间未显示，待实地复核。",
+    "sourceTraceParts": [
+      "east-road-north"
+    ]
   }
 ]
