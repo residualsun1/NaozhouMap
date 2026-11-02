@@ -59,7 +59,7 @@ export async function faithAssociationAction(store, body) {
     const additions = plan.toAdd.map(placeId => ({
       id: randomUUID(), villageKind: 'reference', villageId: placeId, villageName: places.get(placeId).name,
       deities: [plan.deity.name],
-      deityLinks: [{id: randomUUID(), deityId: plan.deity.id, nameIndex: 0, localName: '', localTitle: ''}],
+      deityLinks: [{id: randomUUID(), deityId: plan.deity.id, nameIndex: 0, localName: '', localTitle: '', worship_scope: 'unknown', worship_surname: null}],
       temple: '', festival: '', source: '', visitedOn: '', note: '', createdAt: now, updatedAt: now
     }));
     // Append only. Existing observations and their local descriptions remain untouched.

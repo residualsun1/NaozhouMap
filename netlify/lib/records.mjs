@@ -5,6 +5,8 @@ import { resolveEditorAuth, json, sameOrigin } from './auth.mjs';
 import { deitySeed, normalizeDeityCatalog, normalizeDeityLinks } from './deities.mjs';
 import { createArchiveStore } from './archive-store.mjs';
 import { faithPlaceIndex, faithAssociationAction } from './faith-associations.mjs';
+import { updateFaithWorship } from './faith-worship.mjs';
+import worship from '../../worship-info.js';
 
 const revisionValid = value => Number.isInteger(value) && value >= 0 && value < 2147483647;
 const required = (value, limit) => typeof value === 'string' && value.trim().length > 0 && value.length <= limit;
@@ -36,7 +38,7 @@ export function normalizeFaith(items, previous=[], catalog=deitySeed) {
     const record = {id:item.id,villageId:item.villageId,villageKind:item.villageKind,villageName:item.villageName.trim(),deities:item.deities.map(name=>name.trim())};
     const old = previous.find(record=>record.id===item.id);
     if (item.deityLinks === undefined && old?.deityLinks?.length && (JSON.stringify(record.deities)!==JSON.stringify(old.deities) || item.villageId!==old.villageId || item.villageKind!==old.villageKind)) throw Error('此记录已有关联，请刷新页面后再修改神明名称或村庄。');
-    if (item.deityLinks !== undefined || old?.deityLinks !== undefined) record.deityLinks = normalizeDeityLinks(item.deityLinks ?? old.deityLinks,record.deities,catalog);
+    if (item.deityLinks !== undefined || old?.deityLinks !== undefined) record.deityLinks = normalizeDeityLinks(item.deityLinks ?? old.deityLinks,record.deities,catalog,old?.villageId===item.villageId&&old?.villageKind===item.villageKind?old.deityLinks:[]);
     for (const [field,limit] of Object.entries({temple:200,festival:500,source:200,visitedOn:10,note:5000,createdAt:100,updatedAt:100})) record[field]=text(item[field],limit);
     if (record.visitedOn && (!/^\d{4}-\d{2}-\d{2}$/.test(record.visitedOn) || new Date(record.visitedOn).toISOString().slice(0,10)!==record.visitedOn)) throw Error('走访日期无效。');
     record.createdAt ||= new Date().toISOString();record.updatedAt ||= new Date().toISOString();
@@ -72,6 +74,7 @@ export function recordsHandler(kind, storeFactory = () => getStore({name:'naozho
       if(request.method==='POST'&&!(await resolveEditorAuth(store)).authorized(request))return json({error:'请先登录编辑。'},401);
       const current=await readState(store,kind);
       if (request.method==='GET') {
+        if(kind==='faith')return json({...current.state,records:current.state.records.map(record=>({...record,...(record.deityLinks?{deityLinks:record.deityLinks.map(link=>({...link,...worship.info(link)}))}:{})}))});
         if(kind==='deities'&&new URL(request.url).searchParams.has('id')){const id=await store.resolveId('deities',new URL(request.url).searchParams.get('id'));return json({...current.state,records:current.state.records.filter(record=>record.id===id)});}
         return json(current.state);
       }
@@ -82,6 +85,7 @@ export function recordsHandler(kind, storeFactory = () => getStore({name:'naozho
       let body,items,deityCatalog;
       try { body=JSON.parse(raw); } catch { return json({error:'资料不是有效的 JSON。'},400); }
       if (kind==='faith' && body?.action) {
+        if (body.action === 'update-worship') return await updateFaithWorship(store,body);
         if (!['preview-villages','link-villages'].includes(body.action)) return json({error:'未知的关联操作。'},400);
         return await faithAssociationAction(store,body);
       }

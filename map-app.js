@@ -16,7 +16,7 @@
   let view, home, points = [], activeId = null, editingId = null, reference = null, draft = null;
   let picking = false, blockedStorage = false, toastTimer, downloadURL, raf;
   let projectRevision = null, saving = false, ready = false, formDirty = false;
-  let explorer=null,peopleExplorer=null,reader=null,exploringDeityId=null,highlightSignature='';
+  let explorer=null,peopleExplorer=null,worshipFilter=null,reader=null,exploringDeityId=null,highlightSignature='';
   let deityPlaceKeys=new Set();
   const projectMode = location.protocol !== 'file:';
   const cloudMode = document.documentElement.dataset.deployment === 'netlify';
@@ -754,7 +754,7 @@
     faith,
     onSphereChange:renderRitualSphere,
     resolvePlace:(kind,id)=>kind==='reference'?placeById.get(id):kind==='survey'?points.find(point=>point.id===id):null,
-    beforeOpen(){if(saving||!mayLeaveEditor())return false;if(peopleExplorer?.isOpen)peopleExplorer.close({focus:false});closeEditor();clearReference();cancelCamera();setUtility();setSearchExpanded(false);$('search-feedback').hidden=true;return true;},
+    beforeOpen(){if(saving||!mayLeaveEditor())return false;worshipFilter?.clear();if(peopleExplorer?.isOpen)peopleExplorer.close({focus:false});closeEditor();clearReference();cancelCamera();setUtility();setSearchExpanded(false);$('search-feedback').hidden=true;return true;},
     onClose:cancelCamera,
     onHighlight(id,villages){
       const keys=villages.map(village=>(village.kind==='survey'?'saved-':'ref-')+village.id),signature=JSON.stringify(['deity',id,keys.slice().sort()]);if(signature===highlightSignature)return;
@@ -773,12 +773,17 @@
     catalog:people.catalog,
     onClose:cancelCamera,
     resolvePlace:(kind,id)=>kind==='reference'?placeById.get(id):kind==='survey'?points.find(point=>point.id===id):null,
-    beforeOpen(){if(saving||!mayLeaveEditor())return false;explorer.close();renderRitualSphere({enabled:false,deityId:null,villages:[]});closeEditor();clearReference();cancelCamera();setUtility();setSearchExpanded(false);$('search-feedback').hidden=true;return true;},
+    beforeOpen(){if(saving||!mayLeaveEditor())return false;worshipFilter?.clear();explorer.close();renderRitualSphere({enabled:false,deityId:null,villages:[]});closeEditor();clearReference();cancelCamera();setUtility();setSearchExpanded(false);$('search-feedback').hidden=true;return true;},
     onHighlight(id,locations){const keys=locations.map(place=>(place.kind==='survey'?'saved-':'ref-')+place.id),signature=JSON.stringify(['person',id,keys.slice().sort()]);if(signature===highlightSignature)return;highlightSignature=signature;exploringDeityId=id?'person:'+id:null;deityPlaceKeys=new Set(keys);labelContext='';if(view)update();},
     onFocus(locations){if(locations.length===1){focusPoint(locations[0].point);return;}if(!locations.length)return;const positions=locations.map(place=>project(place.point.lng,place.point.lat));focusGeometry({left:Math.min(...positions.map(p=>p.x)),right:Math.max(...positions.map(p=>p.x)),top:Math.min(...positions.map(p=>p.y)),bottom:Math.max(...positions.map(p=>p.y))});},
     onPlace(place){if(place.kind==='survey')selectPoint(place.point);else selectReference(place.point);},
     captureView(){return {center:unproject(view.x+view.w/2,view.y+view.h/2),width:view.w};},
     restoreView(saved){if(!saved||!Number.isFinite(saved.center?.lng)||!Number.isFinite(saved.center?.lat)||Math.abs(saved.center.lat)>85||!Number.isFinite(saved.width)||saved.width<=0)return false;const point=project(saved.center.lng,saved.center.lat),{w,h}=dimensions();flyTo({type:'view',view:{x:point.x-saved.width/2,y:point.y-saved.width*h/w/2,w:saved.width,h:saved.width*h/w}},300);return true;}
+  });
+  worshipFilter=window.createWorshipFilter({faith,resolvePlace:(kind,id)=>kind==='reference'?placeById.get(id):points.find(point=>point.id===id),
+    beforeChange(){const control=document.activeElement;explorer.close();peopleExplorer.close({focus:false});control?.focus({preventScroll:true});return true;},
+    onChange(surname,villages){if(!surname&&!exploringDeityId?.startsWith('surname:'))return;const keys=villages.map(village=>'ref-'+village.id),signature=JSON.stringify(['surname',surname,keys.slice().sort()]);if(signature===highlightSignature)return;highlightSignature=signature;exploringDeityId=surname?'surname:'+surname:null;deityPlaceKeys=new Set(keys);labelContext='';if(view)update();},
+    onPlace(village){if(selectLinkedPlace(village.kind,village.id)){faith.focusRecord(village.records[0].record.id);setUtility();}}
   });
   window.createArchiveOverview({people:people.catalog,faith,onLayers:()=>setUtility('layers-panel',$('layers-toggle')),onJournal:()=>{if($('detail-panel').hidden){setUtility();setSearchExpanded(mobileSearch.matches,true);notify('选择一个村庄，即可查看档案与田野日志。');}else{setUtility();reader.open();$('field-notes-section').scrollIntoView({block:'start',behavior:reducedMotion.matches?'instant':'smooth'});}}});
   document.addEventListener('naozhou-archive-change',()=>Promise.allSettled([faith.reload(),people.catalog.load()]));

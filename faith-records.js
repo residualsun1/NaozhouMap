@@ -6,6 +6,7 @@ window.createFaithRecords = options => {
   const textLimits = {temple:200, festival:500, source:200, visitedOn:10, note:5000, createdAt:100, updatedAt:100};
   const fields = ['temple','festival','source','visitedOn','note'];
   let state = null, village = null, editingId = null, dirty = false, saving = false;
+  let worshipSurname='';
   let loadError='';const listeners=new Set();
   function changed(){onChange();for(const listener of listeners)listener();}
   const A=window.DeityAtlas,catalog=A.createCatalog();
@@ -28,11 +29,19 @@ window.createFaithRecords = options => {
         for(const [field,label,max] of [['localName','当地称谓',100],['localTitle','当地神函',200]]){const caption=A.element('label','',label),input=A.element('input');input.id='faith-'+field+'-'+index;caption.htmlFor=input.id;input.maxLength=max;input.value=choice.link[field]||'';input.addEventListener('input',()=>{choice.link[field]=input.value;dirty=true;});meta.append(caption,input);}
         const unlink=A.element('button','linkbutton','解除关联，保留原名称');unlink.type='button';unlink.addEventListener('click',()=>{choice.link=null;dirty=true;renderChoices();});meta.append(unlink);row.append(meta);
       }
+      if(choice.link){
+        const group=A.element('div','faith-worship-fields'),scopeLabel=A.element('label','','供奉范围'),scope=A.element('select'),surnameLabel=A.element('label','','供奉姓氏'),surname=A.element('input');
+        scope.id='faith-worship-scope-'+index;scopeLabel.htmlFor=scope.id;surname.id='faith-worship-surname-'+index;surnameLabel.htmlFor=surname.id;surname.maxLength=40;surname.placeholder='如：陈或欧阳';
+        for(const [value,label] of [['unknown','尚未确认'],['specific_surname','特定姓氏供奉'],['village_wide','全村共同供奉']]){const option=A.element('option','',label);option.value=value;scope.append(option);}
+        const info=window.FaithWorship.info(choice.link);scope.value=info.worship_scope;surname.value=info.worship_surname||'';
+        const sync=()=>{surnameLabel.hidden=scope.value!=='specific_surname';surname.required=!surnameLabel.hidden;choice.link.worship_scope=scope.value;choice.link.worship_surname=surnameLabel.hidden?null:surname.value;};sync();
+        scope.addEventListener('change',()=>{dirty=true;sync();});surname.addEventListener('input',()=>{dirty=true;sync();});scopeLabel.append(scope);surnameLabel.append(surname);group.append(scopeLabel,surnameLabel);row.append(group);
+      }
       $('faith-picked-list').append(row);
     });
   }
   function chooseDeity(deity){
-    if(linkingIndex!==null&&choices[linkingIndex]){const choice=choices[linkingIndex];choice.link={id:choice.link?.id||A.uid(),deityId:deity.id,localName:choice.link?.localName||choice.name,localTitle:choice.link?.localTitle||''};}
+    if(linkingIndex!==null&&choices[linkingIndex]){const choice=choices[linkingIndex];choice.link={id:choice.link?.id||A.uid(),deityId:deity.id,localName:choice.link?.localName||choice.name,localTitle:choice.link?.localTitle||'',...window.FaithWorship.normalize(choice.link?.deityId===deity.id?choice.link:{})};}
     else choices.push({name:deity.name,link:{id:A.uid(),deityId:deity.id,localName:'',localTitle:''}});
     linkingIndex=null;dirty=true;$('faith-deity-search').value='';renderChoices();renderPicker();
   }
@@ -149,7 +158,7 @@ window.createFaithRecords = options => {
       ids.add(record.id);
       if (!['reference','survey'].includes(record.villageKind) || typeof record.villageId !== 'string' || !record.villageId || record.villageId.length > 120 || typeof record.villageName !== 'string' || !record.villageName.trim() || record.villageName.length > 100) throw Error('村庄资料无效。');
       if (!Array.isArray(record.deities) || !record.deities.length || record.deities.length > 100 || record.deities.some(name=>typeof name !== 'string' || !name.trim() || name.length > 100)) throw Error('请填写神明名称。');
-      if(record.deityLinks!==undefined){if(!Array.isArray(record.deityLinks)||record.deityLinks.length>100)throw Error('神明关联格式无效。');const links=new Set(),slots=new Set();for(const link of record.deityLinks){if(typeof link.id!=='string'||!link.id||link.id.length>120||links.has(link.id)||typeof link.deityId!=='string'||!link.deityId||link.deityId.length>120||!Number.isInteger(link.nameIndex)||link.nameIndex<0||link.nameIndex>=record.deities.length||slots.has(link.nameIndex))throw Error('神明关联无效。');links.add(link.id);slots.add(link.nameIndex);for(const [field,max] of Object.entries({localName:100,localTitle:200}))if(link[field]!==undefined&&(typeof link[field]!=='string'||link[field].length>max))throw Error('当地称谓或神函过长。');}}
+      if(record.deityLinks!==undefined){if(!Array.isArray(record.deityLinks)||record.deityLinks.length>100)throw Error('神明关联格式无效。');const links=new Set(),slots=new Set();for(const link of record.deityLinks){if(typeof link.id!=='string'||!link.id||link.id.length>120||links.has(link.id)||typeof link.deityId!=='string'||!link.deityId||link.deityId.length>120||!Number.isInteger(link.nameIndex)||link.nameIndex<0||link.nameIndex>=record.deities.length||slots.has(link.nameIndex))throw Error('神明关联无效。');links.add(link.id);slots.add(link.nameIndex);window.FaithWorship.normalize(link);for(const [field,max] of Object.entries({localName:100,localTitle:200}))if(link[field]!==undefined&&(typeof link[field]!=='string'||link[field].length>max))throw Error('当地称谓或神函过长。');}}
       for (const [field,limit] of Object.entries(textLimits)) if (record[field] !== undefined && (typeof record[field] !== 'string' || record[field].length > limit)) throw Error('填写内容过长。');
       if (record.visitedOn && (!/^\d{4}-\d{2}-\d{2}$/.test(record.visitedOn) || Number.isNaN(Date.parse(record.visitedOn)))) throw Error('走访日期无效。');
     }
@@ -206,7 +215,7 @@ window.createFaithRecords = options => {
       card.append(row);
       const names = document.createElement('ul');
       names.className = 'deity-list';
-      record.deities.forEach((name,index)=>{const li=document.createElement('li'),relation=record.deityLinks?.find(link=>link.nameIndex===index);if(relation){const link=document.createElement('a');link.href=A.profileURL(relation.deityId);link.textContent=relation.localName||name;link.title='查看神明档案'+(relation.localTitle?' · '+relation.localTitle:'');li.append(link);if(onExploreDeity){const explore=document.createElement('button');explore.type='button';explore.className='deity-distribution-link';explore.setAttribute('aria-label','在地图中查看'+(relation.localName||name)+'的分布');explore.title='在地图中查看分布';explore.textContent='分布';explore.addEventListener('click',()=>onExploreDeity(relation.deityId));li.append(explore);}}else{const label=document.createElement('span');label.className='legacy-deity';label.append(document.createTextNode(name));const pending=document.createElement('small');pending.textContent='待关联';label.append(pending);li.append(label);}names.append(li);});
+      record.deities.forEach((name,index)=>{const li=document.createElement('li'),relation=record.deityLinks?.find(link=>link.nameIndex===index);if(relation){const link=document.createElement('a');link.href=A.profileURL(relation.deityId);link.textContent=relation.localName||name;link.title='查看神明档案'+(relation.localTitle?' · '+relation.localTitle:'');li.append(link);if(onExploreDeity){const explore=document.createElement('button');explore.type='button';explore.className='deity-distribution-link';explore.setAttribute('aria-label','在地图中查看'+(relation.localName||name)+'的分布');explore.title='在地图中查看分布';explore.textContent='分布';explore.addEventListener('click',()=>onExploreDeity(relation.deityId));li.append(explore);}const info=window.FaithWorship.info(relation);li.classList.add('has-worship');li.classList.toggle('is-worship-match',!!worshipSurname&&info.worship_scope==='specific_surname'&&info.worship_surname===worshipSurname);const worship=A.element('span','worship-description'+(info.worship_scope==='unknown'?' is-unknown':''),window.FaithWorship.description(relation));li.append(worship);}else{const label=document.createElement('span');label.className='legacy-deity';label.append(document.createTextNode(name));const pending=document.createElement('small');pending.textContent='待关联';label.append(pending);li.append(label);}names.append(li);});
       card.append(names);
       for (const content of [record.festival,[record.source,record.visitedOn].filter(Boolean).join(' · ')]) {
         if (!content) continue;
@@ -303,8 +312,8 @@ window.createFaithRecords = options => {
       return;
     }
     const cell = value => { let text = String(value ?? ''); if (/^[=+\-@\t\r]/.test(text)) text = "'" + text; return '"' + text.replaceAll('"','""') + '"'; };
-    const rows = [['记录编号','村庄编号','村庄类型','村庄','神明','宫庙／供奉场所','祭期与活动','资料来源','走访日期','访谈笔记','创建时间','修改时间','关联编号','神明档案 ID','当地称谓','当地神函']];
-    for (const record of state.records) record.deities.forEach((name,index)=>{const link=record.deityLinks?.find(link=>link.nameIndex===index),villageName=window.PlaceNames?.name(record.villageKind,record.villageId,record.villageName)||record.villageName;rows.push([record.id,record.villageId,record.villageKind,villageName,name,record.temple,record.festival,record.source,record.visitedOn,record.note,record.createdAt,record.updatedAt,link?.id,link?.deityId,link?.localName,link?.localTitle]);});
+    const rows = [['记录编号','村庄编号','村庄类型','村庄','神明','宫庙／供奉场所','祭期与活动','资料来源','走访日期','访谈笔记','创建时间','修改时间','关联编号','神明档案 ID','当地称谓','当地神函','供奉范围','供奉姓氏']];
+    for (const record of state.records) record.deities.forEach((name,index)=>{const link=record.deityLinks?.find(link=>link.nameIndex===index),villageName=window.PlaceNames?.name(record.villageKind,record.villageId,record.villageName)||record.villageName;rows.push([record.id,record.villageId,record.villageKind,villageName,name,record.temple,record.festival,record.source,record.visitedOn,record.note,record.createdAt,record.updatedAt,link?.id,link?.deityId,link?.localName,link?.localTitle,link?window.FaithWorship.info(link).worship_scope:undefined,link?window.FaithWorship.info(link).worship_surname:undefined]);});
     download('硇洲岛信仰记录-' + dateStamp() + '.csv','text/csv;charset=utf-8','\uFEFF' + rows.map(row=>row.map(cell).join(',')).join('\r\n'));
   }
   $('faith-export-csv').addEventListener('click',()=>exportData('csv'));
@@ -344,6 +353,7 @@ window.createFaithRecords = options => {
   document.addEventListener('naozhou-faith-change',refreshAssociations);
   return {
     ready,get catalog(){return catalog;},get records(){return state?.records||null;},get error(){return loadError;},reload:load,
+    setWorshipFilter(value){if(worshipSurname===value)return;worshipSurname=value;render();},
     subscribe(listener){listeners.add(listener);return()=>listeners.delete(listener);},
     get dirty() { return dirty||quickDirty; },
     get saving() { return saving||quickSaving||catalog.saving; },

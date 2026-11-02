@@ -1,3 +1,4 @@
+import worship from '../../worship-info.js';
 export const initialTitles = [
   ['hui-zhu','会主'],['jing-zhu','境主'],['jun-zhu','军主'],['ying-zhu','营主'],
   ['bu-zhu','埠主'],['fu-zhu','福主'],['he-zhu','褐主'],['an-zhu','案主']
@@ -37,7 +38,7 @@ export function normalizeDeityCatalog(body,current=deitySeed) {
   for (const previous of current.records) if (!records.some(item=>item.id===previous.id)) throw Error('神明档案请使用归档，不可直接移除已有编号。');
   return {titles,records};
 }
-export function normalizeDeityLinks(links,names,catalog) {
+export function normalizeDeityLinks(links,names,catalog,previous=[]) {
   uniqueRecords(links,100);
   const deities=new Set(catalog.records.map(item=>item.id)), slots=new Set();
   return links.map(link=>{
@@ -46,6 +47,10 @@ export function normalizeDeityLinks(links,names,catalog) {
     if (!deities.has(deityId)) throw Error('关联的神明档案不存在，请先导入神明总库或刷新重试。');
     if (!Number.isInteger(link.nameIndex) || link.nameIndex<0 || link.nameIndex>=names.length || slots.has(link.nameIndex)) throw Error('神明名称关联位置无效。');
     slots.add(link.nameIndex);
-    return {id:link.id,deityId,nameIndex:link.nameIndex,localName:text(link.localName,100),localTitle:text(link.localTitle,200)};
+    const old=previous.find(item=>item.id===link.id&&item.deityId===deityId);
+    const values=worship.normalize(link,old);
+    // Virtual legacy defaults must not make unrelated observations look edited.
+    const attributes=old&&old.worship_scope===undefined&&old.worship_surname===undefined&&values.worship_scope==='unknown'?{}:values;
+    return {id:link.id,deityId,nameIndex:link.nameIndex,localName:text(link.localName,100),localTitle:text(link.localTitle,200),...attributes};
   });
 }
