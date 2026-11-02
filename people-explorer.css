@@ -1,9 +1,9 @@
 /* People and deities share the same map sheet and card rhythm. */
 .map-toolbar #people-explorer-toggle[aria-expanded=true]{background:#e5ebe5;color:#536f63}
 #person-explore-sheet-toggle{display:grid;font-size:11px}
-#person-explore-controls{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-bottom:18px}
+#person-explore-controls{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,130px);gap:8px;margin-bottom:18px}
 #person-explore-search{font-size:12px;background:#fff;padding:10px 11px}
-#person-explore-role{max-width:130px;padding:9px 22px 9px 10px;border:1px solid #dcdcdb;border-radius:8px;background:#fff;color:#697466;font:inherit;font-size:11px}
+#person-explore-role{width:100%;min-width:0;max-width:130px;padding:9px 22px 9px 10px;border:1px solid #dcdcdb;border-radius:8px;background:#fff;color:#697466;font:inherit;font-size:11px}
 #person-explore-list{display:grid;gap:7px}
 #person-explore-status{margin:0;color:#777e77;font-size:11px}#person-explore-status:empty{display:none}
 .people-explorer-media svg{width:23px;height:23px}.people-card-alias{font-size:10px;color:#88917f}
@@ -30,3 +30,8 @@
   .explorer-collapsed #person-explore-controls,.explorer-collapsed #person-explore-workbench{display:none}
 }
 @media(max-width:800px){#person-explore-search{font-size:16px;min-height:44px}#person-explore-role{min-height:44px;font-size:12px}.people-explorer-card .people-card-alias{margin-top:6px}.people-explorer .explorer-actions button{min-height:44px}#person-explore-name{font-size:22px}#person-explore-full-record{min-height:44px}.map-area .map-toolbar{padding-right:3px}.map-area .map-toolbar button{flex:1 0 44px}}
+
+@media(max-width:420px){
+  #person-explore-controls{grid-template-columns:minmax(0,1fr)}
+  #person-explore-role{max-width:none}
+}
