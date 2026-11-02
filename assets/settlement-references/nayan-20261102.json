@@ -1,0 +1,896 @@
+{
+  "id": "nayan-builtup-20261102",
+  "placeId": "1799505",
+  "relatedPlaceIds": [
+    "1799505",
+    "osm-2065797975",
+    "amap-B02F70NY0J",
+    "amap-B02F70NY09"
+  ],
+  "checkedAt": "2026-11-02",
+  "source": "高德标准地图与卫星影像对照，人工判读与矢量化",
+  "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HSTAB",
+  "coordinateSystem": "WGS84",
+  "geometryStatus": "interpreted",
+  "reference": {
+    "provider": "高德地图卫星影像",
+    "zoom": 18,
+    "worldPixels": 67108864,
+    "pixelOrigin": [
+      54173952,
+      29569792
+    ],
+    "size": [
+      1792,
+      1536
+    ],
+    "coordinateSystem": "GCJ-02 / Web Mercator pixel grid",
+    "purpose": "Local settlement interpretation only; imagery is not published",
+    "tileUrls": [
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211617&y=115507&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211618&y=115507&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211619&y=115507&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211620&y=115507&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211621&y=115507&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211622&y=115507&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211623&y=115507&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211617&y=115508&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211618&y=115508&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211619&y=115508&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211620&y=115508&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211621&y=115508&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211622&y=115508&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211623&y=115508&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211617&y=115509&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211618&y=115509&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211619&y=115509&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211620&y=115509&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211621&y=115509&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211622&y=115509&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211623&y=115509&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211617&y=115510&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211618&y=115510&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211619&y=115510&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211620&y=115510&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211621&y=115510&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211622&y=115510&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211623&y=115510&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211617&y=115511&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211618&y=115511&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211619&y=115511&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211620&y=115511&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211621&y=115511&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211622&y=115511&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211623&y=115511&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211617&y=115512&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211618&y=115512&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211619&y=115512&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211620&y=115512&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211621&y=115512&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211622&y=115512&z=18",
+      "https://webst01.is.autonavi.com/appmaptile?style=6&x=211623&y=115512&z=18"
+    ]
+  },
+  "coordinateTransform": {
+    "method": "GCJ-02 Web Mercator tile pixels to GCJ-02 coordinates; project existing WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
+    "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+    "approximate": true,
+    "note": "像素网格提供地理参照；人工轮廓及转换为近似位置，不表示测绘精度。"
+  },
+  "method": "按建筑群外缘判读，裁剪至现有岛屿陆地，并扣除全部既有聚落面；不改变原有聚落面或地点坐标。",
+  "traces": [
+    {
+      "key": "between-north",
+      "name": "那晏村与上村间北侧建筑群",
+      "placeId": "1799505",
+      "pixels": [
+        [
+          1090,
+          365
+        ],
+        [
+          1125,
+          349
+        ],
+        [
+          1163,
+          346
+        ],
+        [
+          1182,
+          357
+        ],
+        [
+          1228,
+          346
+        ],
+        [
+          1270,
+          349
+        ],
+        [
+          1295,
+          361
+        ],
+        [
+          1313,
+          402
+        ],
+        [
+          1295,
+          429
+        ],
+        [
+          1305,
+          471
+        ],
+        [
+          1293,
+          500
+        ],
+        [
+          1245,
+          509
+        ],
+        [
+          1200,
+          510
+        ],
+        [
+          1155,
+          512
+        ],
+        [
+          1122,
+          531
+        ],
+        [
+          1095,
+          512
+        ],
+        [
+          1093,
+          469
+        ],
+        [
+          1084,
+          451
+        ],
+        [
+          1083,
+          410
+        ]
+      ],
+      "traceAreaSquareMeters": 10627.4
+    },
+    {
+      "key": "between-south",
+      "name": "那晏村与上村间沿路建筑群",
+      "placeId": "1799505",
+      "pixels": [
+        [
+          1107,
+          550
+        ],
+        [
+          1154,
+          551
+        ],
+        [
+          1159,
+          562
+        ],
+        [
+          1214,
+          558
+        ],
+        [
+          1245,
+          567
+        ],
+        [
+          1288,
+          556
+        ],
+        [
+          1303,
+          576
+        ],
+        [
+          1297,
+          602
+        ],
+        [
+          1277,
+          621
+        ],
+        [
+          1262,
+          646
+        ],
+        [
+          1244,
+          658
+        ],
+        [
+          1246,
+          691
+        ],
+        [
+          1260,
+          733
+        ],
+        [
+          1241,
+          757
+        ],
+        [
+          1208,
+          750
+        ],
+        [
+          1177,
+          743
+        ],
+        [
+          1151,
+          743
+        ],
+        [
+          1125,
+          743
+        ],
+        [
+          1112,
+          711
+        ],
+        [
+          1093,
+          705
+        ],
+        [
+          1094,
+          672
+        ],
+        [
+          1107,
+          656
+        ],
+        [
+          1107,
+          626
+        ],
+        [
+          1098,
+          618
+        ],
+        [
+          1099,
+          582
+        ]
+      ],
+      "traceAreaSquareMeters": 9638.9
+    },
+    {
+      "key": "nayan-north",
+      "name": "那晏村点位北侧建筑组",
+      "placeId": "1799505",
+      "pixels": [
+        [
+          953,
+          592
+        ],
+        [
+          987,
+          586
+        ],
+        [
+          1038,
+          587
+        ],
+        [
+          1041,
+          633
+        ],
+        [
+          1060,
+          641
+        ],
+        [
+          1062,
+          690
+        ],
+        [
+          1044,
+          705
+        ],
+        [
+          1019,
+          690
+        ],
+        [
+          985,
+          684
+        ],
+        [
+          954,
+          665
+        ],
+        [
+          949,
+          633
+        ]
+      ],
+      "traceAreaSquareMeters": 3063.1
+    },
+    {
+      "key": "nayan-west",
+      "name": "那晏村点位西侧邻近建筑",
+      "placeId": "1799505",
+      "pixels": [
+        [
+          870,
+          741
+        ],
+        [
+          895,
+          740
+        ],
+        [
+          900,
+          754
+        ],
+        [
+          922,
+          755
+        ],
+        [
+          932,
+          776
+        ],
+        [
+          919,
+          795
+        ],
+        [
+          887,
+          791
+        ],
+        [
+          867,
+          783
+        ]
+      ],
+      "traceAreaSquareMeters": 789.6
+    },
+    {
+      "key": "between-road-south",
+      "name": "那晏村南侧沿路建筑组",
+      "placeId": "1799505",
+      "pixels": [
+        [
+          1123,
+          929
+        ],
+        [
+          1153,
+          932
+        ],
+        [
+          1171,
+          948
+        ],
+        [
+          1192,
+          948
+        ],
+        [
+          1227,
+          951
+        ],
+        [
+          1241,
+          970
+        ],
+        [
+          1238,
+          990
+        ],
+        [
+          1200,
+          996
+        ],
+        [
+          1180,
+          979
+        ],
+        [
+          1157,
+          975
+        ],
+        [
+          1122,
+          974
+        ],
+        [
+          1116,
+          953
+        ]
+      ],
+      "traceAreaSquareMeters": 1484.0
+    },
+    {
+      "key": "shang-south",
+      "name": "上村南缘建筑及院落",
+      "placeId": "osm-2065797975",
+      "pixels": [
+        [
+          1358,
+          818
+        ],
+        [
+          1385,
+          817
+        ],
+        [
+          1415,
+          823
+        ],
+        [
+          1458,
+          821
+        ],
+        [
+          1490,
+          810
+        ],
+        [
+          1522,
+          799
+        ],
+        [
+          1536,
+          818
+        ],
+        [
+          1538,
+          842
+        ],
+        [
+          1508,
+          866
+        ],
+        [
+          1473,
+          884
+        ],
+        [
+          1430,
+          884
+        ],
+        [
+          1396,
+          879
+        ],
+        [
+          1379,
+          860
+        ],
+        [
+          1357,
+          856
+        ]
+      ],
+      "traceAreaSquareMeters": 3174.0
+    },
+    {
+      "key": "shang-northwest",
+      "name": "上村西北边缘建筑组",
+      "placeId": "osm-2065797975",
+      "pixels": [
+        [
+          1310,
+          409
+        ],
+        [
+          1337,
+          393
+        ],
+        [
+          1367,
+          389
+        ],
+        [
+          1374,
+          421
+        ],
+        [
+          1354,
+          447
+        ],
+        [
+          1346,
+          483
+        ],
+        [
+          1314,
+          488
+        ],
+        [
+          1307,
+          457
+        ]
+      ],
+      "traceAreaSquareMeters": 1415.1
+    },
+    {
+      "key": "shang-east",
+      "name": "上村东北路边建筑",
+      "placeId": "osm-2065797975",
+      "pixels": [
+        [
+          1514,
+          409
+        ],
+        [
+          1538,
+          414
+        ],
+        [
+          1550,
+          433
+        ],
+        [
+          1550,
+          457
+        ],
+        [
+          1534,
+          468
+        ],
+        [
+          1516,
+          458
+        ]
+      ],
+      "traceAreaSquareMeters": 510.7
+    },
+    {
+      "key": "xi-west",
+      "name": "西村西缘建筑群补缺",
+      "placeId": "amap-B02F70NY09",
+      "pixels": [
+        [
+          226,
+          889
+        ],
+        [
+          258,
+          892
+        ],
+        [
+          264,
+          932
+        ],
+        [
+          260,
+          966
+        ],
+        [
+          278,
+          998
+        ],
+        [
+          286,
+          1032
+        ],
+        [
+          319,
+          1053
+        ],
+        [
+          316,
+          1081
+        ],
+        [
+          287,
+          1083
+        ],
+        [
+          264,
+          1066
+        ],
+        [
+          238,
+          1034
+        ],
+        [
+          218,
+          1018
+        ],
+        [
+          210,
+          985
+        ],
+        [
+          207,
+          953
+        ],
+        [
+          209,
+          919
+        ]
+      ],
+      "traceAreaSquareMeters": 3240.1
+    },
+    {
+      "key": "xi-northeast",
+      "name": "西村东北沿路建筑",
+      "placeId": "amap-B02F70NY09",
+      "pixels": [
+        [
+          592,
+          724
+        ],
+        [
+          613,
+          724
+        ],
+        [
+          630,
+          739
+        ],
+        [
+          630,
+          766
+        ],
+        [
+          610,
+          773
+        ],
+        [
+          589,
+          759
+        ]
+      ],
+      "traceAreaSquareMeters": 501.2
+    },
+    {
+      "key": "zhong-west",
+      "name": "中村西侧及西南建筑群补缺",
+      "placeId": "amap-B02F70NY0J",
+      "pixels": [
+        [
+          866,
+          1166
+        ],
+        [
+          901,
+          1166
+        ],
+        [
+          922,
+          1177
+        ],
+        [
+          935,
+          1215
+        ],
+        [
+          901,
+          1242
+        ],
+        [
+          882,
+          1274
+        ],
+        [
+          888,
+          1320
+        ],
+        [
+          884,
+          1371
+        ],
+        [
+          896,
+          1423
+        ],
+        [
+          881,
+          1447
+        ],
+        [
+          852,
+          1450
+        ],
+        [
+          816,
+          1447
+        ],
+        [
+          790,
+          1426
+        ],
+        [
+          789,
+          1387
+        ],
+        [
+          793,
+          1345
+        ],
+        [
+          798,
+          1309
+        ],
+        [
+          786,
+          1291
+        ],
+        [
+          795,
+          1263
+        ],
+        [
+          809,
+          1252
+        ],
+        [
+          811,
+          1223
+        ],
+        [
+          831,
+          1214
+        ],
+        [
+          835,
+          1192
+        ],
+        [
+          859,
+          1182
+        ]
+      ],
+      "traceAreaSquareMeters": 8089.3
+    },
+    {
+      "key": "zhong-northwest",
+      "name": "中村西北沿路建筑群补缺",
+      "placeId": "amap-B02F70NY0J",
+      "pixels": [
+        [
+          858,
+          1171
+        ],
+        [
+          886,
+          1175
+        ],
+        [
+          889,
+          1155
+        ],
+        [
+          938,
+          1148
+        ],
+        [
+          956,
+          1135
+        ],
+        [
+          978,
+          1147
+        ],
+        [
+          989,
+          1169
+        ],
+        [
+          975,
+          1193
+        ],
+        [
+          949,
+          1206
+        ],
+        [
+          906,
+          1213
+        ],
+        [
+          870,
+          1201
+        ]
+      ],
+      "traceAreaSquareMeters": 1947.3
+    },
+    {
+      "key": "zhong-southeast",
+      "name": "中村东南路旁建筑",
+      "placeId": "amap-B02F70NY0J",
+      "pixels": [
+        [
+          1286,
+          1410
+        ],
+        [
+          1313,
+          1405
+        ],
+        [
+          1327,
+          1420
+        ],
+        [
+          1321,
+          1449
+        ],
+        [
+          1298,
+          1464
+        ],
+        [
+          1280,
+          1441
+        ]
+      ],
+      "traceAreaSquareMeters": 597.1
+    },
+    {
+      "key": "zhong-road-north",
+      "name": "中村北侧沿路建筑",
+      "placeId": "amap-B02F70NY0J",
+      "pixels": [
+        [
+          1334,
+          1079
+        ],
+        [
+          1351,
+          1081
+        ],
+        [
+          1366,
+          1094
+        ],
+        [
+          1363,
+          1118
+        ],
+        [
+          1336,
+          1126
+        ],
+        [
+          1328,
+          1101
+        ]
+      ],
+      "traceAreaSquareMeters": 406.4
+    }
+  ],
+  "resultFeatureIds": [
+    "manual-nayan-builtup-20261102-between-north-1",
+    "manual-nayan-builtup-20261102-between-south-1",
+    "manual-nayan-builtup-20261102-nayan-north-1",
+    "manual-nayan-builtup-20261102-nayan-west-1",
+    "manual-nayan-builtup-20261102-between-road-south-1",
+    "manual-nayan-builtup-20261102-shang-south-1",
+    "manual-nayan-builtup-20261102-shang-northwest-1",
+    "manual-nayan-builtup-20261102-shang-east-1",
+    "manual-nayan-builtup-20261102-xi-west-1",
+    "manual-nayan-builtup-20261102-xi-northeast-1",
+    "manual-nayan-builtup-20261102-zhong-west-1",
+    "manual-nayan-builtup-20261102-zhong-northwest-1",
+    "manual-nayan-builtup-20261102-zhong-southeast-1",
+    "manual-nayan-builtup-20261102-zhong-road-north-1"
+  ],
+  "omittedTinySlivers": {
+    "count": 1,
+    "belowSquareMeters": 18
+  },
+  "meaning": "影像可见建成区补充，非行政边界、非土地权属或植被覆盖；影像时间未标明，待必要实地复核。"
+}

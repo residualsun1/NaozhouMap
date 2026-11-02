@@ -6165,5 +6165,1057 @@
     "sourceTraceParts": [
       "north-detached"
     ]
+  },
+  {
+    "id": "manual-nayan-builtup-20261102-between-north-1",
+    "name": "那晏村与上村间北侧建筑群",
+    "type": "residential",
+    "villageId": "1799505",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "核对那晏村、上村、中村、西村周边可见建筑群及内部院落；仅补充现有聚落面未覆盖的部分，保留外围农田与树林。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HSTAB",
+    "registrationEvidence": "assets/settlement-references/nayan-20261102.json",
+    "checkedAt": "2026-11-02",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "基于高德影像可见建筑进行判读；影像拍摄时间未显示，待必要的实地核对。保持地点及档案关联不变。",
+    "sourceTraceParts": [
+      "between-north"
+    ],
+    "coordinates": [
+      [
+        110.61373122,
+        20.89700745
+      ],
+      [
+        110.61383301,
+        20.89695225
+      ],
+      [
+        110.61407945,
+        20.89700722
+      ],
+      [
+        110.61430447,
+        20.89699203
+      ],
+      [
+        110.6144384,
+        20.8969318
+      ],
+      [
+        110.61453485,
+        20.89672625
+      ],
+      [
+        110.61443842,
+        20.896591
+      ],
+      [
+        110.61449201,
+        20.89638047
+      ],
+      [
+        110.61442773,
+        20.89623518
+      ],
+      [
+        110.61417057,
+        20.89619025
+      ],
+      [
+        110.61392949,
+        20.8961854
+      ],
+      [
+        110.6136884,
+        20.89617554
+      ],
+      [
+        110.61351161,
+        20.89608043
+      ],
+      [
+        110.61336695,
+        20.89617575
+      ],
+      [
+        110.61335622,
+        20.89639126
+      ],
+      [
+        110.613308,
+        20.8964815
+      ],
+      [
+        110.61330263,
+        20.89668698
+      ],
+      [
+        110.61334012,
+        20.89691249
+      ],
+      [
+        110.61352763,
+        20.89699255
+      ],
+      [
+        110.61373122,
+        20.89700745
+      ]
+    ]
+  },
+  {
+    "id": "manual-nayan-builtup-20261102-between-south-1",
+    "name": "那晏村与上村间沿路建筑群",
+    "type": "residential",
+    "villageId": "1799505",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "核对那晏村、上村、中村、西村周边可见建筑群及内部院落；仅补充现有聚落面未覆盖的部分，保留外围农田与树林。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HSTAB",
+    "registrationEvidence": "assets/settlement-references/nayan-20261102.json",
+    "checkedAt": "2026-11-02",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "基于高德影像可见建筑进行判读；影像拍摄时间未显示，待必要的实地核对。保持地点及档案关联不变。",
+    "sourceTraceParts": [
+      "between-south"
+    ],
+    "coordinates": [
+      [
+        110.61370985,
+        20.89592494
+      ],
+      [
+        110.61400451,
+        20.89594479
+      ],
+      [
+        110.61417059,
+        20.89589957
+      ],
+      [
+        110.61440095,
+        20.89595454
+      ],
+      [
+        110.61448132,
+        20.89585425
+      ],
+      [
+        110.61444918,
+        20.89572397
+      ],
+      [
+        110.61434204,
+        20.89562882
+      ],
+      [
+        110.61426169,
+        20.89550358
+      ],
+      [
+        110.61416526,
+        20.89544351
+      ],
+      [
+        110.61417598,
+        20.89527811
+      ],
+      [
+        110.61425099,
+        20.89506757
+      ],
+      [
+        110.61414921,
+        20.89494735
+      ],
+      [
+        110.61397241,
+        20.89498256
+      ],
+      [
+        110.61380633,
+        20.89501775
+      ],
+      [
+        110.61366703,
+        20.89501784
+      ],
+      [
+        110.61352774,
+        20.89501793
+      ],
+      [
+        110.61345808,
+        20.89517836
+      ],
+      [
+        110.61335628,
+        20.89520849
+      ],
+      [
+        110.61336163,
+        20.89537388
+      ],
+      [
+        110.61343128,
+        20.89545402
+      ],
+      [
+        110.61343127,
+        20.89560437
+      ],
+      [
+        110.61338305,
+        20.8956445
+      ],
+      [
+        110.6133884,
+        20.89582492
+      ],
+      [
+        110.61343125,
+        20.89598526
+      ],
+      [
+        110.61368306,
+        20.89598008
+      ],
+      [
+        110.61370985,
+        20.89592494
+      ]
+    ]
+  },
+  {
+    "id": "manual-nayan-builtup-20261102-nayan-north-1",
+    "name": "那晏村点位北侧建筑组",
+    "type": "residential",
+    "villageId": "1799505",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "核对那晏村、上村、中村、西村周边可见建筑群及内部院落；仅补充现有聚落面未覆盖的部分，保留外围农田与树林。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HSTAB",
+    "registrationEvidence": "assets/settlement-references/nayan-20261102.json",
+    "checkedAt": "2026-11-02",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "基于高德影像可见建筑进行判读；影像拍摄时间未显示，待必要的实地核对。保持地点及档案关联不变。",
+    "sourceTraceParts": [
+      "nayan-north"
+    ],
+    "coordinates": [
+      [
+        110.61306158,
+        20.89580007
+      ],
+      [
+        110.61307767,
+        20.89556952
+      ],
+      [
+        110.61317947,
+        20.89552936
+      ],
+      [
+        110.61319019,
+        20.89528378
+      ],
+      [
+        110.61312973,
+        20.89523668
+      ],
+      [
+        110.6130081,
+        20.8954859
+      ],
+      [
+        110.612717,
+        20.8953799
+      ],
+      [
+        110.61269908,
+        20.89535921
+      ],
+      [
+        110.61261156,
+        20.89540944
+      ],
+      [
+        110.61258476,
+        20.89556983
+      ],
+      [
+        110.61260618,
+        20.8957753
+      ],
+      [
+        110.61278834,
+        20.89580525
+      ],
+      [
+        110.61306158,
+        20.89580007
+      ]
+    ]
+  },
+  {
+    "id": "manual-nayan-builtup-20261102-nayan-west-1",
+    "name": "那晏村点位西侧邻近建筑",
+    "type": "residential",
+    "villageId": "1799505",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "核对那晏村、上村、中村、西村周边可见建筑群及内部院落；仅补充现有聚落面未覆盖的部分，保留外围农田与树林。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HSTAB",
+    "registrationEvidence": "assets/settlement-references/nayan-20261102.json",
+    "checkedAt": "2026-11-02",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "基于高德影像可见建筑进行判读；影像拍摄时间未显示，待必要的实地核对。保持地点及档案关联不变。",
+    "sourceTraceParts": [
+      "nayan-west"
+    ],
+    "coordinates": [
+      [
+        110.61232226,
+        20.89496357
+      ],
+      [
+        110.61243186,
+        20.89495884
+      ],
+      [
+        110.61239726,
+        20.89476117
+      ],
+      [
+        110.61225262,
+        20.89477818
+      ],
+      [
+        110.61214546,
+        20.89481833
+      ],
+      [
+        110.61216152,
+        20.89502882
+      ],
+      [
+        110.61229546,
+        20.89503375
+      ],
+      [
+        110.61232226,
+        20.89496357
+      ]
+    ]
+  },
+  {
+    "id": "manual-nayan-builtup-20261102-between-road-south-1",
+    "name": "那晏村南侧沿路建筑组",
+    "type": "residential",
+    "villageId": "1799505",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "核对那晏村、上村、中村、西村周边可见建筑群及内部院落；仅补充现有聚落面未覆盖的部分，保留外围农田与树林。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HSTAB",
+    "registrationEvidence": "assets/settlement-references/nayan-20261102.json",
+    "checkedAt": "2026-11-02",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "基于高德影像可见建筑进行判读；影像拍摄时间未显示，待必要的实地核对。保持地点及档案关联不变。",
+    "sourceTraceParts": [
+      "between-road-south"
+    ],
+    "coordinates": [
+      [
+        110.61377424,
+        20.89399036
+      ],
+      [
+        110.61388674,
+        20.89399028
+      ],
+      [
+        110.61407426,
+        20.89397512
+      ],
+      [
+        110.61414927,
+        20.89387985
+      ],
+      [
+        110.6141332,
+        20.89377962
+      ],
+      [
+        110.61392962,
+        20.89374969
+      ],
+      [
+        110.61382246,
+        20.89383496
+      ],
+      [
+        110.61369924,
+        20.89385509
+      ],
+      [
+        110.61351173,
+        20.89386023
+      ],
+      [
+        110.61347957,
+        20.89396549
+      ],
+      [
+        110.61351707,
+        20.89408575
+      ],
+      [
+        110.6136778,
+        20.89407061
+      ],
+      [
+        110.61377424,
+        20.89399036
+      ]
+    ]
+  },
+  {
+    "id": "manual-nayan-builtup-20261102-shang-south-1",
+    "name": "上村南缘建筑及院落",
+    "type": "residential",
+    "villageId": "osm-2065797975",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "核对那晏村、上村、中村、西村周边可见建筑群及内部院落；仅补充现有聚落面未覆盖的部分，保留外围农田与树林。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZZ",
+    "registrationEvidence": "assets/settlement-references/nayan-20261102.json",
+    "checkedAt": "2026-11-02",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "基于高德影像可见建筑进行判读；影像拍摄时间未显示，待必要的实地核对。保持地点及档案关联不变。",
+    "sourceTraceParts": [
+      "shang-south"
+    ],
+    "coordinates": [
+      [
+        110.61572961,
+        20.89464051
+      ],
+      [
+        110.61574033,
+        20.89452022
+      ],
+      [
+        110.61557963,
+        20.89440006
+      ],
+      [
+        110.61539213,
+        20.89430998
+      ],
+      [
+        110.61516177,
+        20.89431015
+      ],
+      [
+        110.61497963,
+        20.89433534
+      ],
+      [
+        110.61488855,
+        20.89443063
+      ],
+      [
+        110.61477069,
+        20.89445076
+      ],
+      [
+        110.61477603,
+        20.8946412
+      ],
+      [
+        110.61484858,
+        20.89464366
+      ],
+      [
+        110.6148873,
+        20.894491
+      ],
+      [
+        110.6153865,
+        20.8945082
+      ],
+      [
+        110.61565918,
+        20.89472999
+      ],
+      [
+        110.61572961,
+        20.89464051
+      ]
+    ]
+  },
+  {
+    "id": "manual-nayan-builtup-20261102-shang-northwest-1",
+    "name": "上村西北边缘建筑组",
+    "type": "residential",
+    "villageId": "osm-2065797975",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "核对那晏村、上村、中村、西村周边可见建筑群及内部院落；仅补充现有聚落面未覆盖的部分，保留外围农田与树林。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZZ",
+    "registrationEvidence": "assets/settlement-references/nayan-20261102.json",
+    "checkedAt": "2026-11-02",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "基于高德影像可见建筑进行判读；影像拍摄时间未显示，待必要的实地核对。保持地点及档案关联不变。",
+    "sourceTraceParts": [
+      "shang-northwest"
+    ],
+    "coordinates": [
+      [
+        110.61482414,
+        20.8967912
+      ],
+      [
+        110.6148343,
+        20.89674776
+      ],
+      [
+        110.6146611,
+        20.896579
+      ],
+      [
+        110.61461448,
+        20.89630604
+      ],
+      [
+        110.61454023,
+        20.89629524
+      ],
+      [
+        110.61450272,
+        20.89645063
+      ],
+      [
+        110.61451878,
+        20.89669118
+      ],
+      [
+        110.61466342,
+        20.89677126
+      ],
+      [
+        110.61482414,
+        20.8967912
+      ]
+    ]
+  },
+  {
+    "id": "manual-nayan-builtup-20261102-shang-east-1",
+    "name": "上村东北路边建筑",
+    "type": "residential",
+    "villageId": "osm-2065797975",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "核对那晏村、上村、中村、西村周边可见建筑群及内部院落；仅补充现有聚落面未覆盖的部分，保留外围农田与树林。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZZ",
+    "registrationEvidence": "assets/settlement-references/nayan-20261102.json",
+    "checkedAt": "2026-11-02",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "基于高德影像可见建筑进行判读；影像拍摄时间未显示，待必要的实地核对。保持地点及档案关联不变。",
+    "sourceTraceParts": [
+      "shang-east"
+    ],
+    "coordinates": [
+      [
+        110.61580451,
+        20.89656997
+      ],
+      [
+        110.61580451,
+        20.89644969
+      ],
+      [
+        110.6157188,
+        20.89639463
+      ],
+      [
+        110.61564468,
+        20.8964332
+      ],
+      [
+        110.6156389,
+        20.8965689
+      ],
+      [
+        110.61561618,
+        20.89658661
+      ],
+      [
+        110.61561165,
+        20.8966904
+      ],
+      [
+        110.61574022,
+        20.89666524
+      ],
+      [
+        110.61580451,
+        20.89656997
+      ]
+    ]
+  },
+  {
+    "id": "manual-nayan-builtup-20261102-xi-west-1",
+    "name": "西村西缘建筑群补缺",
+    "type": "residential",
+    "villageId": "amap-B02F70NY09",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "核对那晏村、上村、中村、西村周边可见建筑群及内部院落；仅补充现有聚落面未覆盖的部分，保留外围农田与树林。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY09",
+    "registrationEvidence": "assets/settlement-references/nayan-20261102.json",
+    "checkedAt": "2026-11-02",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "基于高德影像可见建筑进行判读；影像拍摄时间未显示，待必要的实地核对。保持地点及档案关联不变。",
+    "sourceTraceParts": [
+      "xi-west"
+    ],
+    "coordinates": [
+      [
+        110.60890164,
+        20.89415328
+      ],
+      [
+        110.6087698,
+        20.8940909
+      ],
+      [
+        110.6090236,
+        20.8933585
+      ],
+      [
+        110.60906019,
+        20.89331792
+      ],
+      [
+        110.60903775,
+        20.89331648
+      ],
+      [
+        110.6089145,
+        20.89340174
+      ],
+      [
+        110.60877517,
+        20.89356218
+      ],
+      [
+        110.60866799,
+        20.89364242
+      ],
+      [
+        110.60862511,
+        20.89380783
+      ],
+      [
+        110.60860903,
+        20.89396821
+      ],
+      [
+        110.60861973,
+        20.89413861
+      ],
+      [
+        110.60871082,
+        20.89428892
+      ],
+      [
+        110.6088823,
+        20.8942738
+      ],
+      [
+        110.60890164,
+        20.89415328
+      ]
+    ]
+  },
+  {
+    "id": "manual-nayan-builtup-20261102-xi-northeast-1",
+    "name": "西村东北沿路建筑",
+    "type": "residential",
+    "villageId": "amap-B02F70NY09",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "核对那晏村、上村、中村、西村周边可见建筑群及内部院落；仅补充现有聚落面未覆盖的部分，保留外围农田与树林。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY09",
+    "registrationEvidence": "assets/settlement-references/nayan-20261102.json",
+    "checkedAt": "2026-11-02",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "基于高德影像可见建筑进行判读；影像拍摄时间未显示，待必要的实地核对。保持地点及档案关联不变。",
+    "sourceTraceParts": [
+      "xi-northeast"
+    ],
+    "coordinates": [
+      [
+        110.61087559,
+        20.89503958
+      ],
+      [
+        110.6108756,
+        20.89490427
+      ],
+      [
+        110.61076844,
+        20.89486924
+      ],
+      [
+        110.61065591,
+        20.89493947
+      ],
+      [
+        110.6106701,
+        20.89509437
+      ],
+      [
+        110.6106758,
+        20.8951091
+      ],
+      [
+        110.61067159,
+        20.89511063
+      ],
+      [
+        110.61067198,
+        20.89511487
+      ],
+      [
+        110.6107845,
+        20.89511481
+      ],
+      [
+        110.61087559,
+        20.89503958
+      ]
+    ]
+  },
+  {
+    "id": "manual-nayan-builtup-20261102-zhong-west-1",
+    "name": "中村西侧及西南建筑群补缺",
+    "type": "residential",
+    "villageId": "amap-B02F70NY0J",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "核对那晏村、上村、中村、西村周边可见建筑群及内部院落；仅补充现有聚落面未覆盖的部分，保留外围农田与树林。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY0J",
+    "registrationEvidence": "assets/settlement-references/nayan-20261102.json",
+    "checkedAt": "2026-11-02",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "基于高德影像可见建筑进行判读；影像拍摄时间未显示，待必要的实地核对。保持地点及档案关联不变。",
+    "sourceTraceParts": [
+      "zhong-west"
+    ],
+    "coordinates": [
+      [
+        110.61244024,
+        20.89284351
+      ],
+      [
+        110.61245894,
+        20.89279238
+      ],
+      [
+        110.6124138,
+        20.8927621
+      ],
+      [
+        110.6120833,
+        20.8924818
+      ],
+      [
+        110.6119788,
+        20.8921062
+      ],
+      [
+        110.61225109,
+        20.89204322
+      ],
+      [
+        110.61223669,
+        20.89187134
+      ],
+      [
+        110.612301,
+        20.89161068
+      ],
+      [
+        110.61222064,
+        20.89149044
+      ],
+      [
+        110.61206526,
+        20.8914755
+      ],
+      [
+        110.61187238,
+        20.89149065
+      ],
+      [
+        110.61173306,
+        20.89159598
+      ],
+      [
+        110.6117277,
+        20.89179145
+      ],
+      [
+        110.61174912,
+        20.89200193
+      ],
+      [
+        110.6117759,
+        20.89218235
+      ],
+      [
+        110.6117116,
+        20.8922726
+      ],
+      [
+        110.61175981,
+        20.8924129
+      ],
+      [
+        110.61183482,
+        20.89246799
+      ],
+      [
+        110.61184553,
+        20.89261332
+      ],
+      [
+        110.61195269,
+        20.89265837
+      ],
+      [
+        110.61197411,
+        20.89276861
+      ],
+      [
+        110.6121027,
+        20.89281866
+      ],
+      [
+        110.6121402,
+        20.89289882
+      ],
+      [
+        110.61232772,
+        20.89289871
+      ],
+      [
+        110.61244024,
+        20.89284351
+      ]
+    ]
+  },
+  {
+    "id": "manual-nayan-builtup-20261102-zhong-northwest-1",
+    "name": "中村西北沿路建筑群补缺",
+    "type": "residential",
+    "villageId": "amap-B02F70NY0J",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "核对那晏村、上村、中村、西村周边可见建筑群及内部院落；仅补充现有聚落面未覆盖的部分，保留外围农田与树林。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY0J",
+    "registrationEvidence": "assets/settlement-references/nayan-20261102.json",
+    "checkedAt": "2026-11-02",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "基于高德影像可见建筑进行判读；影像拍摄时间未显示，待必要的实地核对。保持地点及档案关联不变。",
+    "sourceTraceParts": [
+      "zhong-northwest"
+    ],
+    "coordinates": [
+      [
+        110.61226343,
+        20.89295388
+      ],
+      [
+        110.61252596,
+        20.8929888
+      ],
+      [
+        110.6126224,
+        20.89305389
+      ],
+      [
+        110.61274027,
+        20.89299368
+      ],
+      [
+        110.61274522,
+        20.89298441
+      ],
+      [
+        110.6124138,
+        20.8927621
+      ],
+      [
+        110.61245894,
+        20.89279238
+      ],
+      [
+        110.61244024,
+        20.89284351
+      ],
+      [
+        110.61232772,
+        20.89289871
+      ],
+      [
+        110.61225459,
+        20.89289875
+      ],
+      [
+        110.61226343,
+        20.89295388
+      ]
+    ]
+  },
+  {
+    "id": "manual-nayan-builtup-20261102-zhong-southeast-1",
+    "name": "中村东南路旁建筑",
+    "type": "residential",
+    "villageId": "amap-B02F70NY0J",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "核对那晏村、上村、中村、西村周边可见建筑群及内部院落；仅补充现有聚落面未覆盖的部分，保留外围农田与树林。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY0J",
+    "registrationEvidence": "assets/settlement-references/nayan-20261102.json",
+    "checkedAt": "2026-11-02",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "基于高德影像可见建筑进行判读；影像拍摄时间未显示，待必要的实地核对。保持地点及档案关联不变。",
+    "sourceTraceParts": [
+      "zhong-southeast"
+    ],
+    "coordinates": [
+      [
+        110.61461012,
+        20.8916242
+      ],
+      [
+        110.61457798,
+        20.89147888
+      ],
+      [
+        110.61445477,
+        20.89140379
+      ],
+      [
+        110.61435833,
+        20.89151913
+      ],
+      [
+        110.61439046,
+        20.89167448
+      ],
+      [
+        110.61453511,
+        20.89169943
+      ],
+      [
+        110.61461012,
+        20.8916242
+      ]
+    ]
+  },
+  {
+    "id": "manual-nayan-builtup-20261102-zhong-road-north-1",
+    "name": "中村北侧沿路建筑",
+    "type": "residential",
+    "villageId": "amap-B02F70NY0J",
+    "coordinateSystem": "WGS84",
+    "featureType": "settlement",
+    "sourceLabel": "高德卫星影像人工判读（近似）",
+    "sourceDescription": "核对那晏村、上村、中村、西村周边可见建筑群及内部院落；仅补充现有聚落面未覆盖的部分，保留外围农田与树林。",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY0J",
+    "registrationEvidence": "assets/settlement-references/nayan-20261102.json",
+    "checkedAt": "2026-11-02",
+    "geometryStatus": "interpreted",
+    "approximate": true,
+    "boundaryMeaning": "近似建成区，非行政范围或自然村边界",
+    "note": "基于高德影像可见建筑进行判读；影像拍摄时间未显示，待必要的实地核对。保持地点及档案关联不变。",
+    "sourceTraceParts": [
+      "zhong-road-north"
+    ],
+    "coordinates": [
+      [
+        110.61481897,
+        20.89325792
+      ],
+      [
+        110.6148029,
+        20.89313765
+      ],
+      [
+        110.61465826,
+        20.89309765
+      ],
+      [
+        110.61461539,
+        20.89322298
+      ],
+      [
+        110.61464753,
+        20.89333322
+      ],
+      [
+        110.6147386,
+        20.89332313
+      ],
+      [
+        110.61481897,
+        20.89325792
+      ]
+    ]
   }
 ]
