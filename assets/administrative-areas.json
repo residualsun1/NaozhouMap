@@ -244,6 +244,39 @@
       {
         "placeId": "6834723",
         "name": "加律村"
+      },
+      {
+        "placeId": "osm-2065797975",
+        "name": "上村",
+        "placeKind": "locality",
+        "parentVillageId": "1799505",
+        "classificationSource": {
+          "type": "user_confirmed",
+          "checkedAt": "2026-11-02",
+          "note": "用户确认上村、中村、西村是那晏村中的片内聚落；那晏村仍属孟岗村委会。按高德独立地点分享坐标定位，不将片内聚落另列为自然村，不合并或迁移既有档案。"
+        }
+      },
+      {
+        "placeId": "amap-B02F70NY0J",
+        "name": "中村",
+        "placeKind": "locality",
+        "parentVillageId": "1799505",
+        "classificationSource": {
+          "type": "user_confirmed",
+          "checkedAt": "2026-11-02",
+          "note": "用户确认上村、中村、西村是那晏村中的片内聚落；那晏村仍属孟岗村委会。按高德独立地点分享坐标定位，不将片内聚落另列为自然村，不合并或迁移既有档案。"
+        }
+      },
+      {
+        "placeId": "amap-B02F70NY09",
+        "name": "西村",
+        "placeKind": "locality",
+        "parentVillageId": "1799505",
+        "classificationSource": {
+          "type": "user_confirmed",
+          "checkedAt": "2026-11-02",
+          "note": "用户确认上村、中村、西村是那晏村中的片内聚落；那晏村仍属孟岗村委会。按高德独立地点分享坐标定位，不将片内聚落另列为自然村，不合并或迁移既有档案。"
+        }
       }
     ],
     "membershipComplete": false,

@@ -2576,5 +2576,89 @@
       "referenceProviderPlaceId": "B02F701QJW"
     },
     "correctionNote": "按调查者推荐的村中心补录，独立核对的塘尾加油站坐标与其提供值一致。作为宋皇村委会下的单一自然村，不新增上、下塘尾或下分聚落；已有聚落阴影保留，不将其视为塘尾法定边界。"
+  },
+  {
+    "id": "amap-B02F70NY0J",
+    "name": "中村",
+    "lng": 110.613407,
+    "lat": 20.892244,
+    "checkedAt": "2026-11-02",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY0J",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NY0J&name=%E4%B8%AD%E6%9D%91&lng=110.617639&lat=20.889525&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NY0J",
+      "name": "中村",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.617639,
+      "lat": 20.889525
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "approximate": true,
+      "outputDecimals": 6,
+      "note": "近似转换；小数位数不表示测绘精度。"
+    },
+    "administrativeAreaId": "menggang",
+    "committeeName": "孟岗村委会",
+    "administrativeVillageName": "孟岗村",
+    "placeKind": "locality",
+    "classificationSource": {
+      "type": "user_confirmed",
+      "checkedAt": "2026-11-02",
+      "note": "用户确认上村、中村、西村是那晏村中的片内聚落；那晏村仍属孟岗村委会。按高德独立地点分享坐标定位，不将片内聚落另列为自然村，不合并或迁移既有档案。"
+    },
+    "correctionNote": "依据高德地图独立地点详情的公开分享嵌入坐标核对，落点位于现有聚落阴影内。未采用民宿位置或插值估计代替村庄 POI；保留已有地点 ID、名称及档案关联。",
+    "nameSource": "高德地图",
+    "parentVillageId": "1799505",
+    "parentVillageName": "那晏村",
+    "aliases": [
+      "那晏中村"
+    ]
+  },
+  {
+    "id": "amap-B02F70NY09",
+    "name": "西村",
+    "lng": 110.60951,
+    "lat": 20.893911,
+    "checkedAt": "2026-11-02",
+    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NY09",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NY09&name=%E8%A5%BF%E6%9D%91&lng=110.613737&lat=20.891190&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "sourceLocation": {
+      "provider": "高德地图",
+      "placeId": "B02F70NY09",
+      "name": "西村",
+      "type": "村庄",
+      "coordinateSystem": "GCJ-02",
+      "lng": 110.613737,
+      "lat": 20.89119
+    },
+    "coordinateTransform": {
+      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
+      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+      "approximate": true,
+      "outputDecimals": 6,
+      "note": "近似转换；小数位数不表示测绘精度。"
+    },
+    "administrativeAreaId": "menggang",
+    "committeeName": "孟岗村委会",
+    "administrativeVillageName": "孟岗村",
+    "placeKind": "locality",
+    "classificationSource": {
+      "type": "user_confirmed",
+      "checkedAt": "2026-11-02",
+      "note": "用户确认上村、中村、西村是那晏村中的片内聚落；那晏村仍属孟岗村委会。按高德独立地点分享坐标定位，不将片内聚落另列为自然村，不合并或迁移既有档案。"
+    },
+    "correctionNote": "依据高德地图独立地点详情的公开分享嵌入坐标核对，落点位于现有聚落阴影内。未采用民宿位置或插值估计代替村庄 POI；保留已有地点 ID、名称及档案关联。",
+    "nameSource": "高德地图",
+    "parentVillageId": "1799505",
+    "parentVillageName": "那晏村",
+    "aliases": [
+      "那晏西村"
+    ]
   }
 ]

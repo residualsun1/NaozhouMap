@@ -358,6 +358,26 @@
         },
         "previousSourceLocation": null,
         "previousCheckedAt": null
+      },
+      {
+        "replacedAt": "2026-11-02T10:34:49.381Z",
+        "previousLocation": {
+          "lng": 110.605931,
+          "lat": 20.892191,
+          "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
+          "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZU"
+        },
+        "previousSourceLocation": {
+          "provider": "高德地图",
+          "placeId": "B02F70NXZU",
+          "name": "那晏",
+          "type": "村庄",
+          "coordinateSystem": "GCJ-02",
+          "lng": 110.610154,
+          "lat": 20.889468
+        },
+        "previousCheckedAt": "2026-10-11",
+        "reason": "用户指出原点未落在聚落中；精确搜索那晏村，核对 B0I04HSTAB，替换此前那晏 B02F70NXZU 的落点。"
       }
     ],
     "originalCoordinates": {
@@ -369,28 +389,28 @@
     },
     "id": "1799505",
     "name": "那晏村",
-    "lng": 110.605931,
-    "lat": 20.892191,
+    "lng": 110.612903,
+    "lat": 20.895337,
     "nameSource": "OpenStreetMap",
     "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
-    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZU",
-    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXZU&name=%E9%82%A3%E6%99%8F&lng=110.610154&lat=20.889468&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
-    "checkedAt": "2026-10-11",
+    "sourceUrl": "https://ditu.amap.com/ssr/place/B0I04HSTAB",
+    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B0I04HSTAB&name=%E9%82%A3%E6%99%8F%E6%9D%91&lng=110.617134&lat=20.892617&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+    "checkedAt": "2026-11-02",
     "previousLocation": {
       "coordinateSystem": "WGS84",
-      "lng": 110.61521,
-      "lat": 20.89346,
-      "source": "OpenStreetMap",
-      "sourceUrl": "https://www.openstreetmap.org/node/2065881596"
+      "lng": 110.605931,
+      "lat": 20.892191,
+      "source": "高德地图（GCJ-02 转 WGS84，近似）",
+      "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZU"
     },
     "sourceLocation": {
       "provider": "高德地图",
-      "placeId": "B02F70NXZU",
-      "name": "那晏",
+      "placeId": "B0I04HSTAB",
+      "name": "那晏村",
       "type": "村庄",
       "coordinateSystem": "GCJ-02",
-      "lng": 110.610154,
-      "lat": 20.889468
+      "lng": 110.617134,
+      "lat": 20.892617
     },
     "coordinateTransform": {
       "method": "coordtransform WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
@@ -399,7 +419,22 @@
       "outputDecimals": 6,
       "note": "近似转换；小数位数不表示测绘精度。"
     },
-    "correctionNote": "依据高德地图同名村庄或地名详情及可见分享嵌入参数复核。保留现有村名和旧坐标历史；本点不是村庄边界或测绘控制点。"
+    "correctionNote": "依据高德地图独立地点详情的公开分享嵌入坐标核对，落点位于现有聚落阴影内。未采用民宿位置或插值估计代替村庄 POI；保留已有地点 ID、名称及档案关联。",
+    "administrativeAreaId": "menggang",
+    "committeeName": "孟岗村委会",
+    "administrativeVillageName": "孟岗村",
+    "placeKind": "natural_village",
+    "classificationSource": {
+      "type": "user_confirmed",
+      "checkedAt": "2026-11-02",
+      "note": "用户确认上村、中村、西村是那晏村中的片内聚落；那晏村仍属孟岗村委会。按高德独立地点分享坐标定位，不将片内聚落另列为自然村，不合并或迁移既有档案。"
+    },
+    "settlementNames": [
+      "上村",
+      "中村",
+      "西村"
+    ],
+    "settlementNote": "上村、中村、西村为那晏村的片内聚落，村级资料仍按那晏村整理。"
   },
   {
     "correctionHistory": [
@@ -1394,7 +1429,7 @@
     "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
     "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXZZ",
     "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXZZ&name=%E4%B8%8A%E6%9D%91&lng=110.619555&lat=20.893030&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
-    "checkedAt": "2026-10-11",
+    "checkedAt": "2026-11-02",
     "previousLocation": {
       "coordinateSystem": "WGS84",
       "lng": 110.61585,
@@ -1418,7 +1453,21 @@
       "outputDecimals": 6,
       "note": "近似转换；小数位数不表示测绘精度。"
     },
-    "correctionNote": "依据高德地图同名村庄或地名详情及可见分享嵌入参数复核。保留现有村名和旧坐标历史；本点不是村庄边界或测绘控制点。"
+    "correctionNote": "依据高德地图独立地点详情的公开分享嵌入坐标核对，落点位于现有聚落阴影内。未采用民宿位置或插值估计代替村庄 POI；保留已有地点 ID、名称及档案关联。",
+    "administrativeAreaId": "menggang",
+    "committeeName": "孟岗村委会",
+    "administrativeVillageName": "孟岗村",
+    "placeKind": "locality",
+    "classificationSource": {
+      "type": "user_confirmed",
+      "checkedAt": "2026-11-02",
+      "note": "用户确认上村、中村、西村是那晏村中的片内聚落；那晏村仍属孟岗村委会。按高德独立地点分享坐标定位，不将片内聚落另列为自然村，不合并或迁移既有档案。"
+    },
+    "parentVillageId": "1799505",
+    "parentVillageName": "那晏村",
+    "aliases": [
+      "那晏上村"
+    ]
   },
   {
     "correctionHistory": [
