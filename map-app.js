@@ -260,15 +260,19 @@
   for(const road of roads){if(!road.label)continue;const key=road.label;let group=roadGroups.get(key);if(!group){group={label:road.label,ref:road.ref||'',roads:[]};roadGroups.set(key,group);}group.roads.push(road);}
   for(const group of roadGroups.values())group.roads.sort((a,b)=>(b.kind==='main')-(a.kind==='main')||b.anchor.length-a.anchor.length);
   function drawFeatures(items,id,kind){
-    const group=$(id),fragment=document.createDocumentFragment();
+    const group=$(id),fragment=document.createDocumentFragment(),casings=document.createDocumentFragment();
     for(const item of items){
       const path=document.createElementNS(NS,'path');path.setAttribute('d',pathData(item.coordinates,kind==='building'||kind==='residential'));path.setAttribute('class',kind+(kind==='road'?' '+item.kind:''));
       if(kind==='residential'){path.dataset.clusterKey=item.key;path.setAttribute('tabindex','0');path.setAttribute('role','button');path.setAttribute('aria-label',(item.name||'未命名聚落')+'，查看轮廓');path.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();e.stopPropagation();selectCluster(item);}});}
       if(item.name||kind==='residential'){const title=document.createElementNS(NS,'title');title.textContent=item.name||'未命名聚落轮廓 · 点击记录';path.append(title);}
-      if(kind==='road')path.dataset.roadId=String(item.id);
+      if(kind==='road'){
+        // A thin color casing reuses the same geometry; it carries no map interaction.
+        if(item.kind!=='path'){const casing=path.cloneNode(false);casing.setAttribute('class','road road-casing '+item.kind);casing.setAttribute('aria-hidden','true');casings.append(casing);}
+        path.dataset.roadId=String(item.id);
+      }
       fragment.append(path);
     }
-    group.append(fragment);
+    group.append(casings,fragment);
   }
   drawFeatures(clusters,'residential-layer','residential');drawFeatures(data.waters,'water-layer','water');drawFeatures(roads,'road-layer','road');drawFeatures(data.buildings,'building-layer','building');
   for(const area of administrativeAreas){
@@ -700,10 +704,22 @@
     output.removeAttribute('tabindex');output.removeAttribute('class');output.setAttribute('width',String(width));output.setAttribute('height',String(Math.round(height)));output.setAttribute('viewBox',`${exportView.x} ${exportView.y} ${exportView.w} ${exportView.h}`);output.setAttribute('preserveAspectRatio','xMidYMid meet');
     for(const node of output.querySelectorAll('[tabindex]')){node.removeAttribute('tabindex');node.removeAttribute('role');}
     for(const node of output.querySelectorAll('.is-selected'))node.classList.remove('is-selected');
-    const style=document.createElementNS(NS,'style');style.textContent='.coast{fill:#f0ece4;stroke:#d0cdc4;stroke-width:1.25;vector-effect:non-scaling-stroke}.road{fill:none;stroke:#d2d0c8;stroke-width:.75;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}.road.main{stroke:#c4c4bc;stroke-width:1.35}.road.minor{stroke:#dedbd3;stroke-width:.55}.road.path{stroke:#d5d6cb;stroke-width:.6;stroke-opacity:.8;stroke-dasharray:2 4}.residential{fill:#d8ddd0;fill-opacity:.76;stroke:#aeb9a6;stroke-width:.35;stroke-opacity:.08;vector-effect:non-scaling-stroke}.building{fill:#d9d7cc;stroke:#c3c2b7;stroke-width:.4;vector-effect:non-scaling-stroke}.water{fill:none;stroke:#b6c7cd;stroke-width:.7;vector-effect:non-scaling-stroke}text{font-family:system-ui,Microsoft YaHei,sans-serif;fill:#4d5450;paint-order:stroke;stroke:#f0ece4;stroke-linejoin:round}';output.prepend(style);
+    // Resolve the shared palette so the downloaded SVG remains self-contained.
+    const theme=getComputedStyle(document.documentElement),color=token=>theme.getPropertyValue('--'+token).trim();
+    const style=document.createElementNS(NS,'style');style.textContent=`
+      .coast{fill:${color('map-land')};stroke:${color('map-coastline')};stroke-width:1.25;vector-effect:non-scaling-stroke}
+      .road{fill:none;stroke:${color('map-road-secondary')};stroke-width:.75;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+      .road.main{stroke:${color('map-road-main')};stroke-width:1.35}.road.minor{stroke:${color('map-road-secondary')};stroke-width:.55}
+      .road.path{stroke:${color('map-road-path')};stroke-width:.6;stroke-opacity:.8;stroke-dasharray:2 4}
+      .road-casing{stroke:${color('map-road-secondary-outline')};stroke-width:1.55}
+      .road-casing.main{stroke:${color('map-road-main-outline')};stroke-width:2.15}.road-casing.minor{stroke:${color('map-road-secondary-outline')};stroke-width:1.15}
+      .residential{fill:${color('map-settlement')};fill-opacity:.76;stroke:${color('map-building-outline')};stroke-width:.35;stroke-opacity:.08;vector-effect:non-scaling-stroke}
+      .building{fill:${color('map-building')};stroke:${color('map-building-outline')};stroke-width:.4;vector-effect:non-scaling-stroke}
+      .water{fill:none;stroke:${color('map-water-light')};stroke-width:.7;vector-effect:non-scaling-stroke}
+      text{font-family:system-ui,Microsoft YaHei,sans-serif;fill:${color('map-label-village')};paint-order:stroke;stroke:${color('map-land')};stroke-linejoin:round}`;output.prepend(style);
     // A background rectangle changes only the page, never the map geometry.
-    const sea=document.createElementNS(NS,'rect');sea.setAttribute('x',exportView.x);sea.setAttribute('y',exportView.y);sea.setAttribute('width',exportView.w);sea.setAttribute('height',exportView.h);sea.setAttribute('fill','#b6c7cd');sea.setAttribute('data-decoration','sea');output.insertBefore(sea,output.querySelector('#coast'));
-    const adminStyle=document.createElementNS(NS,'style');adminStyle.textContent='#administrative-fill-layer{opacity:.45}#administrative-boundary-layer{opacity:.9}.administrative-coverage{fill:#b8cec4;stroke:none}.administrative-boundary{fill:none;stroke:#789789;stroke-width:1.6;stroke-dasharray:5 3;stroke-linejoin:round;vector-effect:non-scaling-stroke}';output.prepend(adminStyle);
+    const sea=document.createElementNS(NS,'rect');sea.setAttribute('x',exportView.x);sea.setAttribute('y',exportView.y);sea.setAttribute('width',exportView.w);sea.setAttribute('height',exportView.h);sea.setAttribute('fill',color('map-water'));sea.setAttribute('data-decoration','sea');output.insertBefore(sea,output.querySelector('#coast'));
+    const adminStyle=document.createElementNS(NS,'style');adminStyle.textContent=`#administrative-fill-layer{opacity:.45}#administrative-boundary-layer{opacity:.9}.administrative-coverage{fill:${color('map-administrative')};stroke:none}.administrative-boundary{fill:none;stroke:${color('map-administrative-outline')};stroke-width:1.6;stroke-dasharray:5 3;stroke-linejoin:round;vector-effect:non-scaling-stroke}`;output.prepend(adminStyle);
     const meta=document.createElementNS(NS,'metadata');meta.textContent=JSON.stringify({coordinateSystem:'WGS84',projection:'Web Mercator',attribution:'© OpenStreetMap contributors (ODbL), GeoNames (CC BY 4.0)',osmSnapshot:data.meta?.osmTimestamp,settlementMeaning:'建成区轮廓，不代表村界。',administrativeLayerVisible:administrativeEnabled(),visibleAdministrativeAreaIds:[...visibleAdministrativeAreas],administrativeAreas:data.administrativeAreas||[],note:'行政驻地点不作为独立自然村；行政范围仅为已确认地点分布示意，按海岸线裁剪，不表示法定村界或海域管辖。地点位置仍需实地核对。'});output.append(meta);
     const occupied=[],entries=[...points.map(p=>({...p,saved:true})),...data.places.map(p=>({...p,saved:false}))].sort((a,b)=>(b.placeKind==='administrative_seat')-(a.placeKind==='administrative_seat'));
     for(const p of entries){const pos=project(p.lng,p.lat);occupied.push({x:(pos.x-exportView.x)/unit-4,y:(pos.y-exportView.y)/unit-4,w:8,h:8});}
@@ -717,20 +733,20 @@
       const pos=project(p.lng,p.lat),x=(pos.x-exportView.x)/unit,y=(pos.y-exportView.y)/unit;
       const administrative=p.placeKind==='administrative_seat',natural=p.placeKind==='natural_village',dot=document.createElementNS(NS,administrative?'rect':'circle');
       if(administrative){dot.setAttribute('x',pos.x-4.25*unit);dot.setAttribute('y',pos.y-4.25*unit);dot.setAttribute('width',8.5*unit);dot.setAttribute('height',8.5*unit);dot.setAttribute('rx',.75*unit);}else{dot.setAttribute('cx',pos.x);dot.setAttribute('cy',pos.y);dot.setAttribute('r',3.375*unit);}
-      const ink=p.saved?'#343a40':administrative?'#343b3c':natural?'#4b5351':'#626b68';dot.setAttribute('fill',p.saved||administrative||natural?ink:'#f4f0e8');dot.setAttribute('stroke',ink);dot.setAttribute('stroke-width',(administrative?1.5:1.25)*unit);dot.dataset.placeKind=p.placeKind||'reference';const title=document.createElementNS(NS,'title');title.textContent=p.name+' · '+(p.saved?'调查点位':placeDescription(p));dot.append(title);output.append(dot);
+      const ink=color(p.saved?'map-marker-survey':administrative?'map-marker-administrative':natural?'map-marker-village':'map-marker-reference');dot.setAttribute('fill',p.saved||administrative||natural?ink:color('color-surface'));dot.setAttribute('stroke',ink);dot.setAttribute('stroke-width',(administrative?1.5:1.25)*unit);dot.dataset.placeKind=p.placeKind||'reference';const title=document.createElementNS(NS,'title');title.textContent=p.name+' · '+(p.saved?'调查点位':placeDescription(p));dot.append(title);output.append(dot);
       if(!$('show-labels').checked)continue;
       const lw=p.name.length*12+8+(administrative?(p.administrativeCaption||p.committeeName).length*9+10:0),lh=18,positions=[[x+8,y-lh/2],[x-lw-8,y-lh/2],[x-lw/2,y-lh-8],[x-lw/2,y+8],[x+8,y-lh-8],[x-lw-8,y+8]];
       const chosen=positions.find(([lx,ly])=>lx>=0&&ly>=0&&lx+lw<width&&ly+lh<height&&!occupied.some(r=>intersects({x:lx,y:ly,w:lw,h:lh},r)));
       if(!chosen)continue;const [lx,ly]=chosen;occupied.push({x:lx,y:ly,w:lw,h:lh});
-      const text=document.createElementNS(NS,'text');text.setAttribute('x',exportView.x+lx*unit);text.setAttribute('y',exportView.y+(ly+13)*unit);text.setAttribute('font-size',12*unit);text.setAttribute('stroke-width',3*unit);if(p.saved||administrative)text.setAttribute('font-weight','650');text.textContent=p.name;if(administrative){const caption=document.createElementNS(NS,'tspan');caption.setAttribute('dx',6*unit);caption.setAttribute('font-size',9*unit);caption.setAttribute('font-weight','400');caption.textContent=p.administrativeCaption||p.committeeName;text.append(caption);}output.append(text);
+      const text=document.createElementNS(NS,'text');text.setAttribute('x',exportView.x+lx*unit);text.setAttribute('y',exportView.y+(ly+13)*unit);text.setAttribute('font-size',12*unit);text.setAttribute('stroke-width',3*unit);text.setAttribute('style','fill:'+color(administrative?'map-label-administrative':natural?'map-label-village':'map-label-reference'));if(p.saved||administrative)text.setAttribute('font-weight','650');text.textContent=p.name;if(administrative){const caption=document.createElementNS(NS,'tspan');caption.setAttribute('dx',6*unit);caption.setAttribute('font-size',9*unit);caption.setAttribute('font-weight','400');caption.textContent=p.administrativeCaption||p.committeeName;text.append(caption);}output.append(text);
     }
     if($('show-road-labels').checked){
       for(const item of roadPlacements(exportView,width,height,occupied,10,true)){
-        const x=exportView.x+item.x*unit,y=exportView.y+item.y*unit,text=document.createElementNS(NS,'text');text.setAttribute('x',x);text.setAttribute('y',y);text.setAttribute('transform',`rotate(${item.angle} ${x} ${y})`);text.setAttribute('font-size',10*unit);text.setAttribute('stroke-width',3*unit);text.setAttribute('text-anchor','middle');text.setAttribute('dominant-baseline','middle');text.setAttribute('style','fill:#888c89');text.textContent=item.label;output.append(text);
+        const x=exportView.x+item.x*unit,y=exportView.y+item.y*unit,text=document.createElementNS(NS,'text');text.setAttribute('x',x);text.setAttribute('y',y);text.setAttribute('transform',`rotate(${item.angle} ${x} ${y})`);text.setAttribute('font-size',10*unit);text.setAttribute('stroke-width',3*unit);text.setAttribute('text-anchor','middle');text.setAttribute('dominant-baseline','middle');text.setAttribute('style','fill:'+color('map-label-road'));text.textContent=item.label;output.append(text);
       }
     }
     const credit=document.createElementNS(NS,'text');credit.setAttribute('x',bounds.left);credit.setAttribute('y',bounds.bottom+bh*.045);credit.setAttribute('font-size',8*unit);credit.setAttribute('stroke-width',2*unit);credit.textContent='© OpenStreetMap contributors · openstreetmap.org/copyright · GeoNames (CC BY 4.0)'+(data.meta?.supplementalSettlementAreaCount?' · 补充建成区：高德卫星影像人工判读（近似）':'');output.append(credit);
-    if(administrativeEnabled()){const note=credit.cloneNode(false);note.setAttribute('y',bounds.bottom+bh*.058);note.textContent='灰绿色区域：'+administrativeAreas.filter(area=>administrativeEnabled(area.id)).map(area=>area.committeeName).join('、')+'范围示意，按已确认地点分布制作；仅陆地，不表示法定行政边界。';output.append(note);}
+    if(administrativeEnabled()){const note=credit.cloneNode(false);note.setAttribute('y',bounds.bottom+bh*.058);note.textContent='蓝青色区域：'+administrativeAreas.filter(area=>administrativeEnabled(area.id)).map(area=>area.committeeName).join('、')+'范围示意，按已确认地点分布制作；仅陆地，不表示法定行政边界。';output.append(note);}
     download('硇洲岛田野地图-'+stamp()+'.svg','image/svg+xml;charset=utf-8','<?xml version="1.0" encoding="UTF-8"?>\n'+new XMLSerializer().serializeToString(output));
   });
   if(data.meta?.osmTimestamp)$('geometry-date').textContent='道路快照：'+data.meta.osmTimestamp.slice(0,10)+'。';

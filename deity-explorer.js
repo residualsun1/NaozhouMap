@@ -28,7 +28,7 @@ window.createDeityExplorer = options => {
     const kind=result?.kind||(count===0?'empty':count===1?'point':count===2?'pair':'polygon');
     const state=kind==='empty'?'暂无可用于生成祭祀圈的关联地点。':kind==='point'?'当前仅有 1 处可定位地点。':kind==='pair'?'2 处可定位地点 · 分别显示点位外环':kind==='degenerate'?'位置近乎共线 · 仅显示关联点':result?.outlineOnly?'分布范围较大 · 仅显示概化轮廓':count+' 处可定位地点';
     const legend=$('explorer-sphere-legend');legend.classList.toggle('is-points',kind!=='polygon');legend.classList.toggle('is-outline',!!result?.outlineOnly);
-    legend.querySelector('span').textContent=(kind!=='polygon'?'关联点':result?.outlineOnly?'绿色轮廓':'绿色区域')+' · 共同供奉分布示意';
+    legend.querySelector('span').textContent=(kind!=='polygon'?'关联点':result?.outlineOnly?'紫灰色轮廓':'紫灰色区域')+' · 共同供奉分布示意';
     $('explorer-sphere-state').textContent=state+(result?.rejectedCount>0?' · 部分异常或离岛位置未参与范围计算':'');
   }
   function setCollapsed(value){collapsed=!!value;workspace.classList.toggle('explorer-collapsed',opened&&collapsed);$('explorer-sheet-toggle').textContent=collapsed?'展开':'收起';$('explorer-sheet-toggle').setAttribute('aria-expanded',String(!collapsed));$('explorer-heading').textContent=collapsed&&catalog.get(selectedId)?catalog.get(selectedId).name:'神明探索';}
