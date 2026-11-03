@@ -2,7 +2,7 @@
 
 [在线地图](https://naozhou-map.netlify.app/) · [GitHub 源码](https://github.com/residualsun1/NaozhouMap)
 
-黑白矢量田野调查地图，包含村庄、道路、聚落、行政范围示意、调查点位和神明记录。
+海岛矢量田野调查地图，包含村庄、道路、聚落、行政范围示意、调查点位和神明记录。
 
 ## 本地使用
 
@@ -84,3 +84,12 @@ npm run build
 
 海岸线、道路、聚落等来自 [OpenStreetMap](https://www.openstreetmap.org/copyright)，适用 ODbL；部分地名来自 [GeoNames](https://www.geonames.org/)，适用 CC BY 4.0。补充地点及聚落采用调查者核对资料，来源保留在地图数据中。行政斜线区域为陆地范围示意，不能作为法定村界。
 本地界面图标来自 Lucide，许可见 `work/lucide-atlas-license.txt`。地图保留各数据来源署名。
+
+
+### 地表覆盖（2021 遥感参考）
+
+独立图层采用 [ESA WorldCover 2021 v200](https://esa-worldcover.org/en/data-access)，以 2020 v100 同类结果作保守筛选。树木覆盖可能包含人工林与果园；水面包含池塘等，并非已实地确认的永久湖泊。不同算法、季节或混合像元导致的未确认区域保留未知，不作为土地权属或地表变化调查。没有使用高德影像生成此图层，也没有读取 Dynamic World 概率数据。
+
+源数据为 `assets/land-cover.geojson` 与 `assets/land-cover-overview.geojson`，含来源、年份、许可证、筛选参数及坐标信息。`npm run build` 从它们生成 `land-cover-data.js`；`land-cover.js` 复用地图投影渲染，支持图层开关及多尺度显示。现有聚落优先，遥感 built-up 类别不新增聚落。
+
+需要更新公开数据时，运行 `python scripts/build-land-cover.py --refresh`，再运行 `npm run build`。离线处理使用 numpy、rasterio、scipy 与 shapely 2.1+，网站运行无需这些 GIS 库。缓存仅位于忽略的 `work/land-cover/`。数据授权为 CC BY 4.0，完整署名保存在源数据、地图来源说明及 SVG 元数据中。
