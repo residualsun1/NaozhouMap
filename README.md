@@ -86,12 +86,8 @@ npm run build
 本地界面图标来自 Lucide，许可见 `work/lucide-atlas-license.txt`。地图保留各数据来源署名。
 
 
-### 地表覆盖（2021 遥感参考）
+### 基础地图与加载
 
-独立图层采用 [ESA WorldCover 2021 v200](https://esa-worldcover.org/en/data-access)，以 2020 v100 同类结果作保守筛选。树木覆盖可能包含人工林与果园；水面包含池塘等，并非已实地确认的永久湖泊。不同算法、季节或混合像元导致的未确认区域保留未知，不作为土地权属或地表变化调查。没有使用高德影像生成此图层，也没有读取 Dynamic World 概率数据。
+地图使用统一的基础海陆配色，并保留现有海岸线、道路、聚落、建筑、点位及独立水系数据。桌面与手机共享地理图层；响应式规则只调整视野、标签密度及控件布局。
 
-近景源数据为 `assets/land-cover.geojson`，保留原有分类与坐标。`assets/land-cover-overview.geojson` 和 `assets/land-cover-regional.geojson` 是全岛、区域尺度的制图泛化成果，记录来源、年份、许可证、参数与变化统计；不是新增的实地分类。`npm run build` 从它们生成 `land-cover-data.js`；`land-cover.js` 复用地图投影渲染，支持图层开关及全岛／区域／近景三级显示，切换有迟滞以避免临界缩放闪烁。现有聚落优先，遥感 built-up 类别不新增聚落。
-
-只更新制图表达时，运行 `python scripts/generalize_land_cover.py`，再运行 `npm run build`；此流程不联网、不改写近景源数据。它有限合并小孔洞及同类窄缝、隐藏远景微小孤立斑块，并完整保留水面、湿地与红树林。未知大区保持中性，未按视觉需要扩充耕地。
-
-确需更新公开分类数据时，运行 `python scripts/build-land-cover.py --refresh`，再运行 `npm run build`。离线处理使用 numpy、rasterio、scipy 与 shapely 2.1+，网站运行无需这些 GIS 库。缓存仅位于忽略的 `work/land-cover/`。数据授权为 CC BY 4.0，完整署名保存在源数据、地图来源说明及 SVG 元数据中。
+首页只读取调查点位和信仰索引。人物、神明总库及村庄正文在打开对应探索、地方档案或资料管理后读取；同一目录的并发读取合并为一次请求。日志仍按所选地点读取。私人资料和认证响应不使用公共缓存，退出编辑会清除人物目录中的授权内容。

@@ -9,7 +9,7 @@ window.createFaithRecords = options => {
   let worshipSurname='';
   let loadError='';const listeners=new Set();
   function changed(){onChange();for(const listener of listeners)listener();}
-  const A=window.DeityAtlas,catalog=A.createCatalog();
+  const A=window.DeityAtlas,catalog=A.createCatalog({lazy:true});
   let choices=[],linkingIndex=null,quickFields=null,quickDirty=false,quickSaving=false,highlightedRecordId=null,pendingRecordFocus=false;
   const key = (kind, id) => kind + ':' + id;
   const sameVillage = record => village && key(record.villageKind,record.villageId) === key(village.kind,village.id);
@@ -395,7 +395,7 @@ window.createFaithRecords = options => {
     bindPreview,
     dismissPreview,
     repositionPreview() { if (!preview.hidden) positionPreview(); },
-    selectVillage(selected) { closeForm(); highlightedRecordId=null;pendingRecordFocus=false;village = selected; $('faith-section').hidden = false; render(); },
+    selectVillage(selected) { closeForm(); highlightedRecordId=null;pendingRecordFocus=false;village = selected; $('faith-section').hidden = false; render(); catalog.ensure().catch(error=>status(error.message)); },
     focusRecord(id) { highlightedRecordId=id;pendingRecordFocus=true;focusPendingRecord(); },
     clearVillage() { closeForm(); highlightedRecordId=null;pendingRecordFocus=false;village = null; render(); },
     hasRecords(id,kind) { return !!state?.records.some(record=>record.villageId === id && record.villageKind === kind); },

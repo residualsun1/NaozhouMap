@@ -15,13 +15,17 @@ window.DeityAtlas = (() => {
     for(const item of state.records){if(typeof item.id!=='string'||!item.id||ids.has(item.id)||typeof item.name!=='string'||!item.name.trim()||!Array.isArray(item.aliases)||item.aliases.some(name=>typeof name!=='string')||!Array.isArray(item.titleIds)||item.titleIds.some(id=>!titles.has(id)))throw Error('神明档案无效。');ids.add(item.id);}
     return state;
   }
-  function createCatalog() {
-    let state=null,saving=false;
+  function createCatalog({lazy=false}={}) {
+    let state=null,saving=false,loading=null;
     const listeners=new Set();
     const emit=()=>listeners.forEach(callback=>callback());
     const request=(url,options)=> (window.NaozhouCloud?.request || fetch)(url,options);
-    async function load(){const response=await request('/api/deities',{cache:'no-store'});if(!response.ok)throw Error('神明总库未能读取，请刷新重试。');state=validate(await response.json());emit();return state;}
-    const ready=load();
+    function load(){
+      if(loading)return loading;
+      const job=(async()=>{const response=await request('/api/deities',{cache:'no-store'});if(!response.ok)throw Error('神明总库未能读取，请刷新重试。');state=validate(await response.json());emit();return state;})();
+      loading=job;return job.finally(()=>{if(loading===job)loading=null;});
+    }
+    const ensure=()=>state?Promise.resolve(state):load(),ready=lazy?Promise.resolve(null):load();
     async function save(next) {
       if(!state||saving)throw Error('神明总库尚未就绪或正在保存。');
       saving=true;
@@ -34,13 +38,13 @@ window.DeityAtlas = (() => {
       } finally {saving=false;}
     }
     return {
-      ready,load,get state(){return state;},get saving(){return saving;},
+      ready,load,ensure,get state(){return state;},get saving(){return saving;},
       subscribe(callback){listeners.add(callback);return()=>listeners.delete(callback);},
       get(id){const seen=new Set();while(id&&!seen.has(id)){seen.add(id);const record=state?.records.find(item=>item.id===id),next=record?.mergedInto||state?.redirects?.[id];if(next){id=next;continue;}return record;}},
       search(query){const term=query.trim().toLocaleLowerCase();return (state?.records||[]).filter(item=>!item.archivedAt&&!item.mergedInto&&(!term||[item.name,...item.aliases].some(name=>name.toLocaleLowerCase().includes(term))));},
-      async saveRecord(values){await ready;const previous=values.id?this.get(values.id):null;if(previous&&values.id&&previous.id!==values.id)throw Error('此档案已合并，请打开当前主档案编辑。');const now=new Date().toISOString();const record={...previous,...values,id:previous?.id||values.id||uid(),createdAt:previous?.createdAt||now,updatedAt:now};await save({titles:state.titles,records:state.records.filter(item=>item.id!==record.id).concat(record)});return this.get(record.id);},
-      async saveTitles(titles){await ready;return save({titles,records:state.records});},
-      async importCatalog(incoming){validate(incoming);await ready;const titles=state.titles.slice();for(const title of incoming.titles){const old=titles.find(item=>item.id===title.id);if(old&&old.name!==title.name)throw Error('同编号神函名称不同，请人工核对。');if(!old)titles.push(title);}const ids=new Set(state.records.map(item=>item.id));return save({titles,records:state.records.concat(incoming.records.filter(item=>!ids.has(item.id)))});}
+      async saveRecord(values){await ensure();const previous=values.id?this.get(values.id):null;if(previous&&values.id&&previous.id!==values.id)throw Error('此档案已合并，请打开当前主档案编辑。');const now=new Date().toISOString();const record={...previous,...values,id:previous?.id||values.id||uid(),createdAt:previous?.createdAt||now,updatedAt:now};await save({titles:state.titles,records:state.records.filter(item=>item.id!==record.id).concat(record)});return this.get(record.id);},
+      async saveTitles(titles){await ensure();return save({titles,records:state.records});},
+      async importCatalog(incoming){validate(incoming);await ensure();const titles=state.titles.slice();for(const title of incoming.titles){const old=titles.find(item=>item.id===title.id);if(old&&old.name!==title.name)throw Error('同编号神函名称不同，请人工核对。');if(!old)titles.push(title);}const ids=new Set(state.records.map(item=>item.id));return save({titles,records:state.records.concat(incoming.records.filter(item=>!ids.has(item.id)))});}
     };
   }
   const fieldDisposers=new WeakMap();

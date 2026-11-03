@@ -89,7 +89,6 @@
   const pathData = (coordinates, closed=false) => coordinates.map(([lng,lat],i)=>{const p=project(lng,lat);return (i?'L':'M')+p.x.toFixed(2)+' '+p.y.toFixed(2);}).join(' ')+(closed?' Z':'');
   const coastPath = pathData(data.coastline,true);
   $('coast').setAttribute('d',coastPath); $('island-clip-path').setAttribute('d',coastPath);
-  const landCover=window.createLandCover({group:$('land-cover-layer'),coastPath,project,checkbox:$('show-land-cover'),legend:$('land-cover-legend'),note:$('land-cover-note'),credit:$('land-cover-credit')});
   const sphereFill=$('ritual-sphere-fill-layer'),sphereBoundary=$('ritual-sphere-boundary-layer');
   let sphereSignature='',sphereGeometry={kind:'empty',count:0,pointCount:0},sphereClearTimer=null;
   function renderRitualSphere({enabled,deityId,villages}){
@@ -333,7 +332,6 @@
     raf=requestAnimationFrame(()=>{
       raf=null;clampView();svg.setAttribute('viewBox',`${view.x} ${view.y} ${view.w} ${view.h}`);
       const zoom=home.w/view.w;svg.classList.toggle('detail-minor',zoom>=1.7);svg.classList.toggle('detail-paths',zoom>=2.7);
-      landCover.updateZoom(zoom);
       layoutPins();drawScale();
     });
   }
@@ -706,7 +704,6 @@
     output.removeAttribute('tabindex');output.removeAttribute('class');output.setAttribute('width',String(width));output.setAttribute('height',String(Math.round(height)));output.setAttribute('viewBox',`${exportView.x} ${exportView.y} ${exportView.w} ${exportView.h}`);output.setAttribute('preserveAspectRatio','xMidYMid meet');
     for(const node of output.querySelectorAll('[tabindex]')){node.removeAttribute('tabindex');node.removeAttribute('role');}
     for(const node of output.querySelectorAll('.is-selected'))node.classList.remove('is-selected');
-    landCover.prepareExport(output);
     // Resolve the shared palette so the downloaded SVG remains self-contained.
     const theme=getComputedStyle(document.documentElement),color=token=>theme.getPropertyValue('--'+token).trim();
     const style=document.createElementNS(NS,'style');style.textContent=`
@@ -723,7 +720,7 @@
     // A background rectangle changes only the page, never the map geometry.
     const sea=document.createElementNS(NS,'rect');sea.setAttribute('x',exportView.x);sea.setAttribute('y',exportView.y);sea.setAttribute('width',exportView.w);sea.setAttribute('height',exportView.h);sea.setAttribute('fill',color('map-water'));sea.setAttribute('data-decoration','sea');output.insertBefore(sea,output.querySelector('#coast'));
     const adminStyle=document.createElementNS(NS,'style');adminStyle.textContent=`#administrative-fill-layer{opacity:.45}#administrative-boundary-layer{opacity:.9}.administrative-coverage{fill:${color('map-administrative')};stroke:none}.administrative-boundary{fill:none;stroke:${color('map-administrative-outline')};stroke-width:1.6;stroke-dasharray:5 3;stroke-linejoin:round;vector-effect:non-scaling-stroke}`;output.prepend(adminStyle);
-    const meta=document.createElementNS(NS,'metadata');meta.textContent=JSON.stringify({landCover:landCover.metadata,coordinateSystem:'WGS84',projection:'Web Mercator',attribution:'© OpenStreetMap contributors (ODbL), GeoNames (CC BY 4.0)',osmSnapshot:data.meta?.osmTimestamp,settlementMeaning:'建成区轮廓，不代表村界。',administrativeLayerVisible:administrativeEnabled(),visibleAdministrativeAreaIds:[...visibleAdministrativeAreas],administrativeAreas:data.administrativeAreas||[],note:'行政驻地点不作为独立自然村；行政范围仅为已确认地点分布示意，按海岸线裁剪，不表示法定村界或海域管辖。地点位置仍需实地核对。'});output.append(meta);
+    const meta=document.createElementNS(NS,'metadata');meta.textContent=JSON.stringify({coordinateSystem:'WGS84',projection:'Web Mercator',attribution:'© OpenStreetMap contributors (ODbL), GeoNames (CC BY 4.0)',osmSnapshot:data.meta?.osmTimestamp,settlementMeaning:'建成区轮廓，不代表村界。',administrativeLayerVisible:administrativeEnabled(),visibleAdministrativeAreaIds:[...visibleAdministrativeAreas],administrativeAreas:data.administrativeAreas||[],note:'行政驻地点不作为独立自然村；行政范围仅为已确认地点分布示意，按海岸线裁剪，不表示法定村界或海域管辖。地点位置仍需实地核对。'});output.append(meta);
     const occupied=[],entries=[...points.map(p=>({...p,saved:true})),...data.places.map(p=>({...p,saved:false}))].sort((a,b)=>(b.placeKind==='administrative_seat')-(a.placeKind==='administrative_seat'));
     for(const p of entries){const pos=project(p.lng,p.lat);occupied.push({x:(pos.x-exportView.x)/unit-4,y:(pos.y-exportView.y)/unit-4,w:8,h:8});}
     for(const area of administrativeAreas){
@@ -748,7 +745,7 @@
         const x=exportView.x+item.x*unit,y=exportView.y+item.y*unit,text=document.createElementNS(NS,'text');text.setAttribute('x',x);text.setAttribute('y',y);text.setAttribute('transform',`rotate(${item.angle} ${x} ${y})`);text.setAttribute('font-size',10*unit);text.setAttribute('stroke-width',3*unit);text.setAttribute('text-anchor','middle');text.setAttribute('dominant-baseline','middle');text.setAttribute('style','fill:'+color('map-label-road'));text.textContent=item.label;output.append(text);
       }
     }
-    const credit=document.createElementNS(NS,'text');credit.setAttribute('x',bounds.left);credit.setAttribute('y',bounds.bottom+bh*.045);credit.setAttribute('font-size',8*unit);credit.setAttribute('stroke-width',2*unit);credit.textContent='© OpenStreetMap contributors · openstreetmap.org/copyright · GeoNames (CC BY 4.0)'+(data.meta?.supplementalSettlementAreaCount?' · 补充建成区：高德卫星影像人工判读（近似）':'')+(landCover.metadata?' · ESA WorldCover 2021 (CC BY 4.0)':'');output.append(credit);
+    const credit=document.createElementNS(NS,'text');credit.setAttribute('x',bounds.left);credit.setAttribute('y',bounds.bottom+bh*.045);credit.setAttribute('font-size',8*unit);credit.setAttribute('stroke-width',2*unit);credit.textContent='© OpenStreetMap contributors · openstreetmap.org/copyright · GeoNames (CC BY 4.0)'+(data.meta?.supplementalSettlementAreaCount?' · 补充建成区：高德卫星影像人工判读（近似）':'');output.append(credit);
     if(administrativeEnabled()){const note=credit.cloneNode(false);note.setAttribute('y',bounds.bottom+bh*.058);note.textContent='蓝青色区域：'+administrativeAreas.filter(area=>administrativeEnabled(area.id)).map(area=>area.committeeName).join('、')+'范围示意，按已确认地点分布制作；仅陆地，不表示法定行政边界。';output.append(note);}
     download('硇洲岛田野地图-'+stamp()+'.svg','image/svg+xml;charset=utf-8','<?xml version="1.0" encoding="UTF-8"?>\n'+new XMLSerializer().serializeToString(output));
   });

@@ -84,6 +84,7 @@ window.createPeopleExplorer = options => {
   function select(id,fit=true){selectedId=id;pendingFocus=fit;syncURL();render();$('person-explore-content').scrollTop=0;}
   function open(id){
     if(!opened&&options.beforeOpen?.()===false)return false;showPanel(true);setCollapsed(false);
+    catalog.ensure().catch(err=>{error=err.message;if(opened)render();});
     if(id!==undefined){$('person-explore-search').value='';$('person-explore-role').value='';select(id);}else{syncURL();render();}
     (!selectedId&&desktop.matches?$('person-explore-search'):$('person-explore-close')).focus({preventScroll:true});return true;
   }

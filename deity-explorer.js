@@ -120,6 +120,7 @@ window.createDeityExplorer = options => {
   function select(id,fit=true){selectedId=id;pendingFocus=fit;syncURL();render();$('explorer-content').scrollTop=0;}
   function open(id){
     if(!opened&&beforeOpen()===false)return false;
+    catalog.ensure().catch(error=>{catalogError=error.message;if(opened)render();});
     showPanel(true);setCollapsed(false);if(id!==undefined){$('explorer-search').value='';$('explorer-category').value='all';select(id);}else{syncURL();render();}
     if(!matchMedia('(max-width:800px)').matches&&!selectedId)$('explorer-search').focus({preventScroll:true});
     else $('explorer-close').focus({preventScroll:true});

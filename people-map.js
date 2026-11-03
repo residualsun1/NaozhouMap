@@ -1,6 +1,6 @@
 /* Village relationships and journal pickers share the independent people catalog. */
 window.createVillagePeople = options => {
-  const $=id=>document.getElementById(id),A=window.PeopleArchive,catalog=A.createCatalog(),el=window.DeityAtlas.element;
+  const $=id=>document.getElementById(id),A=window.PeopleArchive,catalog=A.createCatalog({lazy:true}),el=window.DeityAtlas.element;
   const dialog=$('people-picker'),form=$('people-link-form'),createForm=$('people-create-form');
   let place=null,selected=null,linkId=null,fields=null,dirty=false,saving=false,error='';
   const matches=link=>place&&link.placeId===place.id&&link.placeKind===place.kind;
@@ -57,7 +57,7 @@ window.createVillagePeople = options => {
   document.addEventListener('naozhou-before-logout',event=>{if(!mayLeave())event.preventDefault();});
   document.addEventListener('naozhou-access-change',event=>{if(!event.detail.editable&&event.detail.reason==='logout'&&dialog.open)close();});
   catalog.subscribe(()=>{error='';render();if(dialog.open&&!selected&&createForm.hidden)results();});catalog.ready.catch(err=>{error=err.message;render();});
-  return {catalog,mayLeave,get dirty(){return dirty;},get saving(){return saving;},selectPlace(value){if(dialog.open)close();place=value;render();}};
+  return {catalog,mayLeave,get dirty(){return dirty;},get saving(){return saving;},selectPlace(value){if(dialog.open)close();place=value;render();if(place)catalog.ensure().catch(err=>{error=err.message;render();});}};
 };
 
 window.createJournalPeople = (host,catalog,onChange) => {

@@ -4,7 +4,7 @@ window.createPlaceArchives = options => {
   const {download, onPlaceChange, onLegacy} = options;
   const $ = id => document.getElementById(id);
   const fields = ['introduction'];
-  let state = null, place = null, editing = null, dirty = false, saving = false;
+  let state = null, place = null, editing = null, dirty = false, saving = false, loading = null, loadError = '';
   const matches = (record, selected=place) => selected && record.villageId === selected.id && record.villageKind === selected.kind;
   const current = () => state?.records.find(record=>matches(record));
   function validate(document) {
@@ -28,7 +28,7 @@ window.createPlaceArchives = options => {
     const record = current();
     const introduction = record?.introduction ?? place?.introduction ?? '';
     const note = place?.kind === 'survey' ? place.note || '' : record?.note ?? place?.note ?? '';
-    $('place-overview').textContent = introduction || '暂无基本情况介绍';
+    $('place-overview').textContent = introduction || (!state ? loadError || '正在读取基本情况…' : '暂无基本情况介绍');
     $('place-overview').classList.toggle('is-empty',!introduction);
     $('place-overview').hidden = editing === 'introduction';
     onLegacy?.(note ? {content:note,source:place?.kind==='survey'?'原调查点位笔记':'原村庄档案田野笔记'} : null);
@@ -91,18 +91,23 @@ window.createPlaceArchives = options => {
     finally { $('archive-import-file').value = ''; }
   });
   async function load() {
+    if(loading)return loading;
     enable();
-    try {
+    loading=(async()=>{try {
       const response = await (window.NaozhouCloud?.request || fetch)('./api/archives',{cache:'no-store'});
       if (!response.ok) throw Error('村庄档案未能读取，请刷新重试。');
       state = validate(await response.json());
-    } catch (error) { $('archive-import-status').textContent = error.message; }
+      loadError='';
+    } catch (error) { loadError=error.message;$('archive-import-status').textContent = error.message; }
     render();
+    })();
+    try{return await loading;}finally{loading=null;}
   }
-  load();
+  const archiveTools=$('archive-export').closest('details');
+  archiveTools.addEventListener('toggle',()=>{if(archiveTools.open&&!state)load();});
   return {
     get dirty() { return dirty; }, get saving() { return saving; }, mayLeave,
-    selectPlace(selected) { place = selected; onPlaceChange?.(selected); closeForm(); },
+    selectPlace(selected) { place = selected; onPlaceChange?.(selected); closeForm(); if(place&&!state)load(); },
     clear() { place = null; onPlaceChange?.(null); closeForm(); }
   };
 };

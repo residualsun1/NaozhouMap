@@ -1,23 +1,12 @@
-import { mkdir, readFile, writeFile, copyFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile, copyFile, rm } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import {createHash} from 'node:crypto';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const output = path.join(root, 'dist');
+const output = path.resolve(root, 'dist');
+if(path.dirname(output)!==path.resolve(root))throw Error('Build output must stay inside the project.');
+await rm(output,{recursive:true,force:true});
 await mkdir(output, { recursive: true });
-// GeoJSON is the authoritative derived source; this small wrapper also supports
-// the existing local map without requiring runtime GIS services or credentials.
-const coverDetailText = await readFile(path.join(root, 'assets/land-cover.geojson'), 'utf8');
-const coverDetail = JSON.parse(coverDetailText);
-const coverOverview = JSON.parse(await readFile(path.join(root, 'assets/land-cover-overview.geojson'), 'utf8'));
-const coverRegional = JSON.parse(await readFile(path.join(root, 'assets/land-cover-regional.geojson'), 'utf8'));
-if(coverDetail.metadata.storageCrs !== 'EPSG:4326' || [coverOverview,coverRegional].some(data=>data.metadata.id !== coverDetail.metadata.id))throw Error('Invalid land-cover source levels.');
-if(coverOverview.metadata.cartography?.sourceDetailSha256!==createHash('sha256').update(coverDetailText).digest('hex'))throw Error('Stale land-cover presentation; run python scripts/generalize_land_cover.py.');
-const coverScript = '// Generated from assets/land-cover*.geojson by npm run build.\nwindow.NAOZHOU_LAND_COVER = ' + JSON.stringify({metadata:coverOverview.metadata,levels:{overview:coverOverview.features,regional:coverRegional.features,detail:coverDetail.features}}) + ';\n';
-await writeFile(path.join(root, 'land-cover-data.js'), coverScript);
-await writeFile(path.join(output, 'land-cover-data.js'), coverScript);
-await copyFile(path.join(root, 'land-cover.js'), path.join(output, 'land-cover.js'));
 // Only runtime assets are published; local archives and survey files stay local.
 for (const file of ['map.css', 'map-app.js', 'map-data.js', 'faith-records.js', 'place-archives.js', 'cloud-access.js', 'cloud-access.css', 'field-journal.js', 'field-journal.css', 'place-reader.js', 'place-reader.css', 'sea-texture.svg', 'deity-catalog.js', 'deity-atlas.js', 'deity-atlas.css', 'deity-explorer.js', 'ritual-sphere.js', 'deity-explorer.css', 'people-catalog.js', 'people-page.js', 'people-map.js', 'people.css', 'people-explorer.js', 'people-explorer.css', 'archive-overview.js', 'archive-management.js', 'archive-management.css']) {
   await copyFile(path.join(root, file), path.join(output, file));

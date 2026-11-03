@@ -4,11 +4,6 @@
   /* Coastal Atlas: geography and interface roles share a palette, not semantics. */
   --map-water:#2F98BA; --map-water-deep:#0D6F9B; --map-water-light:#53AEBB;
   --map-land:#DCE5B8; --map-land-neutral:#E9E5CB;
-  --map-cover-forest:#A8BA9D; --map-cover-cropland:#D7DDB2; --map-cover-inland-water:#99C6C8;
-  --map-cover-bare-open:#E4DCC7; --map-cover-unknown:#E9E6D8;
-  --map-cover-grassland:#CDD7B9; --map-cover-shrubland:#BDCCAC;
-  --map-cover-wetland:#B1CBC0; --map-cover-mangrove:#92AE92;
-  --map-cover-overview-opacity:.72; --map-cover-regional-opacity:.94;
   --map-vegetation:#B9CF91; --map-vegetation-dense:#85AC78; --map-woodland:#648E69;
   --map-settlement:#D8C7A5; --map-settlement-hover:#CEBA94; --map-settlement-selected:#C4AD83;
   --map-settlement-opacity:.88;
@@ -159,22 +154,6 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .terrain-legend{margin-top:14px}.terrain-legend i{width:14px;height:9px;border-radius:2px;border-color:var(--map-coastline)}
 .terrain-legend .land-swatch{background:var(--map-land)}
 .terrain-legend .settlement-swatch{background:color-mix(in srgb,var(--map-settlement) 88%,var(--map-land));border-color:var(--map-building-outline)}
-#land-cover-legend[data-cover-level] .settlement-swatch{background:color-mix(in srgb,var(--map-settlement) 88%,var(--map-cover-unknown))}
-.land-cover-note{margin:1px 0 10px 26px;font-size:10px}
-#land-cover-layer{pointer-events:none}
-.land-cover-base,.land-cover-feature{stroke:none;pointer-events:none;shape-rendering:geometricPrecision}
-[data-cover-lod="overview"] .land-cover-feature:not(.inland_water){fill-opacity:var(--map-cover-overview-opacity)}
-[data-cover-lod="regional"] .land-cover-feature:not(.inland_water){fill-opacity:var(--map-cover-regional-opacity)}
-.land-cover-base,.cover-swatch.unknown{fill:var(--map-cover-unknown);background:var(--map-cover-unknown)}
-.land-cover-feature.forest,.cover-swatch.forest{fill:var(--map-cover-forest);background:var(--map-cover-forest)}
-.land-cover-feature.cropland,.cover-swatch.cropland{fill:var(--map-cover-cropland);background:var(--map-cover-cropland)}
-.land-cover-feature.inland_water,.cover-swatch.inland_water{fill:var(--map-cover-inland-water);background:var(--map-cover-inland-water)}
-.land-cover-feature.grassland,.cover-swatch.grassland{fill:var(--map-cover-grassland);background:var(--map-cover-grassland)}
-.land-cover-feature.shrubland,.cover-swatch.shrubland{fill:var(--map-cover-shrubland);background:var(--map-cover-shrubland)}
-.land-cover-feature.bare_open,.cover-swatch.bare_open{fill:var(--map-cover-bare-open);background:var(--map-cover-bare-open)}
-.land-cover-feature.wetland,.cover-swatch.wetland{fill:var(--map-cover-wetland);background:var(--map-cover-wetland)}
-.land-cover-feature.mangrove,.cover-swatch.mangrove{fill:var(--map-cover-mangrove);background:var(--map-cover-mangrove)}
-.terrain-legend .cover-swatch{border-color:var(--color-border-strong)}
 .road-legend{gap:15px;margin-top:14px}
 .road-legend i{width:18px;height:0;border:0;border-top:1px solid var(--map-road-secondary);border-radius:0;background:none;box-shadow:0 0 0 .4px var(--map-road-secondary-outline)}
 .road-legend i.main-road{border-top:1.5px solid var(--map-road-main);box-shadow:0 0 0 .4px var(--map-road-main-outline)}

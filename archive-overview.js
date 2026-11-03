@@ -7,6 +7,7 @@ window.createArchiveOverview = options => {
     let count=0;for(let i=0;i<names.length;i++)for(let j=i+1;j<names.length;j++)if([...names[i]].some(name=>names[j].has(name)))count++;return count;
   }
   function render(){
+    if($('data-panel').hidden)return;
     const persons=people.state?.records,deities=faith.catalog.state?.records,editable=window.NaozhouCloud?window.NaozhouCloud.editable:people.state?.editable;
     $('archive-people-count').textContent=persons?persons.length+' 份':'—';$('archive-deity-count').textContent=deities?deities.length+' 份':'—';
     $('archive-maintenance').hidden=!editable;
@@ -19,6 +20,9 @@ window.createArchiveOverview = options => {
     $('archive-maintenance-status').textContent=maintenanceError;
   }
   async function load(){
+    if($('data-panel').hidden)return;
+    await Promise.allSettled([people.ensure(),faith.catalog.ensure()]);
+    if($('data-panel').hidden)return;
     const editable=window.NaozhouCloud?window.NaozhouCloud.editable:people.state?.editable;if(!editable)return;
     const serial=++loadId;try{const response=await(window.NaozhouCloud?.request||fetch)('/api/archive-management',{cache:'no-store'});if(!response.ok)throw Error('维护概览暂未读取');const data=await response.json();if(serial===loadId){maintenance=data;maintenanceError='';}}
     catch(error){if(serial===loadId)maintenanceError=error.message;}if(serial===loadId)render();

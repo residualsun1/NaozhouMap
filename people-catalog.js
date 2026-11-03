@@ -14,14 +14,18 @@ window.PeopleArchive = (() => {
     const result=confirmQueue.then(task);confirmQueue=result.catch(()=>false);return result;
   }
   function validate(data){if(data?.version!==1||!Array.isArray(data.records)||!(data.revision===null||Number.isInteger(data.revision)))throw Error('人物资料格式无效。');return data;}
-  function createCatalog(){
-    let state=null,saving=false,sequence=0;const listeners=new Set();const emit=()=>listeners.forEach(fn=>fn());
+  function createCatalog({lazy=false}={}){
+    let state=null,saving=false,sequence=0,loading=null,started=false;const listeners=new Set();const emit=()=>listeners.forEach(fn=>fn());
     const request=(url,options)=>(window.NaozhouCloud?.request||fetch)(url,options);
-    async function load(){const serial=++sequence;await window.NaozhouCloud?.ready;const response=await request('/api/people',{cache:'no-store'});if(!response.ok)throw Error('人物资料暂未读取，请重试。');const data=validate(await response.json());if(serial===sequence){state=data;emit();}return data;}
-    const ready=load();
-    document.addEventListener('naozhou-access-change',()=>{sequence++;state=null;emit();load().catch(()=>{});});
+    function load(){
+      started=true;if(loading)return loading;const serial=sequence;
+      const job=(async()=>{await window.NaozhouCloud?.ready;const response=await request('/api/people',{cache:'no-store'});if(!response.ok)throw Error('人物资料暂未读取，请重试。');const data=validate(await response.json());if(serial===sequence){state=data;emit();}return data;})();
+      loading=job;return job.finally(()=>{if(loading===job)loading=null;});
+    }
+    const ensure=()=>state?Promise.resolve(state):load(),ready=lazy?Promise.resolve(null):load();
+    document.addEventListener('naozhou-access-change',event=>{if(event.detail?.reason==='session'&&!state)return;sequence++;state=null;loading=null;emit();if(started)load().catch(()=>{});});
     return {
-      ready,load,get state(){return state;},get saving(){return saving;},subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn);},get(id){const seen=new Set();while(id&&!seen.has(id)){seen.add(id);const record=state?.records.find(p=>p.id===id),next=record?.mergedInto||state?.redirects?.[id];if(next){id=next;continue;}return record;}},
+      ready,load,ensure,get state(){return state;},get saving(){return saving;},subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn);},get(id){const seen=new Set();while(id&&!seen.has(id)){seen.add(id);const record=state?.records.find(p=>p.id===id),next=record?.mergedInto||state?.redirects?.[id];if(next){id=next;continue;}return record;}},
       search(query=''){const term=query.trim().toLocaleLowerCase();return (state?.records||[]).filter(p=>!p.archivedAt&&!p.mergedInto&&(!term||[p.displayName,p.religiousName,...(p.aliases||[])].some(x=>x?.toLocaleLowerCase().includes(term))));},
       async saveRecord(values){
         await ready.catch(()=>{});if(saving)throw Error('正在保存，请稍候。');

@@ -53,7 +53,7 @@ test('eight-character passwords use salted scrypt; old environment login and old
   await store.setJSON('people',business);
   const oldCookie=legacyCookie(),changed=await auth(request('PUT',{...replacement,currentPassword:legacyPassword()},oldCookie));
   assert.equal(changed.status,200);
-  assert.deepEqual(await changed.clone().json(),{editable:true,changed:true});
+  assert.deepEqual(await changed.clone().json(),{editable:true,changed:true,canChangePassword:true});
   const newCookie=changed.headers.get('set-cookie'),stored=(await store.getWithMetadata('editor_credentials')).data;
   assert.equal(stored.algorithm,'scrypt-v1');assert.equal(stored.revision,1);
   assert.equal(Buffer.from(stored.salt,'base64url').length,32);assert.equal(Buffer.from(stored.hash,'base64url').length,64);

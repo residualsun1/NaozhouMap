@@ -54,7 +54,7 @@
       if(typeof result.canChangePassword!=='boolean'){
         try{const accessResponse=await fetch('/api/auth',{cache:'no-store'});if(accessResponse.ok)updateCapability(await accessResponse.json());}catch{}
       }
-      showAccess(true);dialog.close();
+      showAccess(true,'login');dialog.close();
     } catch(error) {$('cloud-login-status').textContent=error.message;}
     finally {submit.disabled=false;}
   });

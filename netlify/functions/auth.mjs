@@ -20,14 +20,14 @@ export function createAuthHandler(storeFactory=()=>getStore({name:'naozhou-field
       catch{return json({error:'无法读取登录信息。'},400);}
       if (request.method==='POST') {
         if (!await auth.verifyPassword(body.password)) return json({error:'编辑口令不正确。'},401);
-        return json({editable:true},200,{'Set-Cookie':sessionCookie(issueSession(auth.sessionKey))});
+        return json({editable:true,canChangePassword:auth.canChangePassword},200,{'Set-Cookie':sessionCookie(issueSession(auth.sessionKey))});
       }
       if (typeof body.newPassword!=='string'||body.newPassword.length<8||body.newPassword.length>128) return json({error:'新口令须为 8–128 个字符。'},400);
       if (body.confirmation!==body.newPassword) return json({error:'两次输入的新口令不一致。'},400);
       if (!await auth.verifyPassword(body.currentPassword)) return json({error:'当前编辑口令不正确。'},401);
       const next=await changeEditorPassword(store,auth,body.newPassword);
       if (!next) return json({error:'口令已在其他页面修改，请重新登录后再试。'},409);
-      return json({editable:true,changed:true},200,{'Set-Cookie':sessionCookie(issueSession(next.sessionKey))});
+      return json({editable:true,changed:true,canChangePassword:next.canChangePassword},200,{'Set-Cookie':sessionCookie(issueSession(next.sessionKey))});
     } catch {
       // Never log submitted passwords, credential hashes or session keys.
       return json({error:'编辑权限暂时无法读取或更新，请稍后重试。'},503);
