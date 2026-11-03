@@ -23,6 +23,7 @@ from scipy import ndimage
 import shapely
 from shapely.geometry import MultiPolygon, Polygon, mapping, shape
 from shapely.ops import transform, unary_union
+from generalize_land_cover import generalize_assets
 
 ROOT = Path(__file__).resolve().parents[1]
 CACHE = ROOT / "work/land-cover"
@@ -221,6 +222,7 @@ def main():
         suffix = "" if level == "detail" else "-overview"
         target = ROOT / f"assets/land-cover{suffix}.geojson"
         target.write_text(json.dumps(dataset, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    generalize_assets(ROOT)
     print(json.dumps({"statistics": metadata["statistics"], "files": {level: len(json.dumps(data, ensure_ascii=False)) for level, data in generated.items()}}, ensure_ascii=True), flush=True)
 
 

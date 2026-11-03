@@ -716,7 +716,7 @@
       .road.path{stroke:${color('map-road-path')};stroke-width:.6;stroke-opacity:.8;stroke-dasharray:2 4}
       .road-casing{stroke:${color('map-road-secondary-outline')};stroke-width:1.55}
       .road-casing.main{stroke:${color('map-road-main-outline')};stroke-width:2.15}.road-casing.minor{stroke:${color('map-road-secondary-outline')};stroke-width:1.15}
-      .residential{fill:${color('map-settlement')};fill-opacity:.76;stroke:${color('map-building-outline')};stroke-width:.35;stroke-opacity:.08;vector-effect:non-scaling-stroke}
+      .residential{fill:${color('map-settlement')};fill-opacity:${color('map-settlement-opacity')};stroke:${color('map-building-outline')};stroke-width:.35;stroke-opacity:.08;vector-effect:non-scaling-stroke}
       .building{fill:${color('map-building')};stroke:${color('map-building-outline')};stroke-width:.4;vector-effect:non-scaling-stroke}
       .water{fill:none;stroke:${color('map-water-light')};stroke-width:.7;vector-effect:non-scaling-stroke}
       text{font-family:system-ui,Microsoft YaHei,sans-serif;fill:${color('map-label-village')};paint-order:stroke;stroke:${color('map-land')};stroke-linejoin:round}`;output.prepend(style);

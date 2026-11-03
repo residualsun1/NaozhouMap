@@ -2,15 +2,16 @@
 :root {
   color-scheme: light;
   /* Coastal Atlas: geography and interface roles share a palette, not semantics. */
-  --map-water:#2198C0; --map-water-deep:#0D6F9B; --map-water-light:#53AEBB;
+  --map-water:#2F98BA; --map-water-deep:#0D6F9B; --map-water-light:#53AEBB;
   --map-land:#DCE5B8; --map-land-neutral:#E9E5CB;
-  --map-cover-forest:#A8C58A; --map-cover-cropland:#D4DDA0; --map-cover-inland-water:#8FC5C2;
-  --map-cover-bare-open:#E7DDBF; --map-cover-unknown:#E2E5C3;
-  --map-cover-grassland:#CEDCAA; --map-cover-shrubland:#BDD19C;
-  --map-cover-wetland:#AED0B5; --map-cover-mangrove:#85AC78;
-  --map-cover-overview-opacity:.78;
+  --map-cover-forest:#A8BA9D; --map-cover-cropland:#D7DDB2; --map-cover-inland-water:#99C6C8;
+  --map-cover-bare-open:#E4DCC7; --map-cover-unknown:#E9E6D8;
+  --map-cover-grassland:#CDD7B9; --map-cover-shrubland:#BDCCAC;
+  --map-cover-wetland:#B1CBC0; --map-cover-mangrove:#92AE92;
+  --map-cover-overview-opacity:.72; --map-cover-regional-opacity:.94;
   --map-vegetation:#B9CF91; --map-vegetation-dense:#85AC78; --map-woodland:#648E69;
   --map-settlement:#D8C7A5; --map-settlement-hover:#CEBA94; --map-settlement-selected:#C4AD83;
+  --map-settlement-opacity:.88;
   --map-building:#E6D6B8; --map-building-outline:#B99A75;
   --map-road-main:#E5BE68; --map-road-main-outline:#9F8959;
   --map-road-secondary:#F5EBD2; --map-road-secondary-outline:#C9BFA5; --map-road-path:#B5A17D;
@@ -157,11 +158,13 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .legend i.survey-symbol{background:var(--map-marker-survey);border-color:var(--map-marker-survey)}
 .terrain-legend{margin-top:14px}.terrain-legend i{width:14px;height:9px;border-radius:2px;border-color:var(--map-coastline)}
 .terrain-legend .land-swatch{background:var(--map-land)}
-.terrain-legend .settlement-swatch{background:color-mix(in srgb,var(--map-settlement) 76%,var(--map-land));border-color:var(--map-building-outline)}
+.terrain-legend .settlement-swatch{background:color-mix(in srgb,var(--map-settlement) 88%,var(--map-land));border-color:var(--map-building-outline)}
+#land-cover-legend[data-cover-level] .settlement-swatch{background:color-mix(in srgb,var(--map-settlement) 88%,var(--map-cover-unknown))}
 .land-cover-note{margin:1px 0 10px 26px;font-size:10px}
 #land-cover-layer{pointer-events:none}
 .land-cover-base,.land-cover-feature{stroke:none;pointer-events:none;shape-rendering:geometricPrecision}
 [data-cover-lod="overview"] .land-cover-feature:not(.inland_water){fill-opacity:var(--map-cover-overview-opacity)}
+[data-cover-lod="regional"] .land-cover-feature:not(.inland_water){fill-opacity:var(--map-cover-regional-opacity)}
 .land-cover-base,.cover-swatch.unknown{fill:var(--map-cover-unknown);background:var(--map-cover-unknown)}
 .land-cover-feature.forest,.cover-swatch.forest{fill:var(--map-cover-forest);background:var(--map-cover-forest)}
 .land-cover-feature.cropland,.cover-swatch.cropland{fill:var(--map-cover-cropland);background:var(--map-cover-cropland)}
@@ -204,7 +207,7 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 
 /* Cartography: shore, streets, settlements, labels */
 .coast{fill:var(--map-land);stroke:var(--map-coastline);stroke-width:1.25;vector-effect:non-scaling-stroke}
-.residential{fill:var(--map-settlement);fill-opacity:.76;stroke:var(--map-building-outline);stroke-width:.35;stroke-opacity:.08;vector-effect:non-scaling-stroke;cursor:pointer;transition:fill .15s,fill-opacity .15s,stroke .15s,stroke-opacity .15s,stroke-width .15s}
+.residential{fill:var(--map-settlement);fill-opacity:var(--map-settlement-opacity);stroke:var(--map-building-outline);stroke-width:.35;stroke-opacity:.08;vector-effect:non-scaling-stroke;cursor:pointer;transition:fill .15s,fill-opacity .15s,stroke .15s,stroke-opacity .15s,stroke-width .15s}
 .residential:hover{fill:var(--map-settlement-hover);fill-opacity:.88;stroke-opacity:.25;stroke-width:.45}
 .residential.is-selected{fill:var(--map-settlement-selected);fill-opacity:.94;stroke:var(--map-building-outline);stroke-opacity:.6;stroke-width:.7}
 .residential:focus-visible{stroke:var(--color-primary);stroke-opacity:.9;stroke-width:1.1;outline:none}
@@ -234,9 +237,9 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .map-point.is-active::before{background:var(--map-marker-selected);border-color:var(--map-marker-selected);box-shadow:0 0 0 2px var(--color-surface),0 0 0 4px color-mix(in srgb,var(--map-marker-selected) 40%,transparent)}
 .map-point.is-draft::before{width:11px;height:11px;border-radius:3px;background:var(--map-marker-survey);border-color:var(--map-marker-survey)}
 .map-point.has-faith::after{content:"";position:absolute;left:calc(50% + 3px);top:calc(50% - 7px);width:4px;height:4px;background:var(--map-relation);border:1px solid var(--color-surface);border-radius:50%}
-.place-label{position:absolute;z-index:2;width:max-content;max-width:var(--label-max-width,220px);padding:1px 3px;pointer-events:none;cursor:pointer;border-radius:2px;background:color-mix(in srgb,var(--color-surface) 60%,transparent);font-size:12px;font-weight:450;line-height:1.35;white-space:normal;overflow-wrap:anywhere;color:var(--map-label-village);opacity:0;visibility:hidden;transition:opacity .15s,visibility 0s linear .15s,background .15s,color .15s;box-shadow:none}
+.place-label{position:absolute;z-index:2;width:max-content;max-width:var(--label-max-width,220px);padding:1px 3px;pointer-events:none;cursor:pointer;border-radius:2px;background:color-mix(in srgb,var(--color-surface) 82%,transparent);font-size:12px;font-weight:450;line-height:1.35;white-space:normal;overflow-wrap:anywhere;color:var(--map-label-village);opacity:0;visibility:hidden;transition:opacity .15s,visibility 0s linear .15s,background .15s,color .15s;box-shadow:none}
 .place-label.is-visible{opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s}
-.place-label[data-place-kind="locality"],.place-label[data-place-kind="reference"]{font-size:11px;font-weight:400;color:var(--map-label-reference);background:color-mix(in srgb,var(--color-surface) 30.2%,transparent)}
+.place-label[data-place-kind="locality"],.place-label[data-place-kind="reference"]{font-size:11px;font-weight:400;color:var(--map-label-reference);background:color-mix(in srgb,var(--color-surface) 65%,transparent)}
 .place-label:hover{color:var(--map-label-village);background:var(--color-surface)}
 .place-label.is-emphasized{color:var(--color-primary-hover);background:color-mix(in srgb,var(--color-surface) 90.2%,transparent)}
 .place-label.is-saved{font-weight:600;border-bottom:1px solid var(--map-marker-survey)}
@@ -280,7 +283,7 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .map-point.is-administrative::before{width:10px;height:10px;border:1.5px solid var(--map-marker-administrative);border-radius:1px;background:var(--map-marker-administrative);transform:translate(-50%,-50%)}
 .map-point.is-administrative:hover::before{background:var(--map-marker-administrative);border-color:var(--map-marker-administrative)}
 .map-point.is-administrative.is-active::before{background:var(--map-marker-selected);border-color:var(--map-marker-selected)}
-.place-label.is-administrative{font-size:12.5px;font-weight:600;color:var(--map-label-administrative);background:color-mix(in srgb,var(--color-surface) 50.2%,transparent)}
+.place-label.is-administrative{font-size:12.5px;font-weight:600;color:var(--map-label-administrative);background:color-mix(in srgb,var(--color-surface) 82%,transparent)}
 .place-label.is-administrative small{display:block;margin-top:2px;font-size:10px;font-weight:400;line-height:1.3;color:var(--map-label-administrative)}
 .place-label.is-administrative.is-active{color:var(--color-on-primary);background:var(--map-marker-selected)}
 .place-label.is-administrative.is-active small{color:var(--color-on-primary)}

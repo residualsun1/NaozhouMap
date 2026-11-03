@@ -90,6 +90,8 @@ npm run build
 
 独立图层采用 [ESA WorldCover 2021 v200](https://esa-worldcover.org/en/data-access)，以 2020 v100 同类结果作保守筛选。树木覆盖可能包含人工林与果园；水面包含池塘等，并非已实地确认的永久湖泊。不同算法、季节或混合像元导致的未确认区域保留未知，不作为土地权属或地表变化调查。没有使用高德影像生成此图层，也没有读取 Dynamic World 概率数据。
 
-源数据为 `assets/land-cover.geojson` 与 `assets/land-cover-overview.geojson`，含来源、年份、许可证、筛选参数及坐标信息。`npm run build` 从它们生成 `land-cover-data.js`；`land-cover.js` 复用地图投影渲染，支持图层开关及多尺度显示。现有聚落优先，遥感 built-up 类别不新增聚落。
+近景源数据为 `assets/land-cover.geojson`，保留原有分类与坐标。`assets/land-cover-overview.geojson` 和 `assets/land-cover-regional.geojson` 是全岛、区域尺度的制图泛化成果，记录来源、年份、许可证、参数与变化统计；不是新增的实地分类。`npm run build` 从它们生成 `land-cover-data.js`；`land-cover.js` 复用地图投影渲染，支持图层开关及全岛／区域／近景三级显示，切换有迟滞以避免临界缩放闪烁。现有聚落优先，遥感 built-up 类别不新增聚落。
 
-需要更新公开数据时，运行 `python scripts/build-land-cover.py --refresh`，再运行 `npm run build`。离线处理使用 numpy、rasterio、scipy 与 shapely 2.1+，网站运行无需这些 GIS 库。缓存仅位于忽略的 `work/land-cover/`。数据授权为 CC BY 4.0，完整署名保存在源数据、地图来源说明及 SVG 元数据中。
+只更新制图表达时，运行 `python scripts/generalize_land_cover.py`，再运行 `npm run build`；此流程不联网、不改写近景源数据。它有限合并小孔洞及同类窄缝、隐藏远景微小孤立斑块，并完整保留水面、湿地与红树林。未知大区保持中性，未按视觉需要扩充耕地。
+
+确需更新公开分类数据时，运行 `python scripts/build-land-cover.py --refresh`，再运行 `npm run build`。离线处理使用 numpy、rasterio、scipy 与 shapely 2.1+，网站运行无需这些 GIS 库。缓存仅位于忽略的 `work/land-cover/`。数据授权为 CC BY 4.0，完整署名保存在源数据、地图来源说明及 SVG 元数据中。
