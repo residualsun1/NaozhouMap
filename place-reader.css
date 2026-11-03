@@ -21,7 +21,7 @@
 #reader-chapters{display:grid;gap:6px;border-left:1px solid var(--color-border)}
 #reader-chapters button{width:100%;min-height:40px;padding:9px 0 9px 16px;border:0;border-left:2px solid transparent;margin-left:-1px;border-radius:0;background:transparent;color:var(--color-text-secondary);text-align:left;font-size:12px;line-height:1.6}
 #reader-chapters button:hover{color:var(--color-text-primary)}
-#reader-chapters button[aria-current="location"]{border-left-color:var(--color-primary-hover);color:var(--color-primary-hover);font-weight:600}
+#reader-chapters button[aria-current="location"]{border-left-color:var(--color-primary);color:var(--color-primary);font-weight:600}
 .reader-document{min-width:0;padding-bottom:20px}
 .reader-document>.detail-heading{margin:0 0 52px;padding:0 0 34px;border-bottom:1px solid var(--color-border)}
 .reader-document .section-eyebrow{margin-bottom:22px;font-size:10px;letter-spacing:.1em;color:var(--color-text-muted)}

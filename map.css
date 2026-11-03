@@ -14,21 +14,22 @@
   --map-administrative:#73AAB6; --map-administrative-outline:#477C89;
   --map-relation:#8C79A6; --map-relation-outline:#75628D; --map-relation-ink:#58436F;
   --map-marker-village:#287F79; --map-marker-administrative:#D87959;
-  --map-marker-reference:#6D8491; --map-marker-survey:#CDA64E; --map-marker-selected:#147FA4;
+  --map-marker-reference:#6D8491; --map-marker-survey:#CDA64E; --map-marker-selected:var(--color-primary);
   --map-label-village:#23544F; --map-label-administrative:#774734; --map-label-reference:#4E6570;
   --map-label-road:#706146; --map-annotation:#061C25;
   --color-background:#F7F6EF; --color-surface:#FFFEFA; --color-surface-muted:#F0EFE7;
-  --color-surface-hover:#F3F5F0; --color-text-primary:#293436; --color-text-secondary:#5F6F69;
+  --color-surface-hover:#F3F5F0; --color-text-primary:#2F3838; --color-text-secondary:#5F6F69;
   /* Keep small archive text readable; the lighter value is reserved for decoration. */
   --color-text-muted:#626F69; --color-text-disabled:#929B96;
   --color-border:#E0DED3; --color-border-strong:#C9C9BB;
-  --color-primary:#147FA4; --color-primary-hover:#0D6B8D; --color-primary-soft:#E2F0F2;
+  --color-primary:#2F6F73; --color-primary-hover:#285F63; --color-primary-soft:#E3EFEE;
+  --color-link:#3C6668;
   --color-accent:#D87959; --color-accent-ink:#92492F; --color-accent-soft:#F7E9E2;
   --color-gold:#CDA64E; --color-gold-ink:#806021; --color-gold-soft:#F5EED9;
   --color-green:#668E65; --color-green-ink:#45684B; --color-green-soft:#E8F0E3;
   --color-teal:#53AEB3; --color-teal-ink:#306D70; --color-purple:#8C79A6;
   --color-success:#4F8469; --color-warning:#B8893E; --color-danger:#B85D55;
-  --color-danger-strong:#A34C46; --color-info:#2B809D; --color-neutral:#7B8582;
+  --color-danger-strong:#A34C46; --color-info:var(--color-primary); --color-neutral:#7B8582;
   --color-on-primary:#FFFFFF; --color-shadow:#202B2E;
   --color-overlay:color-mix(in srgb,var(--color-shadow) 34%,transparent);
   --color-focus-ring:color-mix(in srgb,var(--color-primary) 16%,transparent);
@@ -55,7 +56,7 @@ button:hover{background:var(--color-surface-hover);border-color:var(--color-bord
 button:active{background:var(--color-primary-soft)}
 button:disabled{opacity:.4;cursor:default}
 .primary{background:var(--accent);border-color:var(--accent);color:var(--color-on-primary)}
-.primary:hover{background:var(--color-primary-hover);border-color:var(--color-primary-hover)}
+.primary:is(:hover,:active){background:var(--color-primary-hover);border-color:var(--color-primary-hover)}
 a{color:inherit;text-underline-offset:3px}
 input,textarea{width:100%;min-width:0;padding:11px 12px;border:1px solid var(--color-border);border-radius:8px;color:var(--ink);background:var(--color-surface);transition:border-color .16s,box-shadow .16s;line-height:1.6}
 input::placeholder,textarea::placeholder{color:var(--color-text-secondary)}
@@ -76,8 +77,8 @@ h3{font-size:12px}
 .section-title h2{margin:0;min-width:0}
 .section-title button{padding:6px 9px;font-size:11px;flex-shrink:0}
 .section{margin:0 0 25px;padding-bottom:25px;border-bottom:1px solid var(--line)}
-.linkbutton{padding:4px 0;border:0;border-radius:0;color:var(--color-primary-hover);font-size:11px;background:transparent;text-decoration:underline;text-underline-offset:4px}
-.linkbutton:hover{background:transparent;color:var(--ink)}
+.linkbutton{padding:4px 0;border:0;border-radius:0;color:var(--color-link);font-size:11px;background:transparent;text-decoration:underline;text-underline-offset:4px}
+.linkbutton:is(:hover,:active){background:transparent;color:var(--color-primary)}
 .form-actions{margin-top:22px;padding-top:4px}
 .coordinates{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
 details{font-size:12px;line-height:1.7}
@@ -131,9 +132,9 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .map-toolbar{position:absolute;top:16px;right:24px;display:flex;gap:5px;z-index:6;padding:4px;border:1px solid var(--color-surface);border-radius:var(--radius);box-shadow:var(--shadow);background:color-mix(in srgb,var(--color-surface) 96.08%,transparent)}
 .map-toolbar button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:36px;padding:8px 12px;border:0;border-radius:8px;box-shadow:none;font-size:12px;white-space:nowrap;background:transparent}
 .map-toolbar button:hover{background:var(--color-surface-hover)}
-.map-toolbar button[aria-expanded=true]{background:var(--color-primary-soft);color:var(--color-primary-hover)}
+.map-toolbar button[aria-expanded=true]{background:var(--color-primary-soft);color:var(--color-primary)}
 .map-toolbar .primary{background:var(--accent);color:var(--color-on-primary)}
-.map-toolbar .primary:hover{background:var(--color-primary-hover)}
+.map-toolbar .primary:is(:hover,:active){background:var(--color-primary-hover)}
 .map-toolbar .ui-icon{width:15px;height:15px}
 .utility-panel{position:absolute;top:72px;right:24px;z-index:7;width:330px;max-width:calc(100% - 48px);max-height:calc(100% - 108px);padding:24px;overflow:auto;overscroll-behavior:contain;background:var(--color-surface);border:1px solid var(--color-surface);border-radius:14px;box-shadow:var(--shadow-panel);animation:popover-in .2s var(--ease)}
 .utility-panel>.section-title{margin-bottom:18px}
@@ -292,7 +293,7 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .field-note-heading h3{margin:0;font-size:12px;font-weight:500;line-height:1.6;color:var(--color-text-secondary)}
 .field-note-heading button{margin-left:auto}
 .field-note-source{margin:10px 0 0;font-size:11px;line-height:1.7;color:var(--color-text-secondary);overflow-wrap:anywhere}
-#administration-view[aria-pressed=true]{background:var(--color-primary-soft);border-color:var(--color-primary-hover);color:var(--color-primary-hover)}
+#administration-view[aria-pressed=true]{background:var(--color-primary-soft);border-color:var(--color-primary);color:var(--color-primary)}
 #administration-members{margin-top:18px}
 .administration-member-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:10px}
 .administration-member-list button{padding:9px 4px;font-size:10px;line-height:1.6;white-space:normal;overflow-wrap:anywhere;background:var(--color-surface)}
@@ -369,9 +370,9 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
   .map-area .map-toolbar button{height:40px;min-height:40px;padding:8px 11px;gap:7px;border-radius:10px;font-size:13px;color:var(--color-text-primary);pointer-events:auto}
   .map-area .map-toolbar .ui-icon{width:17px;height:17px}
   .map-area .map-toolbar button:hover{background:var(--color-surface-hover)}
-  .map-area .map-toolbar button[aria-expanded=true],.map-area .map-toolbar #deity-explorer-toggle[aria-expanded=true]{background:var(--color-primary-soft);color:var(--color-primary-hover)}
+  .map-area .map-toolbar button[aria-expanded=true],.map-area .map-toolbar #deity-explorer-toggle[aria-expanded=true]{background:var(--color-primary-soft);color:var(--color-primary)}
   .map-area .map-toolbar .primary{background:var(--color-primary);color:var(--color-on-primary)}
-  .map-area .map-toolbar .primary:hover{background:var(--color-primary-hover)}
+  .map-area .map-toolbar .primary:is(:hover,:active){background:var(--color-primary-hover)}
   .utility-panel,.details-open .utility-panel{top:84px;left:auto;right:24px;width:330px;max-width:calc(100% - 48px);max-height:calc(100% - 110px)}
   .north,.details-open .north{top:auto;bottom:60px;left:24px;z-index:3;display:grid;place-items:center;width:36px;height:36px;border:1px solid color-mix(in srgb,var(--color-border-strong) 20%,transparent);border-radius:50%;background:color-mix(in srgb,var(--color-surface) 94%,transparent);box-shadow:0 1px 5px color-mix(in srgb,var(--color-shadow) 2.75%,transparent);transition:bottom .25s var(--ease)}
   .north .north-legacy{display:none}.north .mobile-compass{display:block;width:32px;height:32px}
@@ -414,7 +415,7 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
   .map-area .map-toolbar .desktop-label{display:none}
   .map-area .map-toolbar .primary{background:transparent;color:var(--color-primary-hover)}
   .map-area .map-toolbar button:hover{background:var(--color-surface-hover)}
-  .map-area .map-toolbar button[aria-expanded=true]{background:var(--color-primary-soft);color:var(--color-primary-hover)}
+  .map-area .map-toolbar button[aria-expanded=true]{background:var(--color-primary-soft);color:var(--color-primary)}
   .map-area .map-toolbar #cancel-pick{min-width:60px;font-size:10px}
   .mobile-search-open .map-area .map-toolbar{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .08s ease,visibility 0s linear .08s}
   .map-area .search-panel,.map-area .map-toolbar{background:color-mix(in srgb,var(--color-surface) 95%,transparent);border:1px solid var(--color-floating-border);box-shadow:0 3px 14px color-mix(in srgb,var(--color-shadow) 7%,transparent)}
@@ -468,7 +469,7 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .people-village-heading .linkbutton{flex-shrink:0;font-size:11px}
 .people-village-row .note{margin:6px 0;color:var(--color-text-secondary);font-size:11px}
 .people-relation-copy{margin:6px 0 0;color:var(--color-text-secondary);white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.75}
-.people-workbench-link{display:inline-block;min-height:40px;color:var(--color-primary-hover);font-size:13px}
+.people-workbench-link{display:inline-block;min-height:40px;color:var(--color-link);font-size:13px}
 .people-picker{width:min(600px,calc(100% - 32px));max-height:86dvh;overflow:auto;padding:28px;background:var(--color-surface);color:var(--color-text-primary);border:1px solid var(--color-border);border-radius:16px;box-shadow:0 12px 45px color-mix(in srgb,var(--color-shadow) 12.94%,transparent)}
 .people-picker::backdrop{background:var(--color-overlay)}
 .people-picker>.people-village-heading{margin-bottom:24px}
