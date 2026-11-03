@@ -40,8 +40,8 @@
 .reader-document .faith-card{padding:24px 0}
 .reader-document .faith-card:first-child{padding-top:0}
 .reader-document .faith-card-heading h3{font-size:16px;line-height:1.7}
-.reader-document .deity-list{gap:9px}
-.reader-document .deity-list li{padding:6px 11px;font-size:14px;background:#f0f2e9;border-color:#e0e5d8}
+.reader-document .faith-deity-name{font-size:16px}
+.reader-document .deity-list .worship-description{font-size:12px}
 .reader-document .faith-note,.reader-document .field-note-source{font-size:12px;line-height:1.9}
 .reader-document .field-note{margin-top:28px}
 .reader-document .field-note-heading h3{font-size:14px}

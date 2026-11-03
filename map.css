@@ -136,7 +136,7 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .detail-actions button{display:flex;align-items:center;justify-content:center;min-height:30px;min-width:30px;padding:6px;border:0;border-radius:7px;background:transparent;color:#777974;font-size:11px}
 .detail-actions button:hover{background:#eeeeed;color:#424442}
 #sheet-toggle{display:none}
-.detail-content{min-height:0;overflow:auto;overscroll-behavior:contain;padding:26px 27px 38px;scrollbar-gutter:stable;scroll-behavior:smooth}
+.detail-content{flex:1;min-width:0;min-height:0;overflow:auto;overscroll-behavior:contain;padding:26px 27px 38px;scrollbar-gutter:stable;scroll-behavior:smooth;scroll-padding-block:24px}
 .detail-content>.section:last-child{border-bottom:0}
 #reference-more{padding-top:2px}
 #reference-more summary{font-size:10px;color:#777974;letter-spacing:.04em}
@@ -274,15 +274,20 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .faith-tooltip-heading span{font-size:9px;color:#777974;white-space:nowrap}
 .faith-tooltip ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 16px;margin:0;padding:0;list-style:none}
 .faith-tooltip li{font-size:12px;line-height:1.7;color:#6c6e6a;overflow-wrap:anywhere}
-.faith-card{padding:16px 0;border-bottom:1px solid var(--line)}
+.faith-card{width:100%;min-width:0;padding:20px 0;border-bottom:1px solid var(--line)}
 .faith-card:first-child{padding-top:0}
 .faith-card:last-child{border-bottom:0;padding-bottom:0}
-.faith-card-heading{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px 10px;min-height:20px;margin-bottom:13px}
-.faith-card-heading h3{margin:0;font-size:12px;font-weight:550;overflow-wrap:anywhere}
+.faith-card-heading{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px 10px;min-width:0;min-height:20px;margin-bottom:10px}
+.faith-card-heading h3{min-width:0;flex:1;margin:0;font-size:12px;font-weight:550;overflow-wrap:anywhere}
 .faith-details-pending{font-size:11px;font-weight:400;color:#7c8378;line-height:1.6}
 .faith-card-heading button{margin-left:auto;flex-shrink:0}
-.deity-list{display:flex;flex-wrap:wrap;gap:7px;margin:0;padding:0;list-style:none}
-.deity-list li{max-width:100%;padding:6px 10px;border:1px solid #e3e3e2;border-radius:6px;background:#f6f6f5;font-size:12px;line-height:1.6;color:#6d6f6b;overflow-wrap:anywhere}
+.deity-list{display:grid;grid-template-columns:minmax(0,1fr);width:100%;margin:0;padding:0;list-style:none}
+.deity-list>li{width:100%;min-width:0;margin:0;padding:0;border:0;background:transparent;font-size:14px;line-height:1.6;color:#6d6f6b;overflow-wrap:anywhere}
+.deity-list>li+li{margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.faith-deity-heading{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:8px 14px;min-width:0}
+.faith-deity-name{min-width:0;font-weight:500;line-height:1.65;color:var(--ink);overflow-wrap:anywhere;text-decoration:none}
+.faith-deity-name[href]:hover{text-decoration:underline;text-underline-offset:4px}
+.faith-card-heading .linkbutton,.faith-deity-heading .linkbutton{min-height:30px;white-space:nowrap}
 .faith-note{margin:15px 0 0;font-size:11px;line-height:1.9;color:#777974;white-space:pre-wrap;overflow-wrap:anywhere}
 #faith-form{margin-top:18px;padding-top:3px;border-top:1px solid var(--line)}
 #faith-more{margin-top:14px}
@@ -355,6 +360,7 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
   .search-panel.is-expanded .search-row input{opacity:1;visibility:visible;transform:translateX(0);pointer-events:auto;transition:opacity .28s ease .1s,transform .4s cubic-bezier(.32,0,.2,1) .08s,visibility 0s}
   .search-panel:not(.is-expanded) #search-feedback{display:none}
   .detail-content input,.detail-content textarea{font-size:16px}
+  .faith-card-heading .linkbutton,.faith-deity-heading .linkbutton{min-height:44px}
   .detail-content input{min-height:46px}
   .layer-toggle,.administrative-layer-control .layer-toggle{min-height:42px}
   .search-submit{position:absolute;top:2px;right:2px;width:44px;height:44px;background:transparent;border-radius:11px}
@@ -417,7 +423,7 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
 .people-village-row:last-child{border-bottom:0;padding-bottom:0}
 .people-village-heading{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
 .people-village-heading h2{margin:0;font-size:21px}
-.people-village-heading a{color:#3f574b;text-decoration:none;font-size:14px;font-weight:550}
+.people-village-heading a{min-width:0;flex:1;color:#3f574b;text-decoration:none;font-size:14px;font-weight:550;overflow-wrap:anywhere}
 .people-village-heading .linkbutton{flex-shrink:0;font-size:11px}
 .people-village-row .note{margin:6px 0;color:#7b8179;font-size:11px}
 .people-relation-copy{margin:6px 0 0;color:#6b746b;white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.75}

@@ -205,6 +205,7 @@ window.createFaithRecords = options => {
         row.append(title);
       }
       if(A.faithDetailsPending(record))row.append(A.element('span','faith-details-pending','已关联 · 资料待补充'));
+      else if(!record.temple&&record.deityLinks?.length)row.append(A.element('span','faith-details-pending','已关联'));
       const edit = document.createElement('button');
       edit.type = 'button';
       edit.className = 'linkbutton';
@@ -215,7 +216,27 @@ window.createFaithRecords = options => {
       card.append(row);
       const names = document.createElement('ul');
       names.className = 'deity-list';
-      record.deities.forEach((name,index)=>{const li=document.createElement('li'),relation=record.deityLinks?.find(link=>link.nameIndex===index);if(relation){const link=document.createElement('a');link.href=A.profileURL(relation.deityId);link.textContent=relation.localName||name;link.title='查看神明档案'+(relation.localTitle?' · '+relation.localTitle:'');li.append(link);if(onExploreDeity){const explore=document.createElement('button');explore.type='button';explore.className='deity-distribution-link';explore.setAttribute('aria-label','在地图中查看'+(relation.localName||name)+'的分布');explore.title='在地图中查看分布';explore.textContent='分布';explore.addEventListener('click',()=>onExploreDeity(relation.deityId));li.append(explore);}const info=window.FaithWorship.info(relation);li.classList.add('has-worship');li.classList.toggle('is-worship-match',!!worshipSurname&&info.worship_scope==='specific_surname'&&info.worship_surname===worshipSurname);const worship=A.element('span','worship-description'+(info.worship_scope==='unknown'?' is-unknown':''),window.FaithWorship.description(relation));li.append(worship);}else{const label=document.createElement('span');label.className='legacy-deity';label.append(document.createTextNode(name));const pending=document.createElement('small');pending.textContent='待关联';label.append(pending);li.append(label);}names.append(li);});
+      record.deities.forEach((name,index)=>{
+        const li=A.element('li'),heading=A.element('div','faith-deity-heading');
+        const relation=record.deityLinks?.find(link=>link.nameIndex===index);
+        if(relation){
+          const link=A.element('a','faith-deity-name',relation.localName||name);
+          link.href=A.profileURL(relation.deityId);link.title='查看神明档案'+(relation.localTitle?' · '+relation.localTitle:'');heading.append(link);
+          if(onExploreDeity){
+            const explore=A.element('button','linkbutton deity-distribution-link','分布');explore.type='button';
+            explore.setAttribute('aria-label','在地图中查看'+(relation.localName||name)+'的分布');explore.title='在地图中查看分布';
+            explore.addEventListener('click',()=>onExploreDeity(relation.deityId));heading.append(explore);
+          }
+          const info=window.FaithWorship.info(relation);
+          li.classList.toggle('is-worship-match',!!worshipSurname&&info.worship_scope==='specific_surname'&&info.worship_surname===worshipSurname);
+          const worship=A.element('span','worship-description'+(info.worship_scope==='unknown'?' is-unknown':''),window.FaithWorship.description(relation));
+          li.append(heading,worship);
+        }else{
+          heading.append(A.element('span','faith-deity-name legacy-deity',name),A.element('small','faith-details-pending','待关联'));
+          li.append(heading);
+        }
+        names.append(li);
+      });
       card.append(names);
       for (const content of [record.festival,[record.source,record.visitedOn].filter(Boolean).join(' · ')]) {
         if (!content) continue;
@@ -242,9 +263,22 @@ window.createFaithRecords = options => {
   }
   function focusPendingRecord(){
     if(!pendingRecordFocus)return;
-    const card=[...$('faith-list').children].find(node=>node.dataset.recordId===highlightedRecordId);
-    if(!card)return;pendingRecordFocus=false;card.classList.add('is-record-target');requestAnimationFrame(()=>{if(card.isConnected)card.scrollIntoView({block:'nearest'});});
+    const expanding=()=>$('workspace').getAnimations().some(animation=>animation.transitionProperty==='grid-template-columns'&&animation.playState==='running');
+    if(expanding())return;
+    requestAnimationFrame(()=>{
+      if(!pendingRecordFocus||expanding())return;
+      const card=[...$('faith-list').children].find(node=>node.dataset.recordId===highlightedRecordId);
+      if(!card)return;pendingRecordFocus=false;card.classList.add('is-record-target');
+      // Reveal the record inside the reading region, without scrolling the fixed heading.
+      const scroller=$('place-reader').open?$('reader-scroll'):$('detail-content');
+      const target=card===$('faith-list').firstElementChild?$('faith-section'):card;
+      const top=scroller.scrollTop+target.getBoundingClientRect().top-scroller.getBoundingClientRect().top-18;
+      scroller.scrollTo({top:Math.max(0,top),behavior:'instant'});
+    });
   }
+  for(const type of ['transitionend','transitioncancel'])$('workspace').addEventListener(type,event=>{
+    if(event.target===$('workspace')&&event.propertyName==='grid-template-columns')focusPendingRecord();
+  });
   function mayLeave() { return !saving&&!quickSaving&&!catalog.saving && (!(dirty||quickDirty) || window.confirm('信仰记录尚未保存。要放弃填写吗？')); }
   function openForm(record=null) {
     if (!village || !state || saving) return;
