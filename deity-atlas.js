@@ -3,10 +3,23 @@
   const $=id=>document.getElementById(id), A=window.DeityAtlas, el=A.element;
   const catalog=A.createCatalog();
   const villageLinks=window.DeityVillageLinks.createPanel({beforeOpen:mayLeave,onSaved:async()=>{if(!await loadFaith())throw Error('关联列表暂未刷新。');}});
-  const worshipEditor=window.createWorshipEditor({beforeOpen:mayLeave,onSaved:async()=>{const query=document.querySelector('.deity-relations-search input')?.value||'';await loadFaith();const input=document.querySelector('.deity-relations-search input');if(input&&query){input.value=query;input.dispatchEvent(new Event('input'));}}});
+  const worshipEditor=window.createWorshipEditor({beforeOpen:mayLeave,onSaved:loadFaith});
   const returnMap=new URLSearchParams(location.search).get('mapReturn')||'';
   if(returnMap)for(const link of document.querySelectorAll('.atlas-brand>a,.atlas-map-link'))link.href=A.exploreURL('',returnMap);
   let selected=new URLSearchParams(location.search).get('id'), filter='all', editing=null, fields=null, dirty=false, saving=false, faith=null, faithError='', titlesDirty=false;
+  const layout=document.querySelector('.deity-layout'),indexPanels=$('deity-index-panels'),indexToggle=$('deity-index-toggle');
+  const desktop=matchMedia('(min-width:801px)');let indexCollapsed=false;
+  function syncIndex(){
+    const collapsed=indexCollapsed&&desktop.matches;
+    if(collapsed&&indexPanels.contains(document.activeElement))indexToggle.focus({preventScroll:true});
+    layout.classList.toggle('is-index-collapsed',collapsed);
+    indexPanels.inert=collapsed;indexPanels.setAttribute('aria-hidden',String(collapsed));
+    indexToggle.setAttribute('aria-expanded',String(!collapsed));indexToggle.querySelector('span').textContent=collapsed?'展开索引':'收起索引';
+  }
+  // Only layout changes here: the existing search, lists and article stay mounted.
+  indexToggle.addEventListener('click',()=>{indexCollapsed=!indexCollapsed;syncIndex();});
+  desktop.addEventListener('change',syncIndex);syncIndex();
+  const canEdit=()=>window.ArchiveManagement.editable(catalog.state);
   function mayLeave(){return !saving&&!catalog.saving&&worshipEditor.mayLeave()&&villageLinks.mayLeave()&&(!dirty||window.confirm('神明档案尚未保存。要放弃填写吗？'));}
   function setURL(id,replace=false){history[replace?'replaceState':'pushState']({},'',id?A.profileURL(id,returnMap):'/deities'+(returnMap?'?mapReturn='+encodeURIComponent(returnMap):''));}
   function choose(id,replace=false){if(!mayLeave())return;selected=id;editing=null;dirty=false;setURL(id,replace);render();$('deity-detail').scrollTop=0;}
@@ -21,47 +34,90 @@
     const term=$('deity-search').value.trim().toLocaleLowerCase();
     const records=(catalog.state?.records||[]).filter(record=>matchesFilter(record,filter)&&(!term||[record.name,...record.aliases].some(name=>name.toLocaleLowerCase().includes(term)))).sort((a,b)=>a.name.localeCompare(b.name,'zh-CN')||a.id.localeCompare(b.id));
     $('deity-filter-name').textContent=categoryName();$('deity-list-count').textContent=records.length+' 份';$('deity-list').replaceChildren();
-    for(const record of records){const button=el('button','deity-row');button.type='button';button.setAttribute('aria-current',String(record.id===selected));button.append(el('strong','',record.name));const titleNames=record.titleIds.map(id=>catalog.state.titles.find(title=>title.id===id)?.name).filter(Boolean);button.append(el('small','',titleNames.join(' · ')||'待分类'));if(record.aliases.length)button.append(el('small','',record.aliases.join(' / ')));if(record.identityNote)button.append(el('small','',record.identityNote.length>80?record.identityNote.slice(0,80)+'…':record.identityNote));if(catalog.state.records.filter(item=>item.name===record.name).length>1)button.append(el('small','','档案 · '+record.id.slice(-8)));button.addEventListener('click',()=>choose(record.id));$('deity-list').append(button);}
+    for(const record of records){const button=el('button','deity-row');button.type='button';button.setAttribute('aria-current',String(record.id===selected));button.append(el('strong','',record.name));const titleNames=record.titleIds.map(id=>catalog.state.titles.find(title=>title.id===id)?.name).filter(Boolean);button.append(el('small','',titleNames.join(' · ')||'待分类'));if(record.aliases.length)button.append(el('small','',record.aliases.join(' / ')));if(record.identityNote)button.append(el('small','',record.identityNote.length>80?record.identityNote.slice(0,80)+'…':record.identityNote));else if(record.description&&catalog.state.records.filter(item=>item.name===record.name).length>1)button.append(el('small','',record.description.slice(0,80)));button.addEventListener('click',()=>choose(record.id));$('deity-list').append(button);}
     if(!records.length&&catalog.state)$('deity-list').append(el('p','atlas-list-empty',term?'没有匹配的名称或别名。':'暂无收录档案。'));
   }
   function section(title,content,empty='暂无收录内容'){
     const section=el('section','deity-section');section.append(el('h3','',title));section.append(el('p','archive-prose'+(content?'':' is-empty'),content||empty));return section;
   }
+  function localName(entry,link,deity){
+    const recorded=entry.deities[link.nameIndex]||'';
+    return link.localName?.trim()||(recorded!==deity.name?recorded:'');
+  }
+  function villageRecords(village,deity,editable){
+    const details=el('details','village-records');details.dataset.villageKey=village.key;
+    details.append(el('summary','',village.records.length>1?village.records.length+' 条供奉记录':editable?'供奉记录与编辑':'查看供奉记录'));
+    village.records.forEach(({record:entry,links},index)=>{
+      const body=el('div','relation-record');
+      if(village.records.length>1)body.append(el('h4','','供奉记录 '+(index+1)));
+      for(const relation of links){
+        const name=localName(entry,relation,deity);if(name)body.append(el('p','','当地称谓：'+name));
+        if(relation.localTitle)body.append(el('p','','当地神函：'+relation.localTitle));
+        if(window.FaithWorship.info(relation).worship_scope!=='unknown')body.append(el('p','worship-description',window.FaithWorship.description(relation)));
+        if(editable){
+          const edit=el('button','linkbutton','编辑供奉信息');edit.type='button';edit.dataset.worshipLink=relation.id;
+          edit.addEventListener('click',()=>worshipEditor.open({recordId:entry.id,linkId:relation.id,deityId:deity.id,villageId:village.id,villageKind:village.kind,deityName:deity.name,villageName:village.name,recordLabel:[entry.temple,entry.visitedOn].filter(Boolean).join(' · ')||'供奉记录 '+(index+1)}));
+          body.append(edit);
+        }
+      }
+      for(const [field,label] of [['temple','宫庙'],['festival','祭期'],['source','资料来源'],['visitedOn','走访日期']])if(entry[field])body.append(el('p','',label+'：'+entry[field]));
+      const go=el('a','','查看村庄信仰记录 ↗');go.href=A.mapURL(village.kind,village.id,entry.id);body.append(go);details.append(body);
+    });
+    return details;
+  }
+  function villageIndexRow(village,deity){
+    const article=el('article','village-relation'),heading=el('div','village-relation-heading'),link=el('a','',village.name);
+    link.href=A.mapURL(village.kind,village.id);link.setAttribute('aria-label','查看'+village.name+'档案');link.append(el('span','village-record-arrow','↗'));heading.append(link);article.append(heading);
+    const place=village.kind==='reference'?villageLinks.place(village.id):null,area=place&&villageLinks.area(place.administrativeAreaId);
+    const kindName=village.kind==='survey'?'调查点位':({natural_village:'自然村',administrative_seat:'行政驻地',locality:'聚居点'}[place?.placeKind]||'参考地点');
+    article.append(el('p','village-relation-meta',[kindName,area?.committeeName].filter(Boolean).join(' · ')));
+    const names=new Set(),surnames=new Set();
+    for(const {record:entry,links} of village.records)for(const relation of links){
+      const name=localName(entry,relation,deity);if(name)names.add(name);
+      const info=window.FaithWorship.info(relation);if(info.worship_scope==='specific_surname')surnames.add(info.worship_surname);
+    }
+    if(names.size)article.append(el('p','village-relation-summary','当地称谓：'+[...names].join('、')));
+    if(surnames.size)article.append(el('p','village-relation-summary','供奉姓氏：'+[...surnames].map(name=>name+'姓').join('、')));
+    article.dataset.searchText=[village.name,...(place?.aliases||[]),area?.committeeName||''].join(' ').toLocaleLowerCase();
+    article.append(villageRecords(village,deity,canEdit()));return article;
+  }
   function renderRecord(record){
-    const node=$('deity-record');node.replaceChildren();
+    const node=$('deity-record');node.replaceChildren();node.dataset.recordId=record.id;
     const back=el('button','linkbutton deity-mobile-back','返回神明列表');back.type='button';back.addEventListener('click',()=>choose(null));node.append(back,el('span','atlas-eyebrow','神明档案 · DEITY RECORD'));
-    const heading=el('div','deity-record-heading'),title=el('div');title.append(el('h2','',record.name));const badges=el('div','deity-badges');const titles=record.titleIds.map(id=>catalog.state.titles.find(title=>title.id===id)?.name).filter(Boolean);for(const name of titles.length?titles:['待分类'])badges.append(el('span','deity-badge',name));if(record.archivedAt)badges.append(el('span','deity-badge','已归档'));title.append(badges);const edit=el('button','linkbutton','编辑档案');edit.type='button';edit.addEventListener('click',()=>startEdit(record));heading.append(title,edit);node.append(heading);
+    const heading=el('div','deity-record-heading'),title=el('div');title.append(el('h2','',record.name));const badges=el('div','deity-badges');const titles=record.titleIds.map(id=>catalog.state.titles.find(title=>title.id===id)?.name).filter(Boolean);for(const name of titles.length?titles:['待分类'])badges.append(el('span','deity-badge',name));if(record.archivedAt)badges.append(el('span','deity-badge','已归档'));title.append(badges);const edit=el('button','linkbutton','编辑档案');edit.type='button';edit.addEventListener('click',()=>startEdit(record));heading.append(title);if(canEdit())heading.append(edit);node.append(heading);
     const distribution=el('a','deity-map-distribution','在地图中查看分布 ↗');distribution.href=A.exploreURL(record.id,returnMap);node.append(distribution);
     if(record.aliases.length)node.append(section('别名与地方称谓',record.aliases.join('、')));
     node.append(section('神明简介',record.description),section('身份差异与争议说明',record.identityNote));
     const relations=el('section','deity-section'),villages=faith?A.villagesFor(record.id,faith.records):[];
-    const count=faith?' · '+villages.length+' 个村庄 · '+villages.reduce((n,village)=>n+village.records.length,0)+' 条记录':'';
-    const relationsHeading=el('div','deity-relations-heading');relationsHeading.append(el('h3','','关联村庄'+count));
-    if(!record.archivedAt){const add=el('button','linkbutton','＋ 关联村庄');add.type='button';add.dataset.linkVillages='';add.addEventListener('click',()=>villageLinks.open(record));relationsHeading.append(add);}
+    const relationsHeading=el('div','deity-relations-heading'),relationsTitle=el('h3','','关联村庄');
+    if(faith)relationsTitle.append(el('span','deity-relation-count',villages.length+' 个村庄'));relationsHeading.append(relationsTitle);
+    if(!record.archivedAt&&canEdit()){const add=el('button','linkbutton','＋ 关联村庄');add.type='button';add.dataset.linkVillages='';add.addEventListener('click',()=>villageLinks.open(record));relationsHeading.append(add);}
     relations.append(relationsHeading);
     let search=null;
-    if(villages.length){const label=el('label','deity-relations-search','检索已关联村庄');search=el('input');search.type='search';search.placeholder='村庄名称或行政归属';search.maxLength=100;label.append(search);relations.append(label);}
+    if(villages.length){const label=el('div','deity-relations-search');search=el('input');search.type='search';search.setAttribute('aria-label','检索已关联村庄');search.placeholder='检索村庄或行政归属';search.maxLength=100;label.append(search);relations.append(label);}
     if(!faith&&!faithError)relations.append(el('p','note','正在读取关联记录…'));
     else if(faith&&!villages.length)relations.append(el('p','archive-prose is-empty','暂无关联的村庄记录。'));
     if(faithError){const retry=el('button','linkbutton','重新读取关联村庄');retry.type='button';retry.addEventListener('click',loadFaith);relations.append(el('p','note',faithError),retry);}
-    for(const village of villages){const article=el('article','village-relation'),heading=el('div','village-relation-heading'),link=el('a','',village.name);link.href=A.mapURL(village.kind,village.id);heading.append(link,el('span','','已关联 · '+village.records.length+' 条记录'));article.append(heading);
-      const place=village.kind==='reference'?villageLinks.place(village.id):null,area=place&&villageLinks.area(place.administrativeAreaId);
-      const kindName=village.kind==='survey'?'调查点位':({natural_village:'自然村',administrative_seat:'行政驻地',locality:'聚居点'}[place?.placeKind]||'参考地点');
-      article.append(el('p','village-relation-meta',[kindName,area?.committeeName].filter(Boolean).join(' · ')));article.dataset.searchText=[village.name,...(place?.aliases||[]),area?.committeeName||''].join(' ').toLocaleLowerCase();
-      for(const {record:entry,links} of village.records){const body=el('div','relation-record');if(A.faithDetailsPending(entry))body.append(el('p','faith-details-pending','已关联 · 资料待补充'));for(const relation of links){body.append(el('p','','当地称谓：'+(relation.localName||entry.deities[relation.nameIndex])));if(relation.localTitle)body.append(el('p','','当地神函：'+relation.localTitle));
-        const info=window.FaithWorship.info(relation),worship=el('div','worship-relation');
-        worship.append(el('p','worship-description'+(info.worship_scope==='unknown'?' is-unknown':''),window.FaithWorship.description(relation)));
-        const edit=el('button','linkbutton','编辑供奉信息');edit.type='button';edit.dataset.worshipLink=relation.id;
-        edit.addEventListener('click',()=>worshipEditor.open({recordId:entry.id,linkId:relation.id,deityId:record.id,villageId:village.id,villageKind:village.kind,deityName:record.name,villageName:village.name,recordLabel:[entry.temple,entry.visitedOn].filter(Boolean).join(' · ')||'信仰记录 · '+entry.id.slice(-8)}));worship.append(edit);body.append(worship);}if(entry.temple)body.append(el('p','','宫庙：'+entry.temple));if(entry.festival)body.append(el('p','','祭期：'+entry.festival));if(entry.source||entry.visitedOn)body.append(el('p','', [entry.source,entry.visitedOn].filter(Boolean).join(' · ')));const go=el('a','','查看村庄信仰记录 ↗');go.href=A.mapURL(village.kind,village.id,entry.id);body.append(go,el('p','deity-identity','记录 ID · '+entry.id));article.append(body);}relations.append(article);}
+    for(const village of villages)relations.append(villageIndexRow(village,record));
     if(search){const empty=el('p','archive-prose is-empty','没有符合检索条件的关联村庄。');empty.hidden=true;relations.append(empty);search.addEventListener('input',()=>{const term=search.value.trim().toLocaleLowerCase();let visible=0;for(const article of relations.querySelectorAll('.village-relation')){article.hidden=!article.dataset.searchText.includes(term);if(!article.hidden)visible++;}empty.hidden=visible>0;});}
     node.append(relations,section('资料来源',record.source,'暂无来源资料'));
-    const meta=el('p','deity-identity','档案 ID · '+record.id+'\n创建 '+record.createdAt+'\n更新 '+record.updatedAt);meta.style.whiteSpace='pre-wrap';node.append(meta);
+    if(record.updatedAt)node.append(el('p','deity-identity','最近更新 '+record.updatedAt.slice(0,10)));
     window.ArchiveManagement?.mount(node,{entity:'deities',record,catalog,beforeOpen:mayLeave,onChange:async result=>{selected=result.deleted?null:result.recordId||record.id;filter=selected&&catalog.get(selected)?.archivedAt?'archived':'all';faith=null;await loadFaith();setURL(selected,true);render();}});
   }
   function render(){
+    const browser=document.querySelector('.deity-browser'),navigation=document.querySelector('.deity-navigation'),detail=$('deity-detail'),node=$('deity-record');
+    const position={browser:browser.scrollTop,navigation:navigation.scrollTop,detail:detail.scrollTop};
+    const sameRecord=node.dataset.recordId===selected,query=node.querySelector('.deity-relations-search input')?.value||'';
+    const expanded=new Set([...node.querySelectorAll('.village-records[open]')].map(item=>item.dataset.villageKey));
     renderNavigation();renderList();
     $('deity-form').hidden=!editing;$('deity-record').hidden=!!editing||!selected;$('deity-placeholder').hidden=!!editing||!!selected;document.querySelector('.deity-layout').classList.toggle('has-selection',!!editing||!!selected);
     if(!editing&&selected){const record=catalog.get(selected);if(record){if(record.id!==selected){selected=record.id;setURL(selected,true);}renderRecord(record);}else{$('deity-record').replaceChildren(el('p','note','未找到这份神明档案。'));const back=el('button','linkbutton deity-mobile-back','返回神明列表');back.type='button';back.addEventListener('click',()=>choose(null));$('deity-record').prepend(back);}}
+    if(sameRecord&&!editing){
+      const input=node.querySelector('.deity-relations-search input');if(input&&query){input.value=query;input.dispatchEvent(new Event('input'));}
+      for(const item of node.querySelectorAll('.village-records'))item.open=expanded.has(item.dataset.villageKey);
+      detail.scrollTop=position.detail;
+    }
+    browser.scrollTop=position.browser;navigation.scrollTop=position.navigation;
   }
   function startEdit(record=null){if(!mayLeave()||!catalog.state)return;editing={record};dirty=false;$('deity-form-heading').textContent=record?'编辑神明档案':'新增神明';$('deity-form-status').textContent='';fields=A.createFields($('deity-fields'),catalog,record||{},'deity',{onExisting:existing=>choose(existing.id)});render();$('deity-detail').scrollTop=0;fields.focus();}
   $('deity-new').addEventListener('click',()=>startEdit());$('deity-search').addEventListener('input',renderList);
