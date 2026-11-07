@@ -1,5 +1,5 @@
 /* People and deities share the same map sheet and card rhythm. */
-.map-toolbar #people-explorer-toggle[aria-expanded=true]{background:var(--color-primary-soft);color:var(--color-primary)}
+.map-toolbar #people-explorer-toggle[aria-expanded=true]{background:var(--color-primary-soft);color:var(--color-text-primary)}
 #person-explore-sheet-toggle{display:grid;font-size:11px}
 #person-explore-controls{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,130px);gap:8px;margin-bottom:18px}
 #person-explore-search{font-size:12px;background:var(--color-surface);padding:10px 11px}

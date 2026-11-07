@@ -10,13 +10,13 @@
 .journal-timeline:focus-visible{outline:1px solid var(--color-primary);outline-offset:4px;border-radius:3px}
 .journal-entries{margin-left:4px;padding-left:18px;border-left:1px solid var(--color-border)}
 .journal-entry{position:relative;margin:0 0 24px}.journal-entry:last-child{margin-bottom:5px}
-.journal-entry::before{content:"";position:absolute;left:-23px;top:6px;width:8px;height:8px;border:2px solid var(--color-surface);border-radius:50%;background:var(--color-green)}
+.journal-entry::before{content:"";position:absolute;left:-23px;top:6px;width:8px;height:8px;border:2px solid var(--color-surface);border-radius:50%;background:var(--border-active)}
 .journal-summary{padding:0;min-height:44px;color:inherit;white-space:normal}
 .journal-summary::before{display:none}.journal-record[open]>.journal-summary{margin-bottom:15px}
 .journal-entry-meta{display:flex;align-items:baseline;flex-wrap:wrap;gap:5px 9px;font-size:10px;line-height:1.6;color:var(--color-text-muted)}
 .journal-entry-header{display:flex;align-items:baseline;justify-content:space-between;gap:10px;min-height:32px}
 .journal-entry-header .journal-entry-meta{min-width:0;flex:1}.journal-edit{flex-shrink:0;min-height:32px;padding:4px 2px;font-size:11px}
-.journal-date{font-size:12px;color:var(--color-green-ink);font-variant-numeric:tabular-nums}.journal-visibility{font-size:9px;color:var(--color-text-muted)}
+.journal-date{font-size:12px;color:var(--color-text-secondary);font-variant-numeric:tabular-nums}.journal-visibility{font-size:9px;color:var(--color-text-muted)}
 .journal-entry-title{margin:7px 0 8px;font-size:15px;font-weight:600;line-height:1.55;color:var(--color-text-primary);letter-spacing:0;overflow-wrap:anywhere}
 .journal-excerpt{margin:0;color:var(--color-text-secondary);font-size:13px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere}
 .journal-record[open] .journal-excerpt{display:none}

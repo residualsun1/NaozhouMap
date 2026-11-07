@@ -1,5 +1,5 @@
 /* Relationship metadata uses the existing archive type and form rhythm. */
-.worship-description{font-size:11px;line-height:1.6;color:var(--color-teal-ink);overflow-wrap:anywhere}
+.worship-description{font-size:11px;line-height:1.6;color:var(--color-link);overflow-wrap:anywhere}
 .worship-description.is-unknown{color:var(--muted)}
 .worship-relation{margin:10px 0 14px;padding:8px 0;border-bottom:1px solid var(--line)}
 .worship-relation .worship-description{margin:5px 0}
@@ -29,5 +29,5 @@
 .worship-filter-result strong{display:block;font-size:13px;font-weight:500;overflow-wrap:anywhere}
 .worship-filter-result span{display:block;font-size:11px;line-height:1.7;margin-top:4px;color:var(--muted);overflow-wrap:anywhere}
 .worship-filter-result:hover{background:var(--color-surface-hover)}
-.worship-filter-badge{width:5px;height:5px;border-radius:50%;background:var(--color-teal-ink);flex-shrink:0}
+.worship-filter-badge{width:5px;height:5px;border-radius:50%;background:var(--color-primary);flex-shrink:0}
 @media(max-width:800px){.worship-dialog{padding:24px 20px}.worship-dialog :is(input,select),.worship-filter select,.faith-worship-fields select{font-size:16px;min-height:44px}.worship-dialog button,.worship-filter-result,.worship-filter-tools button{min-height:44px}}
