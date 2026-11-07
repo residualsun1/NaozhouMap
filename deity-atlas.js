@@ -7,18 +7,7 @@
   const returnMap=new URLSearchParams(location.search).get('mapReturn')||'';
   if(returnMap)for(const link of document.querySelectorAll('.atlas-brand>a,.atlas-map-link'))link.href=A.exploreURL('',returnMap);
   let selected=new URLSearchParams(location.search).get('id'), filter='all', editing=null, fields=null, dirty=false, saving=false, faith=null, faithError='', titlesDirty=false;
-  const layout=document.querySelector('.deity-layout'),indexPanels=$('deity-index-panels'),indexToggle=$('deity-index-toggle');
-  const desktop=matchMedia('(min-width:801px)');let indexCollapsed=false;
-  function syncIndex(){
-    const collapsed=indexCollapsed&&desktop.matches;
-    if(collapsed&&indexPanels.contains(document.activeElement))indexToggle.focus({preventScroll:true});
-    layout.classList.toggle('is-index-collapsed',collapsed);
-    indexPanels.inert=collapsed;indexPanels.setAttribute('aria-hidden',String(collapsed));
-    indexToggle.setAttribute('aria-expanded',String(!collapsed));indexToggle.querySelector('span').textContent=collapsed?'展开索引':'收起索引';
-  }
-  // Only layout changes here: the existing search, lists and article stay mounted.
-  indexToggle.addEventListener('click',()=>{indexCollapsed=!indexCollapsed;syncIndex();});
-  desktop.addEventListener('change',syncIndex);syncIndex();
+  window.ArchiveLayout.mount(document.querySelector('.deity-layout'));
   const canEdit=()=>window.ArchiveManagement.editable(catalog.state);
   function mayLeave(){return !saving&&!catalog.saving&&worshipEditor.mayLeave()&&villageLinks.mayLeave()&&(!dirty||window.confirm('神明档案尚未保存。要放弃填写吗？'));}
   function setURL(id,replace=false){history[replace?'replaceState':'pushState']({},'',id?A.profileURL(id,returnMap):'/deities'+(returnMap?'?mapReturn='+encodeURIComponent(returnMap):''));}

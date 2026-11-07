@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>神明谱系 · 硇洲岛田野图集</title>
-  <link rel="stylesheet" href="/map.css"><link rel="stylesheet" href="/deity-atlas.css"><link rel="stylesheet" href="/deity-villages.css"><link rel="stylesheet" href="/cloud-access.css"><link rel="stylesheet" href="/archive-management.css">
+  <link rel="stylesheet" href="/map.css"><link rel="stylesheet" href="/archive-layout.css"><link rel="stylesheet" href="/deity-atlas.css"><link rel="stylesheet" href="/deity-villages.css"><link rel="stylesheet" href="/cloud-access.css"><link rel="stylesheet" href="/archive-management.css">
   <link rel="stylesheet" href="/worship.css">
 </head>
 <body class="deity-page">
@@ -11,8 +11,8 @@
     <div class="atlas-brand"><a href="/">硇洲岛田野图集</a><span>/</span><h1>神明谱系</h1><small>DEITY ATLAS</small></div>
     <div class="atlas-header-actions"><a class="atlas-map-link" href="/">返回地图</a><button id="deity-new" class="primary" type="button" disabled>新增神明</button></div>
   </header>
-  <main class="deity-layout">
-    <div id="deity-index-panels" class="deity-index-panels">
+  <main class="deity-layout archive-layout">
+    <div id="deity-index-panels" class="deity-index-panels archive-index-panels">
     <nav class="deity-navigation" aria-label="神函分类">
       <div class="atlas-eyebrow">神函索引</div><div id="deity-categories"></div>
       <button id="deity-titles-edit" class="linkbutton" type="button" disabled>维护神函</button>
@@ -25,10 +25,10 @@
       <p id="deity-status" class="status" role="status" aria-live="polite">正在读取…</p><div id="deity-list"></div>
     </section>
     </div>
-    <div class="deity-reading-pane">
-      <div class="deity-reading-tools"><button id="deity-index-toggle" class="deity-index-toggle" type="button" aria-expanded="true" aria-controls="deity-index-panels"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m11 6-6 6 6 6m7-12-6 6 6 6"/></svg><span>收起索引</span></button></div>
+    <div class="deity-reading-pane archive-reading-pane">
+      <div class="deity-reading-tools archive-reading-tools"><button id="deity-index-toggle" class="deity-index-toggle archive-index-toggle" type="button" aria-expanded="true" aria-controls="deity-index-panels"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m11 6-6 6 6 6m7-12-6 6 6 6"/></svg><span>收起索引</span></button></div>
     <section id="deity-detail" class="deity-detail" aria-label="神明档案">
-      <div class="deity-document">
+      <div class="deity-document archive-document">
       <div id="deity-placeholder" class="atlas-placeholder"><span class="atlas-eyebrow">DEITY RECORD</span><h2>选择一份神明档案</h2><p>以神明为线索，连接村庄与地方信仰。</p></div>
       <article id="deity-record" hidden></article>
       <form id="deity-form" hidden>
@@ -41,6 +41,6 @@
   </main>
   <dialog id="deity-titles-dialog" class="atlas-dialog"><form id="deity-titles-form"><h2>神函索引</h2><div id="deity-title-fields"></div><label for="deity-title-new">新增神函</label><input id="deity-title-new" maxlength="80"><div class="button-row form-actions"><button type="submit" class="primary">保存索引</button><button id="deity-titles-cancel" type="button">取消</button></div><p id="deity-titles-status" class="status" role="status" aria-live="polite"></p></form></dialog>
   <dialog id="cloud-login" class="cloud-login" aria-labelledby="cloud-login-title"><form id="cloud-login-form"><h2 id="cloud-login-title">登录编辑</h2><label for="cloud-password">编辑口令</label><input id="cloud-password" type="password" autocomplete="current-password" required><p id="cloud-login-status" class="status" role="status"></p><div class="button-row form-actions"><button type="submit" class="primary">登录</button><button id="cloud-login-cancel" type="button">取消</button></div></form></dialog>
-  <script src="/place-names.js"></script><script src="/cloud-access.js"></script><script src="/archive-management.js"></script><script src="/worship-info.js"></script><script src="/deity-catalog.js"></script><script src="/deity-villages.js"></script><script src="/worship-editor.js"></script><script src="/deity-atlas.js"></script>
+  <script src="/place-names.js"></script><script src="/cloud-access.js"></script><script src="/archive-management.js"></script><script src="/archive-layout.js"></script><script src="/worship-info.js"></script><script src="/deity-catalog.js"></script><script src="/deity-villages.js"></script><script src="/worship-editor.js"></script><script src="/deity-atlas.js"></script>
 </body>
 </html>

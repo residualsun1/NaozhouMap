@@ -16,5 +16,5 @@ for(const file of ['index.html','deities.html','people.html']) {
   await writeFile(path.join(output,file),html);
 }
 await copyFile(path.join(root, 'work/lucide-atlas-license.txt'), path.join(output, 'lucide-license.txt'));
-for(const file of ['deity-villages.js','deity-villages.css','place-names.js','worship-info.js','worship-editor.js','worship-filter.js','worship.css'])await copyFile(path.join(root,file),path.join(output,file));
+for(const file of ['archive-layout.js','archive-layout.css','deity-villages.js','deity-villages.css','place-names.js','worship-info.js','worship-editor.js','worship-filter.js','worship.css'])await copyFile(path.join(root,file),path.join(output,file));
 console.log('Built Netlify map into dist/');
