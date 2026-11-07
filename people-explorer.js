@@ -37,17 +37,17 @@ window.createPeopleExplorer = options => {
     $('person-explore-previous').disabled=list.scrollLeft<=2;$('person-explore-next').disabled=list.scrollLeft+list.clientWidth>=list.scrollWidth-2;
   }
   function renderRoles(){
-    const roles=[...new Set((catalog.state?.records||[]).filter(active).flatMap(person=>person.roles||[]))].sort((a,b)=>a.localeCompare(b,'zh-CN'));
+    const roles=P.identityTypes(catalog.state).filter(type=>type.isActive);
     const signature=JSON.stringify(roles);if(signature===roleSignature)return;roleSignature=signature;
-    const value=$('person-explore-role').value;$('person-explore-role').replaceChildren(new Option('全部身份',''),...roles.map(role=>new Option(role,role)));
-    if(roles.includes(value))$('person-explore-role').value=value;
+    const value=$('person-explore-role').value;$('person-explore-role').replaceChildren(new Option('全部身份',''),...roles.map(type=>new Option(type.name,type.id)));
+    if(roles.some(type=>type.id===value))$('person-explore-role').value=value;
   }
   function render(){
     if(!opened)return;
     const canonical=catalog.get(selectedId);if(canonical&&canonical.id!==selectedId){selectedId=canonical.id;syncURL();}
     setCollapsed(collapsed);renderRoles();$('person-explore-status').textContent=error;$('person-explore-retry').hidden=!error;
     const list=$('person-explore-list'),scroll=list.scrollLeft,role=$('person-explore-role').value;
-    const records=catalog.search($('person-explore-search').value).filter(person=>active(person)&&(!role||person.roles?.includes(role))).sort((a,b)=>a.displayName.localeCompare(b.displayName,'zh-CN')||a.id.localeCompare(b.id));
+    const records=catalog.search($('person-explore-search').value).filter(person=>active(person)&&(!role||person.identityTypeIds?.includes(role))).sort((a,b)=>a.displayName.localeCompare(b.displayName,'zh-CN')||a.id.localeCompare(b.id));
     list.replaceChildren();
     for(const person of records){
       const row=el('button','explorer-deity-row people-explorer-card'+(person.id===selectedId?' is-selected':''));row.type='button';row.setAttribute('aria-pressed',String(person.id===selectedId));row.dataset.personId=person.id;
@@ -109,7 +109,7 @@ window.createPeopleExplorer = options => {
     if(token)try{const value=JSON.parse(sessionStorage.getItem(storageKey));if(value?.version===1&&value.token===token)saved=value;}catch{}
     if(!requested&&!saved&&query.get('peopleExplore')!=='1')return false;
     if(!open(requested||saved?.personId||undefined))return false;
-    if(saved&&(!requested||requested===saved.personId)){$('person-explore-search').value=saved.query||'';const restore=()=>{renderRoles();if([...$('person-explore-role').options].some(option=>option.value===saved.role))$('person-explore-role').value=saved.role;render();};restore();catalog.ready.then(restore).catch(()=>{});pendingFocus=options.restoreView(saved.view)===false&&!!selectedId;setCollapsed(saved.collapsed);render();}
+    if(saved&&(!requested||requested===saved.personId)){$('person-explore-search').value=saved.query||'';const restore=()=>{renderRoles();const roleOption=[...$('person-explore-role').options].find(option=>option.value===saved.role||option.textContent===saved.role);if(roleOption)$('person-explore-role').value=roleOption.value;render();};restore();catalog.ready.then(restore).catch(()=>{});pendingFocus=options.restoreView(saved.view)===false&&!!selectedId;setCollapsed(saved.collapsed);render();}
     return true;
   }
   return {open,close,suspend,restoreFromURL,get isOpen(){return opened;},cancelAutoFocus(){pendingFocus=false;}};

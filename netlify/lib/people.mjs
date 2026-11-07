@@ -1,6 +1,7 @@
 import { getStore } from '@netlify/blobs';
 import { resolveEditorAuth, json, sameOrigin } from './auth.mjs';
 import { createArchiveStore } from './archive-store.mjs';
+import {prepareIdentityState,normalizePersonIdentities,projectIdentityNames,identityStats,editIdentityState} from './person-identities.mjs';
 
 export const peopleSeed = () => ({version:1,revision:0,records:[]});
 const revisionValid = value => Number.isInteger(value) && value >= 0 && value < 2147483647;
@@ -40,7 +41,7 @@ function normalizePlaceLinks(value) {
     ids.add(link.id);return link;
   });
 }
-export function normalizePerson(input,previous,now=new Date().toISOString()) {
+export function normalizePerson(input,previous,now=new Date().toISOString(),identityTypes) {
   if (!input || typeof input!=='object' || Array.isArray(input)) throw Error('人物档案格式无效。');
   const value = key => input[key]===undefined ? previous?.[key] : input[key];
   const record={id:text(input.id,120,true),displayName:text(value('displayName'),200,true)};
@@ -48,6 +49,8 @@ export function normalizePerson(input,previous,now=new Date().toISOString()) {
   for (const [key,limit] of Object.entries({surname:100,realName:200,religiousName:200,biography:100000,ritualQualificationNote:20000,oralHistory:100000,narratedAt:100,eventDateText:300,narrativeSource:3000,researchNotes:100000,source:3000,publicSummary:3000})) record[key]=text(value(key),limit);
   record.aliases=strings(value('aliases')??[],100,200);
   record.roles=strings(value('roles')??[],50,100);
+  if(identityTypes){Object.assign(record,normalizePersonIdentities(input,previous,identityTypes));delete record.roles;}
+  else if(value('identityTypeIds')!==undefined)record.identityTypeIds=strings(value('identityTypeIds'),50,120);
   record.deityIds=strings(value('deityIds')??[]);
   record.visibility=value('visibility')||'editors';
   record.narratorRole=value('narratorRole')||'unknown';
@@ -65,6 +68,7 @@ export function normalizePerson(input,previous,now=new Date().toISOString()) {
 export function publicPerson(person) {
   if (!person || !['summary','public'].includes(person.visibility)) return null;
   const record={id:person.id,displayName:person.displayName,roles:person.publishIdentity===true?(person.roles||[]):[],publicSummary:person.publicSummary||'',visibility:person.visibility,archivedAt:person.archivedAt||'',placeLinks:(person.placeLinks||[]).filter(link=>link.public===true)};
+  if(person.publishIdentity===true&&Array.isArray(person.identityTypeIds))record.identityTypeIds=person.identityTypeIds;
   if (person.visibility==='summary') return record;
   Object.assign(record,{biography:person.biography||'',ritualQualificationNote:person.ritualQualificationNote||'',source:person.source||'',deityIds:person.deityIds||[]});
   if (person.publishIdentity===true) Object.assign(record,{surname:person.surname||'',religiousName:person.religiousName||'',aliases:person.aliases||[]});
@@ -92,33 +96,51 @@ export function peopleHandler(storeFactory=()=>getStore({name:'naozhou-field-atl
       async function read() {
         const entry=await store.getWithMetadata('people',{type:'json'}),state=entry?entry.data:peopleSeed();
         if (state?.version!==1||!revisionValid(state.revision)||!Array.isArray(state.records)||new Set(state.records.map(record=>record.id)).size!==state.records.length) throw Error('Invalid people state.');
-        return {state,etag:entry?.etag};
+        return {state:prepareIdentityState(state),raw:state,etag:entry?.etag,needsMigration:state.identitySchemaVersion!==1};
       }
-      function result(state) {
+      function result(state,needsMigration=false) {
         const query=new URL(request.url).searchParams;
-        const records=editable?state.records:state.records.map(publicPerson).filter(Boolean);
+        const projected=projectIdentityNames(state),records=editable?projected:projected.map(publicPerson).filter(Boolean);
         const visibleIds=new Set(records.map(record=>record.id));
-        return {version:1,revision:editable?state.revision:null,editable,redirects:Object.fromEntries(Object.entries(redirects).filter(([,id])=>id&&(editable||visibleIds.has(id)))),records:records.filter(record=>(!query.has('id')||record.id===requestedId)&&(!query.has('placeId')||record.placeLinks?.some(link=>link.placeId===query.get('placeId')&&(!query.has('placeKind')||link.placeKind===query.get('placeKind')))))};
+        const visibleTypes=new Set(records.flatMap(record=>record.identityTypeIds||[])),types=state.identityTypes.filter(type=>editable||visibleTypes.has(type.id)).sort((a,b)=>a.sortOrder-b.sortOrder||a.id.localeCompare(b.id));
+        return {version:1,revision:editable?state.revision:null,editable,identitySchemaVersion:1,identityMigrationNeeded:editable&&needsMigration,identityTypes:types,identityStats:identityStats(records,types),redirects:Object.fromEntries(Object.entries(redirects).filter(([,id])=>id&&(editable||visibleIds.has(id)))),records:records.filter(record=>(!query.has('id')||record.id===requestedId)&&(!query.has('placeId')||record.placeLinks?.some(link=>link.placeId===query.get('placeId')&&(!query.has('placeKind')||link.placeKind===query.get('placeKind')))))};
       }
       const current=await read();
       const redirects=await store.redirects('people'),requestedId=await store.resolveId('people',new URL(request.url).searchParams.get('id'));
-      if (request.method==='GET') return respond(result(current.state));
+      if (request.method==='GET') return respond(result(current.state,current.needsMigration));
       if (!(request.headers.get('content-type')||'').startsWith('application/json')) return respond({error:'Use application/json.'},415);
       if (Number(request.headers.get('content-length'))>512*1024) return respond({error:'人物档案过大。'},413);
       const raw=await request.text();
       if (Buffer.byteLength(raw)>512*1024) return respond({error:'人物档案过大。'},413);
       let body;
-      try {body=JSON.parse(raw);if (body.version!==1||!revisionValid(body.revision)||body.action!=='save') throw Error('人物版本或操作无效。');}
+      try {body=JSON.parse(raw);if (body.version!==1||!revisionValid(body.revision)||!['save','identity-migrate','identity-save','identity-status','identity-reorder','identity-delete'].includes(body.action)) throw Error('人物版本或操作无效。');}
       catch(error){return respond({error:error.message},400);}
-      if (body.revision!==current.state.revision) return respond({...result(current.state),error:'其他页面已更新人物档案，填写内容仍保留，请再次保存。'},409);
+      if (body.revision!==current.state.revision) return respond({...result(current.state,current.needsMigration),error:'其他页面已更新人物或身份分类，填写内容仍保留，请核对后重试。'},409);
+      const snapshot=await store.getSnapshot(),now=new Date().toISOString();
+      function migrationMetadata(next){
+        if(current.needsMigration)next.identityMigration={version:1,at:now,previousDocument:snapshot.manifest.documents.people||'people',peopleCount:current.raw.records.length,linkCount:current.state.records.reduce((sum,person)=>sum+person.identityTypeIds.length,0)};
+        return next;
+      }
+      if(body.action!=='save'){
+        if(body.action==='identity-migrate'&&!current.needsMigration)return respond(result(current.state));
+        let next;
+        try{next=body.action==='identity-migrate'?structuredClone(current.state):editIdentityState(current.state,body,now);}
+        catch(error){return respond({error:error.message,...(error.identityInUse?{identityInUse:true,referenceCount:error.referenceCount}:{})},error.status||400);}
+        next.revision=current.state.revision+1;migrationMetadata(next);
+        const saved=await store.commit({people:next},{snapshotToken:snapshot.token,operation:{kind:'people',action:body.action,...(body.id?{identityTypeId:body.id}:{}),...(body.reassignToId?{reassignToId:body.reassignToId}:{})}});
+        if(!saved.modified)return respond({error:'其他页面已保存，未提交部分修改，请刷新身份目录后重试。'},409);
+        const fresh=await read();return respond(result(fresh.state));
+      }
+      // Staged legacy clients may contribute their initial roles only before the one-time migration.
+      if(current.needsMigration&&Array.isArray(body.record?.roles))current.state=prepareIdentityState(current.raw,{extraRoles:body.record.roles,now});
       const previous=current.state.records.find(record=>record.id===body.record?.id);
       if ((previous&&body.baseUpdatedAt!==previous.updatedAt)||(!previous&&body.baseUpdatedAt)) return respond({...result(current.state),recordConflict:true,error:'此人物档案已被修改。填写内容仍保留，请重新打开最新档案。'},409);
       let record;
-      try {record=normalizePerson(body.record,previous);}catch(error){return respond({error:error.message},400);}
+      try {record=normalizePerson(body.record,previous,now,current.state.identityTypes);}catch(error){return respond({error:error.message},400);}
       if (widerPublication(record,previous)&&body.confirmPublic!==true) return respond({error:'请明确确认人物资料的公开范围。'},400);
       const records=previous?current.state.records.map(item=>item.id===record.id?record:item):current.state.records.concat(record);
       if (records.length>20000) return respond({error:'人物库达到当前容量限制。'},400);
-      const next={version:1,revision:current.state.revision+1,records};
+      const next=migrationMetadata({...current.state,revision:current.state.revision+1,records});
       const saved=await store.setJSON('people',next,current.etag?{onlyIfMatch:current.etag}:{onlyIfNew:true});
       if (!saved.modified) return respond({...result((await read()).state),error:'其他页面已保存，填写内容仍保留，请重试。'},409);
       return respond(result((await read()).state));

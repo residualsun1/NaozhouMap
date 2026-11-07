@@ -3,6 +3,7 @@ import { randomUUID } from 'node:crypto';
 import { json, resolveEditorAuth, sameOrigin } from './auth.mjs';
 import { createArchiveStore, canonicalId } from './archive-store.mjs';
 import { normalizePerson } from './people.mjs';
+import {projectIdentityNames} from './person-identities.mjs';
 import { normalizeDeityCatalog } from './deities.mjs';
 
 const validKind=kind=>['people','deities'].includes(kind);
@@ -61,6 +62,7 @@ function mergeRecord(kind,source,target,choices,now) {
       else if(source.oralHistory)merged.narratorRole=sourceRole;
     }
     merged.roles=distinct([...(target.roles||[]),...(source.roles||[])]);
+    if(target.identityTypeIds||source.identityTypeIds)merged.identityTypeIds=distinct([...(target.identityTypeIds||[]),...(source.identityTypeIds||[])]);
     merged.deityIds=distinct([...(target.deityIds||[]),...(source.deityIds||[])]);
     const links=new Map(),ids=new Set();
     for(const link of [...(target.placeLinks||[]),...(source.placeLinks||[])]) {
@@ -98,7 +100,8 @@ export function archiveManagementHandler(storeFactory=()=>getStore({name:'naozho
         if(!validKind(kind)||!id)return respond({error:'请指定人物或神明档案。'},400);
         const resolved=canonicalId(manifest,kind,id),record=states[kind].records.find(record=>record.id===resolved);
         if(!record)return respond({error:'档案不存在或已删除。'},404);
-        return respond({kind,id,canonicalId:resolved,record,refs:archiveReferences(states,kind,resolved),duplicates:duplicateCandidates(record,states[kind].records),stats:stats(states),operations:manifest.operations.filter(item=>item.kind===kind&&[item.id,item.sourceId,item.targetId,item.recordId].includes(id)).slice(-30).reverse(),snapshotToken:snapshot.token});
+        const exposed=kind==='people'&&states.people.identitySchemaVersion===1?projectIdentityNames({...states.people,records:[record]})[0]:record;
+        return respond({kind,id,canonicalId:resolved,record:exposed,refs:archiveReferences(states,kind,resolved),duplicates:duplicateCandidates(record,states[kind].records),stats:stats(states),operations:manifest.operations.filter(item=>item.kind===kind&&[item.id,item.sourceId,item.targetId,item.recordId].includes(id)).slice(-30).reverse(),snapshotToken:snapshot.token});
       }
       if(!(request.headers.get('content-type')||'').startsWith('application/json'))return respond({error:'Use application/json.'},415);
       if(Number(request.headers.get('content-length'))>512*1024)return respond({error:'维护请求过大。'},413);
@@ -112,7 +115,7 @@ export function archiveManagementHandler(storeFactory=()=>getStore({name:'naozho
         if(!source||!target||sourceId===targetId)return respond({error:'请选择两个不同且存在的档案。'},400);
         if(sourceId!==body.sourceId||targetId!==body.targetId)return respond({error:'所选档案已发生合并，请刷新后重新预览。'},409);
         const refs={source:archiveReferences(states,kind,sourceId),target:archiveReferences(states,kind,targetId)};
-        if(action==='preview')return respond({kind,source,target,refs,conflicts:conflictFields(kind,source,target),snapshotToken:snapshot.token});
+        if(action==='preview'){const exposed=kind==='people'&&states.people.identitySchemaVersion===1?projectIdentityNames({...states.people,records:[source,target]}):[source,target];return respond({kind,source:exposed[0],target:exposed[1],refs,conflicts:conflictFields(kind,source,target),snapshotToken:snapshot.token});}
       }
       if(body.confirm!==true||typeof body.snapshotToken!=='string')return respond({error:'请确认操作并使用当前预览。'},400);
       if(body.snapshotToken!==snapshot.token)return respond({error:'其他页面已更新资料，请重新预览后操作。',snapshotToken:snapshot.token},409);
@@ -122,7 +125,7 @@ export function archiveManagementHandler(storeFactory=()=>getStore({name:'naozho
           const source=states[kind].records.find(record=>record.id===body.sourceId),target=states[kind].records.find(record=>record.id===body.targetId);
           const merged=mergeRecord(kind,source,target,body.choices,now);
           if(kind==='people') {
-            const normalizedRecord=normalizePerson(merged,target,now);normalizedRecord.mergedFromIds=merged.mergedFromIds;
+            const normalizedRecord=normalizePerson(merged,target,now,states.people.identitySchemaVersion===1?states.people.identityTypes:undefined);normalizedRecord.mergedFromIds=merged.mergedFromIds;
             states.people.records=states.people.records.filter(record=>record.id!==source.id).map(record=>record.id===target.id?normalizedRecord:record);
           } else {
             const next={...states.deities,records:states.deities.records.filter(record=>record.id!==source.id).map(record=>record.id===target.id?merged:record)};

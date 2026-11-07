@@ -5,7 +5,8 @@ window.PeopleArchive = (() => {
   const profileURL=id=>'/people'+(id?'?'+new URLSearchParams({id}):'');
   const mapURL=(kind,id,entryId='')=>'/?'+new URLSearchParams({placeKind:kind,placeId:id,...(entryId?{entryId,view:'reading'}:{})});
   const split=value=>[...new Set(value.split(/[\n,，、]/).map(x=>x.trim()).filter(Boolean))];
-  const roles=['道士','法师','仪式主持者','宫庙管理者','信仰实践者','长者','受访者','口述历史提供者'];
+  const identityTypes=state=>(state?.identityTypes||[]).slice().sort((a,b)=>a.sortOrder-b.sortOrder||a.id.localeCompare(b.id));
+  const identitiesFor=(person,state,{activeOnly=false}={})=>identityTypes(state).filter(type=>(!activeOnly||type.isActive)&&(person.identityTypeIds||[]).includes(type.id));
   const relations=[['residence','居住'],['birth','出生'],['activity','活动'],['ritual','仪式主持'],['fieldwork','走访关联'],['other','其他']];
   const narratorRoles=[['unknown','尚未注明'],['participant','事件参与者'],['eyewitness','亲历叙述者'],['reteller','转述者'],['mentioned','叙述涉及人物']];
   let confirmQueue=Promise.resolve();
@@ -19,14 +20,26 @@ window.PeopleArchive = (() => {
     const request=(url,options)=>(window.NaozhouCloud?.request||fetch)(url,options);
     function load(){
       started=true;if(loading)return loading;const serial=sequence;
-      const job=(async()=>{await window.NaozhouCloud?.ready;const response=await request('/api/people',{cache:'no-store'});if(!response.ok)throw Error('人物资料暂未读取，请重试。');const data=validate(await response.json());if(serial===sequence){state=data;emit();}return data;})();
+      const job=(async()=>{await window.NaozhouCloud?.ready;const response=await request('/api/people',{cache:'no-store'});if(!response.ok)throw Error('人物资料暂未读取，请重试。');let data=validate(await response.json());
+        if(serial===sequence&&data.editable&&data.identityMigrationNeeded){const migrated=await request('/api/people',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({version:1,revision:data.revision,action:'identity-migrate'})});if(migrated.ok)data=validate(await migrated.json());else if(migrated.status===409){const fresh=await request('/api/people',{cache:'no-store'});if(fresh.ok)data=validate(await fresh.json());}}
+        if(serial===sequence){state=data;emit();}return data;})();
       loading=job;return job.finally(()=>{if(loading===job)loading=null;});
     }
     const ensure=()=>state?Promise.resolve(state):load(),ready=lazy?Promise.resolve(null):load();
     document.addEventListener('naozhou-access-change',event=>{if(event.detail?.reason==='session'&&!state)return;sequence++;state=null;loading=null;emit();if(started)load().catch(()=>{});});
+    window.addEventListener?.('storage',event=>{if(event.key==='naozhou-people-identities-changed'&&started&&!saving)load().catch(()=>{});});
     return {
       ready,load,ensure,get state(){return state;},get saving(){return saving;},subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn);},get(id){const seen=new Set();while(id&&!seen.has(id)){seen.add(id);const record=state?.records.find(p=>p.id===id),next=record?.mergedInto||state?.redirects?.[id];if(next){id=next;continue;}return record;}},
       search(query=''){const term=query.trim().toLocaleLowerCase();return (state?.records||[]).filter(p=>!p.archivedAt&&!p.mergedInto&&(!term||[p.displayName,p.religiousName,...(p.aliases||[])].some(x=>x?.toLocaleLowerCase().includes(term))));},
+      async manageIdentities(action,values={}){
+        if(saving)throw Error('正在保存，请稍候。');
+        if(window.NaozhouCloud&&!await window.NaozhouCloud.requireEditor())throw Error('登录后可管理身份类型。');
+        if(!state?.editable)await load();if(!state?.editable)throw Error('目前没有编辑权限。');saving=true;
+        try{const response=await request('/api/people',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({version:1,revision:state.revision,action,...values})}),result=await response.json();
+          if(!response.ok){if(response.status===409){if(Array.isArray(result.records)){state=validate(result);emit();}else await load();}throw Object.assign(Error(result.error||'身份类型未保存，请重试。'),{identityInUse:result.identityInUse,referenceCount:result.referenceCount});}
+          state=validate(result);emit();try{localStorage.setItem('naozhou-people-identities-changed',uid());}catch{}return state;
+        }finally{saving=false;}
+      },
       async saveRecord(values){
         await ready.catch(()=>{});if(saving)throw Error('正在保存，请稍候。');
         if(window.NaozhouCloud&&!await window.NaozhouCloud.requireEditor())throw Error('登录后可保存人物档案。');
@@ -58,7 +71,23 @@ window.PeopleArchive = (() => {
     function group(title,open=false){const d=el('details','people-form-group');d.open=open;d.append(el('summary','',title));host.append(d);return d;}
     field(host,'displayName','显示名称（可用化名）','text',200);field(host,'religiousName','法号 / 道号','text',200);field(host,'aliases','别名与地方称谓','text',10000,'以顿号或逗号分隔。');
     if(options.catalog&&window.ArchiveManagement)lifetime.duplicate=window.ArchiveManagement.watchDuplicates(host,{catalog:options.catalog,entity:'people',recordId:record.id,readNames:()=>[inputs.displayName.value,inputs.religiousName.value,...split(inputs.aliases.value)],onChoose:options.onExisting,chooseLabel:options.onExisting?'查看已有档案':undefined});
-    const role=field(host,'roles','身份标签','text',3000,'可输入多个身份，以顿号分隔；无需正式职衔。');const roleList=el('datalist');roleList.id=prefix+'-role-suggestions';for(const label of roles){const opt=el('option');opt.value=label;roleList.append(opt);}role.setAttribute('list',roleList.id);host.append(roleList);
+    const identityGroup=el('fieldset','people-identity-choices'),legend=el('legend','','身份类型 · 多选'),choices=el('div','people-identity-options'),identityIds=new Set(record.identityTypeIds||[]),initialIds=new Set(identityIds);
+    identityGroup.append(legend,choices);host.append(identityGroup);
+    const manage=el(window.managePersonIdentities?'button':'a','linkbutton','管理身份类型');
+    if(manage.tagName==='BUTTON'){manage.type='button';manage.addEventListener('click',()=>window.managePersonIdentities(options.catalog));}
+    else{manage.href='/people?manageIdentities=1';manage.target='_blank';manage.rel='noopener';}
+    identityGroup.append(manage);
+    function renderIdentityChoices(){
+      if(!lifetime.active)return;choices.replaceChildren();const state=options.catalog?.state;
+      if(!Array.isArray(state?.identityTypes)){choices.append(el('p','people-help','身份目录暂未读取，请重试后保存。'));return;}
+      for(const type of identityTypes(state).filter(type=>type.isActive||initialIds.has(type.id)||identityIds.has(type.id))){
+        const label=el('label','people-check'),check=el('input');check.type='checkbox';check.checked=identityIds.has(type.id);check.value=type.id;
+        check.addEventListener('change',()=>{if(check.checked)identityIds.add(type.id);else identityIds.delete(type.id);host.dispatchEvent(new Event('input',{bubbles:true}));});
+        label.append(check,document.createTextNode(type.name+(type.isActive?'':' · 已停用')));if(type.description)label.title=type.description;choices.append(label);
+      }
+      if(!choices.childElementCount)choices.append(el('p','people-help','暂无启用的身份类型，可在管理中新增。'));
+    }
+    renderIdentityChoices();lifetime.identityUnsubscribe=options.catalog?.subscribe(renderIdentityChoices);
     field(host,'biography','基本情况 / 人物简介','textarea',100000);
     const oral=group('人物经历与口述');field(oral,'oralHistory','原始口述 / 人物经历','textarea',100000);const narrative=el('div','people-field'),nlabel=el('label','','人物在叙述中的角色'),nselect=el('select');nselect.id=prefix+'-narratorRole';nlabel.htmlFor=nselect.id;for(const [id,label] of narratorRoles){const o=el('option','',label);o.value=id;nselect.append(o);}nselect.value=record.narratorRole||'unknown';inputs.narratorRole=nselect;narrative.append(nlabel,nselect);oral.append(narrative);field(oral,'narratedAt','讲述时间（按原始资料填写）','text',100);field(oral,'eventDateText','所述事件时间','text',300);field(oral,'narrativeSource','叙述来源','textarea',3000);field(oral,'ritualQualificationNote','仪式身份、资格与说明','textarea',20000);
     const privacy=group('可见范围与内部资料',true),vwrap=el('div','people-field'),vl=el('label','','档案可见性'),vs=el('select');vs.id=prefix+'-visibility';vl.htmlFor=vs.id;for(const [id,name] of [['editors','私人资料 · 仅授权编辑者'],['summary','公开摘要'],['public','公开完整档案']]){const o=el('option','',name);o.value=id;vs.append(o);}vs.value=record.visibility||'editors';inputs.visibility=vs;vwrap.append(vl,vs,el('small','people-help','项目共用编辑身份；非公开资料仅授权编辑者可读。'));privacy.append(vwrap);field(privacy,'publicSummary','公开摘要','textarea',3000);
@@ -75,11 +104,12 @@ window.PeopleArchive = (() => {
       }
       for(const link of retainedLinks)linkRow(link);add.addEventListener('click',()=>{linkRow();host.dispatchEvent(new Event('input',{bubbles:true}));});
     }
-    const destroy=()=>{lifetime.active=false;lifetime.duplicate?.destroy();fieldDisposers.delete(host);};fieldDisposers.set(host,destroy);
+    const destroy=()=>{lifetime.active=false;lifetime.duplicate?.destroy();lifetime.identityUnsubscribe?.();fieldDisposers.delete(host);};fieldDisposers.set(host,destroy);
     return {focus:()=>inputs.displayName.focus(),destroy,read:()=>{
-      const result={id:draftId,...(record.updatedAt?{updatedAt:record.updatedAt}:{})};for(const [key,input] of Object.entries(inputs))result[key]=input.type==='checkbox'?input.checked:input.value.trim();result.aliases=split(result.aliases);result.roles=split(result.roles);result.deityIds=[...deityIds];
+      if(!Array.isArray(options.catalog?.state?.identityTypes))throw Error('身份目录尚未读取，填写内容仍保留，请重试。');
+      const result={id:draftId,...(record.updatedAt?{updatedAt:record.updatedAt}:{})};for(const [key,input] of Object.entries(inputs))result[key]=input.type==='checkbox'?input.checked:input.value.trim();result.aliases=split(result.aliases);result.identityTypeIds=[...identityIds];result.deityIds=[...deityIds];
       result.placeLinks=options.places===false?retainedLinks:linkRows.map(r=>{const splitAt=r.place.value.indexOf(':');return {id:r.id,placeKind:r.place.value.slice(0,splitAt),placeId:r.place.value.slice(splitAt+1),relationType:r.relation.value,notes:r.notes.value.trim(),source:r.source.value.trim(),public:r.publicCheck.checked};});return result;
     }};
   }
-  return {uid,element:el,confirm,profileURL,mapURL,roles,relations,narratorRoles,createCatalog,createFields,places};
+  return {uid,element:el,confirm,profileURL,mapURL,identityTypes,identitiesFor,relations,narratorRoles,createCatalog,createFields,places};
 })();
