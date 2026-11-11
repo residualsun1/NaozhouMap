@@ -124,7 +124,6 @@
     const position={browser:browser.scrollTop,navigation:navigation.scrollTop,detail:detail.scrollTop};
     const sameRecord=node.dataset.recordId===selected,query=node.querySelector('.deity-relations-search input')?.value||'';
     const expanded=new Set([...node.querySelectorAll('.village-records[open]')].map(item=>item.dataset.villageKey));
-    const expandedBatches=new Set([...node.querySelectorAll('.observance-batch[open]')].map(item=>item.dataset.batchKey));
     renderNavigation();renderList();
     $('deity-new').disabled=$('deity-export').disabled=!catalog.state;
     $('deity-titles-edit').disabled=$('deity-import').disabled=!canEdit();
@@ -133,7 +132,6 @@
     if(sameRecord&&!editing){
       const input=node.querySelector('.deity-relations-search input');if(input&&query){input.value=query;input.dispatchEvent(new Event('input'));}
       for(const item of node.querySelectorAll('.village-records'))item.open=expanded.has(item.dataset.villageKey);
-      for(const item of node.querySelectorAll('.observance-batch'))item.open=expandedBatches.has(item.dataset.batchKey);
       detail.scrollTop=position.detail;
     }
     browser.scrollTop=position.browser;navigation.scrollTop=position.navigation;
@@ -151,7 +149,7 @@
       $('deity-form-heading').textContent=record?'编辑神明档案':'新增神明';
       $('deity-form-status').textContent='';
       fields=A.createFields($('deity-fields'),catalog,record||{},'deity',{onExisting:existing=>choose(existing.id)});
-      readObservances=observances.createFields($('deity-observance-fields'),record||{},()=>{dirty=true;});
+      readObservances=observances.createFields($('deity-observance-fields'),record||{});
       render();$('deity-detail').scrollTop=0;fields.focus();
     } catch(error) {$('deity-status').textContent=error.message;}
   }

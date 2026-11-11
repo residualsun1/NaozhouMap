@@ -16,8 +16,6 @@ window.DeityAtlas = (() => {
     for(const item of state.records){if(typeof item.id!=='string'||!item.id||ids.has(item.id)||typeof item.name!=='string'||!item.name.trim()||!Array.isArray(item.aliases)||item.aliases.some(name=>typeof name!=='string')||!Array.isArray(item.titleIds)||item.titleIds.some(id=>!titles.has(id)))throw Error('神明档案无效。');ids.add(item.id);}
     return state;
   }
-  // Older catalog writers can omit observances. Keep large schedules out of unrelated saves.
-  const withoutObservances = ({birthdays,rotationGroups,...record}) => record;
   function createCatalog({lazy=false, archive=false}={}) {
     let state=null,saving=false,loading=null,accessVersion=0;
     const endpoint='/api/deities'+(archive?'?view=archive':'');
@@ -64,10 +62,10 @@ window.DeityAtlas = (() => {
         if(values.updatedAt&&previous?.updatedAt!==values.updatedAt)throw Error('这份档案已在其他页面修改或移除。当前填写仍保留，请重新打开最新档案核对。');
         const now=new Date().toISOString();
         const record={...previous,...values,id:previous?.id||values.id||uid(),createdAt:previous?.createdAt||now,updatedAt:now};
-        await save({titles:state.titles,records:state.records.filter(item=>item.id!==record.id).map(withoutObservances).concat(record)});
+        await save({titles:state.titles,records:state.records.filter(item=>item.id!==record.id).concat(record)});
         return this.get(record.id);
       },
-      async saveTitles(titles){await ensure();return save({titles,records:state.records.map(withoutObservances)});},
+      async saveTitles(titles){await ensure();return save({titles,records:state.records});},
       async importCatalog(incoming){
         validate(incoming);
         await ensure();
@@ -80,7 +78,7 @@ window.DeityAtlas = (() => {
         const ids=new Set(state.records.map(item=>item.id));
         const added=incoming.records.filter(item=>!ids.has(item.id));
         if(!added.length&&titles.length===state.titles.length)return state;
-        return save({titles,records:state.records.map(withoutObservances).concat(added)});
+        return save({titles,records:state.records.concat(added)});
       }
     };
   }

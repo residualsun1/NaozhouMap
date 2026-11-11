@@ -65,68 +65,69 @@ async function saveLog(handler, revision, record, extras = {}) {
   return handler(request(journalURL, {version:1, action:'save', revision, record, ...extras}));
 }
 
-test('birthday variants, partial dates and legacy saves round-trip without exposing private notes', async () => {
+test('one optional lunar date and rotation time can be created, edited, cleared and read publicly', async () => {
   const store = memoryStore(), handler = recordsHandler('deities', () => store);
   let state = await ok(await handler(request(deityURL, {...deitySeed, records:[deity('old')]})));
-  assert.equal(state.records[0].birthdays, undefined);
-  const birthdays = [
-    birthday('nine-28', {applicablePlaceIds:[xianbao], visibility:'public', verificationStatus:'verified', sourceNote:'PRIVATE_BIRTH_SOURCE'}),
-    birthday('variant', {lunarDay:null, leapMonth:'unknown', applicablePlaceIds:[dedou], originalText:'有说在农历九月', verificationStatus:'variant', visibility:'public'}),
-    {id:'private-birth', originalText:'PRIVATE_BIRTHDAY'}
-  ];
-  state = await ok(await handler(request(deityURL, {...state, records:[{...state.records[0], birthdays}]})));
-  const saved = state.records[0].birthdays;
-  assert.equal(saved[0].lunarDay, 28);
-  assert.equal(saved[1].lunarDay, null);
-  assert.equal(saved[1].verificationStatus, 'variant');
-  assert.equal(saved[2].lunarMonth, null);
-  assert.equal(saved[2].visibility, 'editors');
-  const invalid = await handler(request(deityURL, {...state, records:[{...state.records[0], birthdays:[birthday('invalid', {lunarDay:31})]}]}));
-  assert.equal(invalid.status, 400);
-  const oldClient = await ok(await handler(request('/api/deities')));
-  assert.equal(oldClient.records[0].birthdays, undefined);
-  oldClient.records[0].description = '只修改原有简介';
-  await ok(await handler(request('/api/deities', oldClient)));
-  assert.deepEqual((await ok(await handler(request(deityURL)))).records[0].birthdays, saved);
+  assert.equal(state.records[0].birthdayMonth, undefined);
+  const save = fields => handler(request(deityURL, {...state, records:[{...state.records[0], ...fields}]}));
+  assert.equal((await save({birthdayMonth:13})).status, 400);
+  assert.equal((await save({birthdayDay:31})).status, 400);
+  assert.equal((await save({rotationTime:['时间']})).status, 400);
+  state = await ok(await save({birthdayMonth:3, birthdayDay:7, rotationTime:' 农历每月十八日 '}));
+  const {birthdayMonth, birthdayDay, rotationTime, ...oldClient} = state.records[0];
+  assert.deepEqual([birthdayMonth,birthdayDay,rotationTime], [3,7,'农历每月十八日']);
+  state = await ok(await handler(request('/api/deities', {...state, records:[{...oldClient, description:'只修改原有简介'}]})));
   const response = await handler(request('/api/deities?id=old', undefined, false));
   assert.equal(response.headers.get('vary'), 'Cookie');
   const visible = await ok(response);
-  assert.deepEqual(visible.records[0].birthdays.map(item => item.id), ['nine-28','variant']);
-  assert.doesNotMatch(JSON.stringify(visible), /PRIVATE/);
+  assert.equal(visible.editable, false);
+  assert.deepEqual(visible.records, state.records);
+  assert.equal(visible.records[0].birthdayDay, 7);
+  assert.equal(visible.records[0].rotationTime, '农历每月十八日');
+  state = await ok(await save({birthdayDay:null}));
+  assert.equal(state.records[0].birthdayMonth, 3);
+  assert.equal(state.records[0].birthdayDay, null);
+  state = await ok(await save({birthdayMonth:null, rotationTime:''}));
+  const reopened = (await ok(await handler(request(deityURL)))).records[0];
+  assert.equal(reopened.birthdayMonth, undefined);
+  assert.equal(reopened.birthdayDay, undefined);
+  assert.equal(reopened.rotationTime, undefined);
+  assert.equal(reopened.description, '只修改原有简介');
 });
 
-test('rotation backup retains lunar years, leap months, statuses and independent village IDs', async () => {
+test('legacy archives and backups retain one complete lunar date and the recurring time without disclosing notes or stops', async () => {
   const store = memoryStore(), handler = recordsHandler('deities', () => store);
   const readFaith = recordsHandler('faith', () => store);
   const originalFaith = await ok(await readFaith(request('/api/faith')));
-  const schedule = structuredClone(rotation);
-  schedule.scheduleBatches[0].stops[0].entryId = 'public-visit';
-  schedule.scheduleBatches[0].stops[1].entryId = 'PRIVATE_VISIT';
-  const original = await ok(await handler(request(deityURL, {...deitySeed, records:[deity('rotation', {rotationGroups:[schedule]})]})));
-  const journals = fieldJournalHandler(() => store);
-  const publicJournal = await ok(await saveLog(journals,0,log('public-visit',undefined,{visibility:'public'}),{confirmPublic:true}));
-  await ok(await saveLog(journals,publicJournal.revision,log('PRIVATE_VISIT',undefined,{placeId:dedou})));
-  const group = original.records[0].rotationGroups[0];
-  assert.equal(group.cycleRules[0].lunarDay, 18);
-  assert.equal(group.cycleRules[0].leapPolicy, 'unknown');
-  assert.deepEqual(group.scheduleBatches[0].stops.map(s => [s.lunarYear,s.leapMonth,s.status,s.placeId]), [
-    [2026,'regular','scheduled',xianbao], [2027,'leap','adjusted',dedou], [2027,'unknown','cancelled',null]
-  ]);
-  assert.deepEqual(await ok(await readFaith(request('/api/faith'))), originalFaith);
+  const legacy = {...deitySeed, records:[
+    deity('rotation', {
+      birthdays:[
+        birthday('local-variant', {lunarMonth:3, lunarDay:7, visibility:'editors', sourceNote:'PRIVATE_BIRTH_SOURCE'}),
+        birthday('nine-28', {visibility:'public', applicablePlaceIds:[xianbao], originalText:'PRIVATE_ORIGINAL'})
+      ],
+      rotationGroups:[rotation]
+    }),
+    deity('private-time', {
+      birthdays:[birthday('partial', {lunarDay:null})],
+      rotationGroups:[{...rotation, visibility:'editors', cycleRules:[{cycleType:'custom',originalText:'PRIVATE_CUSTOM_TIME'}]}]
+    })
+  ]};
+  await store.setJSON('deities', legacy);
   const visible = await ok(await handler(request(deityURL, undefined, false)));
-  assert.doesNotMatch(JSON.stringify(visible), /PRIVATE/);
-  const publicStops = visible.records[0].rotationGroups[0].scheduleBatches[0].stops;
-  assert.equal(publicStops[0].placeId, xianbao);
-  assert.equal(publicStops[0].entryId, 'public-visit');
-  assert.equal(publicStops[1].entryId, undefined);
-  assert.equal(publicStops[0].status, 'scheduled');
-  const restoredStore = memoryStore(), restore = recordsHandler('deities', () => restoredStore);
-  const backup = JSON.parse(JSON.stringify(original));
-  await ok(await restore(request(deityURL, {...backup, revision:0})));
-  assert.deepEqual((await ok(await restore(request(deityURL)))).records[0].rotationGroups, [group]);
-  const withoutYear = structuredClone(backup.records);
-  withoutYear[0].rotationGroups[0].scheduleBatches[0].stops[0].lunarYear = null;
-  assert.equal((await handler(request(deityURL, {...original, records:withoutYear}))).status, 400);
+  const values = record => [record.birthdayMonth, record.birthdayDay, record.rotationTime];
+  assert.deepEqual(visible.records.map(values), [[9,28,'农历每月18日'],[9,null,undefined]]);
+  assert.doesNotMatch(JSON.stringify(visible), /PRIVATE|birthdays|rotationGroups|scheduleBatches|draw-a/);
+  assert.deepEqual((await store.getWithMetadata('deities')).data, legacy);
+
+  const importLegacy = recordsHandler('deities', memoryStoreFactory());
+  await ok(await importLegacy(request(deityURL, legacy)));
+  const exported = await ok(await importLegacy(request(deityURL)));
+  assert.deepEqual(exported.records.map(values), visible.records.map(values));
+  assert.doesNotMatch(JSON.stringify(exported), /PRIVATE|birthdays|rotationGroups/);
+  const restore = recordsHandler('deities', memoryStoreFactory());
+  await ok(await restore(request(deityURL, {...JSON.parse(JSON.stringify(exported)), revision:0})));
+  assert.deepEqual((await ok(await restore(request(deityURL)))).records, exported.records);
+  assert.deepEqual(await ok(await readFaith(request('/api/faith'))), originalFaith);
 });
 
 test('each ritual keeps its deity pairing, and summaries and counts can use only authorized logs', async () => {
@@ -184,12 +185,12 @@ function memoryStoreFactory() {
   return () => store;
 }
 
-test('merging deities preserves independent observances and moves only ritual deity references', async () => {
+test('merging deities keeps the primary lunar date, fills a missing time and moves ritual deity references', async () => {
   const store = memoryStore();
   const gods = recordsHandler('deities', () => store);
   await ok(await gods(request(deityURL,{...deitySeed,records:[
-    deity('one',{birthdays:[birthday('source-date',{sourceNote:'第一来源'})],rotationGroups:[rotation]}),
-    deity('two',{birthdays:[birthday('target-date',{sourceNote:'第二来源'})]})
+    deity('one',{birthdayMonth:9,birthdayDay:28,rotationTime:'农历每月十八日'}),
+    deity('two',{birthdayMonth:3,birthdayDay:7})
   ]})));
   const journals = fieldJournalHandler(() => store);
   const saved = await ok(await saveLog(journals,0,log('ritual-test',[link('both','statue-rotation',['one','two'])])));
@@ -198,8 +199,8 @@ test('merging deities preserves independent observances and moves only ritual de
   const preview = await ok(await handler(request(path,{action:'preview',kind:'deities',sourceId:'one',targetId:'two'})));
   await ok(await handler(request(path,{action:'merge',kind:'deities',sourceId:'one',targetId:'two',snapshotToken:preview.snapshotToken,choices:{},confirm:true})));
   const merged = (await ok(await gods(request('/api/deities?id=one')))).records[0];
-  assert.deepEqual(merged.birthdays.map(item=>item.id),['target-date','source-date']);
-  assert.equal(merged.rotationGroups[0].scheduleBatches[0].id,'draw-a');
+  assert.deepEqual([merged.birthdayMonth,merged.birthdayDay], [3,7]);
+  assert.equal(merged.rotationTime, '农历每月十八日');
   const entry = (await ok(await journals(request(journalURL)))).records[0];
   assert.deepEqual(entry.ritualLinks,[link('both','statue-rotation',['two'])]);
   assert.equal(entry.content,saved.records[0].content);

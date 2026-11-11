@@ -6,7 +6,7 @@ import { deitySeed, normalizeDeityCatalog, normalizeDeityLinks } from './deities
 import { createArchiveStore } from './archive-store.mjs';
 import { faithPlaceIndex, faithAssociationAction } from './faith-associations.mjs';
 import { updateFaithWorship } from './faith-worship.mjs';
-import { publicObservances } from './deity-observances.mjs';
+import { projectObservances } from './deity-observances.mjs';
 import worship from '../../worship-info.js';
 
 const revisionValid = value => Number.isInteger(value) && value >= 0 && value < 2147483647;
@@ -59,29 +59,6 @@ export function normalizeArchives(items) {
 }
 const seeds = {points:pointsSeed,faith:faithSeed,archives:{version:1,revision:0,records:[]},deities:deitySeed};
 const normalizers = {points:normalizePoints,faith:normalizeFaith,archives:normalizeArchives};
-const placeIds = new Set(faithPlaceIndex.places.map(place => place.id));
-const villageIds = new Set(faithPlaceIndex.places.filter(place =>
-  ['natural_village', 'administrative_seat'].includes(place.placeKind) && !place.parentVillageId
-).map(place => place.id));
-
-async function deityState(store, state, details, editable) {
-  if (editable && details) return {...state, editable: true};
-  const publicEntries = new Map();
-  const hasEntryLinks = details && state.records.some(record => record.rotationGroups?.some(group =>
-    group.visibility === 'public' && group.scheduleBatches.some(batch => batch.stops.some(stop => stop.entryId && villageIds.has(stop.placeId)))
-  ));
-  if (hasEntryLinks) {
-    const journals = await store.getWithMetadata('field_entries',{type:'json'});
-    for (const entry of journals?.data.records || []) {
-      if (entry.visibility === 'public' && entry.placeKind === 'reference') publicEntries.set(entry.id,entry.placeId);
-    }
-  }
-  const records = state.records.map(record => {
-    const {birthdays, rotationGroups, ...summary} = record;
-    return details ? {...summary, ...publicObservances({birthdays, rotationGroups}, villageIds, publicEntries)} : summary;
-  });
-  return {...state, records, ...(details ? {editable: false} : {})};
-}
 
 async function readState(store,kind) {
   const entry=await store.getWithMetadata(kind,{type:'json'});
@@ -100,14 +77,14 @@ export function recordsHandler(kind, storeFactory = () => getStore({name:'naozho
       const details = kind === 'deities' && (query.get('view') === 'archive' || query.has('id'));
       const editable = request.method === 'POST' || details ? (await resolveEditorAuth(store)).authorized(request) : false;
       if(request.method==='POST'&&!editable)return json({error:'请先登录编辑。'},401);
-      const respond = async (state, status = 200) => kind === 'deities'
-        ? json(await deityState(store, state, details, editable), status, {'Cache-Control': 'private, no-store', Vary: 'Cookie'})
+      const respond = (state, status = 200) => kind === 'deities'
+        ? json({...state, records: state.records.map(projectObservances), ...(details ? {editable} : {})}, status, {'Cache-Control': 'private, no-store', Vary: 'Cookie'})
         : json(state, status);
       const current=await readState(store,kind);
       if (request.method==='GET') {
         if(kind==='faith')return json({...current.state,records:current.state.records.map(record=>({...record,...(record.deityLinks?{deityLinks:record.deityLinks.map(link=>({...link,...worship.info(link)}))}:{})}))});
-        if(kind==='deities'&&query.has('id')){const id=await store.resolveId('deities',query.get('id'));return await respond({...current.state,records:current.state.records.filter(record=>record.id===id)});}
-        return await respond(current.state);
+        if(kind==='deities'&&query.has('id')){const id=await store.resolveId('deities',query.get('id'));return respond({...current.state,records:current.state.records.filter(record=>record.id===id)});}
+        return respond(current.state);
       }
       if (!(request.headers.get('content-type')||'').startsWith('application/json')) return json({error:'Use application/json.'},415);
       if (Number(request.headers.get('content-length')) > 5*1024*1024) return json({error:'资料过大，请分批导入。'},413);
@@ -122,11 +99,11 @@ export function recordsHandler(kind, storeFactory = () => getStore({name:'naozho
       }
       try {
         if (!revisionValid(body.revision) || (kind!=='points' && body.version!==1)) throw Error('记录版本无效。');
-        if (kind==='deities') { deityCatalog=normalizeDeityCatalog(body,current.state,placeIds); items=deityCatalog.records; }
+        if (kind==='deities') { deityCatalog=normalizeDeityCatalog(body,current.state); items=deityCatalog.records; }
         else if (kind==='faith') items=normalizeFaith(body.records,current.state.records,(await readState(store,'deities')).state);
         else items=normalizers[kind](kind==='points'?body.points:body.records);
       } catch(error) {return json({error:error.message},400);}
-      if (body.revision!==current.state.revision) return await respond(current.state,409);
+      if (body.revision!==current.state.revision) return respond(current.state,409);
       const next={version:1,revision:current.state.revision+1,[kind==='points'?'points':'records']:items};
       if (kind==='deities') next.titles=deityCatalog.titles;
       if (kind==='points') {
@@ -136,8 +113,8 @@ export function recordsHandler(kind, storeFactory = () => getStore({name:'naozho
         next.deletedIds=[...new Set([...(current.state.deletedIds||[]),...current.state.points.filter(point=>!present.has(point.id)).map(point=>point.id)])].filter(id=>!present.has(id));
       }
       const saved=await store.setJSON(kind,next,current.etag?{onlyIfMatch:current.etag}:{onlyIfNew:true});
-      if (!saved.modified) return await respond((await readState(store,kind)).state,409);
-      return await respond(['faith','deities'].includes(kind)?(await readState(store,kind)).state:next);
+      if (!saved.modified) return respond((await readState(store,kind)).state,409);
+      return respond(['faith','deities'].includes(kind)?(await readState(store,kind)).state:next);
     } catch(error) {
       if(error.code==='ARCHIVE_CONFLICT')return json({error:'档案或关联已合并、删除，请刷新后重新保存。填写内容仍保留。'},409);
       console.error('Cloud storage operation failed:',error.name);

@@ -19,7 +19,7 @@ function uniqueRecords(items,max=10000) {
     ids.add(item.id);
   }
 }
-export function normalizeDeityCatalog(body,current=deitySeed,placeIds) {
+export function normalizeDeityCatalog(body,current=deitySeed) {
   uniqueRecords(body.titles,200); uniqueRecords(body.records);
   const titles=body.titles.map(item=>{
     if (!required(item.name,80)) throw Error('请填写神函名称。');
@@ -33,7 +33,7 @@ export function normalizeDeityCatalog(body,current=deitySeed,placeIds) {
     if (!required(item.name,100) || !Array.isArray(item.aliases) || item.aliases.length>100 || item.aliases.some(name=>!required(name,100))) throw Error('神明名称或别名无效。');
     if (!Array.isArray(item.titleIds) || item.titleIds.some(id=>!titleIds.has(id)) || new Set(item.titleIds).size!==item.titleIds.length) throw Error('神函引用无效。');
     const previous=current.records.find(record=>record.id===item.id);
-    return {id:item.id,name:item.name.trim(),aliases:item.aliases.map(name=>name.trim()),titleIds:item.titleIds,description:text(item.description,20000),identityNote:text(item.identityNote,10000),source:text(item.source,2000),createdAt:text(item.createdAt,100)||new Date().toISOString(),updatedAt:text(item.updatedAt,100)||new Date().toISOString(),archivedAt:text(item.archivedAt??previous?.archivedAt,100),mergedFromIds:previous?.mergedFromIds||[],...normalizeObservances(item,previous,placeIds)};
+    return {id:item.id,name:item.name.trim(),aliases:item.aliases.map(name=>name.trim()),titleIds:item.titleIds,description:text(item.description,20000),identityNote:text(item.identityNote,10000),source:text(item.source,2000),createdAt:text(item.createdAt,100)||new Date().toISOString(),updatedAt:text(item.updatedAt,100)||new Date().toISOString(),archivedAt:text(item.archivedAt??previous?.archivedAt,100),mergedFromIds:previous?.mergedFromIds||[],...normalizeObservances(item,previous)};
   });
   // A tombstone keeps cross-village references valid, including concurrent edits.
   for (const previous of current.records) if (!records.some(item=>item.id===previous.id)) throw Error('神明档案请使用归档，不可直接移除已有编号。');

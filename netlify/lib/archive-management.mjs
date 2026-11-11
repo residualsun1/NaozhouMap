@@ -5,7 +5,7 @@ import { createArchiveStore, canonicalId } from './archive-store.mjs';
 import { normalizePerson } from './people.mjs';
 import {projectIdentityNames} from './person-identities.mjs';
 import { normalizeDeityCatalog } from './deities.mjs';
-import { mergeObservances } from './deity-observances.mjs';
+import { mergeObservances, projectObservances } from './deity-observances.mjs';
 
 const validKind=kind=>['people','deities'].includes(kind);
 const name=record=>record?.displayName||record?.name||'';
@@ -119,7 +119,9 @@ export function archiveManagementHandler(storeFactory=()=>getStore({name:'naozho
         if(!validKind(kind)||!id)return respond({error:'请指定人物或神明档案。'},400);
         const resolved=canonicalId(manifest,kind,id),record=states[kind].records.find(record=>record.id===resolved);
         if(!record)return respond({error:'档案不存在或已删除。'},404);
-        const exposed=kind==='people'&&states.people.identitySchemaVersion===1?projectIdentityNames({...states.people,records:[record]})[0]:record;
+        let exposed = record;
+        if (kind === 'deities') exposed = projectObservances(record);
+        else if (states.people.identitySchemaVersion === 1) exposed = projectIdentityNames({...states.people, records:[record]})[0];
         return respond({kind,id,canonicalId:resolved,record:exposed,refs:archiveReferences(states,kind,resolved),duplicates:duplicateCandidates(record,states[kind].records),stats:stats(states),operations:manifest.operations.filter(item=>item.kind===kind&&[item.id,item.sourceId,item.targetId,item.recordId].includes(id)).slice(-30).reverse(),snapshotToken:snapshot.token});
       }
       if(!(request.headers.get('content-type')||'').startsWith('application/json'))return respond({error:'Use application/json.'},415);
@@ -134,7 +136,12 @@ export function archiveManagementHandler(storeFactory=()=>getStore({name:'naozho
         if(!source||!target||sourceId===targetId)return respond({error:'请选择两个不同且存在的档案。'},400);
         if(sourceId!==body.sourceId||targetId!==body.targetId)return respond({error:'所选档案已发生合并，请刷新后重新预览。'},409);
         const refs={source:archiveReferences(states,kind,sourceId),target:archiveReferences(states,kind,targetId)};
-        if(action==='preview'){const exposed=kind==='people'&&states.people.identitySchemaVersion===1?projectIdentityNames({...states.people,records:[source,target]}):[source,target];return respond({kind,source:exposed[0],target:exposed[1],refs,conflicts:conflictFields(kind,source,target),snapshotToken:snapshot.token});}
+        if (action === 'preview') {
+          let exposed = [source, target];
+          if (kind === 'deities') exposed = exposed.map(projectObservances);
+          else if (states.people.identitySchemaVersion === 1) exposed = projectIdentityNames({...states.people, records:exposed});
+          return respond({kind,source:exposed[0],target:exposed[1],refs,conflicts:conflictFields(kind,source,target),snapshotToken:snapshot.token});
+        }
       }
       if(body.confirm!==true||typeof body.snapshotToken!=='string')return respond({error:'请确认操作并使用当前预览。'},400);
       if(body.snapshotToken!==snapshot.token)return respond({error:'其他页面已更新资料，请重新预览后操作。',snapshotToken:snapshot.token},409);
