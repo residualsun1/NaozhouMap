@@ -5,12 +5,18 @@
   <title>神明谱系 · 硇洲岛田野图集</title>
   <link rel="stylesheet" href="/map.css"><link rel="stylesheet" href="/archive-layout.css"><link rel="stylesheet" href="/deity-atlas.css"><link rel="stylesheet" href="/deity-villages.css"><link rel="stylesheet" href="/cloud-access.css"><link rel="stylesheet" href="/archive-management.css">
   <link rel="stylesheet" href="/worship.css">
+  <link rel="stylesheet" href="/deity-observances.css">
+  <link rel="stylesheet" href="/ritual-atlas.css">
 </head>
 <body class="deity-page">
   <header class="atlas-header">
     <div class="atlas-brand"><a href="/">硇洲岛田野图集</a><span>/</span><h1>神明谱系</h1><small>DEITY ATLAS</small></div>
     <div class="atlas-header-actions"><a class="atlas-map-link" href="/">返回地图</a><button id="deity-new" class="primary" type="button" disabled>新增神明</button></div>
   </header>
+  <nav class="deity-view-nav" aria-label="神明谱系视图">
+    <a id="deity-view-link" href="/deities" aria-current="page">神明档案</a>
+    <a id="ritual-view-link" href="/deities?view=rituals">仪式汇总</a>
+  </nav>
   <main class="deity-layout archive-layout">
     <div id="deity-index-panels" class="deity-index-panels archive-index-panels">
     <nav class="deity-navigation" aria-label="神函分类">
@@ -33,14 +39,32 @@
       <article id="deity-record" hidden></article>
       <form id="deity-form" hidden>
         <span class="atlas-eyebrow">DEITY RECORD</span><h2 id="deity-form-heading">新增神明</h2><p class="note">同名神明可分别建档；身份以档案 ID 区分。</p>
-        <div id="deity-fields"></div><div class="button-row form-actions"><button type="submit" class="primary">保存档案</button><button id="deity-cancel" type="button">取消</button></div><p id="deity-form-status" class="status" role="status" aria-live="polite"></p>
+        <div id="deity-fields"></div><div id="deity-observance-fields"></div><div class="button-row form-actions"><button type="submit" class="primary">保存档案</button><button id="deity-cancel" type="button">取消</button></div><p id="deity-form-status" class="status" role="status" aria-live="polite"></p>
       </form>
       </div>
     </section>
     </div>
   </main>
+  <main id="ritual-workspace" class="ritual-workspace" hidden>
+    <aside class="ritual-sidebar">
+      <nav id="ritual-index" aria-label="仪式类型"></nav>
+      <div id="ritual-auth-slot"></div>
+      <div id="ritual-editor-tools" hidden>
+        <button id="ritual-manage" class="linkbutton" type="button">管理仪式类型</button>
+        <details class="atlas-backup">
+          <summary>日志与仪式备份</summary>
+          <div class="button-row"><button id="ritual-export" type="button">导出</button><button id="ritual-import" type="button">导入</button></div>
+          <input id="ritual-import-file" type="file" accept=".json,application/json" hidden>
+        </details>
+      </div>
+      <p id="ritual-status" class="status" role="status" aria-live="polite"></p>
+    </aside>
+    <section id="ritual-detail" class="ritual-detail" aria-label="仪式资料">
+      <div id="ritual-document" class="archive-document"></div>
+    </section>
+  </main>
   <dialog id="deity-titles-dialog" class="atlas-dialog"><form id="deity-titles-form"><h2>神函索引</h2><div id="deity-title-fields"></div><label for="deity-title-new">新增神函</label><input id="deity-title-new" maxlength="80"><div class="button-row form-actions"><button type="submit" class="primary">保存索引</button><button id="deity-titles-cancel" type="button">取消</button></div><p id="deity-titles-status" class="status" role="status" aria-live="polite"></p></form></dialog>
   <dialog id="cloud-login" class="cloud-login" aria-labelledby="cloud-login-title"><form id="cloud-login-form"><h2 id="cloud-login-title">登录编辑</h2><label for="cloud-password">编辑口令</label><input id="cloud-password" type="password" autocomplete="current-password" required><p id="cloud-login-status" class="status" role="status"></p><div class="button-row form-actions"><button type="submit" class="primary">登录</button><button id="cloud-login-cancel" type="button">取消</button></div></form></dialog>
-  <script src="/place-names.js"></script><script src="/cloud-access.js"></script><script src="/archive-management.js"></script><script src="/archive-layout.js"></script><script src="/worship-info.js"></script><script src="/deity-catalog.js"></script><script src="/deity-villages.js"></script><script src="/worship-editor.js"></script><script src="/deity-atlas.js"></script>
+  <script src="/place-names.js"></script><script src="/cloud-access.js"></script><script src="/archive-management.js"></script><script src="/archive-layout.js"></script><script src="/worship-info.js"></script><script src="/deity-catalog.js"></script><script src="/deity-villages.js"></script><script src="/worship-editor.js"></script><script src="/deity-observances.js"></script><script src="/ritual-atlas.js"></script><script src="/deity-atlas.js"></script>
 </body>
 </html>

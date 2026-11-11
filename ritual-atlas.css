@@ -1,0 +1,48 @@
+.deity-page { display: flex; flex-direction: column; height: 100dvh; }
+.deity-page > .atlas-header, .deity-view-nav { flex-shrink: 0; }
+.deity-page > main.deity-layout, .deity-page > .ritual-workspace { flex: 1; height: auto; min-height: 0; }
+.deity-view-nav { display: flex; gap: 8px; padding: 5px 24px; border-bottom: 1px solid var(--line); background: var(--paper); }
+.deity-view-nav a { display: inline-flex; align-items: center; min-height: 34px; padding: 0 12px; color: var(--text-secondary); font-size: 12px; text-decoration: none; border-radius: 6px; }
+.deity-view-nav a[aria-current], .deity-view-nav a:hover { background: var(--accent-soft); color: var(--text-primary); }
+.ritual-workspace { grid-template-columns: minmax(165px, 220px) minmax(0, 1fr); background: var(--paper); }
+.ritual-sidebar { min-height: 0; min-width: 0; padding: 24px 18px; overflow: auto; border-right: 1px solid var(--line); background: var(--panel); }
+#ritual-index { display: grid; gap: 4px; }
+#ritual-index a { text-decoration: none; overflow-wrap: anywhere; }
+#ritual-index a:hover { background: var(--color-surface-hover); color: var(--ink); }
+#ritual-auth-slot .cloud-access { flex-wrap: wrap; }
+#ritual-editor-tools { margin-top: 16px; }
+#ritual-editor-tools .atlas-backup { margin-top: 12px; }
+.ritual-detail { min-height: 0; min-width: 0; overflow: auto; }
+.ritual-detail h2 { font-size: 27px; line-height: 1.45; overflow-wrap: anywhere; }
+.ritual-detail h2:focus { outline: none; }
+.ritual-detail .deity-section { margin: 25px 0; padding-bottom: 22px; }
+.ritual-type-card, .ritual-journal-row { padding: 16px 0; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+.ritual-type-name, .ritual-entry-link, .ritual-name-links a, .ritual-related a { color: var(--color-link); }
+.ritual-type-name { font-size: 17px; font-weight: 600; text-decoration: none; }
+.ritual-type-card p, .ritual-journal-row p { margin: 8px 0 0; }
+.ritual-journal-row:last-child { border-bottom: 0; }
+.ritual-journal-row h4 { font-size: 15px; margin: 0; }
+.ritual-entry-link { display: inline-block; margin-top: 8px; font-size: 12px; }
+.ritual-name-links { display: flex; flex-wrap: wrap; gap: 5px 14px; margin-top: 7px; font-size: 13px; }
+.ritual-related-row { padding: 8px 0; border-bottom: 1px solid var(--line); }
+.ritual-related-row > a { font-weight: 550; }
+.ritual-related-row p { margin: 5px 0 9px; }
+.ritual-related-row p small { margin-left: 8px; color: var(--text-secondary); }
+.ritual-directory-row { padding: 5px 0 9px; border-top: 1px solid var(--line); }
+.ritual-directory-row :is(input, textarea):not([type=checkbox]) { display: block; margin-top: 6px; }
+.ritual-directory-row textarea { min-height: 62px; }
+.ritual-directory-enabled { display: flex; align-items: center; gap: 8px; }
+.ritual-directory-enabled input { width: 16px; height: 16px; margin: 0; }
+.ritual-directory form > button { margin-top: 14px; }
+@media (max-width: 800px) {
+  .deity-view-nav { padding-inline: 14px; }
+  .deity-view-nav a { min-height: 40px; }
+  .ritual-workspace { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+  .ritual-sidebar { padding: 10px 14px; border-right: 0; border-bottom: 1px solid var(--line); max-height: 35dvh; }
+  #ritual-index { display: flex; overflow-x: auto; padding-bottom: 4px; }
+  #ritual-index a { align-items: center; min-height: 40px; white-space: nowrap; }
+  #ritual-auth-slot .cloud-access { margin: 4px 0; padding: 4px 0; }
+  #ritual-editor-tools { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 4px 16px; margin-top: 4px; }
+  #ritual-editor-tools .atlas-backup { margin: 0; display: block; }
+  .ritual-directory :is(input,textarea) { font-size: 16px; }
+}

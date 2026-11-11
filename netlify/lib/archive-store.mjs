@@ -41,6 +41,7 @@ function canonicalize(states,manifest) {
   };
   for (const item of states.faith.records) if(item.deityLinks) item.deityLinks=item.deityLinks.map(link=>({...link,deityId:resolve('deities',link.deityId)}));
   for (const item of [...states.people.records,...states.field_entries.records]) if(item.deityIds) item.deityIds=unique(item.deityIds.map(id=>resolve('deities',id)));
+  for (const item of states.field_entries.records) for (const link of item.ritualLinks || []) link.deityIds=unique(link.deityIds.map(id=>resolve('deities',id)));
   for (const item of states.field_entries.records) if(item.peopleLinks) item.peopleLinks=deduplicatePeopleLinks(item.peopleLinks.map(link=>({...link,personId:resolve('people',link.personId)})));
   return existing;
 }
@@ -48,6 +49,7 @@ function references(states) {
   const result=[];
   for(const item of states.faith.records) for(const link of item.deityLinks||[]) result.push(['deities',link.deityId]);
   for(const item of [...states.people.records,...states.field_entries.records]) for(const id of item.deityIds||[]) result.push(['deities',id]);
+  for(const item of states.field_entries.records) for(const link of item.ritualLinks||[]) for(const id of link.deityIds) result.push(['deities',id]);
   for(const item of states.field_entries.records) for(const link of item.peopleLinks||[]) result.push(['people',link.personId]);
   return new Set(result.map(value=>JSON.stringify(value)));
 }

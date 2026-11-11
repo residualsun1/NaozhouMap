@@ -4,6 +4,7 @@ window.DeityAtlas = (() => {
   const uid = () => crypto.randomUUID ? crypto.randomUUID() : 'deity-'+Date.now()+'-'+Math.random().toString(36).slice(2);
   const profileURL = (id,returnMap='') => '/deities?'+new URLSearchParams({id,...(returnMap?{mapReturn:returnMap}:{})});
   const mapURL = (kind,id,recordId='') => '/?'+new URLSearchParams({placeKind:kind,placeId:id,...(recordId?{faithId:recordId}:{})});
+  const entryURL = (kind,id,entryId) => '/?'+new URLSearchParams({placeKind:kind,placeId:id,entryId,view:'reading'});
   const exploreURL = (id='',returnMap='') => '/?'+new URLSearchParams({...(id?{deity:id}:{}),...(returnMap?{mapReturn:returnMap}:{})});
   function element(tag,className='',text='') {
     const node=document.createElement(tag); if(className)node.className=className; if(text)node.textContent=text; return node;
@@ -15,24 +16,38 @@ window.DeityAtlas = (() => {
     for(const item of state.records){if(typeof item.id!=='string'||!item.id||ids.has(item.id)||typeof item.name!=='string'||!item.name.trim()||!Array.isArray(item.aliases)||item.aliases.some(name=>typeof name!=='string')||!Array.isArray(item.titleIds)||item.titleIds.some(id=>!titles.has(id)))throw Error('神明档案无效。');ids.add(item.id);}
     return state;
   }
-  function createCatalog({lazy=false}={}) {
-    let state=null,saving=false,loading=null;
+  // Older catalog writers can omit observances. Keep large schedules out of unrelated saves.
+  const withoutObservances = ({birthdays,rotationGroups,...record}) => record;
+  function createCatalog({lazy=false, archive=false}={}) {
+    let state=null,saving=false,loading=null,accessVersion=0;
+    const endpoint='/api/deities'+(archive?'?view=archive':'');
     const listeners=new Set();
     const emit=()=>listeners.forEach(callback=>callback());
     const request=(url,options)=> (window.NaozhouCloud?.request || fetch)(url,options);
     function load(){
       if(loading)return loading;
-      const job=(async()=>{const response=await request('/api/deities',{cache:'no-store'});if(!response.ok)throw Error('神明总库未能读取，请刷新重试。');state=validate(await response.json());emit();return state;})();
+      const version=accessVersion;
+      const job=(async()=>{
+        const response=await request(endpoint,{cache:'no-store'});
+        if(!response.ok)throw Error('神明总库未能读取，请刷新重试。');
+        const data=validate(await response.json());
+        if(version===accessVersion&&(!state||data.revision>=state.revision)){state=data;emit();}
+        return data;
+      })();
       loading=job;return job.finally(()=>{if(loading===job)loading=null;});
     }
     const ensure=()=>state?Promise.resolve(state):load(),ready=lazy?Promise.resolve(null):load();
+    if(archive)document.addEventListener('naozhou-access-change',event=>{
+      if(event.detail.reason==='session'&&!state)return;
+      accessVersion++;state=null;loading=null;emit();load().catch(()=>{});
+    });
     async function save(next) {
       if(!state||saving)throw Error('神明总库尚未就绪或正在保存。');
       saving=true;
       try {
-        const response=await request('/api/deities',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...next,version:1,revision:state.revision})});
+        const response=await request(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...next,version:1,revision:state.revision})});
         const result=await response.json();
-        if(response.status===409){state=validate(result);emit();throw Error('另一页面已更新总库，填写内容仍保留，请再次保存。');}
+        if(response.status===409){if(Array.isArray(result.records)){state=validate(result);emit();}throw Error(result.error||'另一页面已更新总库，填写内容仍保留，请核对后再保存。');}
         if(!response.ok)throw Error(result.error||'神明档案未能保存，请保留填写内容。');
         state=validate(result);emit();return state;
       } finally {saving=false;}
@@ -42,9 +57,31 @@ window.DeityAtlas = (() => {
       subscribe(callback){listeners.add(callback);return()=>listeners.delete(callback);},
       get(id){const seen=new Set();while(id&&!seen.has(id)){seen.add(id);const record=state?.records.find(item=>item.id===id),next=record?.mergedInto||state?.redirects?.[id];if(next){id=next;continue;}return record;}},
       search(query){const term=query.trim().toLocaleLowerCase();return (state?.records||[]).filter(item=>!item.archivedAt&&!item.mergedInto&&(!term||[item.name,...item.aliases].some(name=>name.toLocaleLowerCase().includes(term))));},
-      async saveRecord(values){await ensure();const previous=values.id?this.get(values.id):null;if(previous&&values.id&&previous.id!==values.id)throw Error('此档案已合并，请打开当前主档案编辑。');const now=new Date().toISOString();const record={...previous,...values,id:previous?.id||values.id||uid(),createdAt:previous?.createdAt||now,updatedAt:now};await save({titles:state.titles,records:state.records.filter(item=>item.id!==record.id).concat(record)});return this.get(record.id);},
-      async saveTitles(titles){await ensure();return save({titles,records:state.records});},
-      async importCatalog(incoming){validate(incoming);await ensure();const titles=state.titles.slice();for(const title of incoming.titles){const old=titles.find(item=>item.id===title.id);if(old&&old.name!==title.name)throw Error('同编号神函名称不同，请人工核对。');if(!old)titles.push(title);}const ids=new Set(state.records.map(item=>item.id));return save({titles,records:state.records.concat(incoming.records.filter(item=>!ids.has(item.id)))});}
+      async saveRecord(values){
+        await ensure();
+        const previous=values.id?this.get(values.id):null;
+        if(previous&&previous.id!==values.id)throw Error('此档案已合并，请打开当前主档案编辑。');
+        if(values.updatedAt&&previous?.updatedAt!==values.updatedAt)throw Error('这份档案已在其他页面修改或移除。当前填写仍保留，请重新打开最新档案核对。');
+        const now=new Date().toISOString();
+        const record={...previous,...values,id:previous?.id||values.id||uid(),createdAt:previous?.createdAt||now,updatedAt:now};
+        await save({titles:state.titles,records:state.records.filter(item=>item.id!==record.id).map(withoutObservances).concat(record)});
+        return this.get(record.id);
+      },
+      async saveTitles(titles){await ensure();return save({titles,records:state.records.map(withoutObservances)});},
+      async importCatalog(incoming){
+        validate(incoming);
+        await ensure();
+        const titles=state.titles.slice();
+        for(const title of incoming.titles){
+          const old=titles.find(item=>item.id===title.id);
+          if(old&&old.name!==title.name)throw Error('同编号神函名称不同，请人工核对。');
+          if(!old)titles.push(title);
+        }
+        const ids=new Set(state.records.map(item=>item.id));
+        const added=incoming.records.filter(item=>!ids.has(item.id));
+        if(!added.length&&titles.length===state.titles.length)return state;
+        return save({titles,records:state.records.map(withoutObservances).concat(added)});
+      }
     };
   }
   const fieldDisposers=new WeakMap();
@@ -82,5 +119,5 @@ window.DeityAtlas = (() => {
     });
   }
   const faithDetailsPending=record=>!['temple','festival','source','visitedOn','note'].some(field=>record[field]?.trim());
-  return {uid,element,profileURL,mapURL,exploreURL,validate,createCatalog,createFields,villagesFor,locatedVillagesFor,faithDetailsPending};
+  return {uid,element,profileURL,mapURL,entryURL,exploreURL,validate,createCatalog,createFields,villagesFor,locatedVillagesFor,faithDetailsPending};
 })();

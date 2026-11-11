@@ -13,10 +13,111 @@ window.createFieldJournal = options => {
   }
   let place=null,state=null,legacy=null,legacyInput=null,editing=null,draftId=null,dirty=false,saving=false,loading=false,loadId=0,legacyId=0,openedId=null,pendingEntry=null,loadError='';
   const peoplePicker=window.createJournalPeople($('journal-people-picker'),options.peopleCatalog,()=>{dirty=true;});
+  let readRitualLinks = () => [];
   const placeKey = () => place ? place.kind+':'+place.id : '';
   const request = (...args) => (window.NaozhouCloud?.request || fetch)(...args);
   const endpoint = () => './api/field-entries?'+new URLSearchParams({placeId:place.id,placeKind:place.kind});
   const element = (tag,className='',text='') => {const node=document.createElement(tag);node.className=className;node.textContent=text;return node;};
+  const ritualTypeURL = id => '/deities?'+new URLSearchParams({view:'rituals',ritualId:id});
+  function ritualFields(initial) {
+    const host = $('journal-ritual-picker');
+    host.replaceChildren();
+    const directory = (state.ritualTypes || []).slice().sort((a,b) => a.sortOrder-b.sortOrder || a.id.localeCompare(b.id));
+    const heading = element('div', 'section-title');
+    const add = element('button', 'linkbutton', '＋ 添加仪式');
+    add.type = 'button';
+    add.disabled = !directory.some(type => type.enabled);
+    const rows = new Map();
+    const list = element('div', 'journal-ritual-list');
+    heading.append(element('h3', '', '关联仪式'), add);
+    host.append(heading, list);
+    add.addEventListener('click', () => { addRow({}, true); dirty = true; });
+
+    function field(parent, text, control) {
+      const label = element('label', '', text);
+      label.append(control);
+      parent.append(label);
+      return control;
+    }
+
+    function addRow(link, focus = false) {
+      const id = link.id || window.DeityAtlas.uid();
+      const row = element('fieldset', 'journal-ritual-row');
+      row.setAttribute('aria-label','仪式关联');
+      const type = field(row, '仪式类型', element('select'));
+      type.required = true;
+      type.add(new Option('选择仪式类型',''));
+      for (const item of directory) if (item.enabled || item.id === link.ritualTypeId) {
+        type.add(new Option(item.name+(item.enabled ? '' : '（已停用）'),item.id));
+      }
+      type.value = link.ritualTypeId || '';
+      const selected = new Set(link.deityIds || []);
+      const picker = element('details', 'journal-ritual-deities');
+      const summary = element('summary');
+      const query = field(picker, '搜索相关神明', element('input'));
+      query.type = 'search';
+      const choices = element('div', 'journal-ritual-deity-list');
+      picker.prepend(summary);
+      picker.append(choices);
+      row.append(picker);
+      function updateSummary() {
+        const names = [...selected].map(id => options.catalog.get(id)?.name).filter(Boolean);
+        summary.textContent = '相关神明'+(selected.size ? ' · '+(names.length === selected.size ? names.join('、') : selected.size+' 位') : '（可选）');
+      }
+      function showChoices() {
+        const term = query.value.trim().toLocaleLowerCase();
+        const catalog = options.catalog.state;
+        const records = (catalog?.records || []).filter(record => !record.mergedInto && (!record.archivedAt || selected.has(record.id)));
+        const matches = records.filter(record => [record.name,...record.aliases].some(name => name.toLocaleLowerCase().includes(term)));
+        choices.replaceChildren();
+        for (const record of matches) {
+          const label = element('label', 'journal-ritual-choice');
+          const check = element('input');
+          check.type = 'checkbox';
+          check.checked = selected.has(record.id);
+          check.addEventListener('change', () => {
+            if (check.checked) selected.add(record.id);
+            else selected.delete(record.id);
+            dirty = true;
+            updateSummary();
+          });
+          const name = element('div', '', record.name);
+          const context = [record.aliases.join('、'), record.titleIds.map(id => catalog.titles.find(title => title.id === id)?.name).filter(Boolean).join('、'), record.identityNote?.slice(0,80), record.archivedAt ? '已归档' : ''].filter(Boolean).join(' · ');
+          if (context) name.append(element('small', '', context));
+          label.append(check, name);
+          choices.append(label);
+        }
+        if (!matches.length) choices.append(element('p', 'note', '没有匹配的神明。'));
+        updateSummary();
+      }
+      picker.addEventListener('toggle', async () => {
+        if (!picker.open) return;
+        choices.replaceChildren(element('p', 'note', '正在读取神明总库…'));
+        try { await options.catalog.ensure(); if (picker.isConnected) showChoices(); }
+        catch { choices.replaceChildren(element('p', 'note', '神明总库暂未读取，请重新展开重试。')); }
+      });
+      query.addEventListener('input', event => {event.stopPropagation();if(options.catalog.state)showChoices();});
+      query.addEventListener('keydown', event => {if(event.key==='Enter')event.preventDefault();});
+      updateSummary();
+      const note = field(row, '关联备注（仅编辑者）', element('textarea'));
+      note.value = link.note || '';
+      note.rows = 2;
+      note.maxLength = 4000;
+      const remove = element('button', 'linkbutton', '移除仪式关联');
+      remove.type = 'button';
+      remove.addEventListener('click', () => { rows.delete(id); row.remove(); dirty = true; add.focus(); });
+      row.append(remove);
+      rows.set(id, () => ({id, ritualTypeId:type.value, deityIds:[...selected], note:note.value}));
+      list.append(row);
+      if (focus) type.focus();
+    }
+    for (const link of initial) addRow(link);
+    return () => {
+      const links = [...rows.values()].map(read => read());
+      if (new Set(links.map(link => link.ritualTypeId)).size !== links.length) throw Error('同一种仪式请只关联一次，可在其中添加多位神明。');
+      return links;
+    };
+  }
   function validate(document) {
     if (document?.version!==1 || typeof document.editable!=='boolean' || (document.editable && !Number.isInteger(document.revision)) || !Array.isArray(document.records) || document.records.some(record=>typeof record.id!=='string'||typeof record.content!=='string'||typeof record.title!=='string')) throw Error('日志数据格式无效，请保留填写内容。');
     return document;
@@ -48,6 +149,27 @@ window.createFieldJournal = options => {
       const links=element('div','journal-deities');links.append(element('span','','关联神明'));
       for (const id of record.deityIds) {const link=element('a','',options.catalog?.get(id)?.name||'神明档案');link.href=window.DeityAtlas.profileURL(id);links.append(link);}
       body.append(links);
+    }
+    if (record.ritualLinks?.length) {
+      const group = element('div', 'journal-ritual-reading');
+      group.append(element('h4', '', '关联仪式'));
+      for (const relation of record.ritualLinks) {
+        const type = state?.ritualTypes?.find(item => item.id === relation.ritualTypeId);
+        const row = element('div', 'journal-ritual-relation');
+        const link = element('a', '', (type?.name || '仪式类型')+(type?.enabled === false ? '（已停用）' : ''));
+        link.href = ritualTypeURL(relation.ritualTypeId);
+        row.append(link);
+        const deities = element('div', 'journal-deities');
+        for (const id of relation.deityIds) {
+          const deity = element('a', '', options.catalog.get(id)?.name || '神明档案');
+          deity.href = window.DeityAtlas.profileURL(id);
+          deities.append(deity);
+        }
+        if (relation.deityIds.length) row.append(deities);
+        if (relation.note) row.append(element('p', 'journal-source', relation.note));
+        group.append(row);
+      }
+      body.append(group);
     }
     if(record.peopleLinks?.length){
       const group=element('div','journal-related-people');group.append(element('h4','','相关人物'));
@@ -82,6 +204,7 @@ window.createFieldJournal = options => {
     let built=false;
     const build=()=>{if(!built){details.append(fullRecord(record));built=true;}};
     details.addEventListener('toggle',()=>{
+      if(!timeline.contains(details))return;
       read.textContent=details.open?'收起记录':'查看完整记录';
       if (details.open) {openedId=record.id;build();for(const other of timeline.querySelectorAll('details[open]'))if(other!==details)other.open=false;}
       else if(openedId===record.id)openedId=null;
@@ -107,7 +230,14 @@ window.createFieldJournal = options => {
     $('journal-retry').hidden=!loadError;
     if(loadError)$('journal-status').textContent=loadError;
     enable();
-    if(pendingEntry){const target=[...timeline.querySelectorAll('.journal-entry')].find(item=>item.dataset.entryId===pendingEntry);if(target){pendingEntry=null;requestAnimationFrame(()=>{if(target.isConnected)target.scrollIntoView({block:'start'});});}}
+    if(pendingEntry){
+      const target=[...timeline.querySelectorAll('.journal-entry')].find(item=>item.dataset.entryId===pendingEntry);
+      if(target)requestAnimationFrame(()=>{
+        if(!timeline.contains(target)||pendingEntry!==target.dataset.entryId)return;
+        pendingEntry=null;
+        target.scrollIntoView({block:'start'});
+      });
+    }
   }
   async function load() {
     if(!place)return;
@@ -115,11 +245,14 @@ window.createFieldJournal = options => {
     try {
       const response=await request(endpoint(),{cache:'no-store'}),result=await response.json();
       if(!response.ok)throw Error(result.error||'日志未能读取，请重试。');
-      if(sequence===loadId)state=validate(result);
+      if(sequence===loadId){
+        state=validate(result);
+        if(state.records.some(record=>record.ritualLinks?.some(link=>link.deityIds.length)))options.catalog.ensure().catch(()=>{});
+      }
     } catch(error) {if(sequence===loadId)loadError=error.message;}
     finally {if(sequence===loadId){loading=false;render();}}
   }
-  function closeForm() {form.hidden=true;form.reset();peoplePicker.set();editing=null;draftId=null;dirty=false;$('journal-form-status').textContent='';render();}
+  function closeForm() {form.hidden=true;form.reset();peoplePicker.set();$('journal-ritual-picker').replaceChildren();readRitualLinks=()=>[];editing=null;draftId=null;dirty=false;$('journal-form-status').textContent='';render();}
   function mayLeave() {return !saving && (!dirty || window.confirm('田野日志尚未保存。要放弃填写吗？'));}
   function syncDateInput(value=$('journal-observed').value) {
     const precision=$('journal-precision').value,input=$('journal-observed');
@@ -142,13 +275,13 @@ window.createFieldJournal = options => {
     editing=record?{...record,tags:[...(record.tags||[])]}:null;draftId=record&&!record.legacy?record.id:crypto.randomUUID();form.reset();
     $('journal-form-title').textContent=record?.legacy?'编辑历史笔记':record?'编辑记录':'新增记录';
     for(const [id,value] of Object.entries({title:record?.legacy?'历史笔记':record?.title||'',content:record?.content||'',precision:record?.datePrecision||'unknown','original-date':record?.originalDateText||'','record-type':record?.recordType||'observation',tags:record?.tags?.join('，')||'',source:record?.source||'',visibility:record?.legacy?'editors':record?.visibility||'editors'}))$('journal-'+id).value=value;
-    peoplePicker.set(record?.peopleLinks||[]);syncDateInput(record?.observedAt||'');form.hidden=false;dirty=false;$('journal-form-status').textContent='';render();options.onFormOpen?.();$('journal-title').focus({preventScroll:true});form.scrollIntoView({block:'start'});
+    peoplePicker.set(record?.peopleLinks||[]);readRitualLinks=ritualFields(record?.ritualLinks||[]);syncDateInput(record?.observedAt||'');form.hidden=false;dirty=false;$('journal-form-status').textContent='';render();options.onFormOpen?.();$('journal-title').focus({preventScroll:true});form.scrollIntoView({block:'start'});
   }
   async function mutate(body) {
     saving=true;enable();
     try {
       const response=await request(endpoint(),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({version:1,revision:state.revision,...body})}),result=await response.json();
-      if(response.status===409){state=validate(result);render();throw Error(result.error||'日志已更新，填写内容仍保留。');}
+      if(response.status===409){if(Array.isArray(result.records)){state=validate(result);render();}throw Error(result.error||'日志已更新，填写内容仍保留。');}
       if(!response.ok)throw Error(result.error||'未能保存，填写内容仍保留。');
       state=validate(result);return true;
     } finally {saving=false;enable();}
@@ -170,10 +303,18 @@ window.createFieldJournal = options => {
     event.preventDefault();if(!place||!state||saving||!form.reportValidity())return;
     const visibility=$('journal-visibility').value;
     const peopleLinks=peoplePicker.read();
-    const confirmPublic=visibility==='public' && (editing?.visibility!=='public'||peopleLinks.some(link=>link.public&&!editing?.peopleLinks?.some(old=>old.personId===link.personId&&old.roleInEntry===link.roleInEntry&&old.public)));
-    if(confirmPublic && !await confirmAction('将这条日志及允许公开的人物关联展示到网站？请确认正文、来源与人物关系已适合公开。','确认公开'))return;
+    let ritualLinks;
+    try { ritualLinks=readRitualLinks(); }
+    catch(error){$('journal-form-status').textContent=error.message;return;}
+    const ritualExpanded=ritualLinks.some(link=>{
+      const old=editing?.ritualLinks?.find(item=>item.ritualTypeId===link.ritualTypeId);
+      return !old||link.deityIds.some(id=>!old.deityIds.includes(id));
+    });
+    const confirmPublic=visibility==='public' && (editing?.visibility!=='public'||ritualExpanded||peopleLinks.some(link=>link.public&&!editing?.peopleLinks?.some(old=>old.personId===link.personId&&old.roleInEntry===link.roleInEntry&&old.public)));
+    if(confirmPublic && !await confirmAction('将这条日志及允许公开的关联展示到网站？请核对正文、来源与关联。','确认公开'))return;
     const record={id:draftId,placeId:place.id,placeKind:place.kind,title:$('journal-title').value.trim(),content:$('journal-content').value.trim(),observedAt:$('journal-observed').value,datePrecision:$('journal-precision').value,originalDateText:$('journal-original-date').value.trim(),recordType:$('journal-record-type').value,tags:$('journal-tags').value.split(/[,，、\n]/).map(value=>value.trim()).filter(Boolean),source:$('journal-source').value.trim(),visibility,deityIds:editing?.deityIds||[],legacyKey:editing?.legacyKey||''};
     record.peopleLinks=peopleLinks;
+    if(ritualLinks.length||editing?.ritualLinks)record.ritualLinks=ritualLinks;
     $('journal-form-status').textContent='保存中…';
     try {await mutate({action:'save',record,baseUpdatedAt:editing&&!editing.legacy?editing.updatedAt:null,confirmPublic});openedId=record.id;$('journal-year').value='all';$('journal-type').value='all';closeForm();$('journal-status').textContent='已保存 · '+(visibility==='public'?'公开记录':'仅编辑者可见');$('journal-add').focus({preventScroll:true});}
     catch(error){$('journal-form-status').textContent=error.message;}

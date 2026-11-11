@@ -41,19 +41,22 @@ window.DeityVillageLinks = (() => {
     if (!response.ok) throw Error(result.error || '关联资料未能读取，请稍后重试。');
     return result;
   }
+  let index = null, loadingIndex = null;
+  function loadIndex() {
+    if (index) return Promise.resolve(index);
+    if (!loadingIndex) loadingIndex = request(null, '?view=places').then(data => {
+      if (data.version !== 1 || !Array.isArray(data.places) || !Array.isArray(data.administrativeAreas)) throw Error('地点索引未能读取。');
+      index = data;
+      window.PlaceNames?.register(data.places);
+      return data;
+    }).finally(() => { loadingIndex = null; });
+    return loadingIndex;
+  }
   function createPanel({beforeOpen = () => true, onSaved = async () => {}} = {}) {
     const el = window.DeityAtlas.element;
-    let index = null, loadingIndex = null, dialog = null, selection = null, deity = null;
+    let dialog = null, selection = null, deity = null;
     let busy = false, stage = 'select', previousStage = 'select', preview = null, showSelected = false;
     let statusText = '', opener = null, failed = new Map();
-    function loadIndex() {
-      if (index) return Promise.resolve(index);
-      if (!loadingIndex) loadingIndex = request(null, '?view=places').then(data => {
-        if (data.version !== 1 || !Array.isArray(data.places) || !Array.isArray(data.administrativeAreas)) throw Error('地点索引未能读取。');
-        index = data; window.PlaceNames?.register(data.places); return data;
-      }).finally(() => { loadingIndex = null; });
-      return loadingIndex;
-    }
     const ready = loadIndex();
     // Loading failure is displayed in the panel with an explicit retry action.
     ready.catch(() => {});
@@ -235,5 +238,5 @@ window.DeityVillageLinks = (() => {
       area(id) { return index?.administrativeAreas.find(area => area.id === id); }
     };
   }
-  return {createSelection, createPanel};
+  return {createSelection, createPanel, loadIndex};
 })();

@@ -2,6 +2,7 @@ import { getStore } from '@netlify/blobs';
 import { resolveEditorAuth, json, sameOrigin } from './auth.mjs';
 import { normalizePeopleLinks, publicPerson } from './people.mjs';
 import { createArchiveStore } from './archive-store.mjs';
+import { initialRitualTypes, normalizeRitualLinks, normalizeRitualTypes, publicRitualLinks, restoreRitualTypes, ritualLinksExpanded, ritualTypesFor } from './rituals.mjs';
 
 const empty = () => ({version:1, revision:0, records:[]});
 const revisionValid = value => Number.isInteger(value) && value >= 0 && value < 2147483647;
@@ -11,7 +12,7 @@ function text(value, limit, required=false) {
   if (typeof value !== 'string' || value.length > limit || (required && !value.trim())) throw Error('日志字段为空、格式无效或过长。');
   return value.trim();
 }
-export function normalizeFieldEntry(input, previous, now = new Date().toISOString()) {
+export function normalizeFieldEntry(input, previous, now = new Date().toISOString(), {ritualTypes = initialRitualTypes, restoring = false} = {}) {
   if (!input || typeof input !== 'object') throw Error('日志格式无效。');
   const record = {
     id:text(input.id,120,true), placeId:text(input.placeId,120,true), placeKind:input.placeKind,
@@ -38,17 +39,69 @@ export function normalizeFieldEntry(input, previous, now = new Date().toISOStrin
   if (!Array.isArray(deityIds) || deityIds.length > 100) throw Error('神明关联格式无效。');
   record.deityIds = [...new Set(deityIds.map(id=>text(id,120,true)))];
   record.peopleLinks = normalizePeopleLinks(input.peopleLinks ?? previous?.peopleLinks ?? []);
+  if (input.ritualLinks !== undefined || previous?.ritualLinks !== undefined) {
+    const links = input.ritualLinks === undefined ? previous.ritualLinks : input.ritualLinks;
+    record.ritualLinks = normalizeRitualLinks(links, ritualTypes, previous?.ritualLinks, restoring);
+  }
   record.legacyKey = text(input.legacyKey ?? previous?.legacyKey,300);
   if (previous && (previous.placeId!==record.placeId || previous.placeKind!==record.placeKind || (previous.legacyKey||'')!==record.legacyKey)) throw Error('不能改变已有日志的地点或历史笔记来源。');
   record.createdAt = previous?.createdAt || now;
   record.updatedAt = new Date(Math.max(Date.parse(now), previous ? Date.parse(previous.updatedAt)+1 : 0)).toISOString();
   return record;
 }
-function visibleState(state, request, editable, publicPeople=new Set()) {
-  const query = new URL(request.url).searchParams;
-  return {version:1,revision:editable?state.revision:null,editable,records:state.records.filter(record =>
+function visibleState(state, query, editable, publicPeople) {
+  const ritualView = query.get('view') === 'rituals';
+  const visible = state.records.filter(record =>
     (editable || record.visibility==='public') && (!query.has('placeId') || record.placeId===query.get('placeId')) &&
-    (!query.has('placeKind') || record.placeKind===query.get('placeKind'))).map(record=>editable?record:{...record,peopleLinks:(record.peopleLinks||[]).filter(link=>link.public===true&&publicPeople.has(link.personId))})};
+    (!query.has('placeKind') || record.placeKind===query.get('placeKind')));
+  let records = visible;
+  if (ritualView) {
+    records = visible.filter(record => record.ritualLinks?.length).map(record => ({
+      id:record.id, placeId:record.placeId, placeKind:record.placeKind, title:record.title,
+      observedAt:record.observedAt, datePrecision:record.datePrecision, originalDateText:record.originalDateText,
+      visibility:record.visibility, excerpt:record.content.length > 160 ? record.content.slice(0, 160)+'…' : record.content,
+      ritualLinks:publicRitualLinks(record.ritualLinks)
+    }));
+  } else if (!editable) {
+    records = visible.map(record => ({...record,
+      peopleLinks:(record.peopleLinks || []).filter(link => link.public === true && publicPeople.has(link.personId)),
+      ...(record.ritualLinks ? {ritualLinks:publicRitualLinks(record.ritualLinks)} : {})
+    }));
+  }
+  const directory = ritualTypesFor(state);
+  const ritualTypes = query.has('placeId') ? directory.map(({id,name,sortOrder,enabled}) => ({id,name,sortOrder,enabled})) : directory;
+  return {version:1, revision:editable ? state.revision : null, editable, ritualTypes, records};
+}
+
+function backupTime(value, fallback) {
+  if (!value) return fallback;
+  if (typeof value !== 'string' || value.length > 100 || !Number.isFinite(Date.parse(value))) throw Error('备份的录入或修改时间无效。');
+  return value;
+}
+
+function importEntries(state, backup, confirmPublic) {
+  if (backup?.version !== 1 || !Array.isArray(backup.records) || backup.records.length > 50000) throw Error('日志备份格式无效。');
+  const ritualTypes = backup.ritualTypes === undefined ? state.ritualTypes : restoreRitualTypes(state, backup.ritualTypes);
+  const imported = new Set(), existing = new Set(state.records.map(record => record.id));
+  const legacyKey = record => JSON.stringify([record.placeKind, record.placeId, record.legacyKey]);
+  const legacy = new Set(state.records.filter(record => record.legacyKey).map(legacyKey));
+  const added = [];
+  const now = new Date().toISOString();
+  for (const input of backup.records) {
+    const id = text(input?.id, 120, true);
+    if (imported.has(id)) throw Error('备份包含重复的日志编号。');
+    imported.add(id);
+    if (existing.has(id)) continue;
+    const record = normalizeFieldEntry(input, null, now, {ritualTypes, restoring:true});
+    if (record.visibility === 'public' && confirmPublic !== true) throw Error('请确认恢复备份中的公开日志。');
+    if (record.legacyKey && legacy.has(legacyKey(record))) throw Error('备份包含已整理为其他日志的历史笔记，请先核对。');
+    if (record.legacyKey) legacy.add(legacyKey(record));
+    record.createdAt = backupTime(input.createdAt, now);
+    record.updatedAt = backupTime(input.updatedAt, record.createdAt);
+    added.push(record);
+  }
+  if (state.records.length + added.length > 50000) throw Error('日志集合已达到当前容量限制。');
+  return {records:state.records.concat(added), ritualTypes, importedCount:added.length};
 }
 const respond = (value,status=200,headers={}) => json(value,status,{'Cache-Control':'private, no-store',Vary:'Cookie',...headers});
 export function fieldJournalHandler(storeFactory = () => getStore({name:'naozhou-field-atlas',consistency:'strong'})) {
@@ -59,6 +112,7 @@ export function fieldJournalHandler(storeFactory = () => getStore({name:'naozhou
       const store = createArchiveStore(storeFactory());
       const editable=(await resolveEditorAuth(store)).authorized(request);
       if(request.method==='POST'&&!editable)return respond({error:'请先登录编辑。'},401);
+      const query = new URL(request.url).searchParams;
       async function read() {
         const entry = await store.getWithMetadata('field_entries',{type:'json'});
         const state = entry ? entry.data : empty();
@@ -72,17 +126,40 @@ export function fieldJournalHandler(storeFactory = () => getStore({name:'naozhou
         return peopleState;
       }
       const publicPeople=new Set();
-      if(!editable&&current.state.records.some(record=>record.visibility==='public'&&record.peopleLinks?.length))for(const person of (await readPeople()).records)if(publicPerson(person))publicPeople.add(person.id);
-      const result = state => visibleState(state,request,editable,publicPeople);
+      if(!editable&&query.get('view')!=='rituals'&&current.state.records.some(record=>record.visibility==='public'&&record.peopleLinks?.length))for(const person of (await readPeople()).records)if(publicPerson(person))publicPeople.add(person.id);
+      const result = state => visibleState(state,query,editable,publicPeople);
       if (request.method==='GET') return respond(result(current.state));
       if (!(request.headers.get('content-type')||'').startsWith('application/json')) return respond({error:'Use application/json.'},415);
-      if (Number(request.headers.get('content-length'))>512*1024) return respond({error:'单条日志过大。'},413);
+      const backupLimit = 5*1024*1024;
+      if (Number(request.headers.get('content-length'))>backupLimit) return respond({error:'备份文件超过 5 MB。'},413);
       const raw = await request.text();
-      if (Buffer.byteLength(raw)>512*1024) return respond({error:'单条日志过大。'},413);
+      const size = Buffer.byteLength(raw);
+      if (size>backupLimit) return respond({error:'备份文件超过 5 MB。'},413);
       let body;
-      try { body=JSON.parse(raw); if (body.version!==1 || !revisionValid(body.revision) || !['save','delete'].includes(body.action)) throw Error('日志版本或操作无效。'); }
+      try { body=JSON.parse(raw); if (body.version!==1 || !revisionValid(body.revision) || !['save','delete','save-ritual-types','import'].includes(body.action)) throw Error('日志版本或操作无效。'); }
       catch(error) { return respond({error:error.message},400); }
+      if (body.action!=='import'&&size>512*1024) return respond({error:'本次编辑资料过大。'},413);
       if (body.revision!==current.state.revision) return respond({...result(current.state),error:'其他页面已更新日志，填写内容仍保留，请再次保存。'},409);
+      async function saveState(changes, extras = {}) {
+        const next = {...current.state, ...changes, revision:current.state.revision+1};
+        const saved = await store.setJSON('field_entries',next,current.etag?{onlyIfMatch:current.etag}:{onlyIfNew:true});
+        if (!saved.modified) return respond({...result((await read()).state),error:'其他页面已保存，填写内容仍保留，请重试。'},409);
+        return respond({...result((await read()).state), ...extras});
+      }
+      if (body.action==='save-ritual-types') {
+        let ritualTypes;
+        try { ritualTypes=normalizeRitualTypes(body.ritualTypes,ritualTypesFor(current.state)); }
+        catch(error) { return respond({error:error.message},400); }
+        return await saveState({ritualTypes});
+      }
+      if (body.action==='import') {
+        let imported;
+        try { imported=importEntries(current.state,body.backup,body.confirmPublic); }
+        catch(error) { return respond({error:error.message},400); }
+        const {records, ritualTypes, importedCount} = imported;
+        if (!importedCount && JSON.stringify(ritualTypes)===JSON.stringify(current.state.ritualTypes)) return respond({...result(current.state), importedCount});
+        return await saveState({records, ...(ritualTypes ? {ritualTypes} : {})}, {importedCount});
+      }
       let id;
       try { id=text(body.action==='save' ? body.record?.id : body.id,120,true); }
       catch(error) { return respond({error:error.message},400); }
@@ -95,7 +172,7 @@ export function fieldJournalHandler(storeFactory = () => getStore({name:'naozhou
         nextRecords = current.state.records.filter(record=>record.id!==id);
       } else {
         let record;
-        try { record=normalizeFieldEntry(body.record,previous); }
+        try { record=normalizeFieldEntry(body.record,previous,undefined,{ritualTypes:ritualTypesFor(current.state)}); }
         catch(error) { return respond({error:error.message},400); }
         for(const link of record.peopleLinks){const id=await store.resolveId('people',link.personId);if(!id)return respond({error:'关联人物已删除，请重新选择。'},400);link.personId=id;}
         if(record.peopleLinks.length){
@@ -105,15 +182,13 @@ export function fieldJournalHandler(storeFactory = () => getStore({name:'naozhou
         }
         const publicLinksExpanded=record.visibility==='public'&&record.peopleLinks.some(link=>link.public&&!previous?.peopleLinks?.some(old=>old.personId===link.personId&&old.roleInEntry===link.roleInEntry&&old.public));
         if(publicLinksExpanded&&body.confirmPublic!==true)return respond({error:'请确认后再公开新增的人物关联。'},400);
+        if (record.visibility==='public' && ritualLinksExpanded(record.ritualLinks||[],previous?.ritualLinks||[]) && body.confirmPublic!==true) return respond({error:'请确认后再公开新增的仪式关联。'},400);
         if (record.visibility==='public' && previous?.visibility!=='public' && body.confirmPublic!==true) return respond({error:'请确认后再将日志公开到网站。'},400);
         if (record.legacyKey && current.state.records.some(item=>item.id!==record.id && item.placeId===record.placeId && item.placeKind===record.placeKind && item.legacyKey===record.legacyKey)) return respond({...result(current.state),recordConflict:true,error:'这条历史笔记已整理为日志，请打开已有记录。'},409);
         nextRecords = previous ? current.state.records.map(item=>item.id===record.id?record:item) : current.state.records.concat(record);
         if (nextRecords.length>50000) return respond({error:'日志集合已达到当前容量限制。'},400);
       }
-      const next = {version:1,revision:current.state.revision+1,records:nextRecords};
-      const saved = await store.setJSON('field_entries',next,current.etag?{onlyIfMatch:current.etag}:{onlyIfNew:true});
-      if (!saved.modified) return respond({...result((await read()).state),error:'其他页面已保存，填写内容仍保留，请重试。'},409);
-      return respond(result((await read()).state));
+      return await saveState({records:nextRecords});
     } catch(error) {
       if(error.code==='ARCHIVE_CONFLICT')return respond({error:'关联档案已合并或删除，请刷新后重新保存。填写内容仍保留。'},409);
       console.error('Field journal storage failed:',error.name);

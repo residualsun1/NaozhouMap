@@ -5,6 +5,7 @@ import { createArchiveStore, canonicalId } from './archive-store.mjs';
 import { normalizePerson } from './people.mjs';
 import {projectIdentityNames} from './person-identities.mjs';
 import { normalizeDeityCatalog } from './deities.mjs';
+import { mergeObservances } from './deity-observances.mjs';
 
 const validKind=kind=>['people','deities'].includes(kind);
 const name=record=>record?.displayName||record?.name||'';
@@ -28,6 +29,13 @@ export function archiveReferences(states,kind,id) {
   } else {
     for(const record of states.faith.records)for(const [index,link] of (record.deityLinks||[]).entries())if(link.deityId===id)add('faith',record,'deityLinks',index,link.localTitle||link.localName||'信仰记录');
     for(const collection of ['people','field_entries'])for(const record of states[collection].records)for(const [index,deityId] of (record.deityIds||[]).entries())if(deityId===id)add(collection,record,'deityIds',index,'相关神明');
+    for (const record of states.field_entries.records) {
+      for (const [index, link] of (record.ritualLinks || []).entries()) {
+        if (!link.deityIds.includes(id)) continue;
+        add('field_entries', record, 'ritualLinks', index, '仪式关联');
+        items.at(-1).deityId = id;
+      }
+    }
   }
   return {total:items.length,items};
 }
@@ -52,7 +60,10 @@ function mergeRecord(kind,source,target,choices,now) {
   merged.aliases=distinct([...(target.aliases||[]),...(source.aliases||[]),name(source)]).filter(value=>value&&value!==name(target));
   merged.mergedFromIds=distinct([...(target.mergedFromIds||[]),source.id,...(source.mergedFromIds||[])]);
   merged.updatedAt=now;
-  if(kind==='deities')merged.titleIds=distinct([...(target.titleIds||[]),...(source.titleIds||[])]);
+  if(kind==='deities') {
+    merged.titleIds=distinct([...(target.titleIds||[]),...(source.titleIds||[])]);
+    Object.assign(merged, mergeObservances(target, source));
+  }
   else {
     const sourceRole=source.narratorRole||'unknown',targetRole=target.narratorRole||'unknown';
     if(sourceRole!==targetRole) {
@@ -82,7 +93,15 @@ function mergeRecord(kind,source,target,choices,now) {
 function detachReferences(states,items,keys) {
   if(!Array.isArray(keys)||keys.some(key=>typeof key!=='string'||!items.some(item=>item.key===key)))throw Error('解除关联的选择已失效，请重新预览。');
   const selected=new Set(keys),groups=new Map();
-  for(const item of items)if(selected.has(item.key)){const groupKey=JSON.stringify([item.collection,item.recordId,item.field]),indices=groups.get(groupKey)||new Set();indices.add(item.index);groups.set(groupKey,indices);}
+  for(const item of items)if(selected.has(item.key)){
+    if (item.field === 'ritualLinks') {
+      const record = states.field_entries.records.find(record => record.id === item.recordId);
+      const link = record.ritualLinks[item.index];
+      link.deityIds = link.deityIds.filter(id => id !== item.deityId);
+      continue;
+    }
+    const groupKey=JSON.stringify([item.collection,item.recordId,item.field]),indices=groups.get(groupKey)||new Set();indices.add(item.index);groups.set(groupKey,indices);
+  }
   for(const [key,indices] of groups){const [collection,id,field]=JSON.parse(key),record=states[collection].records.find(record=>record.id===id);record[field]=record[field].filter((_,index)=>!indices.has(index));}
 }
 const respond=(body,status=200)=>json(body,status,{'Cache-Control':'private, no-store',Vary:'Cookie'});

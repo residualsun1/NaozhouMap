@@ -34,10 +34,30 @@
 .journal-form input{min-height:40px}.journal-form input:disabled{background:var(--color-surface-muted);color:var(--color-text-disabled)}
 .journal-form .form-actions{position:sticky;bottom:0;z-index:1;padding:12px 0 4px;background:var(--color-surface);border-top:1px solid var(--color-border)}.journal-privacy-note{margin:9px 0 0;font-size:10px}
 #faith-notes:not(:empty){margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+#journal-ritual-picker { margin-top: 20px; }
+#journal-ritual-picker .section-title { margin-bottom: 8px; }
+#journal-ritual-picker h3 { margin: 0; }
+.journal-ritual-row { margin: 0 0 12px; padding: 12px; border: 1px solid var(--line); border-radius: 8px; }
+.journal-ritual-row > label:first-child { margin-top: 0; }
+.journal-ritual-row select, .journal-ritual-row textarea { display: block; margin-top: 6px; }
+.journal-ritual-row textarea { min-height: 68px; }
+.journal-ritual-deities { margin-top: 10px; }
+.journal-ritual-deities summary { overflow-wrap: anywhere; }
+.journal-ritual-deity-list { max-height: 190px; overflow: auto; margin-top: 8px; }
+.journal-form .journal-ritual-choice { display: flex; align-items: flex-start; gap: 8px; margin: 0; padding: 8px 0; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+.journal-ritual-choice input[type=checkbox] { flex: 0 0 16px; width: 16px; min-height: 16px; margin: 2px 0 0; }
+.journal-ritual-choice small { display: block; color: var(--text-secondary); }
+.journal-ritual-reading { margin-top: 16px; }
+.journal-ritual-reading h4 { font-size: 13px; margin: 0 0 6px; }
+.journal-ritual-relation { padding: 8px 0; }
+.journal-ritual-relation a { color: var(--color-link); overflow-wrap: anywhere; }
+.journal-ritual-relation .journal-deities, .journal-ritual-relation .journal-source { margin-top: 4px; }
 @media(max-width:800px){
   main.details-open:has(#journal-form:not([hidden])){--sheet-size:min(680px,calc(100dvh - 224px - env(safe-area-inset-top,0px)))}
   .journal-heading>button{min-height:44px}.journal-filters select,.journal-form select,.journal-form input{min-height:44px;font-size:16px}
   .journal-form textarea{font-size:16px;min-height:250px}.journal-form #journal-source{min-height:88px}
   .journal-form .form-actions{bottom:-30px;padding:12px 0 calc(10px + env(safe-area-inset-bottom,0px))}.journal-form .form-actions button,.journal-actions button,.journal-edit{min-height:44px}
   .journal-timeline{max-height:55dvh}.journal-date-row{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+  .journal-ritual-row textarea { min-height: 76px; }
+  .journal-ritual-choice, .journal-ritual-deities summary { min-height: 44px; }
 }
