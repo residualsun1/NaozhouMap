@@ -628,6 +628,35 @@
         },
         "previousSourceLocation": null,
         "previousCheckedAt": null
+      },
+      {
+        "replacedAt": "2026-11-13",
+        "action": "user_confirmed_settlement_point",
+        "previousLocation": {
+          "coordinateSystem": "WGS84",
+          "lng": 110.582237,
+          "lat": 20.932842,
+          "source": "高德地图（GCJ-02 转 WGS84，近似）",
+          "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY5"
+        },
+        "previousSourceLocation": {
+          "provider": "高德地图",
+          "placeId": "B02F70NXY5",
+          "name": "港头",
+          "type": "村庄",
+          "coordinateSystem": "GCJ-02",
+          "lng": 110.586454,
+          "lat": 20.930123
+        },
+        "previousCheckedAt": "2026-10-11",
+        "previousEmbedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXY5&name=%E6%B8%AF%E5%A4%B4&lng=110.586454&lat=20.930123&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
+        "previousCoordinateTransform": {
+          "method": "coordtransform WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
+          "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
+          "approximate": true,
+          "outputDecimals": 6,
+          "note": "近似转换；小数位数不表示测绘精度。"
+        }
       }
     ],
     "originalCoordinates": {
@@ -639,37 +668,41 @@
     },
     "id": "1810728",
     "name": "港头村",
-    "lng": 110.582237,
-    "lat": 20.932842,
+    "lng": 110.5834251,
+    "lat": 20.9369575,
     "nameSource": "GeoNames 中文别名",
-    "coordinateSource": "高德地图（GCJ-02 转 WGS84，近似）",
-    "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY5",
-    "embedUrl": "https://ditu.amap.com/ssr/embed/place?id=B02F70NXY5&name=%E6%B8%AF%E5%A4%B4&lng=110.586454&lat=20.930123&address=%E9%BA%BB%E7%AB%A0%E5%8C%BA&zoom=16&source=poi_detail&platform=pc",
-    "checkedAt": "2026-10-11",
+    "coordinateSource": "用户截图指认的聚落（OpenStreetMap 住宅用地轮廓内代表点）",
+    "sourceUrl": "https://www.openstreetmap.org/way/504587427",
+    "checkedAt": "2026-11-13",
     "previousLocation": {
       "coordinateSystem": "WGS84",
-      "lng": 110.58089,
-      "lat": 20.93632,
-      "source": "GeoNames",
-      "sourceUrl": "https://www.geonames.org/1810728/"
+      "lng": 110.582237,
+      "lat": 20.932842,
+      "source": "高德地图（GCJ-02 转 WGS84，近似）",
+      "sourceUrl": "https://ditu.amap.com/ssr/place/B02F70NXY5"
     },
     "sourceLocation": {
-      "provider": "高德地图",
-      "placeId": "B02F70NXY5",
-      "name": "港头",
-      "type": "村庄",
-      "coordinateSystem": "GCJ-02",
-      "lng": 110.586454,
-      "lat": 20.930123
+      "provider": "用户截图指认；OpenStreetMap 住宅用地几何",
+      "placeId": "way-504587427",
+      "name": "港头村",
+      "type": "聚落内代表点",
+      "coordinateSystem": "WGS84",
+      "lng": 110.5834251,
+      "lat": 20.9369575,
+      "geometryId": 504587427,
+      "geometryType": "landuse=residential"
     },
-    "coordinateTransform": {
-      "method": "coordtransform WGS84-to-GCJ02 forward algorithm, 5-iteration inverse",
-      "algorithmUrl": "https://github.com/wandergis/coordtransform/blob/master/index.js",
-      "approximate": true,
-      "outputDecimals": 6,
-      "note": "近似转换；小数位数不表示测绘精度。"
+    "correctionNote": "用户在地图截图中圈定港头村的沿海聚落。以海岸转折、进村道路终点和邻近标记核对已有聚落轮廓，采用轮廓内面积质心作为地图代表点。",
+    "locationReview": {
+      "status": "user_confirmed",
+      "checkedAt": "2026-11-13",
+      "geometryId": 504587427,
+      "pointInsideGeometry": true
     },
-    "correctionNote": "依据高德地图同名村庄或地名详情及可见分享嵌入参数复核。保留现有村名和旧坐标历史；本点不是村庄边界或测绘控制点。"
+    "manualPriority": true,
+    "manualPriorityScope": [
+      "coordinates"
+    ]
   },
   {
     "correctionHistory": [
