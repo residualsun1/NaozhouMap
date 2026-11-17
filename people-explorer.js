@@ -86,7 +86,7 @@ window.createPeopleExplorer = options => {
     if(!opened&&options.beforeOpen?.()===false)return false;showPanel(true);setCollapsed(false);
     catalog.ensure().catch(err=>{error=err.message;if(opened)render();});
     if(id!==undefined){$('person-explore-search').value='';$('person-explore-role').value='';select(id);}else{syncURL();render();}
-    (!selectedId&&desktop.matches?$('person-explore-search'):$('person-explore-close')).focus({preventScroll:true});return true;
+    (!selectedId&&desktop.matches&&!matchMedia('(any-pointer:coarse)').matches?$('person-explore-search'):$('person-explore-close')).focus({preventScroll:true});return true;
   }
   function close({focus=true}={}){pendingFocus=false;options.onClose?.();selectedId=null;showPanel(false);syncURL();options.onHighlight(null,[]);if(focus)toggle.focus({preventScroll:true});}
   function suspend(){pendingFocus=false;options.onClose?.();showPanel(false);syncURL();options.onHighlight(null,[]);}

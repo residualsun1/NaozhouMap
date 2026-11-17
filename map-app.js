@@ -32,6 +32,24 @@
   const status = text => { $('search-status').textContent = text; };
   const workspace = $('workspace');
   const mobileSearch = matchMedia('(max-width: 800px)');
+  const visualViewport = window.visualViewport;
+  function fitWorkspaceToKeyboard(){
+    // The keyboard can shrink the visible area without resizing the layout viewport.
+    // Leave deliberate browser magnification to the browser.
+    const height=visualViewport&&Math.abs(visualViewport.scale-1)<.01&&visualViewport.height<window.innerHeight-1
+      ?Math.floor(visualViewport.height)+'px':'';
+    if(workspace.style.getPropertyValue('--visible-workspace-height')!==height)
+      workspace.style.setProperty('--visible-workspace-height',height);
+  }
+  visualViewport?.addEventListener('resize',fitWorkspaceToKeyboard);
+  window.addEventListener('resize',fitWorkspaceToKeyboard);
+  window.addEventListener('pageshow',fitWorkspaceToKeyboard);
+  fitWorkspaceToKeyboard();
+  // Trackpad pinch can arrive as a modified wheel event outside the map canvas.
+  workspace.addEventListener('wheel',event=>{if(event.ctrlKey)event.preventDefault();},{passive:false});
+  for(const type of ['gesturestart','gesturechange']){
+    workspace.addEventListener(type,event=>event.preventDefault(),{passive:false});
+  }
   const searchPanel = document.querySelector('.search-panel');
   const searchButton = document.querySelector('.search-submit');
   function setSearchExpanded(expanded,focus=false){
@@ -61,8 +79,8 @@
     for(const name of ['layers','data']){$(name+'-panel').hidden=id!==name+'-panel';$(name+'-toggle').setAttribute('aria-expanded',String(id===name+'-panel'));}
     $('administrative-key').setAttribute('aria-expanded',String(id==='layers-panel'));
     openPanel=id;panelTrigger=trigger;
-    if(id){faith.dismissPreview();$(id).querySelector('button,input,summary')?.focus();}
-    else if(restoreFocus)(previousTrigger?.hidden?$('layers-toggle'):previousTrigger)?.focus();
+    if(id){faith.dismissPreview();$(id).querySelector('button,input,summary')?.focus({preventScroll:true});}
+    else if(restoreFocus)(previousTrigger?.hidden?$('layers-toggle'):previousTrigger)?.focus({preventScroll:true});
     if(view)schedulePinLayout(true);
   }
   function expandDetails(){workspace.classList.remove('sheet-collapsed');$('sheet-toggle').textContent='收起';$('sheet-toggle').setAttribute('aria-expanded','true');}
@@ -326,14 +344,15 @@
     const cx=Math.max(bounds.left,Math.min(bounds.right,centerX)),cy=Math.max(bounds.top,Math.min(bounds.bottom,centerY));
     view.x=cx-view.w/2;view.y=cy-view.h/2;
   }
-  function update(){
+  function paintView(){
     faith.dismissPreview();
+    clampView();svg.setAttribute('viewBox',`${view.x} ${view.y} ${view.w} ${view.h}`);
+    const zoom=home.w/view.w;svg.classList.toggle('detail-minor',zoom>=1.7);svg.classList.toggle('detail-paths',zoom>=2.7);
+    layoutPins();drawScale();
+  }
+  function update(){
     if(raf)return;
-    raf=requestAnimationFrame(()=>{
-      raf=null;clampView();svg.setAttribute('viewBox',`${view.x} ${view.y} ${view.w} ${view.h}`);
-      const zoom=home.w/view.w;svg.classList.toggle('detail-minor',zoom>=1.7);svg.classList.toggle('detail-paths',zoom>=2.7);
-      layoutPins();drawScale();
-    });
+    raf=requestAnimationFrame(()=>{raf=null;paintView();});
   }
   function intentView(intent){
     const {w,h,top,ratio}=cameraViewport(),fullRatio=w/h;
@@ -341,7 +360,8 @@
     if(intent.type==='view'){const v=intent.view;return {x:v.x,y:v.y+v.h/2-v.w/fullRatio/2,w:v.w,h:v.w/fullRatio};}
     let cx,cy,width;
     if(intent.type==='point'){
-      const point=project(intent.point.lng,intent.point.lat);cx=point.x;cy=point.y;width=Math.min(home.w,Math.max(bw*.32,1800));
+      const point=project(intent.point.lng,intent.point.lat);cx=point.x;cy=point.y;
+      width=Math.min(home.w,Math.max(bw*.32,1800,1800*ratio));
     }else{
       const f=intent.feature;cx=(f.left+f.right)/2;cy=(f.top+f.bottom)/2;
       width=Math.min(home.w,Math.max((f.right-f.left)*1.45,(f.bottom-f.top)*1.45*ratio,home.w/16));
@@ -673,19 +693,32 @@
   stage.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});const rect=stage.getBoundingClientRect();if(pointers.size===2){const [a,b]=[...pointers.values()],next=midpoint(a,b);if(pinch){const {w,h}=dimensions();view.x-=(next.x-pinch.x)*view.w/w;view.y-=(next.y-pinch.y)*view.h/h;zoomAt(next.d/Math.max(pinch.d,1),next.x-rect.left,next.y-rect.top);}pinch=next;}else if(drag){const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.hypot(dx,dy)>5)gestureMoved=true;const {w,h}=dimensions();view={...drag.view,x:drag.view.x-dx*drag.view.w/w,y:drag.view.y-dy*drag.view.h/h};update();}});
   function endPointer(e){if(!pointers.has(e.pointerId))return;const click=!gestureMoved&&pointers.size===1&&e.type==='pointerup',clusterKey=drag?.clusterKey;pointers.delete(e.pointerId);if(click&&picking){const rect=stage.getBoundingClientRect(),{w,h}=dimensions();const pos=unproject(view.x+(e.clientX-rect.left)/w*view.w,view.y+(e.clientY-rect.top)/h*view.h);setPickedLocation(pos.lng,pos.lat);}else if(click&&clusterKey){const cluster=clusterByKey.get(clusterKey);if(cluster)selectCluster(cluster);}pinch=null;if(pointers.size===1){const p=[...pointers.values()][0];drag={x:p.x,y:p.y,view:{...view}};}else if(!pointers.size){drag=null;stage.classList.remove('is-dragging');schedulePinLayout();}}
   stage.addEventListener('pointerup',endPointer);stage.addEventListener('pointercancel',endPointer);
-  svg.addEventListener('keydown',e=>{if(['+','=','-','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home'].includes(e.key)){e.preventDefault();explorer?.cancelAutoFocus();peopleExplorer?.cancelAutoFocus();if(e.key==='Home')homeView(true);else if(e.key==='+'||e.key==='=')zoomAt(1.5,undefined,undefined,true);else if(e.key==='-')zoomAt(1/1.5,undefined,undefined,true);else{cancelCamera();if(e.key==='ArrowUp')view.y-=view.h*.12;if(e.key==='ArrowDown')view.y+=view.h*.12;if(e.key==='ArrowLeft')view.x-=view.w*.12;if(e.key==='ArrowRight')view.x+=view.w*.12;update();}}});
+  stage.addEventListener('lostpointercapture',endPointer);
+  svg.addEventListener('keydown',e=>{if(!e.ctrlKey&&!e.metaKey&&['+','=','-','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home'].includes(e.key)){e.preventDefault();explorer?.cancelAutoFocus();peopleExplorer?.cancelAutoFocus();if(e.key==='Home')homeView(true);else if(e.key==='+'||e.key==='=')zoomAt(1.5,undefined,undefined,true);else if(e.key==='-')zoomAt(1/1.5,undefined,undefined,true);else{cancelCamera();if(e.key==='ArrowUp')view.y-=view.h*.12;if(e.key==='ArrowDown')view.y+=view.h*.12;if(e.key==='ArrowLeft')view.x-=view.w*.12;if(e.key==='ArrowRight')view.x+=view.w*.12;update();}}});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(openPanel)setUtility(null,null,true);if(searchPanel.classList.contains('is-expanded'))setSearchExpanded(false,true);if(explorer?.isOpen&&!e.target.closest('input,textarea,select'))explorer.close();if(peopleExplorer?.isOpen&&!e.target.closest('input,textarea,select'))peopleExplorer.close();$('search-feedback').hidden=true;setPicking(false);}});
-  let previousWindowWidth=window.innerWidth,previousWindowHeight=window.innerHeight;
+  let previousWindowWidth=window.innerWidth,previousWindowHeight=window.innerHeight,previousStageWidth=dimensions().w;
   new ResizeObserver(()=>{
     if(!home||!view)return;
     const windowResized=window.innerWidth!==previousWindowWidth||window.innerHeight!==previousWindowHeight;
     previousWindowWidth=window.innerWidth;previousWindowHeight=window.innerHeight;
     const cx=view.x+view.w/2,cy=view.y+view.h/2,wasHome=!cameraIntent&&Math.abs(view.w-home.w)<1&&Math.hypot(cx-(home.x+home.w/2),cy-(home.y+home.h/2))<1;
-    // Panel transitions change the visible canvas, not the desktop camera scale.
-    if(!mobileSearch.matches)desktopRetainedWidth=windowResized?0:view.w;
     home=makeHome();const {w,h}=dimensions();
-    if(wasHome&&(mobileSearch.matches||windowResized))view={...home};else view={x:cx-view.w/2,y:cy-view.w*h/w/2,w:view.w,h:view.w*h/w};
-    update();
+    const width=windowResized||cameraIntent?view.w:view.w*w/previousStageWidth;
+    previousStageWidth=w;
+    // Preserve projected units per pixel when the sidebar changes the canvas width.
+    desktopRetainedWidth=mobileSearch.matches||windowResized?0:width;
+    if(wasHome&&(mobileSearch.matches||windowResized))view={...home};
+    else{
+      const height=width*h/w;
+      view={x:cx-width/2,y:cy-height/2,w:width,h:height};
+    }
+    // ResizeObserver runs before paint. Keep the SVG and overlays in the same frame.
+    if(raf){cancelAnimationFrame(raf);raf=null;}
+    paintView();
+    if(drag&&pointers.size===1){
+      const pointer=pointers.values().next().value;
+      drag={...drag,...pointer,view:{...view}};
+    }
   }).observe(stage);
   const labelUIObserver=new ResizeObserver(()=>{if(view)schedulePinLayout(true);});
   for(const node of document.querySelectorAll('.search-panel,.utility-panel,.map-toolbar'))labelUIObserver.observe(node);

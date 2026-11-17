@@ -114,6 +114,17 @@ details[open]>:not(summary){animation:content-in .2s var(--ease)}
 /* Map workspace and floating tools */
 main{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 0px;height:100dvh;overflow:hidden;transition:grid-template-columns .25s var(--ease)}
 main.details-open{grid-template-columns:minmax(0,1fr) 380px}
+#workspace{
+  --workspace-height:var(--visible-workspace-height,100dvh);
+  width:100%;height:var(--workspace-height);
+  overflow:clip;overscroll-behavior:none;touch-action:pan-x pan-y
+}
+#workspace :where(.map-area,.utility-panel,.detail-content,.faith-tooltip,#search-results,.map-toolbar){
+  touch-action:pan-x pan-y
+}
+@media (any-pointer:coarse){
+  :root :is(#workspace,.deity-page,.people-page) :is(input:not([type=checkbox],[type=radio],[type=file]),textarea,select){font-size:16px}
+}
 .map-area{position:relative;min-width:0;min-height:0;overflow:hidden;background:var(--map) url("sea-texture.svg") repeat 0 0 / 640px 640px}
 .map-stage{position:absolute;inset:74px 0 0;touch-action:none;overflow:hidden;cursor:grab}
 .map-stage.is-dragging{cursor:grabbing}
@@ -399,7 +410,11 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
   }
 }
 @media(max-width:800px){
-  main,main.details-open{height:100dvh;display:block;--sheet-size:clamp(235px,43dvh,410px);--mobile-controls-top:calc(12px + env(safe-area-inset-top,0px))}
+  main,main.details-open{height:100dvh;display:block;--mobile-controls-top:calc(12px + env(safe-area-inset-top,0px))}
+  #workspace{
+    --mobile-sheet-limit:max(0px,calc(var(--workspace-height) - var(--mobile-controls-top) - 52px));
+    --sheet-size:min(var(--mobile-sheet-limit),clamp(235px,calc(var(--workspace-height) * .43),410px))
+  }
   .map-area{position:absolute;inset:0}
   .search-panel,.details-open .search-panel{top:var(--mobile-controls-top);left:12px;right:auto;width:50px;max-width:calc(100% - 24px);border-radius:14px;transition:width .52s cubic-bezier(.32,0,.2,1),box-shadow .18s,border-color .18s}
   .search-panel.is-expanded{width:min(430px,calc(100% - 24px))}
@@ -434,7 +449,9 @@ main.details-open{grid-template-columns:minmax(0,1fr) 380px}
   .detail-heading h2{font-size:23px}.review-badge{margin-top:4px}
   .detail-content{padding:22px 22px 32px}.detail-actions button{min-height:44px;min-width:44px}
   #sheet-toggle{display:flex;padding:5px 8px;font-size:10px}
-  main.details-open:has(#editor-section:not([hidden])),main.details-open:has(#faith-form:not([hidden])){--sheet-size:min(540px,calc(100dvh - 224px - env(safe-area-inset-top,0px)))}
+  #workspace.details-open:has(#editor-section:not([hidden]),#faith-form:not([hidden])){
+    --sheet-size:min(var(--mobile-sheet-limit),540px,max(180px,calc(var(--workspace-height) - 224px - env(safe-area-inset-top,0px))))
+  }
   .details-open .map-stage{bottom:var(--sheet-size);min-height:88px}
   .details-open .map-footer{bottom:calc(var(--sheet-size) + 14px)}
   .details-open .zoom-controls,.details-open .pick-message,.details-open .administrative-key{bottom:calc(var(--sheet-size) + 61px)}
